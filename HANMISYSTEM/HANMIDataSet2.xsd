@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="HANMIDataSet2" targetNamespace="http://tempuri.org/HANMIDataSet2.xsd" xmlns:mstns="http://tempuri.org/HANMIDataSet2.xsd" xmlns="http://tempuri.org/HANMIDataSet2.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections>
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="HANMIConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="HANMIConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.HANMISYSTEM.Properties.Settings.GlobalReference.Default.HANMIConnectionString" Provider="System.Data.SqlClient" />
+        </Connections>
+        <Tables>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="view_slipoutTableAdapter" GeneratorDataComponentClassName="view_slipoutTableAdapter" Name="view_slipout" UserDataComponentName="view_slipoutTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="HANMIConnectionString (Settings)" DbObjectName="HANMI.dbo.view_slipout" DbObjectType="View" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT idslipout, partno, partname, unit, qty FROM dbo.view_slipout</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="idslipout" DataSetColumn="idslipout" />
+              <Mapping SourceColumn="partno" DataSetColumn="partno" />
+              <Mapping SourceColumn="partname" DataSetColumn="partname" />
+              <Mapping SourceColumn="unit" DataSetColumn="unit" />
+              <Mapping SourceColumn="qty" DataSetColumn="qty" />
+            </Mappings>
+            <Sources />
+          </TableAdapter>
+        </Tables>
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="HANMIDataSet2" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="HANMIDataSet2" msprop:Generator_UserDSName="HANMIDataSet2">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="view_slipout" msprop:Generator_TableClassName="view_slipoutDataTable" msprop:Generator_TableVarName="tableview_slipout" msprop:Generator_TablePropName="view_slipout" msprop:Generator_RowDeletingName="view_slipoutRowDeleting" msprop:Generator_RowChangingName="view_slipoutRowChanging" msprop:Generator_RowEvHandlerName="view_slipoutRowChangeEventHandler" msprop:Generator_RowDeletedName="view_slipoutRowDeleted" msprop:Generator_UserTableName="view_slipout" msprop:Generator_RowChangedName="view_slipoutRowChanged" msprop:Generator_RowEvArgName="view_slipoutRowChangeEvent" msprop:Generator_RowClassName="view_slipoutRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="idslipout" msprop:Generator_ColumnVarNameInTable="columnidslipout" msprop:Generator_ColumnPropNameInRow="idslipout" msprop:Generator_ColumnPropNameInTable="idslipoutColumn" msprop:Generator_UserColumnName="idslipout" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="partno" msprop:Generator_ColumnVarNameInTable="columnpartno" msprop:Generator_ColumnPropNameInRow="partno" msprop:Generator_ColumnPropNameInTable="partnoColumn" msprop:Generator_UserColumnName="partno" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="partname" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnpartname" msprop:Generator_ColumnPropNameInRow="partname" msprop:Generator_ColumnPropNameInTable="partnameColumn" msprop:Generator_UserColumnName="partname" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="100" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="unit" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnunit" msprop:Generator_ColumnPropNameInRow="unit" msprop:Generator_ColumnPropNameInTable="unitColumn" msprop:Generator_UserColumnName="unit" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="qty" msprop:Generator_ColumnVarNameInTable="columnqty" msprop:Generator_ColumnPropNameInRow="qty" msprop:Generator_ColumnPropNameInTable="qtyColumn" msprop:Generator_UserColumnName="qty" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
