@@ -51,15 +51,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.lbJudge3 = new System.Windows.Forms.Label();
             this.lbAccessory3 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.lbJudge4 = new System.Windows.Forms.Label();
-            this.lbAccessory4 = new System.Windows.Forms.Label();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.lbJudge5 = new System.Windows.Forms.Label();
-            this.lbAccessory5 = new System.Windows.Forms.Label();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.lbJudge6 = new System.Windows.Forms.Label();
-            this.lbAccessory6 = new System.Windows.Forms.Label();
             this.txtScan = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbJudge = new System.Windows.Forms.Label();
@@ -83,9 +74,6 @@
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            this.groupBox6.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -349,114 +337,6 @@
             this.lbAccessory3.TabIndex = 3;
             this.lbAccessory3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.lbJudge4);
-            this.groupBox4.Controls.Add(this.lbAccessory4);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(633, 206);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 143);
-            this.groupBox4.TabIndex = 8;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "ACCESSORY 4";
-            // 
-            // lbJudge4
-            // 
-            this.lbJudge4.BackColor = System.Drawing.Color.Black;
-            this.lbJudge4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbJudge4.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbJudge4.ForeColor = System.Drawing.Color.White;
-            this.lbJudge4.Location = new System.Drawing.Point(3, 22);
-            this.lbJudge4.Name = "lbJudge4";
-            this.lbJudge4.Size = new System.Drawing.Size(194, 86);
-            this.lbJudge4.TabIndex = 4;
-            this.lbJudge4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbAccessory4
-            // 
-            this.lbAccessory4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbAccessory4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbAccessory4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAccessory4.ForeColor = System.Drawing.Color.White;
-            this.lbAccessory4.Location = new System.Drawing.Point(3, 108);
-            this.lbAccessory4.Name = "lbAccessory4";
-            this.lbAccessory4.Size = new System.Drawing.Size(194, 32);
-            this.lbAccessory4.TabIndex = 3;
-            this.lbAccessory4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.lbJudge5);
-            this.groupBox5.Controls.Add(this.lbAccessory5);
-            this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(839, 206);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(200, 143);
-            this.groupBox5.TabIndex = 8;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "ACCESSORY 5";
-            // 
-            // lbJudge5
-            // 
-            this.lbJudge5.BackColor = System.Drawing.Color.Black;
-            this.lbJudge5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbJudge5.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbJudge5.ForeColor = System.Drawing.Color.White;
-            this.lbJudge5.Location = new System.Drawing.Point(3, 22);
-            this.lbJudge5.Name = "lbJudge5";
-            this.lbJudge5.Size = new System.Drawing.Size(194, 86);
-            this.lbJudge5.TabIndex = 4;
-            this.lbJudge5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbAccessory5
-            // 
-            this.lbAccessory5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbAccessory5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbAccessory5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAccessory5.ForeColor = System.Drawing.Color.White;
-            this.lbAccessory5.Location = new System.Drawing.Point(3, 108);
-            this.lbAccessory5.Name = "lbAccessory5";
-            this.lbAccessory5.Size = new System.Drawing.Size(194, 32);
-            this.lbAccessory5.TabIndex = 3;
-            this.lbAccessory5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.lbJudge6);
-            this.groupBox6.Controls.Add(this.lbAccessory6);
-            this.groupBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox6.Location = new System.Drawing.Point(1045, 206);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(200, 143);
-            this.groupBox6.TabIndex = 8;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "ACCESSORY 6";
-            // 
-            // lbJudge6
-            // 
-            this.lbJudge6.BackColor = System.Drawing.Color.Black;
-            this.lbJudge6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbJudge6.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbJudge6.ForeColor = System.Drawing.Color.White;
-            this.lbJudge6.Location = new System.Drawing.Point(3, 22);
-            this.lbJudge6.Name = "lbJudge6";
-            this.lbJudge6.Size = new System.Drawing.Size(194, 86);
-            this.lbJudge6.TabIndex = 4;
-            this.lbJudge6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // lbAccessory6
-            // 
-            this.lbAccessory6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbAccessory6.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbAccessory6.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAccessory6.ForeColor = System.Drawing.Color.White;
-            this.lbAccessory6.Location = new System.Drawing.Point(3, 108);
-            this.lbAccessory6.Name = "lbAccessory6";
-            this.lbAccessory6.Size = new System.Drawing.Size(194, 32);
-            this.lbAccessory6.TabIndex = 3;
-            this.lbAccessory6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // txtScan
             // 
             this.txtScan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
@@ -642,6 +522,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Enabled = false;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.bugreport;
             this.pictureBox1.Location = new System.Drawing.Point(1057, 107);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(49, 44);
@@ -669,16 +550,13 @@
             this.panel9.Controls.Add(this.btnon);
             this.panel9.Controls.Add(this.cbbModel);
             this.panel9.Controls.Add(this.btnoff);
-            this.panel9.Controls.Add(this.groupBox6);
             this.panel9.Controls.Add(this.cbbLocation);
             this.panel9.Controls.Add(this.groupBox3);
-            this.panel9.Controls.Add(this.groupBox5);
             this.panel9.Controls.Add(this.groupBox1);
             this.panel9.Controls.Add(this.txtMaxPack);
             this.panel9.Controls.Add(this.groupBox2);
             this.panel9.Controls.Add(this.txtPlan);
             this.panel9.Controls.Add(this.txtPackID);
-            this.panel9.Controls.Add(this.groupBox4);
             this.panel9.Controls.Add(this.label6);
             this.panel9.Controls.Add(this.label1);
             this.panel9.Controls.Add(this.label9);
@@ -702,9 +580,6 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox6.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
@@ -741,19 +616,10 @@
         private System.Windows.Forms.Label lbAccessory2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label lbAccessory3;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label lbAccessory4;
-        private System.Windows.Forms.GroupBox groupBox5;
-        private System.Windows.Forms.Label lbAccessory5;
-        private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.Label lbAccessory6;
         private System.Windows.Forms.TextBox txtScan;
         private System.Windows.Forms.Label lbJudge1;
         private System.Windows.Forms.Label lbJudge2;
         private System.Windows.Forms.Label lbJudge3;
-        private System.Windows.Forms.Label lbJudge4;
-        private System.Windows.Forms.Label lbJudge5;
-        private System.Windows.Forms.Label lbJudge6;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbJudge;
         private System.Windows.Forms.Label label2;

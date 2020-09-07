@@ -83,7 +83,6 @@
             this.btnremark.TabIndex = 0;
             this.btnremark.Text = "Ghi chú";
             this.btnremark.UseVisualStyleBackColor = true;
-            this.btnremark.Visible = false;
             this.btnremark.Click += new System.EventHandler(this.btnremark_Click);
             // 
             // cbwarehouse

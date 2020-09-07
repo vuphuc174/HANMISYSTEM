@@ -64,9 +64,6 @@ namespace HANMISYSTEM
                 }
 
             }
-
-
-
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -126,129 +123,135 @@ namespace HANMISYSTEM
                 }
                 else
                 {
-                    DataTable dt = connect.readdata("select * from packingstandard where partno='" + txtpartno.Text + "' and idpacking like '" + txtidpack.Text.Substring(0, 3) + "%'");
-                    txtqty.Text = dt.Rows[0]["quantity"].ToString();
-                    qty = Convert.ToDouble(txtqty.Text);
-
-                    //working behide here 
-                    //tao hoa don
-                    if (cbsupplier.Text == "")
+                    if (connect.countdata("select count(*) from packinginfo where idpack='" + txtidpack.Text + "'") != 0)
                     {
-                        MessageBox.Show("Xin vui lòng chon NCC");
+                        MessageBox.Show("Mã đóng gói đã tồn tại ,xin vui lòng chọn mã khác !!!");
+                        txtidpack.Text = "";
                     }
                     else
                     {
-                        if (txtinvoice.Text == "")
+                        DataTable dt = connect.readdata("select * from packingstandard where partno='" + txtpartno.Text + "' and idpacking like '" + txtidpack.Text.Substring(0, 3) + "%'");
+                        txtqty.Text = dt.Rows[0]["quantity"].ToString();
+                        qty = Convert.ToDouble(txtqty.Text);
+
+                        //working behide here 
+                        //tao hoa don
+                        if (cbsupplier.Text == "")
                         {
-                            string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
-                            int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
-                            txtinvoice.Text = str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
+                            MessageBox.Show("Xin vui lòng chon NCC");
+                        }
+                        else
+                        {
+                            if (txtinvoice.Text == "")
+                            {
+                                string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
+                                int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
+                                txtinvoice.Text = str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
+                            }
+
                         }
 
-                    }
-
-                    //chuyen sang bang tam
-                    Isnumber _isnumber = new Isnumber();
-                    note = "";
-                    if (cbsupplier.Text == "")
-                    {
-                        note += "Nhà cung cấp ,";
-                    }
-                    if (txtpartno.Text == "")
-                    {
-                        note += "Mã hàng ,";
-                    }
-                    if (txtidpack.Text == "" || txtidpack.Text.Length > 14)
-                    {
-                        note += "Mã thùng ,";
-                    }
-                    if (txtqty.Text == "" || _isnumber.IsNumber(txtqty.Text) == false)
-                    {
-                        note += "Số lượng ,";
-                        txtqty.Text = qty.ToString();
-                    }
-                    else
-                    {
-                        if (Convert.ToDouble(txtqty.Text) > qty || Convert.ToDouble(txtqty.Text) <= 0 || txtqty.Text == "")
+                        //chuyen sang bang tam
+                        Isnumber _isnumber = new Isnumber();
+                        note = "";
+                        if (cbsupplier.Text == "")
+                        {
+                            note += "Nhà cung cấp ,";
+                        }
+                        if (txtpartno.Text == "")
+                        {
+                            note += "Mã hàng ,";
+                        }
+                        if (txtidpack.Text == "" || txtidpack.Text.Length > 14)
+                        {
+                            note += "Mã thùng ,";
+                        }
+                        if (txtqty.Text == "" || _isnumber.IsNumber(txtqty.Text) == false)
                         {
                             note += "Số lượng ,";
                             txtqty.Text = qty.ToString();
                         }
-                    }
-
-                    if (cbposition.Text == "")
-                    {
-                        note += "Vị trí ,";
-                    }
-
-                    // working on here
-                    if (cbsupplier.SelectedValue.ToString() != cbwarehouse.SelectedValue.ToString())
-                    {
-                        if (note == "")
+                        else
                         {
-                            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                            if (Convert.ToDouble(txtqty.Text) > qty || Convert.ToDouble(txtqty.Text) <= 0 || txtqty.Text == "")
                             {
-                                if (txtidpack.Text == dataGridView3.Rows[i].Cells["idpack"].Value.ToString())
-                                {
-                                    chk = false;
-                                }
+                                note += "Số lượng ,";
+                                txtqty.Text = qty.ToString();
                             }
-                            if (chk == true)
+                        }
+
+                        if (cbposition.Text == "")
+                        {
+                            note += "Vị trí ,";
+                        }
+
+                        // working on here
+                        if (cbsupplier.SelectedValue.ToString() != cbwarehouse.SelectedValue.ToString())
+                        {
+                            if (note == "")
                             {
-
-                                if (connect.countdata("select count(idpack) from packinginfo where idpack ='" + txtidpack.Text + "'") == 0)
+                                for (int i = 0; i < dataGridView3.Rows.Count; i++)
                                 {
-                                    lineqty = 0;
-                                    sumqty = 0;
-                                    dataGridView3.Rows.Add(txtidpack.Text, "", txtpartno.Text, txtqty.Text, cbposition.SelectedValue.ToString());
-                                    txtidpack.Text = "";
-                                    txtqty.Text = "";
-                                    for (int j = 0; j < dataGridView3.Rows.Count; j++)
+                                    if (txtidpack.Text == dataGridView3.Rows[i].Cells["idpack"].Value.ToString())
                                     {
-
-                                        sumqty = sumqty + Convert.ToDouble(dataGridView3.Rows[j].Cells["sl"].Value);
-                                        lineqty = lineqty + 1;
+                                        chk = false;
                                     }
-                                    txtlineqty.Text = lineqty.ToString();
-                                    txtsumqty.Text = sumqty.ToString();
+                                }
+                                if (chk == true)
+                                {
+
+                                    if (connect.countdata("select count(idpack) from packinginfo where idpack ='" + txtidpack.Text + "'") == 0)
+                                    {
+                                        lineqty = 0;
+                                        sumqty = 0;
+                                        dataGridView3.Rows.Add(txtidpack.Text, "", txtpartno.Text, txtqty.Text, cbposition.SelectedValue.ToString());
+                                        txtidpack.Text = "";
+                                        txtqty.Text = "";
+                                        for (int j = 0; j < dataGridView3.Rows.Count; j++)
+                                        {
+
+                                            sumqty = sumqty + Convert.ToDouble(dataGridView3.Rows[j].Cells["sl"].Value);
+                                            lineqty = lineqty + 1;
+                                        }
+                                        txtlineqty.Text = lineqty.ToString();
+                                        txtsumqty.Text = sumqty.ToString();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Ma thung da ton tai");
+                                        txtidpack.Text = "";
+                                        txtidpack.Focus();
+                                    }
+
+
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Ma thung da ton tai");
+                                    MessageBox.Show("Đã có trong danh sách !");
                                     txtidpack.Text = "";
                                     txtidpack.Focus();
                                 }
-
-
+                                lbnotify.Text = "...";
                             }
                             else
                             {
-                                MessageBox.Show("Đã có trong danh sách !");
-                                txtidpack.Text = "";
-                                txtidpack.Focus();
+                                lbnotify.Text = "Các trường sau đây không hợp lệ : \n" + note;
                             }
-                            lbnotify.Text = "...";
                         }
                         else
                         {
-                            lbnotify.Text = "Các trường sau đây không hợp lệ : \n" + note;
+                            MessageBox.Show("Đảm bảo 2 kho là khác nhau");
+                            txtidpack.Text = "";
                         }
                     }
-                    else
-                    {
-                        MessageBox.Show("Đảm bảo 2 kho là khác nhau");
-                        txtidpack.Text = "";
-                    }
+                   
                 }
             }
         }
 
         private void txtidpack_Leave(object sender, EventArgs e)
         {
-            if (connect.countdata("select count(*) from packinginfo where idpack='" + txtidpack.Text + "'") != 0)
-            {
-                MessageBox.Show("Mã đóng gói đã tồn tại ,xin vui lòng chọn mã khác !!!");
-            }
+            
         }
         private string r;
         private string mahoa1(string str)
@@ -597,7 +600,7 @@ namespace HANMISYSTEM
 
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1)
+            if (e.RowIndex != -1 &&e.ColumnIndex!=-1)
             {
                 switch (dataGridView3.Columns[e.ColumnIndex].Name)
                 {

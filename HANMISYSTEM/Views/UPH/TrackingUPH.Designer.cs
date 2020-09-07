@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbuph = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbbModel = new System.Windows.Forms.ComboBox();
             this.btnFilter = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cbbLocation = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtModel = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.model = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +47,8 @@
             this.productivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.uph = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -52,22 +56,52 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.label6);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.lbuph);
+            this.panel1.Controls.Add(this.label4);
+            this.panel1.Controls.Add(this.cbbModel);
             this.panel1.Controls.Add(this.btnFilter);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.dateTimePicker1);
             this.panel1.Controls.Add(this.cbbLocation);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.txtModel);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1107, 115);
             this.panel1.TabIndex = 0;
             // 
+            // lbuph
+            // 
+            this.lbuph.AutoSize = true;
+            this.lbuph.Location = new System.Drawing.Point(886, 96);
+            this.lbuph.Name = "lbuph";
+            this.lbuph.Size = new System.Drawing.Size(16, 13);
+            this.lbuph.TabIndex = 9;
+            this.lbuph.Text = "...";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(816, 96);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(63, 13);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "UPH.Avgs :";
+            // 
+            // cbbModel
+            // 
+            this.cbbModel.FormattingEnabled = true;
+            this.cbbModel.Location = new System.Drawing.Point(67, 82);
+            this.cbbModel.Name = "cbbModel";
+            this.cbbModel.Size = new System.Drawing.Size(174, 21);
+            this.cbbModel.TabIndex = 7;
+            // 
             // btnFilter
             // 
-            this.btnFilter.Location = new System.Drawing.Point(540, 86);
+            this.btnFilter.Location = new System.Drawing.Point(269, 77);
             this.btnFilter.Name = "btnFilter";
             this.btnFilter.Size = new System.Drawing.Size(88, 26);
             this.btnFilter.TabIndex = 6;
@@ -78,7 +112,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(287, 60);
+            this.label3.Location = new System.Drawing.Point(14, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(32, 13);
             this.label3.TabIndex = 5;
@@ -86,23 +120,25 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(340, 54);
+            this.dateTimePicker1.Location = new System.Drawing.Point(67, 49);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 4;
+            this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // cbbLocation
             // 
             this.cbbLocation.FormattingEnabled = true;
-            this.cbbLocation.Location = new System.Drawing.Point(71, 53);
+            this.cbbLocation.Location = new System.Drawing.Point(67, 12);
             this.cbbLocation.Name = "cbbLocation";
             this.cbbLocation.Size = new System.Drawing.Size(129, 21);
             this.cbbLocation.TabIndex = 3;
+            this.cbbLocation.SelectedIndexChanged += new System.EventHandler(this.cbbLocation_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 60);
+            this.label2.Location = new System.Drawing.Point(18, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(43, 13);
             this.label2.TabIndex = 2;
@@ -111,18 +147,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 23);
+            this.label1.Location = new System.Drawing.Point(12, 82);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Mã hàng";
-            // 
-            // txtModel
-            // 
-            this.txtModel.Location = new System.Drawing.Point(71, 20);
-            this.txtModel.Name = "txtModel";
-            this.txtModel.Size = new System.Drawing.Size(129, 20);
-            this.txtModel.TabIndex = 0;
             // 
             // panel2
             // 
@@ -201,6 +230,24 @@
             this.remark.Name = "remark";
             this.remark.ReadOnly = true;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(377, 96);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(133, 13);
+            this.label5.TabIndex = 10;
+            this.label5.Text = "Total.WorkingTime (hour) :";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(516, 96);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(16, 13);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "...";
+            // 
             // TrackingUPH
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -229,7 +276,6 @@
         private System.Windows.Forms.ComboBox cbbLocation;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtModel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn model;
@@ -239,5 +285,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn productivity;
         private System.Windows.Forms.DataGridViewTextBoxColumn uph;
         private System.Windows.Forms.DataGridViewTextBoxColumn remark;
+        private System.Windows.Forms.ComboBox cbbModel;
+        private System.Windows.Forms.Label lbuph;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }

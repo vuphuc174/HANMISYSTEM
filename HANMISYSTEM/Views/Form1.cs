@@ -374,6 +374,16 @@ namespace HANMISYSTEM
                 DataTable dtplan = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text + "' and idlocation='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "' and productiondate= CONVERT(date, GETDATE()) ");
                 if (dtplan.Rows.Count > 0)
                 {
+                    //kiem tra giai doan truoc da có endtime hay chưa
+                    DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
+                    if (dtendtime.Rows.Count > 0)
+                    {
+                        if (string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
+                        {
+                            //them endtime
+                            connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
+                        }
+                    }
                     connect.exedata("exec spInsertTrackingUPH @partno='" + txtmodel.Text + "' ,@locationid='" + cblocation.SelectedValue.ToString() + "',@remark=''");
                     btnpower.Text = "CONTINUE";
                     plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());

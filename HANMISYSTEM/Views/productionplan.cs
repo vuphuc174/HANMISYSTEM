@@ -195,6 +195,7 @@ namespace HANMISYSTEM
         }
         private void productionplan_Load(object sender, EventArgs e)
         {
+            DataTable dt2;
             loaddata("SELECT * FROM productionplan where idlocation ='L1' order by productiondate desc");
             DataTable dt = connect.readdata("select idwarehouse,namewarehouse from warehouse where idcategory='W1'");
             if (dt != null)
@@ -203,10 +204,19 @@ namespace HANMISYSTEM
                 cbwarehouse.ValueMember = "idwarehouse";
                 cbwarehouse.DisplayMember = "namewarehouse";
             }
-            DataTable dt1 = connect.readdata("select idlocation,namelocation1 from location where idwarehouse='" + cbwarehouse.SelectedValue + "'");
-            if (dt1 != null)
+            DataTable dt3 = connect.readdata("select * from tbl_user where username='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
+            if (dt3.Rows[0]["location"].ToString() == "all")
             {
-                cblocation.DataSource = dt1;
+                dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "'");
+            }
+            else
+            {
+                dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation='" + dt3.Rows[0]["location"].ToString() + "'");
+            }
+
+            if (dt2 != null)
+            {
+                cblocation.DataSource = dt2;
                 cblocation.ValueMember = "idlocation";
                 cblocation.DisplayMember = "namelocation1";
             }

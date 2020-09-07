@@ -22,8 +22,10 @@ namespace HANMISYSTEM.Views.Accessory
             
             if(richTextBox1.Text.Length>0)
             {
-                connect.exedata("with cte as (select top 1 Remark from TrackingUPH where PartNo='" + lbModel.Text + "' and LocationID='" + lbLocation.Text + "' order by StartTime Desc) update cte set Remark =Remark +' | ' +  '"+richTextBox1.Text+"' ");   
+                connect.exedata("with cte as (select top 1 Remark from TrackingUPH where PartNo='" + lbModel.Text + "' and LocationID='" + lbLocation.Text + "' order by StartTime Desc) update cte set Remark =Remark +' | ' +  '"+richTextBox1.Text+"' ");
+                this.Close();
             }
+
             else
             {
                 MessageBox.Show("Xin ghi vao nội dung submit");

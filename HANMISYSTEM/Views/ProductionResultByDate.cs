@@ -121,5 +121,10 @@ namespace HANMISYSTEM.Views
                 _excel.ExportToExcelFunction(dtdata, saveFileDialog1.FileName.ToString());
             }
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

@@ -209,7 +209,7 @@ namespace HANMISYSTEM
                     {
                         if (connect.exedata("insert into cargo (partno,partname,idcategory,specificationinfo,productivity,idunit,process,ProductionKindID,ProcessID)  values('" + txtpartno.Text.ToUpper() + "','" + txtpartname.Text + "','" + cbcategory.SelectedValue + "','" + txtinfo.Text + "','" + txtproductivity.Text + "','" + cbunit.SelectedValue + "','" + cbprocess.Text + "','" + cbProductKind.SelectedValue.ToString() + "','" + cbprocess.SelectedValue.ToString() + "')"))
                         {
-                            if (connect.exedata("insert into packingstandard  (partno,idpacking,quantity) values ('" + txtpartno.Text + "','" + cbpacking.Text + "','" + txtquantity.Text + "')") == false)
+                            if (connect.exedata("insert into packingstandard  (partno,idpacking,quantity) values ('" + txtpartno.Text.ToUpper() + "','" + cbpacking.Text + "','" + txtquantity.Text + "')") == false)
                             {
                                 packingnotify fr = new packingnotify();
                                 fr.lbpartno.Text = txtpartno.Text;
