@@ -139,14 +139,14 @@ namespace ExpanderApp
 
     public static class ExpanderHelper
     {
-        public static Label CreateLabelHeader(Expander expander, string text, Color backColor, Image collapsedImage = null, Image expandedImage = null, int height = 25, Font font = null )
+        public static Label CreateLabelHeader(Expander expander, Color col, string text, Color backColor, Image collapsedImage = null, Image expandedImage = null, int height = 25, Font font = null )
         {
             Label headerLabel = new Label();
             headerLabel.Text = text;
             headerLabel.AutoSize = false;
             headerLabel.Height = height;
+            headerLabel.ForeColor=col;
 
-            headerLabel.ForeColor = Color.FromArgb(0, 107, 179);
             if (font != null)
                 headerLabel.Font = font;
             headerLabel.TextAlign = ContentAlignment.MiddleLeft;

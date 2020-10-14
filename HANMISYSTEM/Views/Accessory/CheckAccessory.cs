@@ -27,13 +27,13 @@ namespace HANMISYSTEM.Views.Accessory
             else
             {
                 //kiem tra giai doan truoc da có endtime hay chưa
-                DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='"+cbbLocation.SelectedValue.ToString()+"' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
-                if(dtendtime.Rows.Count>0)
+                DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cbbLocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
+                if (dtendtime.Rows.Count > 0)
                 {
-                    if(string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
+                    if (string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
                     {
                         //them endtime
-                        connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '"+cbbLocation.SelectedValue.ToString()+"' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
+                        connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '" + cbbLocation.SelectedValue.ToString() + "' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
                     }
                 }
                 pictureBox1.Enabled = true;
@@ -120,6 +120,8 @@ namespace HANMISYSTEM.Views.Accessory
             listAccessory.Add(lbAccessory1);
             listAccessory.Add(lbAccessory2);
             listAccessory.Add(lbAccessory3);
+            listAccessory.Add(lbAccessory4);
+            listAccessory.Add(lbAccessory5);
 
             DataTable dtAccessory = connect.readdata("select Accessory from Accessory where PartNo='" + cbbModel.SelectedValue.ToString() + "'");
             if (dtAccessory.Rows.Count > 0)
@@ -138,7 +140,7 @@ namespace HANMISYSTEM.Views.Accessory
             dlr = CustomMsgBox.Show("Tại sao bạn lại muốn dừng lại ", "Thông báo", "Kết thúc ngày làm việc", "Nghỉ giải lao", "Hủy");
             if (dlr == DialogResult.Yes)
             {
-                
+
                 connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + cbbModel.SelectedValue.ToString() + "' and LocationID='" + cbbLocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
                 pictureBox1.Enabled = false;
                 btnoff.BackColor = Color.Lime;
@@ -172,6 +174,8 @@ namespace HANMISYSTEM.Views.Accessory
             listAccessory.Add(lbAccessory1);
             listAccessory.Add(lbAccessory2);
             listAccessory.Add(lbAccessory3);
+            listAccessory.Add(lbAccessory4);
+            listAccessory.Add(lbAccessory5);
 
             DataTable dtAccessory = connect.readdata("select Accessory from Accessory where PartNo='" + cbbModel.SelectedValue.ToString() + "'");
             if (dtAccessory.Rows.Count > 0)
@@ -259,9 +263,9 @@ namespace HANMISYSTEM.Views.Accessory
 
             if (e.KeyChar == (char)13)
             {
-                if(txtScan.Text.Length>0)
+                if (txtScan.Text.Length > 0)
                 {
-                    if(txtScan.Text.Length>16)
+                    if (txtScan.Text.Length > 16)
                     {
                         txtScan.Text = txtScan.Text.Substring(0, 11);
                     }
@@ -271,23 +275,49 @@ namespace HANMISYSTEM.Views.Accessory
                         GrabTextChange(txtScan.Text);
                         txtScan.Text = "";
                     }
-
                     else
                     {
-
-  
                         if (Judge(txtScan.Text.ToUpper()))
                         {
+                            List<Label> listAccessory = new List<Label>();
+                            listAccessory.Add(lbAccessory1);
+                            listAccessory.Add(lbAccessory2);
+                            listAccessory.Add(lbAccessory3);
+                            listAccessory.Add(lbAccessory4);
+                            listAccessory.Add(lbAccessory5);
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+
+                            List<Label> listJudge = new List<Label>();
+                            listJudge.Add(lbJudge1);
+                            listJudge.Add(lbJudge2);
+                            listJudge.Add(lbJudge3);
+                            listJudge.Add(lbJudge4);
+                            listJudge.Add(lbJudge5);
+
+                            for (int i = 0; i < listAccessory.Count; i++)
+                            {
+                                if (listAccessory[i].Text != "" && listJudge[i].Text == "")
+                                {
+                                    if (txtScan.Text.ToUpper() == listAccessory[i].Text)
+                                    {
+                                        listJudge[i].Text = "OK";
+                                        listJudge[i].ForeColor = Color.Lime;
+                                        
+                                    }
+                                }
+                            }
+                            txtScan.Text = "";
                             if (CheckJudgeStatus())
                             {
+                                Task.Delay(20).Wait();
                                 lbJudge.Text = "OK";
                                 lbJudge.ForeColor = Color.Lime;
+                                //Task.Delay(2).Wait();
                                 dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "OK", DateTime.Now);
-
-                                //quanli packing
+                                //    //quanli packing
                                 if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtPackID.Text + "'") == 0)
                                 {
-                                    connect.exedata("exec spInsertPackingInfo @idpack='" + txtPackID.Text + "',@partno='" + cbbModel.SelectedValue.ToString().ToUpper() + "',@idlocation='" + cbbLocation.SelectedValue.ToString() + "',@idwarehouse='WH001'");
+                                    connect.exedata("exec spInsertPackingInfo @idpack= '" + txtPackID.Text + "',@partno='" + cbbModel.SelectedValue.ToString().ToUpper() + "',@idlocation='" + cbbLocation.SelectedValue.ToString() + "',@idwarehouse='WH001'");
                                 }
                                 else
                                 {
@@ -299,27 +329,50 @@ namespace HANMISYSTEM.Views.Accessory
                                 connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
                                 DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + cbbModel.SelectedValue.ToString() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
                                 lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
-                                Task.Delay(1500).Wait();
                                 ClearJudge();
                             }
-                            txtScan.Text = "";
                         }
-                        else                    {
-                            if (CheckJudgeExisted())
-                            {
-                                lbJudge.Text = "NG";
-                                lbJudge.ForeColor = Color.Red;
-                                dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "NG", DateTime.Now);
-                                Task.Delay(1500).Wait();
-                                ClearJudge();
-                            }
+                        else
+                        {
+                            lbJudge.Text = "NG";
+                            lbJudge.ForeColor = Color.Red;
+                            dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "NG", DateTime.Now);
                             txtScan.Text = "";
+                            ClearJudge();
+                        }
+                        
+                        //if (CheckJudgeExisted())
+                        //{
+                        //    if (Judge(txtScan.Text.ToUpper()))
+                        //    {
 
-                        }
+                        //        txtScan.Text = "";
+                        //    }
+                        //    else
+                        //    {
+                        //        lbJudge.Text = "NG";
+                        //        lbJudge.ForeColor = Color.Red;
+                        //        dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "NG", DateTime.Now);
+
+                        //        ClearJudge();
+
+                        //        txtScan.Text = "";
+                        //    }
+                        //}
+
+                        //else
+                        //{
+                        //    if (Judge(txtScan.Text.ToUpper()))
+                        //    {
+
+                        //        txtScan.Text = "";
+                        //    }
+                        //}
+
                     }
                 }
-                
-                
+
+
             }
         }
         private bool CheckJudgeExisted()
@@ -328,7 +381,9 @@ namespace HANMISYSTEM.Views.Accessory
             listJudge.Add(lbJudge1);
             listJudge.Add(lbJudge2);
             listJudge.Add(lbJudge3);
- 
+            listJudge.Add(lbJudge4);
+            listJudge.Add(lbJudge5);
+
             for (int i = 0; i < listJudge.Count; i++)
             {
                 if (listJudge[i].Text == "OK")
@@ -338,53 +393,21 @@ namespace HANMISYSTEM.Views.Accessory
             }
             return false;
         }
-        private bool Judge(string accessory)
-        {
-            List<Label> listAccessory = new List<Label>();
-            listAccessory.Add(lbAccessory1);
-            listAccessory.Add(lbAccessory2);
-            listAccessory.Add(lbAccessory3);
-
-
-            List<Label> listJudge = new List<Label>();
-            listJudge.Add(lbJudge1);
-            listJudge.Add(lbJudge2);
-            listJudge.Add(lbJudge3);
-
-            for (int i = 0; i < listAccessory.Count; i++)
-            {
-                if (listAccessory[i].Text != "")
-                {
-                    if (accessory == listAccessory[i].Text)
-                    {
-                        listJudge[i].Text = "OK";
-                        listJudge[i].ForeColor = Color.Lime;
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        private void ClearJudge()
-        {
-            lbJudge1.Text = "";
-            lbJudge2.Text = "";
-            lbJudge3.Text = "";
-
-            lbJudge.Text = "";
-        }
         private bool CheckJudgeStatus()
         {
             List<Label> listAccessory = new List<Label>();
             listAccessory.Add(lbAccessory1);
             listAccessory.Add(lbAccessory2);
             listAccessory.Add(lbAccessory3);
+            listAccessory.Add(lbAccessory4);
+            listAccessory.Add(lbAccessory5);
 
-            int aCount = connect.countdata("select count(partno) from Accessory where partno ='" + cbbModel.SelectedValue.ToString() + "'");
             List<Label> listJudge = new List<Label>();
             listJudge.Add(lbJudge1);
             listJudge.Add(lbJudge2);
             listJudge.Add(lbJudge3);
+            listJudge.Add(lbJudge4);
+            listJudge.Add(lbJudge5);
 
             for (int i = 0; i < listAccessory.Count; i++)
             {
@@ -398,6 +421,76 @@ namespace HANMISYSTEM.Views.Accessory
             }
             return true;
         }
+        private bool Judge(string accessory)
+        {
+            List<Label> listAccessory = new List<Label>();
+            listAccessory.Add(lbAccessory1);
+            listAccessory.Add(lbAccessory2);
+            listAccessory.Add(lbAccessory3);
+            listAccessory.Add(lbAccessory4);
+            listAccessory.Add(lbAccessory5);
+
+
+            List<Label> listJudge = new List<Label>();
+            listJudge.Add(lbJudge1);
+            listJudge.Add(lbJudge2);
+            listJudge.Add(lbJudge3);
+            listJudge.Add(lbJudge4);
+            listJudge.Add(lbJudge5);
+
+            for (int i = 0; i < listAccessory.Count; i++)
+            {
+                if (listAccessory[i].Text != "" && listJudge[i].Text == "")
+                {
+                    if (accessory == listAccessory[i].Text)
+                    {
+                        //listJudge[i].Text = "OK";
+                        //listJudge[i].ForeColor = Color.Lime;
+                        //Task.Delay(1).Wait();
+                        //if (CheckJudgeStatus())
+                        //{
+                        //    lbJudge.Text = "OK";
+                        //    lbJudge.ForeColor = Color.Lime;
+                        //    Task.Delay(2).Wait();
+                        //    dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "OK", DateTime.Now);
+
+                        //    //quanli packing
+                        //    if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtPackID.Text + "'") == 0)
+                        //    {
+                        //        connect.exedata("exec spInsertPackingInfo @idpack= '" + txtPackID.Text + "',@partno='" + cbbModel.SelectedValue.ToString().ToUpper() + "',@idlocation='" + cbbLocation.SelectedValue.ToString() + "',@idwarehouse='WH001'");
+                        //    }
+                        //    else
+                        //    {
+                        //        connect.exedata("exec spUpdatePackingInfo_Increase @idpack='" + txtPackID.Text + "'");
+                        //    }
+                        //    DataTable qtypack = connect.readdata("select quantity from packinginfo where idpack='" + txtPackID.Text + "'");
+                        //    lbCurrentQtyPack.Text = qtypack.Rows[0]["quantity"].ToString();
+                        //    //them lich su
+                        //    connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
+                        //    DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + cbbModel.SelectedValue.ToString() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
+                        //    lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
+                        //    ClearJudge();
+
+
+                        //}
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        private void ClearJudge()
+        {
+            Task.Delay(2000).Wait();
+            lbJudge1.Text = "";
+            lbJudge2.Text = "";
+            lbJudge3.Text = "";
+            lbJudge4.Text = "";
+            lbJudge5.Text = "";
+            lbJudge.Text = "";
+        }
+
 
         private void txtScan_Leave(object sender, EventArgs e)
         {
@@ -430,6 +523,37 @@ namespace HANMISYSTEM.Views.Accessory
         private void txtScan_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void lbJudge1_TextChanged(object sender, EventArgs e)
+        {
+            //if (CheckJudgeStatus())
+            //{
+            //    lbJudge.Text = "OK";
+            //    lbJudge.ForeColor = Color.Lime;
+            //}
+            //else
+            //{
+            //    lbJudge.Text = "NG";
+            //    lbJudge.ForeColor = Color.Lime;
+            //    ClearJudge();
+            //}
+        }
+
+        private void lbJudge2_TextChanged(object sender, EventArgs e)
+        {
+            //if (CheckJudgeStatus())
+            //{
+            //    lbJudge.Text = "OK";
+            //    lbJudge.ForeColor = Color.Lime;
+            //    ClearJudge();
+            //}
+            //else
+            //{
+            //    lbJudge.Text = "NG";
+            //    lbJudge.ForeColor = Color.Lime;
+            //    ClearJudge();
+            //}
         }
     }
 }

@@ -50,10 +50,10 @@
             this.cbwarehouse = new System.Windows.Forms.ComboBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btndata = new System.Windows.Forms.Button();
-            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.cblocation = new System.Windows.Forms.ComboBox();
+            this.btndata = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -246,16 +246,6 @@
             this.panel1.TabIndex = 12;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // btndata
-            // 
-            this.btndata.Location = new System.Drawing.Point(792, 50);
-            this.btndata.Name = "btndata";
-            this.btndata.Size = new System.Drawing.Size(75, 23);
-            this.btndata.TabIndex = 8;
-            this.btndata.Text = "Excel";
-            this.btndata.UseVisualStyleBackColor = true;
-            this.btndata.Click += new System.EventHandler(this.btndata_Click);
-            // 
             // cblocation
             // 
             this.cblocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -266,6 +256,16 @@
             this.cblocation.Size = new System.Drawing.Size(121, 21);
             this.cblocation.TabIndex = 9;
             this.cblocation.SelectedIndexChanged += new System.EventHandler(this.cblocation_SelectedIndexChanged);
+            // 
+            // btndata
+            // 
+            this.btndata.Location = new System.Drawing.Point(792, 50);
+            this.btndata.Name = "btndata";
+            this.btndata.Size = new System.Drawing.Size(75, 23);
+            this.btndata.TabIndex = 8;
+            this.btndata.Text = "Excel";
+            this.btndata.UseVisualStyleBackColor = true;
+            this.btndata.Click += new System.EventHandler(this.btndata_Click);
             // 
             // label5
             // 
@@ -280,6 +280,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(960, 766);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.dataGridView1);

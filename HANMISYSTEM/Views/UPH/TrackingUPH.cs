@@ -38,7 +38,7 @@ namespace HANMISYSTEM.Views.UPH
         private void btnFilter_Click(object sender, EventArgs e)
         {
             sumprod = 0;
-            sumwt = 0;
+             sumwt = 0;
         
             if (cbbModel.Text == "ALL")
             {
@@ -93,6 +93,35 @@ namespace HANMISYSTEM.Views.UPH
             cbbModel.DisplayMember = "partno";
             cbbModel.ValueMember = "partno";
             cbbModel.SelectedValue = "ALL";
+        }
+        //khong dc
+        private void dataGridView1_ColumnDisplayIndexChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            
+        }
+
+        private void dataGridView1_ColumnSortModeChanged(object sender, DataGridViewColumnEventArgs e)
+        {
+           
+        }
+
+        private void dataGridView1_Sorted(object sender, EventArgs e)
+        {
+            sumprod = 0;
+            sumwt = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                sumprod += Convert.ToDouble(row.Cells["productivity"].Value.ToString());
+                sumwt += Convert.ToDouble(row.Cells["workingtime"].Value.ToString());
+                row.Cells["uph"].Value = (Convert.ToDouble(row.Cells["productivity"].Value.ToString()) / Convert.ToDouble(row.Cells["workingtime"].Value.ToString())).ToString("0.00");
+            }
+            lbuph.Text = (sumprod / sumwt).ToString("0.00");
+            label6.Text = sumwt.ToString("0.00");
         }
     }
 }

@@ -644,6 +644,11 @@ namespace HANMISYSTEM
 
             }
         }
+
+        private void datagridview4_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 
 }

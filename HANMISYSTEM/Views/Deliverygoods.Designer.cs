@@ -51,6 +51,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lbmessage = new System.Windows.Forms.ListBox();
             this.cbbdriver = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.txtrownum = new System.Windows.Forms.TextBox();
@@ -73,15 +75,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.txtpartno = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.lbmessage = new System.Windows.Forms.ListBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvworkorder)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
-            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbewarehouse
@@ -306,6 +306,26 @@
             this.groupBox1.Text = "Xuất hàng";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.lbmessage);
+            this.groupBox3.Location = new System.Drawing.Point(493, 19);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(424, 104);
+            this.groupBox3.TabIndex = 22;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Message";
+            // 
+            // lbmessage
+            // 
+            this.lbmessage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbmessage.FormattingEnabled = true;
+            this.lbmessage.Location = new System.Drawing.Point(3, 16);
+            this.lbmessage.Name = "lbmessage";
+            this.lbmessage.ScrollAlwaysVisible = true;
+            this.lbmessage.Size = new System.Drawing.Size(418, 85);
+            this.lbmessage.TabIndex = 0;
+            // 
             // cbbdriver
             // 
             this.cbbdriver.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -516,30 +536,11 @@
             this.txtpartno.TabIndex = 0;
             this.txtpartno.TextChanged += new System.EventHandler(this.txtpartno_TextChanged);
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.lbmessage);
-            this.groupBox3.Location = new System.Drawing.Point(493, 19);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(424, 104);
-            this.groupBox3.TabIndex = 22;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Message";
-            // 
-            // lbmessage
-            // 
-            this.lbmessage.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbmessage.FormattingEnabled = true;
-            this.lbmessage.Location = new System.Drawing.Point(3, 16);
-            this.lbmessage.Name = "lbmessage";
-            this.lbmessage.ScrollAlwaysVisible = true;
-            this.lbmessage.Size = new System.Drawing.Size(418, 85);
-            this.lbmessage.TabIndex = 0;
-            // 
             // Deliverygoods
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(988, 768);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -554,11 +555,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView4)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
-            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

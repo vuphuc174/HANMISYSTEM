@@ -439,7 +439,7 @@ namespace HANMISYSTEM
             if (chkdate.Checked == true)
             {
                 dtpdateplan.Enabled = true;
-                loaddata("SELECT * FROM productionplan where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
+                loaddata("SELECT * FROM productionplan where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" +  dtpdateplan.Value.ToString("yyyy-MM-dd") + "' order by productiondate desc");
             }
             else
             {

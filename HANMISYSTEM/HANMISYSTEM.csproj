@@ -28,7 +28,7 @@
     <MinimumRequiredVersion>1.0.0.73</MinimumRequiredVersion>
     <CreateWebPageOnPublish>true</CreateWebPageOnPublish>
     <WebPage>publish.htm</WebPage>
-    <ApplicationRevision>39</ApplicationRevision>
+    <ApplicationRevision>55</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -135,6 +135,12 @@
       <DependentUpon>MainFrm.cs</DependentUpon>
     </Compile>
     <Compile Include="Module\BarcodeScannedEventArgs.cs" />
+    <Compile Include="Module\GradientPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Module\MyButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Views\Accessory\CheckAccessory.cs">
       <SubType>Form</SubType>
@@ -479,6 +485,12 @@
     <Compile Include="Views\Packing_standard.Designer.cs">
       <DependentUpon>Packing_standard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PartialView\SelectWorkOrder.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PartialView\SelectWorkOrder.Designer.cs">
+      <DependentUpon>SelectWorkOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Producs\ProductCategoryMgt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -792,6 +804,9 @@
     <EmbeddedResource Include="Views\Packing_standard.resx">
       <DependentUpon>Packing_standard.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartialView\SelectWorkOrder.resx">
+      <DependentUpon>SelectWorkOrder.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Producs\ProductCategoryMgt.resx">
       <DependentUpon>ProductCategoryMgt.cs</DependentUpon>
     </EmbeddedResource>
@@ -876,6 +891,7 @@
       <DependentUpon>Warehousemgt.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="docs\deliveryform.xlsx" />
+    <None Include="docs\exportprint.xlsx" />
     <None Include="docs\deliveryorder.xlsx" />
     <None Include="HANMIDataSet.xsc">
       <DependentUpon>HANMIDataSet.xsd</DependentUpon>
@@ -966,6 +982,7 @@
     <Content Include="Resources\bugreport.png" />
     <Content Include="Resources\bugreport_Qa3_icon.ico" />
     <None Include="Resources\icons8-print-32.png" />
+    <Content Include="Resources\clock.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

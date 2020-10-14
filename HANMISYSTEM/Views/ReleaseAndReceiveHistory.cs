@@ -108,11 +108,11 @@ namespace HANMISYSTEM.Views
                 fr.lbyear.Text = DateTime.Now.ToString("yyyy");
                 if (cbfilter.Text == "IN")
                 {
-                    fr.lbewarehouse.Text = cbwarehouse.Text;
+                    fr.lbiwarehouse.Text = cbwarehouse.Text;
                 }
                 else
                 {
-                    fr.lbiwarehouse.Text = cbwarehouse.Text;
+                    fr.lbewarehouse.Text = cbwarehouse.Text;
                 }
                 //fr.lbewarehouse.Text = cbwarehouse.Text;
                 //fr.lbiwarehouse.Text = cbiwarehouse.Text;

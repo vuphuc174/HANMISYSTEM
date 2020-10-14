@@ -71,6 +71,12 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lbJudge4 = new System.Windows.Forms.Label();
+            this.lbAccessory4 = new System.Windows.Forms.Label();
+            this.aaa = new System.Windows.Forms.GroupBox();
+            this.lbJudge5 = new System.Windows.Forms.Label();
+            this.lbAccessory5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -85,6 +91,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.aaa.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -252,6 +260,7 @@
             this.lbJudge1.Size = new System.Drawing.Size(194, 86);
             this.lbJudge1.TabIndex = 4;
             this.lbJudge1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbJudge1.TextChanged += new System.EventHandler(this.lbJudge1_TextChanged);
             // 
             // lbAccessory1
             // 
@@ -288,6 +297,7 @@
             this.lbJudge2.Size = new System.Drawing.Size(194, 86);
             this.lbJudge2.TabIndex = 4;
             this.lbJudge2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbJudge2.TextChanged += new System.EventHandler(this.lbJudge2_TextChanged);
             // 
             // lbAccessory2
             // 
@@ -542,6 +552,8 @@
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.aaa);
+            this.panel9.Controls.Add(this.groupBox4);
             this.panel9.Controls.Add(this.panel2);
             this.panel9.Controls.Add(this.panel1);
             this.panel9.Controls.Add(this.label7);
@@ -566,6 +578,78 @@
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(1270, 730);
             this.panel9.TabIndex = 17;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.lbJudge4);
+            this.groupBox4.Controls.Add(this.lbAccessory4);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(636, 206);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 143);
+            this.groupBox4.TabIndex = 16;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "ACCESSORY 4";
+            // 
+            // lbJudge4
+            // 
+            this.lbJudge4.BackColor = System.Drawing.Color.Black;
+            this.lbJudge4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbJudge4.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbJudge4.ForeColor = System.Drawing.Color.White;
+            this.lbJudge4.Location = new System.Drawing.Point(3, 22);
+            this.lbJudge4.Name = "lbJudge4";
+            this.lbJudge4.Size = new System.Drawing.Size(194, 86);
+            this.lbJudge4.TabIndex = 4;
+            this.lbJudge4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbAccessory4
+            // 
+            this.lbAccessory4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbAccessory4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbAccessory4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAccessory4.ForeColor = System.Drawing.Color.White;
+            this.lbAccessory4.Location = new System.Drawing.Point(3, 108);
+            this.lbAccessory4.Name = "lbAccessory4";
+            this.lbAccessory4.Size = new System.Drawing.Size(194, 32);
+            this.lbAccessory4.TabIndex = 3;
+            this.lbAccessory4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // aaa
+            // 
+            this.aaa.Controls.Add(this.lbJudge5);
+            this.aaa.Controls.Add(this.lbAccessory5);
+            this.aaa.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.aaa.Location = new System.Drawing.Point(842, 206);
+            this.aaa.Name = "aaa";
+            this.aaa.Size = new System.Drawing.Size(200, 143);
+            this.aaa.TabIndex = 9;
+            this.aaa.TabStop = false;
+            this.aaa.Text = "ACCESSORY 5";
+            // 
+            // lbJudge5
+            // 
+            this.lbJudge5.BackColor = System.Drawing.Color.Black;
+            this.lbJudge5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbJudge5.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbJudge5.ForeColor = System.Drawing.Color.White;
+            this.lbJudge5.Location = new System.Drawing.Point(3, 22);
+            this.lbJudge5.Name = "lbJudge5";
+            this.lbJudge5.Size = new System.Drawing.Size(194, 86);
+            this.lbJudge5.TabIndex = 4;
+            this.lbJudge5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbAccessory5
+            // 
+            this.lbAccessory5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbAccessory5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbAccessory5.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAccessory5.ForeColor = System.Drawing.Color.White;
+            this.lbAccessory5.Location = new System.Drawing.Point(3, 108);
+            this.lbAccessory5.Name = "lbAccessory5";
+            this.lbAccessory5.Size = new System.Drawing.Size(194, 32);
+            this.lbAccessory5.TabIndex = 3;
+            this.lbAccessory5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CheckAccessory
             // 
@@ -593,6 +677,8 @@
             this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.aaa.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -641,5 +727,11 @@
         public System.Windows.Forms.ComboBox cbbModel;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.GroupBox aaa;
+        private System.Windows.Forms.Label lbJudge5;
+        private System.Windows.Forms.Label lbAccessory5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label lbJudge4;
+        private System.Windows.Forms.Label lbAccessory4;
     }
 }

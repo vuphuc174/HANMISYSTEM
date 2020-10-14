@@ -37,7 +37,6 @@
             this.cblocation = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtpartno = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvplan = new System.Windows.Forms.DataGridView();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -57,16 +56,25 @@
             this.label5 = new System.Windows.Forms.Label();
             this.chkdate = new System.Windows.Forms.CheckBox();
             this.lbsearch = new System.Windows.Forms.ListBox();
-            this.groupBox1.SuspendLayout();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvplan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel5.SuspendLayout();
             this.SuspendLayout();
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.CustomFormat = "MM/dd/yyyy";
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(86, 70);
+            this.dateTimePicker1.Location = new System.Drawing.Point(98, 53);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(155, 20);
             this.dateTimePicker1.TabIndex = 0;
@@ -74,7 +82,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(1, 76);
+            this.label1.Location = new System.Drawing.Point(13, 59);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(75, 13);
             this.label1.TabIndex = 1;
@@ -83,7 +91,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 117);
+            this.label2.Location = new System.Drawing.Point(24, 100);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 2;
@@ -92,7 +100,7 @@
             // cbwarehouse
             // 
             this.cbwarehouse.FormattingEnabled = true;
-            this.cbwarehouse.Location = new System.Drawing.Point(86, 114);
+            this.cbwarehouse.Location = new System.Drawing.Point(98, 97);
             this.cbwarehouse.Name = "cbwarehouse";
             this.cbwarehouse.Size = new System.Drawing.Size(155, 21);
             this.cbwarehouse.TabIndex = 3;
@@ -100,7 +108,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 155);
+            this.label3.Location = new System.Drawing.Point(24, 138);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(43, 13);
             this.label3.TabIndex = 4;
@@ -109,7 +117,7 @@
             // cblocation
             // 
             this.cblocation.FormattingEnabled = true;
-            this.cblocation.Location = new System.Drawing.Point(86, 152);
+            this.cblocation.Location = new System.Drawing.Point(98, 135);
             this.cblocation.Name = "cblocation";
             this.cblocation.Size = new System.Drawing.Size(155, 21);
             this.cblocation.TabIndex = 5;
@@ -117,7 +125,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 192);
+            this.label4.Location = new System.Drawing.Point(24, 175);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(36, 13);
             this.label4.TabIndex = 4;
@@ -125,36 +133,28 @@
             // 
             // txtpartno
             // 
-            this.txtpartno.Location = new System.Drawing.Point(86, 190);
+            this.txtpartno.Location = new System.Drawing.Point(98, 173);
             this.txtpartno.Name = "txtpartno";
             this.txtpartno.Size = new System.Drawing.Size(144, 20);
             this.txtpartno.TabIndex = 7;
             this.txtpartno.TextChanged += new System.EventHandler(this.txtpartno_TextChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.dgvplan);
-            this.groupBox1.Location = new System.Drawing.Point(308, 144);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(566, 470);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
             // 
             // dgvplan
             // 
             this.dgvplan.AllowUserToAddRows = false;
             this.dgvplan.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvplan.ColumnHeadersVisible = false;
-            this.dgvplan.Location = new System.Drawing.Point(7, 11);
+            this.dgvplan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvplan.Location = new System.Drawing.Point(0, 0);
             this.dgvplan.Name = "dgvplan";
-            this.dgvplan.Size = new System.Drawing.Size(541, 442);
+            this.dgvplan.Size = new System.Drawing.Size(1043, 564);
             this.dgvplan.TabIndex = 0;
             this.dgvplan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvplan_CellClick);
             this.dgvplan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvplan_MouseClick);
             // 
             // textBox3
             // 
-            this.textBox3.Location = new System.Drawing.Point(700, 120);
+            this.textBox3.Location = new System.Drawing.Point(428, 63);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(156, 20);
             this.textBox3.TabIndex = 9;
@@ -163,7 +163,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(653, 123);
+            this.label6.Location = new System.Drawing.Point(381, 70);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(41, 13);
             this.label6.TabIndex = 10;
@@ -172,7 +172,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(15, 238);
+            this.label7.Location = new System.Drawing.Point(27, 221);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 13);
             this.label7.TabIndex = 11;
@@ -180,14 +180,14 @@
             // 
             // txtplan
             // 
-            this.txtplan.Location = new System.Drawing.Point(86, 231);
+            this.txtplan.Location = new System.Drawing.Point(98, 214);
             this.txtplan.Name = "txtplan";
             this.txtplan.Size = new System.Drawing.Size(144, 20);
             this.txtplan.TabIndex = 7;
             // 
             // btnadd
             // 
-            this.btnadd.Location = new System.Drawing.Point(86, 272);
+            this.btnadd.Location = new System.Drawing.Point(98, 255);
             this.btnadd.Name = "btnadd";
             this.btnadd.Size = new System.Drawing.Size(75, 23);
             this.btnadd.TabIndex = 12;
@@ -197,7 +197,7 @@
             // 
             // btnexcel
             // 
-            this.btnexcel.Location = new System.Drawing.Point(146, 574);
+            this.btnexcel.Location = new System.Drawing.Point(64, 515);
             this.btnexcel.Name = "btnexcel";
             this.btnexcel.Size = new System.Drawing.Size(75, 23);
             this.btnexcel.TabIndex = 12;
@@ -207,7 +207,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(227, 574);
+            this.button3.Location = new System.Drawing.Point(145, 515);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 12;
@@ -217,7 +217,7 @@
             // 
             // btnimport
             // 
-            this.btnimport.Location = new System.Drawing.Point(781, 10);
+            this.btnimport.Location = new System.Drawing.Point(1252, 12);
             this.btnimport.Name = "btnimport";
             this.btnimport.Size = new System.Drawing.Size(75, 23);
             this.btnimport.TabIndex = 12;
@@ -228,7 +228,7 @@
             // 
             // btnsave
             // 
-            this.btnsave.Location = new System.Drawing.Point(167, 272);
+            this.btnsave.Location = new System.Drawing.Point(179, 255);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(75, 23);
             this.btnsave.TabIndex = 13;
@@ -238,7 +238,7 @@
             // 
             // btnbrowser
             // 
-            this.btnbrowser.Location = new System.Drawing.Point(700, 10);
+            this.btnbrowser.Location = new System.Drawing.Point(1171, 12);
             this.btnbrowser.Name = "btnbrowser";
             this.btnbrowser.Size = new System.Drawing.Size(75, 23);
             this.btnbrowser.TabIndex = 14;
@@ -248,7 +248,7 @@
             // 
             // txtpath
             // 
-            this.txtpath.Location = new System.Drawing.Point(497, 12);
+            this.txtpath.Location = new System.Drawing.Point(968, 14);
             this.txtpath.Name = "txtpath";
             this.txtpath.Size = new System.Drawing.Size(197, 20);
             this.txtpath.TabIndex = 15;
@@ -256,7 +256,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.upload;
-            this.pictureBox1.Location = new System.Drawing.Point(448, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(919, 3);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(43, 42);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -268,7 +268,7 @@
             // 
             this.dtpdateplan.Enabled = false;
             this.dtpdateplan.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpdateplan.Location = new System.Drawing.Point(547, 120);
+            this.dtpdateplan.Location = new System.Drawing.Point(275, 63);
             this.dtpdateplan.Name = "dtpdateplan";
             this.dtpdateplan.Size = new System.Drawing.Size(100, 20);
             this.dtpdateplan.TabIndex = 17;
@@ -278,7 +278,7 @@
             // 
             this.cbline.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbline.FormattingEnabled = true;
-            this.cbline.Location = new System.Drawing.Point(369, 119);
+            this.cbline.Location = new System.Drawing.Point(97, 62);
             this.cbline.Name = "cbline";
             this.cbline.Size = new System.Drawing.Size(172, 21);
             this.cbline.TabIndex = 18;
@@ -287,7 +287,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(320, 123);
+            this.label5.Location = new System.Drawing.Point(48, 66);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(43, 13);
             this.label5.TabIndex = 19;
@@ -296,7 +296,7 @@
             // chkdate
             // 
             this.chkdate.AutoSize = true;
-            this.chkdate.Location = new System.Drawing.Point(547, 97);
+            this.chkdate.Location = new System.Drawing.Point(275, 40);
             this.chkdate.Name = "chkdate";
             this.chkdate.Size = new System.Drawing.Size(93, 17);
             this.chkdate.TabIndex = 21;
@@ -307,54 +307,109 @@
             // lbsearch
             // 
             this.lbsearch.FormattingEnabled = true;
-            this.lbsearch.Location = new System.Drawing.Point(86, 212);
+            this.lbsearch.Location = new System.Drawing.Point(98, 195);
             this.lbsearch.Name = "lbsearch";
             this.lbsearch.Size = new System.Drawing.Size(144, 186);
             this.lbsearch.TabIndex = 22;
             this.lbsearch.Visible = false;
             this.lbsearch.Click += new System.EventHandler(this.lbsearch_Click);
             // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.btnimport);
+            this.panel1.Controls.Add(this.btnbrowser);
+            this.panel1.Controls.Add(this.txtpath);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1356, 64);
+            this.panel1.TabIndex = 23;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.btnexcel);
+            this.panel2.Controls.Add(this.lbsearch);
+            this.panel2.Controls.Add(this.dateTimePicker1);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.cbwarehouse);
+            this.panel2.Controls.Add(this.btnsave);
+            this.panel2.Controls.Add(this.label3);
+            this.panel2.Controls.Add(this.btnadd);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.label7);
+            this.panel2.Controls.Add(this.cblocation);
+            this.panel2.Controls.Add(this.txtpartno);
+            this.panel2.Controls.Add(this.txtplan);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(0, 64);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(313, 664);
+            this.panel2.TabIndex = 24;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.panel5);
+            this.panel3.Controls.Add(this.panel4);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(313, 64);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1043, 664);
+            this.panel3.TabIndex = 25;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.Controls.Add(this.chkdate);
+            this.panel4.Controls.Add(this.dtpdateplan);
+            this.panel4.Controls.Add(this.label6);
+            this.panel4.Controls.Add(this.cbline);
+            this.panel4.Controls.Add(this.label5);
+            this.panel4.Controls.Add(this.textBox3);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1043, 100);
+            this.panel4.TabIndex = 22;
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.dgvplan);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 100);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(1043, 564);
+            this.panel5.TabIndex = 1;
+            // 
             // productionplan
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(874, 626);
-            this.Controls.Add(this.lbsearch);
-            this.Controls.Add(this.chkdate);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.cbline);
-            this.Controls.Add(this.dtpdateplan);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.txtpath);
-            this.Controls.Add(this.btnbrowser);
-            this.Controls.Add(this.btnsave);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.btnexcel);
-            this.Controls.Add(this.btnimport);
-            this.Controls.Add(this.btnadd);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.txtplan);
-            this.Controls.Add(this.txtpartno);
-            this.Controls.Add(this.cblocation);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbwarehouse);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.dateTimePicker1);
+            this.AutoSize = true;
+            this.ClientSize = new System.Drawing.Size(1356, 728);
+            this.Controls.Add(this.panel3);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "productionplan";
             this.Text = "Production Plan";
             this.Load += new System.EventHandler(this.productionplan_Load);
-            this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvplan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel5.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -368,7 +423,6 @@
         private System.Windows.Forms.ComboBox cblocation;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtpartno;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvplan;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label6;
@@ -388,5 +442,10 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox chkdate;
         private System.Windows.Forms.ListBox lbsearch;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel5;
     }
 }

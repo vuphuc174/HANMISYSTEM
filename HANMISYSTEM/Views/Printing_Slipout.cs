@@ -57,68 +57,139 @@ namespace HANMISYSTEM
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if(lbiwarehouse.Text!="LGE")
+            if (lbiwarehouse.Text != "LGE")
             {
-                int count = 1;
-                string tempPath = System.IO.Path.GetTempFileName();
-
-                System.IO.File.WriteAllBytes(tempPath, Properties.Resources.deliveryorder);
-
-                Microsoft.Office.Interop.Excel.Application excelApplication = new Microsoft.Office.Interop.Excel.Application();
-                Workbook excelWorkbook;
-                Worksheet xlWorkSheet;
-                excelWorkbook = excelApplication.Workbooks.Open(tempPath);
-                xlWorkSheet = excelWorkbook.Worksheets["VC"];
-                xlWorkSheet.Cells[10, 1] = "Số xe (Car Number) :" + lbcarnumber.Text;
-                xlWorkSheet.Cells[10, 4] = "Tên lái xe (Driver's name) :" + lbdriver.Text;
-                xlWorkSheet.Cells[5, 3] = lbewarehouse.Text;
-                xlWorkSheet.Cells[6, 3] = lbiwarehouse.Text;
-
-                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                if (lbewarehouse.Text == "PRINTING WAREHOUSE")
                 {
-                    xlWorkSheet.Cells[i + 12, 1] = count;
-                    xlWorkSheet.Cells[i + 12, 2] = dataGridView1.Rows[i].Cells["partname"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 3] = dataGridView1.Rows[i].Cells["partno"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 4] = (dataGridView1.Rows[i].Cells["dvt"].Value == null) ? "EA" : dataGridView1.Rows[i].Cells["dvt"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 5] = dataGridView1.Rows[i].Cells["qty"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 6] = (dataGridView1.Rows[i].Cells["remark"].Value == null) ? "" : dataGridView1.Rows[i].Cells["remark"].Value.ToString();
-                    count++;
+                    int count = 1;
+                    string tempPath = System.IO.Path.GetTempFileName();
+
+                    System.IO.File.WriteAllBytes(tempPath, Properties.Resources.exportprint);
+
+                    Microsoft.Office.Interop.Excel.Application excelApplication = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook excelWorkbook;
+                    Worksheet xlWorkSheet;
+                    excelWorkbook = excelApplication.Workbooks.Open(tempPath);
+                    xlWorkSheet = excelWorkbook.Worksheets["VC"];
+                    xlWorkSheet.Cells[5, 3] = lbewarehouse.Text;
+                    //xlWorkSheet.Cells[10, 4] = "Tên lái xe (Driver's name) :" + lbdriver.Text;
+
+
+                    for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                    {
+                        xlWorkSheet.Cells[i + 12, 1] = count;
+                        xlWorkSheet.Cells[i + 12, 2] = dataGridView1.Rows[i].Cells["partname"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 3] = dataGridView1.Rows[i].Cells["partno"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 4] = (dataGridView1.Rows[i].Cells["dvt"].Value == null) ? "EA" : dataGridView1.Rows[i].Cells["dvt"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 5] = dataGridView1.Rows[i].Cells["qty"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 6] = (dataGridView1.Rows[i].Cells["remark"].Value == null) ? "" : dataGridView1.Rows[i].Cells["remark"].Value.ToString();
+                        count++;
+                    }
+                    excelApplication.Visible = true; // true will open Excel
+                    excelWorkbook.PrintPreview();
+                    excelApplication.Visible = false; // hides excel file when user closes preview
                 }
-                excelApplication.Visible = true; // true will open Excel
-                excelWorkbook.PrintPreview();
-                excelApplication.Visible = false; // hides excel file when user closes preview
+                else
+                {
+                    int count = 1;
+                    string tempPath = System.IO.Path.GetTempFileName();
+
+                    System.IO.File.WriteAllBytes(tempPath, Properties.Resources.deliveryorder);
+
+                    Microsoft.Office.Interop.Excel.Application excelApplication = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook excelWorkbook;
+                    Worksheet xlWorkSheet;
+                    excelWorkbook = excelApplication.Workbooks.Open(tempPath);
+                    xlWorkSheet = excelWorkbook.Worksheets["VC"];
+                    xlWorkSheet.Cells[10, 1] = "Số xe (Car Number) :" + lbcarnumber.Text;
+                    xlWorkSheet.Cells[10, 4] = "Tên lái xe (Driver's name) :" + lbdriver.Text;
+                    xlWorkSheet.Cells[5, 3] = lbewarehouse.Text;
+                    xlWorkSheet.Cells[6, 3] = lbiwarehouse.Text;
+
+                    for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                    {
+                        xlWorkSheet.Cells[i + 12, 1] = count;
+                        xlWorkSheet.Cells[i + 12, 2] = dataGridView1.Rows[i].Cells["partname"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 3] = dataGridView1.Rows[i].Cells["partno"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 4] = (dataGridView1.Rows[i].Cells["dvt"].Value == null) ? "EA" : dataGridView1.Rows[i].Cells["dvt"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 5] = dataGridView1.Rows[i].Cells["qty"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 6] = (dataGridView1.Rows[i].Cells["remark"].Value == null) ? "" : dataGridView1.Rows[i].Cells["remark"].Value.ToString();
+                        count++;
+                    }
+                    excelApplication.Visible = true; // true will open Excel
+                    excelWorkbook.PrintPreview();
+                    excelApplication.Visible = false; // hides excel file when user closes preview
+
+                }
+
+
+
             }
             else
             {
-                int count = 1;
-                string tempPath = System.IO.Path.GetTempFileName();
-
-                System.IO.File.WriteAllBytes(tempPath, Properties.Resources.deliveryform);
-
-                Microsoft.Office.Interop.Excel.Application excelApplication = new Microsoft.Office.Interop.Excel.Application();
-                Workbook excelWorkbook;
-                Worksheet xlWorkSheet;
-                excelWorkbook = excelApplication.Workbooks.Open(tempPath);
-                xlWorkSheet = excelWorkbook.Worksheets["VC"];
-                xlWorkSheet.Cells[10, 1] = "Số xe (Car Number) :" + lbcarnumber.Text;
-                xlWorkSheet.Cells[10, 4] = "Tên lái xe (Driver's name) :" + lbdriver.Text;
-
-
-                for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                if(lbewarehouse.Text== "PRINTING WAREHOUSE")
                 {
-                    xlWorkSheet.Cells[i + 12, 1] = count;
-                    xlWorkSheet.Cells[i + 12, 2] = dataGridView1.Rows[i].Cells["partname"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 3] = dataGridView1.Rows[i].Cells["partno"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 4] = (dataGridView1.Rows[i].Cells["dvt"].Value == null) ? "EA" : dataGridView1.Rows[i].Cells["dvt"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 5] = dataGridView1.Rows[i].Cells["qty"].Value.ToString();
-                    xlWorkSheet.Cells[i + 12, 6] = (dataGridView1.Rows[i].Cells["remark"].Value == null) ? "" : dataGridView1.Rows[i].Cells["remark"].Value.ToString();
-                    count++;
+                    int count = 1;
+                    string tempPath = System.IO.Path.GetTempFileName();
+
+                    System.IO.File.WriteAllBytes(tempPath, Properties.Resources.exportprint);
+
+                    Microsoft.Office.Interop.Excel.Application excelApplication = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook excelWorkbook;
+                    Worksheet xlWorkSheet;
+                    excelWorkbook = excelApplication.Workbooks.Open(tempPath);
+                    xlWorkSheet = excelWorkbook.Worksheets["VC"];
+                    //xlWorkSheet.Cells[10, 1] = "Số xe (Car Number) :" + lbcarnumber.Text;
+                    //xlWorkSheet.Cells[10, 4] = "Tên lái xe (Driver's name) :" + lbdriver.Text;
+
+
+                    for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                    {
+                        xlWorkSheet.Cells[i + 12, 1] = count;
+                        xlWorkSheet.Cells[i + 12, 2] = dataGridView1.Rows[i].Cells["partname"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 3] = dataGridView1.Rows[i].Cells["partno"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 4] = (dataGridView1.Rows[i].Cells["dvt"].Value == null) ? "EA" : dataGridView1.Rows[i].Cells["dvt"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 5] = dataGridView1.Rows[i].Cells["qty"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 6] = (dataGridView1.Rows[i].Cells["remark"].Value == null) ? "" : dataGridView1.Rows[i].Cells["remark"].Value.ToString();
+                        count++;
+                    }
+                    excelApplication.Visible = true; // true will open Excel
+                    excelWorkbook.PrintPreview();
+                    excelApplication.Visible = false; // hides excel file when user closes preview
                 }
-                excelApplication.Visible = true; // true will open Excel
-                excelWorkbook.PrintPreview();
-                excelApplication.Visible = false; // hides excel file when user closes preview
+                else
+                {
+                    int count = 1;
+                    string tempPath = System.IO.Path.GetTempFileName();
+
+                    System.IO.File.WriteAllBytes(tempPath, Properties.Resources.deliveryform);
+
+                    Microsoft.Office.Interop.Excel.Application excelApplication = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook excelWorkbook;
+                    Worksheet xlWorkSheet;
+                    excelWorkbook = excelApplication.Workbooks.Open(tempPath);
+                    xlWorkSheet = excelWorkbook.Worksheets["VC"];
+                    xlWorkSheet.Cells[10, 1] = "Số xe (Car Number) :" + lbcarnumber.Text;
+                    xlWorkSheet.Cells[10, 4] = "Tên lái xe (Driver's name) :" + lbdriver.Text;
+
+
+                    for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
+                    {
+                        xlWorkSheet.Cells[i + 12, 1] = count;
+                        xlWorkSheet.Cells[i + 12, 2] = dataGridView1.Rows[i].Cells["partname"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 3] = dataGridView1.Rows[i].Cells["partno"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 4] = (dataGridView1.Rows[i].Cells["dvt"].Value == null) ? "EA" : dataGridView1.Rows[i].Cells["dvt"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 5] = dataGridView1.Rows[i].Cells["qty"].Value.ToString();
+                        xlWorkSheet.Cells[i + 12, 6] = (dataGridView1.Rows[i].Cells["remark"].Value == null) ? "" : dataGridView1.Rows[i].Cells["remark"].Value.ToString();
+                        count++;
+                    }
+                    excelApplication.Visible = true; // true will open Excel
+                    excelWorkbook.PrintPreview();
+                    excelApplication.Visible = false; // hides excel file when user closes preview
+                }
+                
             }
-            
+
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
