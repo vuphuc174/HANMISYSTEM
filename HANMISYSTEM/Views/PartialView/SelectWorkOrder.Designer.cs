@@ -46,6 +46,7 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlanID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WorkOrder = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Model = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modelname = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -139,6 +140,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.STT,
+            this.PlanID,
             this.WorkOrder,
             this.Model,
             this.modelname,
@@ -215,6 +217,15 @@
             this.STT.HeaderText = "STT";
             this.STT.Name = "STT";
             this.STT.ReadOnly = true;
+            // 
+            // PlanID
+            // 
+            this.PlanID.DataPropertyName = "PlanID";
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.PlanID.DefaultCellStyle = dataGridViewCellStyle2;
+            this.PlanID.HeaderText = "Mã KH";
+            this.PlanID.Name = "PlanID";
+            this.PlanID.ReadOnly = true;
             // 
             // WorkOrder
             // 
@@ -314,6 +325,7 @@
         public System.Windows.Forms.Label lbdate;
         public System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn STT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlanID;
         private System.Windows.Forms.DataGridViewTextBoxColumn WorkOrder;
         private System.Windows.Forms.DataGridViewTextBoxColumn Model;
         private System.Windows.Forms.DataGridViewTextBoxColumn modelname;

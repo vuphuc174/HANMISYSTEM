@@ -32,7 +32,7 @@ namespace HANMISYSTEM.Views
             cblocation.DisplayMember = "namelocation1";
             cblocation.ValueMember = "idlocation";
             cblocation.SelectedValue = "-1";
-            dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result");
+            dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where productiondate=Convert(date,getdate())");
             try
             {
                 dgvdata.DataSource = dtdata;

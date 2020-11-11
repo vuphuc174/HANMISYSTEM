@@ -19,6 +19,7 @@ namespace HANMISYSTEM.Views.PartialView
         //public DataTable dt;
         public  string workorder;
         string model;
+        string planID;
         private void SelectWorkOrder_Load(object sender, EventArgs e)
         {
             lbdate.Text = DateTime.Now.ToString("yyyy-MM-dd");
@@ -35,7 +36,7 @@ namespace HANMISYSTEM.Views.PartialView
             //    (dataGridView1.DataSource as DataTable).DefaultView.RowFilter = string.Format("partno = '{0}'", txtSearch.Text);  
             //}
         }
-
+        
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
@@ -45,6 +46,8 @@ namespace HANMISYSTEM.Views.PartialView
 
                 workorder = dataGridView1.Rows[e.RowIndex].Cells["WorkOrder"].Value.ToString();
                 model= dataGridView1.Rows[e.RowIndex].Cells["Model"].Value.ToString();
+                planID= dataGridView1.Rows[e.RowIndex].Cells["PlanID"].Value.ToString();
+
                 this.Close();
             }
         }
@@ -55,6 +58,10 @@ namespace HANMISYSTEM.Views.PartialView
         public string sendDataModel()
         {
             return model;
+        }
+        public string SendPlanID()
+        {
+            return planID;
         }
     }
 }

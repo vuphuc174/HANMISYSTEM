@@ -37,7 +37,7 @@ namespace HANMISYSTEM
                     HANMISYSTEM.Properties.Settings.Default.password = "";
                 }
                 Properties.Settings.Default.Save();
-                Hanmi_process fr = new Hanmi_process();
+                MainFrm fr = new MainFrm();
                 fr.Show();
                 this.Hide();
             }
@@ -47,7 +47,7 @@ namespace HANMISYSTEM
                 txtpassword.Text = "";
                 txtpassword.Focus();
             }
-            
+                
         }
 
         private void login_Load(object sender, EventArgs e)

@@ -203,6 +203,7 @@
             this.MaximumSize = new System.Drawing.Size(323, 366);
             this.MinimumSize = new System.Drawing.Size(323, 199);
             this.Name = "login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Đăng nhập";
             this.Load += new System.EventHandler(this.login_Load);
             this.groupBox1.ResumeLayout(false);

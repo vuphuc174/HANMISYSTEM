@@ -68,6 +68,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtPlanID = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtworkorder = new System.Windows.Forms.TextBox();
@@ -202,7 +203,7 @@
             this.btnpacking.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnpacking.Location = new System.Drawing.Point(129, 309);
             this.btnpacking.Name = "btnpacking";
-            this.btnpacking.Size = new System.Drawing.Size(78, 31);
+            this.btnpacking.Size = new System.Drawing.Size(130, 31);
             this.btnpacking.TabIndex = 8;
             this.btnpacking.Text = "Đóng gói";
             this.btnpacking.UseVisualStyleBackColor = true;
@@ -472,6 +473,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtPlanID);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
@@ -479,6 +481,15 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1104, 34);
             this.panel2.TabIndex = 23;
+            // 
+            // txtPlanID
+            // 
+            this.txtPlanID.Dock = System.Windows.Forms.DockStyle.Right;
+            this.txtPlanID.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPlanID.Location = new System.Drawing.Point(693, 0);
+            this.txtPlanID.Name = "txtPlanID";
+            this.txtPlanID.Size = new System.Drawing.Size(100, 35);
+            this.txtPlanID.TabIndex = 3;
             // 
             // panel4
             // 
@@ -552,7 +563,6 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(529, 622);
             this.panel6.TabIndex = 25;
-
             // 
             // frmprod
             // 
@@ -574,6 +584,7 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel3.ResumeLayout(false);
@@ -632,6 +643,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.TextBox txtPlanID;
     }
 }
 

@@ -153,7 +153,7 @@ namespace HANMISYSTEM
                                         }
                                     }
                                     // neu maxqty<0
-                                    if (dtmaxqty.Rows.Count <= 0 || Convert.ToDouble(dtmaxqty.Rows[0]["maxqty"].ToString()) - curqty<=0 || Convert.ToDouble(dt.Rows[0]["quantity"].ToString()) > Convert.ToDouble(dtmaxqty.Rows[0]["maxqty"].ToString()))
+                                    if (dtmaxqty.Rows.Count <= 0 || Convert.ToDouble(dtmaxqty.Rows[0]["maxqty"].ToString()) - curqty <= 0 || Convert.ToDouble(dt.Rows[0]["quantity"].ToString()) > Convert.ToDouble(dtmaxqty.Rows[0]["maxqty"].ToString()))
                                     {
                                         //MessageBox.Show("Đã giao hàng đủ kế hoạch");
                                         //txtboxno.Text = "";
@@ -216,7 +216,7 @@ namespace HANMISYSTEM
                     }
                     else
                     {
-                        lbmessage.Items.Insert(0, DateTime.UtcNow.AddHours(7).ToString()+":" +txtboxno.Text + ":Mã box này không tồn tại "); ;
+                        lbmessage.Items.Insert(0, DateTime.UtcNow.AddHours(7).ToString() + ":" + txtboxno.Text + ":Mã box này không tồn tại "); ;
                         txtboxno.Text = "";
                         txtboxno.Focus();
                     }
@@ -371,11 +371,11 @@ namespace HANMISYSTEM
         {
             foreach (DataGridViewRow item in this.dataGridView2.SelectedRows)
             {
-                if(item.Index!=-1)
+                if (item.Index != -1)
                 {
                     dataGridView2.Rows.RemoveAt(item.Index);
                 }
-                
+
             }
             sumqty = 0;
             txtboxno.Text = "";
@@ -563,7 +563,7 @@ namespace HANMISYSTEM
             double temp;
             double shortage;
 
-            DataTable dtcategory = connect.readdata("select idcategory from warehouse where idwarehouse='" + cbiwarehouse.SelectedValue.ToString() + "'");
+            DataTable dtcategory = connect.readdata("select idcategory,approval from warehouse where idwarehouse='" + cbiwarehouse.SelectedValue.ToString() + "'");
             if (cbewarehouse.Text == "" || cbiwarehouse.Text == "" || txtinvoice.Text == "" || dataGridView2.Rows.Count < 1)
             {
                 MessageBox.Show("Không được bỏ trống thông tin !");
@@ -656,12 +656,151 @@ namespace HANMISYSTEM
                     MessageBox.Show("xin taọ mới mã hóa đơn ");
                 }
             }
+            else if (dtcategory.Rows[0]["idcategory"].ToString() == "W1")
+            {
+                if (dtcategory.Rows[0]["Approval"].ToString() == "True" || dtcategory.Rows[0]["Approval"].ToString() == "1")
+                {
+                    try
+                    {
+                        if (connect.countdata("select count(idslipout) from slipout where idslipout='" + txtinvoice.Text + "'") == 0)
+                        {
+                            if (connect.exedata("insert into slipout(idslipout,dateout,idwarehouse,idcustomer,status) values('" + txtinvoice.Text + "',getdate(),'" + cbewarehouse.SelectedValue.ToString() + "','" + cbiwarehouse.SelectedValue.ToString() + "','Pending')"))
+                            {
+                                for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                                {
+                                    DataTable dtpackinginfo = connect.readdata("select * from packinginfo where idpack='" + dataGridView2.Rows[i].Cells["idpack"].Value + "'");
+                                    connect.exedata("exec spInsertSlipoutInfo @idslipout='" + txtinvoice.Text + "',@idpack='" + dataGridView2.Rows[i].Cells["idpack"].Value + "',@quantity='" + dataGridView2.Rows[i].Cells["boxqty"].Value + "',@remark='" + dataGridView2.Rows[i].Cells["remark"].Value + "',@carnumber='" + cbbdriver.Text + "',@partno='" + dataGridView2.Rows[i].Cells["partno"].Value + "'");
+                                }
+
+                                for (int k = 0; k < dataGridView2.Rows.Count; k++)
+                                {
+                                    connect.exedata("exec spUpdatePackingInfo_Move @idwarehouse='WH023',@idpack='" + dataGridView2.Rows[k].Cells["idpack"].Value + "'");
+                                }
+                                MessageBox.Show("Success");
+                                //in hoa don
+                                Printing_Slipout fr = new Printing_Slipout();
+                                fr.lbday.Text = DateTime.Now.ToString("dd");
+                                fr.lbmonth.Text = DateTime.Now.ToString("MM");
+                                fr.lbyear.Text = DateTime.Now.ToString("yyyy");
+                                fr.lbinvoice.Text = txtinvoice.Text;
+                                fr.lbewarehouse.Text = cbewarehouse.Text;
+                                fr.lbiwarehouse.Text = cbiwarehouse.Text;
+                                fr.lbcarnumber.Text = cbbdriver.Text;
+                                fr.lbdriver.Text = cbbdriver.SelectedValue.ToString();
+                                fr.lbreason.Text = txtreason.Text;
+                                DataTable dt1 = connect.readdata("select cargo.partno,cargo.partname,(select nameunit from unit where idunit=cargo.idunit) as dvt,SUM(quantity) as qty,slipoutinfo.remark from cargo inner join slipoutinfo on cargo.partno=slipoutinfo.partno  where idslipout='" + txtinvoice.Text + "' group by cargo.partno,cargo.partname,cargo.idunit,slipoutinfo.remark");
+                                fr.dataGridView1.DataSource = dt1;
+                                fr.Show();
+                                lbmessage.Items.Clear();
+                                txtinvoice.Text = "";
+                                txtsumqty.Text = "";
+                                txtreason.Text = "";
+                                cbbdriver.Text = "";
+                                dataGridView2.Rows.Clear();
+                                DataTable dtstock = connect.readdata("select * from packinginfo where idwarehouse='" + cbewarehouse.SelectedValue + "'");
+                                if (dtstock != null)
+                                {
+                                    dgvworkorder.DataSource = dtstock;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Xuất hàng không thành công ,xin vui lòng thử lại sau hoặc báo cho admin");
+                            }
+
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Mã hóa đơn đã có ,xin hay tạo lại");
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error " + ex.ToString());
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        if (connect.countdata("select count(idslipout) from slipout where idslipout='" + txtinvoice.Text + "'") == 0)
+                        {
+
+                            if (connect.exedata("exec spInsertSlipout @idslipout='" + txtinvoice.Text + "',@idwarehouse='" + cbewarehouse.SelectedValue.ToString() + "',@idcustomer='" + cbiwarehouse.SelectedValue.ToString() + "'"))
+                            {
+                                for (int i = 0; i < dataGridView2.Rows.Count; i++)
+                                {
+                                    DataTable dtpackinginfo = connect.readdata("select * from packinginfo where idpack='" + dataGridView2.Rows[i].Cells["idpack"].Value + "'");
+                                    connect.exedata("exec spInsertSlipoutInfo @idslipout='" + txtinvoice.Text + "',@idpack='" + dataGridView2.Rows[i].Cells["idpack"].Value + "',@quantity='" + dataGridView2.Rows[i].Cells["boxqty"].Value + "',@remark='" + dataGridView2.Rows[i].Cells["remark"].Value + "',@carnumber='" + cbbdriver.Text + "',@partno='" + dataGridView2.Rows[i].Cells["partno"].Value + "'");
+                                }
+
+                                for (int k = 0; k < dataGridView2.Rows.Count; k++)
+                                {
+
+                                    //xuất chẵn
+                                    if (Convert.ToDouble(dataGridView2.Rows[k].Cells["Remain"].Value) == 0)
+                                    {
+                                        connect.exedata("exec spUpdatePackingInfo_Move @idwarehouse='" + cbiwarehouse.SelectedValue + "',@idpack='" + dataGridView2.Rows[k].Cells["idpack"].Value + "'");
+                                    }
+
+                                }
+                                MessageBox.Show("Success");
+                                //in hoa don
+                                Printing_Slipout fr = new Printing_Slipout();
+                                fr.lbday.Text = DateTime.Now.ToString("dd");
+                                fr.lbmonth.Text = DateTime.Now.ToString("MM");
+                                fr.lbyear.Text = DateTime.Now.ToString("yyyy");
+                                fr.lbinvoice.Text = txtinvoice.Text;
+                                fr.lbewarehouse.Text = cbewarehouse.Text;
+                                fr.lbiwarehouse.Text = cbiwarehouse.Text;
+                                fr.lbcarnumber.Text = cbbdriver.Text;
+                                fr.lbdriver.Text = cbbdriver.SelectedValue.ToString();
+                                fr.lbreason.Text = txtreason.Text;
+                                DataTable dt1 = connect.readdata("select cargo.partno,cargo.partname,(select nameunit from unit where idunit=cargo.idunit) as dvt,SUM(quantity) as qty,slipoutinfo.remark from cargo inner join slipoutinfo on cargo.partno=slipoutinfo.partno  where idslipout='" + txtinvoice.Text + "' group by cargo.partno,cargo.partname,cargo.idunit,slipoutinfo.remark");
+                                fr.dataGridView1.DataSource = dt1;
+                                fr.Show();
+                                lbmessage.Items.Clear();
+                                txtinvoice.Text = "";
+                                txtsumqty.Text = "";
+                                txtreason.Text = "";
+                                cbbdriver.Text = "";
+                                dataGridView2.Rows.Clear();
+                                DataTable dtstock = connect.readdata("select * from packinginfo where idwarehouse='" + cbewarehouse.SelectedValue + "'");
+                                if (dtstock != null)
+                                {
+                                    dgvworkorder.DataSource = dtstock;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Xuất hàng không thành công ,xin vui lòng thử lại sau hoặc báo cho admin");
+                            }
+
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Mã hóa đơn đã có ,xin hay tạo lại");
+                        }
+
+
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error " + ex.ToString());
+                    }
+                }
+            }
             else
             {
                 try
                 {
                     if (connect.countdata("select count(idslipout) from slipout where idslipout='" + txtinvoice.Text + "'") == 0)
                     {
+
                         if (connect.exedata("exec spInsertSlipout @idslipout='" + txtinvoice.Text + "',@idwarehouse='" + cbewarehouse.SelectedValue.ToString() + "',@idcustomer='" + cbiwarehouse.SelectedValue.ToString() + "'"))
                         {
                             for (int i = 0; i < dataGridView2.Rows.Count; i++)
@@ -669,10 +808,7 @@ namespace HANMISYSTEM
                                 DataTable dtpackinginfo = connect.readdata("select * from packinginfo where idpack='" + dataGridView2.Rows[i].Cells["idpack"].Value + "'");
                                 connect.exedata("exec spInsertSlipoutInfo @idslipout='" + txtinvoice.Text + "',@idpack='" + dataGridView2.Rows[i].Cells["idpack"].Value + "',@quantity='" + dataGridView2.Rows[i].Cells["boxqty"].Value + "',@remark='" + dataGridView2.Rows[i].Cells["remark"].Value + "',@carnumber='" + cbbdriver.Text + "',@partno='" + dataGridView2.Rows[i].Cells["partno"].Value + "'");
                             }
-                            //for (int j = 0; j < dataGridView2.Rows.Count; j++)
-                            //{
-                            //    connect.exedata("insert into tbl_inout (idpack,kind,dateio,outwarehouse,inwarehouse) values('" + dataGridView2.Rows[j].Cells["idpack"].Value + "','OUT','" + DateTime.Now + "','" + cbewarehouse.SelectedValue + "','" + cbiwarehouse.SelectedValue + "')");
-                            //}
+
                             for (int k = 0; k < dataGridView2.Rows.Count; k++)
                             {
 

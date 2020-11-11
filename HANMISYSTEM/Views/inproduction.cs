@@ -244,14 +244,14 @@ namespace HANMISYSTEM
                             txtidpack.Text = "";
                         }
                     }
-                   
+
                 }
             }
         }
 
         private void txtidpack_Leave(object sender, EventArgs e)
         {
-            
+
         }
         private string r;
         private string mahoa1(string str)
@@ -600,7 +600,7 @@ namespace HANMISYSTEM
 
         private void dataGridView3_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex != -1 &&e.ColumnIndex!=-1)
+            if (e.RowIndex != -1 && e.ColumnIndex != -1)
             {
                 switch (dataGridView3.Columns[e.ColumnIndex].Name)
                 {

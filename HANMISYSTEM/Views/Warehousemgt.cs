@@ -28,7 +28,7 @@ namespace HANMISYSTEM
 
         private void Warehousemgt_Load(object sender, EventArgs e)
         {
-            loaddata("select warehouse.idwarehouse,namewarehouse,namecategory,sign from warehouse inner join categorywarehouse on warehouse.idcategory=categorywarehouse.idcategory");
+            loaddata("select warehouse.idwarehouse,namewarehouse,namecategory,sign,Approval from warehouse inner join categorywarehouse on warehouse.idcategory=categorywarehouse.idcategory");
             DataTable dtcategory = connect.readdata("select idcategory,namecategory from categorywarehouse");
             if(dtcategory.Rows.Count>0)
             {
@@ -45,7 +45,8 @@ namespace HANMISYSTEM
                 txtidwarehouse.Text = dataGridView1.Rows[e.RowIndex].Cells["idwarehouse"].Value.ToString();
                 txtnamewarehouse.Text = dataGridView1.Rows[e.RowIndex].Cells["namewarehouse"].Value.ToString();
                 cbcategory.Text = dataGridView1.Rows[e.RowIndex].Cells["namecategory"].Value.ToString();
-                txtsign.Text = dataGridView1.Rows[e.RowIndex].Cells["sign"].Value.ToString(); ;
+                txtsign.Text = dataGridView1.Rows[e.RowIndex].Cells["sign"].Value.ToString(); 
+                chkApproval.Checked= (dataGridView1.Rows[e.RowIndex].Cells["Approval"].Value==null || dataGridView1.Rows[e.RowIndex].Cells["Approval"].Value.ToString() =="false"  || dataGridView1.Rows[e.RowIndex].Cells["Approval"].Value.ToString() == "") ?false:true;
             }
         }
 
@@ -57,10 +58,10 @@ namespace HANMISYSTEM
             }
             else
             {
-                if (connect.exedata("update warehouse set namewarehouse='" + txtnamewarehouse.Text + "' ,idcategory ='" + cbcategory.SelectedValue.ToString() + "',sign='" + txtsign.Text + "' WHERE idwarehouse ='"+txtidwarehouse.Text+"'") == true)
+                if (connect.exedata("update warehouse set namewarehouse='" + txtnamewarehouse.Text + "' ,idcategory ='" + cbcategory.SelectedValue.ToString() + "',sign='" + txtsign.Text + "',Approval='"+((chkApproval.Checked)?"1":"0")+"' WHERE idwarehouse ='"+txtidwarehouse.Text+"'") == true)
                 {
                     MessageBox.Show("Success!!!");
-                    loaddata("select warehouse.idwarehouse,namewarehouse,namecategory,sign from warehouse inner join categorywarehouse on warehouse.idcategory=categorywarehouse.idcategory");
+                    loaddata("select warehouse.idwarehouse,namewarehouse,namecategory,sign,Approval from warehouse inner join categorywarehouse on warehouse.idcategory=categorywarehouse.idcategory");
                 }
                 else
                 {
@@ -78,10 +79,10 @@ namespace HANMISYSTEM
             }
             else
             {
-                if (connect.exedata("insert into warehouse(idwarehouse,namewarehouse,idcategory,sign) values ('WH0"+(Convert.ToInt32(connect.countdata("select count(idwarehouse) from warehouse"))+1)+"','"+txtnamewarehouse.Text+"','"+cbcategory.SelectedValue.ToString()+"','"+txtsign.Text+"')") == true)
+                if (connect.exedata("insert into warehouse(idwarehouse,namewarehouse,idcategory,sign,Approval) values ('WH0"+(Convert.ToInt32(connect.countdata("select count(idwarehouse) from warehouse"))+1)+"','"+txtnamewarehouse.Text+"','"+cbcategory.SelectedValue.ToString()+"','"+txtsign.Text+ "','" + ((chkApproval.Checked) ? "1" : "0") + "')") == true)
                 {
                     MessageBox.Show("Success!!!");
-                    loaddata("select warehouse.idwarehouse,namewarehouse,namecategory,sign from warehouse inner join categorywarehouse on warehouse.idcategory=categorywarehouse.idcategory");
+                    loaddata("select warehouse.idwarehouse,namewarehouse,namecategory,sign,Approval from warehouse inner join categorywarehouse on warehouse.idcategory=categorywarehouse.idcategory");
                     txtidwarehouse.Text = "";
                     txtnamewarehouse.Text = "";
                     txtsign.Text = "";

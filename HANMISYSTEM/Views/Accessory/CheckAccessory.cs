@@ -1,4 +1,5 @@
 ﻿using HANMISYSTEM.Module;
+using HANMISYSTEM.Views.PartialView;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -177,23 +178,34 @@ namespace HANMISYSTEM.Views.Accessory
             listAccessory.Add(lbAccessory4);
             listAccessory.Add(lbAccessory5);
 
-            DataTable dtAccessory = connect.readdata("select Accessory from Accessory where PartNo='" + cbbModel.SelectedValue.ToString() + "'");
-            if (dtAccessory.Rows.Count > 0)
+            if(cbbModel.SelectedValue!=null)
             {
-                for (int i = 0; i < dtAccessory.Rows.Count; i++)
+                DataTable dtAccessory = connect.readdata("select Accessory from Accessory where PartNo='" + cbbModel.SelectedValue.ToString() + "'");
+                if (dtAccessory.Rows.Count > 0)
                 {
-                    listAccessory[i].Text = dtAccessory.Rows[i]["Accessory"].ToString();
+                    for (int i = 0; i < dtAccessory.Rows.Count; i++)
+                    {
+                        listAccessory[i].Text = dtAccessory.Rows[i]["Accessory"].ToString();
+                    }
                 }
+                DataTable dtplan = connect.readdata("select productionplan,WOCode,ID from productionplan where partno='" + cbbModel.Text + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and productiondate=convert(date,getdate())");
+                if (dtplan!=null)
+                {
+                    if (dtplan.Rows.Count > 0)
+                    {
+                        txtPlan.Text = dtplan.Rows[0]["productionplan"].ToString();
+                        txtPlanID.Text = dtplan.Rows[0]["ID"].ToString();
+                        txtworkorder.Text = dtplan.Rows[0]["WOCode"].ToString();
+
+                    }
+                    else
+                    {
+                        txtPlan.Text = "0";
+                    }
+                }
+                
             }
-            DataTable dtplan = connect.readdata("select productionplan from productionplan where partno='" + cbbModel.Text + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and productiondate=convert(date,getdate())");
-            if (dtplan.Rows.Count > 0)
-            {
-                txtPlan.Text = dtplan.Rows[0]["productionplan"].ToString();
-            }
-            else
-            {
-                txtPlan.Text = "0";
-            }
+            
         }
         private void GrabTextChange(string str)
         {
@@ -267,7 +279,7 @@ namespace HANMISYSTEM.Views.Accessory
                 {
                     if (txtScan.Text.Length > 16)
                     {
-                        txtScan.Text = txtScan.Text.Substring(0, 11);
+                        txtScan.Text = txtScan.Text.Substring(0, 12).ToUpper();
                     }
                     if (txtScan.Text.Substring(0, 3) == "BOX" && txtScan.Text.Length >= 14 || txtScan.Text.Substring(0, 3) == "CRT" && txtScan.Text.Length >= 14 || txtScan.Text.Substring(0, 3) == "BAG" && txtScan.Text.Length >= 14 || txtScan.Text.Substring(0, 3) == "PAL" && txtScan.Text.Length >= 14)
                     {
@@ -298,7 +310,7 @@ namespace HANMISYSTEM.Views.Accessory
                             {
                                 if (listAccessory[i].Text != "" && listJudge[i].Text == "")
                                 {
-                                    if (txtScan.Text.ToUpper() == listAccessory[i].Text)
+                                    if (txtScan.Text == listAccessory[i].Text)
                                     {
                                         listJudge[i].Text = "OK";
                                         listJudge[i].ForeColor = Color.Lime;
@@ -326,7 +338,10 @@ namespace HANMISYSTEM.Views.Accessory
                                 DataTable qtypack = connect.readdata("select quantity from packinginfo where idpack='" + txtPackID.Text + "'");
                                 lbCurrentQtyPack.Text = qtypack.Rows[0]["quantity"].ToString();
                                 //them lich su
-                                connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
+
+                                //connect.exedata("update runingstatus set partno=@partno where idlocation='" + cblocation.SelectedValue.ToString() + "'");
+                                connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack,WO,PlanID) values('WH001','" + cbbModel.SelectedValue.ToString() + "',GETDATE(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "','" + txtworkorder.Text + "','"+txtPlanID.Text+"')");
+                                //connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
                                 DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + cbbModel.SelectedValue.ToString() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
                                 lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
                                 ClearJudge();
@@ -437,46 +452,91 @@ namespace HANMISYSTEM.Views.Accessory
             listJudge.Add(lbJudge3);
             listJudge.Add(lbJudge4);
             listJudge.Add(lbJudge5);
-
-            for (int i = 0; i < listAccessory.Count; i++)
+            if(accessory.Length>=16)
             {
-                if (listAccessory[i].Text != "" && listJudge[i].Text == "")
+                for (int i = 0; i < listAccessory.Count; i++)
                 {
-                    if (accessory == listAccessory[i].Text)
+                    if (listAccessory[i].Text != "" && listJudge[i].Text == "")
                     {
-                        //listJudge[i].Text = "OK";
-                        //listJudge[i].ForeColor = Color.Lime;
-                        //Task.Delay(1).Wait();
-                        //if (CheckJudgeStatus())
-                        //{
-                        //    lbJudge.Text = "OK";
-                        //    lbJudge.ForeColor = Color.Lime;
-                        //    Task.Delay(2).Wait();
-                        //    dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "OK", DateTime.Now);
+                        if (accessory.Substring(0,12)== listAccessory[i].Text)
+                        {
+                            //listJudge[i].Text = "OK";
+                            //listJudge[i].ForeColor = Color.Lime;
+                            //Task.Delay(1).Wait();
+                            //if (CheckJudgeStatus())
+                            //{
+                            //    lbJudge.Text = "OK";
+                            //    lbJudge.ForeColor = Color.Lime;
+                            //    Task.Delay(2).Wait();
+                            //    dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "OK", DateTime.Now);
 
-                        //    //quanli packing
-                        //    if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtPackID.Text + "'") == 0)
-                        //    {
-                        //        connect.exedata("exec spInsertPackingInfo @idpack= '" + txtPackID.Text + "',@partno='" + cbbModel.SelectedValue.ToString().ToUpper() + "',@idlocation='" + cbbLocation.SelectedValue.ToString() + "',@idwarehouse='WH001'");
-                        //    }
-                        //    else
-                        //    {
-                        //        connect.exedata("exec spUpdatePackingInfo_Increase @idpack='" + txtPackID.Text + "'");
-                        //    }
-                        //    DataTable qtypack = connect.readdata("select quantity from packinginfo where idpack='" + txtPackID.Text + "'");
-                        //    lbCurrentQtyPack.Text = qtypack.Rows[0]["quantity"].ToString();
-                        //    //them lich su
-                        //    connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
-                        //    DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + cbbModel.SelectedValue.ToString() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
-                        //    lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
-                        //    ClearJudge();
+                            //    //quanli packing
+                            //    if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtPackID.Text + "'") == 0)
+                            //    {
+                            //        connect.exedata("exec spInsertPackingInfo @idpack= '" + txtPackID.Text + "',@partno='" + cbbModel.SelectedValue.ToString().ToUpper() + "',@idlocation='" + cbbLocation.SelectedValue.ToString() + "',@idwarehouse='WH001'");
+                            //    }
+                            //    else
+                            //    {
+                            //        connect.exedata("exec spUpdatePackingInfo_Increase @idpack='" + txtPackID.Text + "'");
+                            //    }
+                            //    DataTable qtypack = connect.readdata("select quantity from packinginfo where idpack='" + txtPackID.Text + "'");
+                            //    lbCurrentQtyPack.Text = qtypack.Rows[0]["quantity"].ToString();
+                            //    //them lich su
+                            //    connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
+                            //    DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + cbbModel.SelectedValue.ToString() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
+                            //    lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
+                            //    ClearJudge();
 
 
-                        //}
-                        return true;
+                            //}
+                            return true;
+                        }
                     }
                 }
             }
+            else
+            {
+                for (int i = 0; i < listAccessory.Count; i++)
+                {
+                    if (listAccessory[i].Text != "" && listJudge[i].Text == "")
+                    {
+                        if (accessory == listAccessory[i].Text)
+                        {
+                            //listJudge[i].Text = "OK";
+                            //listJudge[i].ForeColor = Color.Lime;
+                            //Task.Delay(1).Wait();
+                            //if (CheckJudgeStatus())
+                            //{
+                            //    lbJudge.Text = "OK";
+                            //    lbJudge.ForeColor = Color.Lime;
+                            //    Task.Delay(2).Wait();
+                            //    dataGridView1.Rows.Insert(0, cbbModel.SelectedValue.ToString(), "OK", DateTime.Now);
+
+                            //    //quanli packing
+                            //    if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtPackID.Text + "'") == 0)
+                            //    {
+                            //        connect.exedata("exec spInsertPackingInfo @idpack= '" + txtPackID.Text + "',@partno='" + cbbModel.SelectedValue.ToString().ToUpper() + "',@idlocation='" + cbbLocation.SelectedValue.ToString() + "',@idwarehouse='WH001'");
+                            //    }
+                            //    else
+                            //    {
+                            //        connect.exedata("exec spUpdatePackingInfo_Increase @idpack='" + txtPackID.Text + "'");
+                            //    }
+                            //    DataTable qtypack = connect.readdata("select quantity from packinginfo where idpack='" + txtPackID.Text + "'");
+                            //    lbCurrentQtyPack.Text = qtypack.Rows[0]["quantity"].ToString();
+                            //    //them lich su
+                            //    connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + cbbModel.SelectedValue.ToString() + "',getdate(),1,'" + cbbLocation.SelectedValue.ToString() + "','" + txtPackID.Text + "')");
+                            //    DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + cbbModel.SelectedValue.ToString() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
+                            //    lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
+                            //    ClearJudge();
+
+
+                            //}
+                            return true;
+                        }
+                    }
+                }
+            }
+            
 
             return false;
         }
@@ -554,6 +614,57 @@ namespace HANMISYSTEM.Views.Accessory
             //    lbJudge.ForeColor = Color.Lime;
             //    ClearJudge();
             //}
+        }
+
+        private void btnselectWO_Click(object sender, EventArgs e)
+        {
+            using (SelectWorkOrder frm = new SelectWorkOrder())
+            {
+                DataTable dtLocation = connect.readdata("select namelocation1 from location where idlocation ='" + cbbLocation.SelectedValue.ToString() + "'");
+                SelectWorkOrder fr = new SelectWorkOrder();
+                fr.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
+                fr.dataGridView1.AutoGenerateColumns = false;
+                DataTable dtwo = connect.readdata("select a.* ,ROW_NUMBER() over (order by a.PST asc) as r from (select distinct  a.PartNo,p.WOCode as WorkOrder,p.ID as PlanID,c.partname,c.Color,c.Market,p.PST,p.productionplan   from Accessory a inner join cargo c on a.PartNo=c.partno inner join productionplan p on a.PartNo=p.partno left join WorkOrder w on w.ID=p.WorkOrderID where p.idlocation ='"+cbbLocation.SelectedValue.ToString()+"' and (p.Status is null or p.Status<> 0 )   and  (convert(date,p.PST)=CONVERT(date,getdate()) or CONVERT(date,p.productiondate)=CONVERT(date,getdate()))) a"); 
+                fr.dataGridView1.DataSource = dtwo;
+                fr.ShowDialog();
+                txtworkorder.Text = fr.SendData();
+                txtmodel.Text = fr.sendDataModel();
+                txtPlanID.Text = fr.SendPlanID();
+                cbbModel.Text = fr.sendDataModel();
+                //DataTable dt = connect.readdata("select currenttarget from updatestatus where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and productiondate=convert(date,getdate())");
+                //if (dt.Rows.Count > 0)
+                //{
+                //    if (dt.Rows[0]["currenttarget"].ToString() != "")
+                //    {
+                //        txttarget.Text = dt.Rows[0]["currenttarget"].ToString();
+                //    }
+                //    else
+                //    {
+                //        txttarget.Text = "0";
+                //    }
+                //}
+                //else
+                //{
+                //    txttarget.Text = "0";
+                //}
+                DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + cbbModel.Text.ToUpper() + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and productiondate=convert(date,getdate())");
+                if (dt1.Rows.Count > 0)
+                {
+
+                    txtPlan.Text = dt1.Rows[0]["productionplan"].ToString();
+                }
+                else
+                {
+                    txtPlan.Text = "0";
+                }
+                txtPackID.Text = "";
+                lbCurrentQtyPack.Text = "0";
+                lbProductivity.Text = "0";
+                txtPackID.Enabled = true; ;
+                //lbsearch.Visible = false;
+
+            }
+
         }
     }
 }

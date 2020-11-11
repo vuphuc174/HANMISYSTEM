@@ -71,12 +71,17 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.lbJudge4 = new System.Windows.Forms.Label();
-            this.lbAccessory4 = new System.Windows.Forms.Label();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.txtPlanID = new System.Windows.Forms.TextBox();
+            this.txtworkorder = new System.Windows.Forms.TextBox();
+            this.btnselectWO = new System.Windows.Forms.Button();
+            this.txtmodel = new System.Windows.Forms.TextBox();
             this.aaa = new System.Windows.Forms.GroupBox();
             this.lbJudge5 = new System.Windows.Forms.Label();
             this.lbAccessory5 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lbJudge4 = new System.Windows.Forms.Label();
+            this.lbAccessory4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -91,8 +96,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
-            this.groupBox4.SuspendLayout();
+            this.panel10.SuspendLayout();
             this.aaa.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -111,7 +117,7 @@
             this.cbbLocation.FormattingEnabled = true;
             this.cbbLocation.Location = new System.Drawing.Point(972, 40);
             this.cbbLocation.Name = "cbbLocation";
-            this.cbbLocation.Size = new System.Drawing.Size(132, 21);
+            this.cbbLocation.Size = new System.Drawing.Size(132, 33);
             this.cbbLocation.TabIndex = 3;
             // 
             // label6
@@ -148,9 +154,9 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(276, 48);
+            this.label7.Location = new System.Drawing.Point(274, 42);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(35, 13);
+            this.label7.Size = new System.Drawing.Size(70, 26);
             this.label7.TabIndex = 0;
             this.label7.Text = "PLAN";
             // 
@@ -169,9 +175,9 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(347, 122);
+            this.label9.Location = new System.Drawing.Point(355, 107);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(30, 13);
+            this.label9.Size = new System.Drawing.Size(60, 26);
             this.label9.TabIndex = 0;
             this.label9.Text = "MAX";
             // 
@@ -552,6 +558,7 @@
             // 
             // panel9
             // 
+            this.panel9.Controls.Add(this.panel10);
             this.panel9.Controls.Add(this.aaa);
             this.panel9.Controls.Add(this.groupBox4);
             this.panel9.Controls.Add(this.panel2);
@@ -573,47 +580,63 @@
             this.panel9.Controls.Add(this.label1);
             this.panel9.Controls.Add(this.label9);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel9.Location = new System.Drawing.Point(0, 0);
             this.panel9.MaximumSize = new System.Drawing.Size(1272, 730);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(1270, 730);
             this.panel9.TabIndex = 17;
             // 
-            // groupBox4
+            // panel10
             // 
-            this.groupBox4.Controls.Add(this.lbJudge4);
-            this.groupBox4.Controls.Add(this.lbAccessory4);
-            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(636, 206);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(200, 143);
-            this.groupBox4.TabIndex = 16;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "ACCESSORY 4";
+            this.panel10.Controls.Add(this.txtPlanID);
+            this.panel10.Controls.Add(this.txtworkorder);
+            this.panel10.Controls.Add(this.btnselectWO);
+            this.panel10.Controls.Add(this.txtmodel);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel10.Location = new System.Drawing.Point(0, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(1270, 34);
+            this.panel10.TabIndex = 17;
             // 
-            // lbJudge4
+            // txtPlanID
             // 
-            this.lbJudge4.BackColor = System.Drawing.Color.Black;
-            this.lbJudge4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lbJudge4.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbJudge4.ForeColor = System.Drawing.Color.White;
-            this.lbJudge4.Location = new System.Drawing.Point(3, 22);
-            this.lbJudge4.Name = "lbJudge4";
-            this.lbJudge4.Size = new System.Drawing.Size(194, 86);
-            this.lbJudge4.TabIndex = 4;
-            this.lbJudge4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtPlanID.Dock = System.Windows.Forms.DockStyle.Right;
+            this.txtPlanID.Location = new System.Drawing.Point(1020, 0);
+            this.txtPlanID.Name = "txtPlanID";
+            this.txtPlanID.ReadOnly = true;
+            this.txtPlanID.Size = new System.Drawing.Size(125, 32);
+            this.txtPlanID.TabIndex = 3;
+            this.txtPlanID.Text = "##";
             // 
-            // lbAccessory4
+            // txtworkorder
             // 
-            this.lbAccessory4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.lbAccessory4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lbAccessory4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbAccessory4.ForeColor = System.Drawing.Color.White;
-            this.lbAccessory4.Location = new System.Drawing.Point(3, 108);
-            this.lbAccessory4.Name = "lbAccessory4";
-            this.lbAccessory4.Size = new System.Drawing.Size(194, 32);
-            this.lbAccessory4.TabIndex = 3;
-            this.lbAccessory4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.txtworkorder.Dock = System.Windows.Forms.DockStyle.Right;
+            this.txtworkorder.Location = new System.Drawing.Point(1145, 0);
+            this.txtworkorder.Name = "txtworkorder";
+            this.txtworkorder.Size = new System.Drawing.Size(125, 32);
+            this.txtworkorder.TabIndex = 2;
+            this.txtworkorder.Text = "##";
+            // 
+            // btnselectWO
+            // 
+            this.btnselectWO.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnselectWO.Location = new System.Drawing.Point(162, 0);
+            this.btnselectWO.Name = "btnselectWO";
+            this.btnselectWO.Size = new System.Drawing.Size(75, 34);
+            this.btnselectWO.TabIndex = 1;
+            this.btnselectWO.Text = "Chọn";
+            this.btnselectWO.UseVisualStyleBackColor = true;
+            this.btnselectWO.Click += new System.EventHandler(this.btnselectWO_Click);
+            // 
+            // txtmodel
+            // 
+            this.txtmodel.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txtmodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtmodel.Location = new System.Drawing.Point(0, 0);
+            this.txtmodel.Name = "txtmodel";
+            this.txtmodel.Size = new System.Drawing.Size(162, 32);
+            this.txtmodel.TabIndex = 0;
             // 
             // aaa
             // 
@@ -651,6 +674,42 @@
             this.lbAccessory5.TabIndex = 3;
             this.lbAccessory5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.lbJudge4);
+            this.groupBox4.Controls.Add(this.lbAccessory4);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(636, 206);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 143);
+            this.groupBox4.TabIndex = 16;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "ACCESSORY 4";
+            // 
+            // lbJudge4
+            // 
+            this.lbJudge4.BackColor = System.Drawing.Color.Black;
+            this.lbJudge4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lbJudge4.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbJudge4.ForeColor = System.Drawing.Color.White;
+            this.lbJudge4.Location = new System.Drawing.Point(3, 22);
+            this.lbJudge4.Name = "lbJudge4";
+            this.lbJudge4.Size = new System.Drawing.Size(194, 86);
+            this.lbJudge4.TabIndex = 4;
+            this.lbJudge4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lbAccessory4
+            // 
+            this.lbAccessory4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.lbAccessory4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lbAccessory4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbAccessory4.ForeColor = System.Drawing.Color.White;
+            this.lbAccessory4.Location = new System.Drawing.Point(3, 108);
+            this.lbAccessory4.Name = "lbAccessory4";
+            this.lbAccessory4.Size = new System.Drawing.Size(194, 32);
+            this.lbAccessory4.TabIndex = 3;
+            this.lbAccessory4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // CheckAccessory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -677,8 +736,10 @@
             this.panel8.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
             this.aaa.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -733,5 +794,10 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label lbJudge4;
         private System.Windows.Forms.Label lbAccessory4;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btnselectWO;
+        private System.Windows.Forms.TextBox txtmodel;
+        private System.Windows.Forms.TextBox txtworkorder;
+        private System.Windows.Forms.TextBox txtPlanID;
     }
 }

@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtModel = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.accessory = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accessoryname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
             this.txtAccessory = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.lbSearch = new System.Windows.Forms.ListBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
-            this.accessory = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.accessoryname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.delete = new System.Windows.Forms.DataGridViewButtonColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,6 +78,30 @@
             this.dataGridView1.Size = new System.Drawing.Size(465, 237);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // accessory
+            // 
+            this.accessory.DataPropertyName = "Accessory";
+            this.accessory.FillWeight = 70F;
+            this.accessory.HeaderText = "ACCESSORY";
+            this.accessory.Name = "accessory";
+            this.accessory.ReadOnly = true;
+            // 
+            // accessoryname
+            // 
+            this.accessoryname.DataPropertyName = "partname";
+            this.accessoryname.HeaderText = "ACCESSORY NAME";
+            this.accessoryname.Name = "accessoryname";
+            this.accessoryname.ReadOnly = true;
+            // 
+            // delete
+            // 
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.delete.DefaultCellStyle = dataGridViewCellStyle1;
+            this.delete.FillWeight = 40F;
+            this.delete.HeaderText = "Delete";
+            this.delete.Name = "delete";
             // 
             // txtAccessory
             // 
@@ -129,30 +153,6 @@
             this.listBox1.Visible = false;
             this.listBox1.Click += new System.EventHandler(this.listBox1_Click);
             // 
-            // accessory
-            // 
-            this.accessory.DataPropertyName = "Accessory";
-            this.accessory.FillWeight = 70F;
-            this.accessory.HeaderText = "ACCESSORY";
-            this.accessory.Name = "accessory";
-            this.accessory.ReadOnly = true;
-            // 
-            // accessoryname
-            // 
-            this.accessoryname.DataPropertyName = "partname";
-            this.accessoryname.HeaderText = "ACCESSORY NAME";
-            this.accessoryname.Name = "accessoryname";
-            this.accessoryname.ReadOnly = true;
-            // 
-            // delete
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.delete.DefaultCellStyle = dataGridViewCellStyle3;
-            this.delete.FillWeight = 40F;
-            this.delete.HeaderText = "Delete";
-            this.delete.Name = "delete";
-            // 
             // RegisterAccessory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -166,6 +166,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtAccessory);
             this.Controls.Add(this.txtModel);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "RegisterAccessory";
             this.Text = "RegisterAccessory";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
