@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using HANMISYSTEM.Module;
 using HANMISYSTEM.Views.Accessory;
 using HANMISYSTEM.Views.PartialView;
+using System.IO.Ports;
+using HANMISYSTEM.Common;
 
 namespace HANMISYSTEM
 {
@@ -21,12 +23,68 @@ namespace HANMISYSTEM
         public frmprod()
         {
             InitializeComponent();
-            AutoUpdateTarget();
+            //AutoUpdateTarget();
         }
+        SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
         Dbconnect connect = new Dbconnect();
         Isnumber _isnumber = new Isnumber();
+        PackingController packageController = new PackingController();
         int plan;
         bool checkStatus;
+        private void CallOK()
+        {
+            try
+            {
+                if (!serialPort.IsOpen)
+                {
+                    serialPort.Open();
+                }
+                //close relay
+                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                serialPort.Write(chanel1, 0, chanel1.Length);
+                //serialPort.WriteLine('\n' + "@R0" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@Y0" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@G1" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@B0" + '\r');
+
+                serialPort.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+        private void CallNG()
+        {
+            try
+            {
+                if (!serialPort.IsOpen)
+                {
+                    serialPort.Open();
+                }
+                //serialPort.WriteLine('\n' + "@R1" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@Y0" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@G0" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@B1" + '\r');
+
+
+                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
+                serialPort.Write(chanel1, 0, chanel1.Length);
+                serialPort.Close();
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message);
+            }
+
+        }
         private void frmprod_Load(object sender, EventArgs e)
         {
             DataTable dt2;
@@ -94,17 +152,6 @@ namespace HANMISYSTEM
                         }
                         else
                         {
-                            //CHECK PLAN
-                            //DataTable dtplan = connect.readdata("select * from productionplan where partno='" + txtpartno.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and productiondate='" + DateTime.Now.ToString("yyyy-MM-dd") + "'");
-
-                            //if (dtplan.Rows.Count > 0)
-                            //{
-                            //    plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());
-                            //}
-                            //else
-                            //{
-                            //    plan = 0;
-                            //}
                             if (connect.countdata("select count(partno) from productionhistory where partno='" + txtpartno.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and convert(date,productiontime)=CONVERT(DATE,GETDATE())") < plan)
                             {
                                 if (txtboxno.Text == "")
@@ -119,16 +166,6 @@ namespace HANMISYSTEM
                                     //connect.exedata("exec spInsertProductionHistory @idwarehouse='" + cbwarehouse.SelectedValue + "',@partno='" + txtpartno.Text.ToUpper() + "',@remark='" + remark + "',@idlocation='" + cblocation.SelectedValue + "',@idpack='" + txtboxno.Text + "'");
                                     connect.exedata("update runingstatus set partno=@partno where idlocation='" + cblocation.SelectedValue.ToString() + "'");
                                     connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + cbwarehouse.SelectedValue.ToString() + "','" + txtmodel.Text + "',GETDATE(),'" + remark + "',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')");
-
-                                    //remove save data follow month
-                                    //if (connect.countdata("select count(partno) from productivity where partno ='" + txtmodel.Text.ToUpper() + "' and idwarehouse='" + cbwarehouse.SelectedValue + "' and yearmonth=left(CONVERT(date,getdate()),7)") == 0)
-                                    //{
-                                    //    connect.exedata("insert into productivity (partno,idwarehouse,quantity,yearmonth) values('" + txtmodel.Text.ToUpper() + "','" + cbwarehouse.SelectedValue + "','1',left(CONVERT(date,getdate()),7))");
-                                    //}
-                                    //else
-                                    //{
-                                    //    connect.exedata("update productivity set quantity=quantity+1 where partno='" + txtmodel.Text.ToUpper() + "' and idwarehouse='" + cbwarehouse.SelectedValue + "' and yearmonth=left(CONVERT(date,getdate()),7)");
-                                    //}
                                     DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
                                     txtproductionqty.Text = dtsumqty.Rows[0]["pro"].ToString();
                                     //quanli packing
@@ -140,8 +177,6 @@ namespace HANMISYSTEM
                                     {
                                         connect.exedata("exec spUpdatePackingInfo_Increase @idpack='" + txtboxno.Text + "'");
                                     }
-
-
                                     DataTable dtinventory = connect.readdata("select sum(quantity) as stock from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtmodel.Text + "'");
                                     if (dtinventory.Rows.Count > 0)
                                     {
@@ -160,28 +195,7 @@ namespace HANMISYSTEM
                                     {
                                         txtpartno.Text = "";
                                     }
-
-                                    //quanli #bom
-                                    //DataTable dtbom = connect.readdata("with temp(partno,rawpartno,quantity) as (select partno,rawpartno,quantity from bom where partno='" + txtmodel.Text + "' union all select a.partno,b.rawpartno,a.quantity*b.quantity from temp as a, bom as b where a.rawpartno=b.partno and (select ProcessID from cargo where partno ='" + txtmodel.Text + "')=(select ProcessID from cargo where partno=b.partno) ) select rawpartno, SUM(quantity) as quantity from (select * from temp t1 where (select ProcessID from cargo where partno ='" + txtmodel.Text + "')<>(select ProcessID from cargo where partno=t1.rawpartno)) as temp1 inner join cargo c1 on temp1.partno=c1.partno group by temp1.partno,rawpartno order by temp1.partno asc");
-                                    //if (dtbom.Rows.Count > 0)
-                                    //{
-                                    //    for (int i = 0; i < dtbom.Rows.Count; i++)
-                                    //    {
-                                    //        if (connect.countdata("select count(partno) from stock where idwarehouse ='WH014' and partno='" + dtbom.Rows[i]["rawpartno"].ToString() + "'") == 0)
-                                    //        {
-                                    //            connect.exedata("insert into stock(idwarehouse,partno,quantity) values('WH014','" + dtbom.Rows[i]["rawpartno"].ToString() + "','" + (Convert.ToDouble(dtbom.Rows[i]["quantity"].ToString())  * -1) + "')");
-                                    //        }
-                                    //        else
-                                    //        {
-                                    //            connect.exedata("update stock set quantity =quantity-" + (Convert.ToDouble(dtbom.Rows[i]["quantity"].ToString())) + " where partno='"+dtbom.Rows[i]["rawpartno"].ToString()+"'");
-                                    //        }
-                                    //    }
-                                    //}
-
-
                                 }
-
-
                             }
                             else
                             {
@@ -192,52 +206,14 @@ namespace HANMISYSTEM
                     }
                     else
                     {
-                        if (txtactualqty.Text != "0")
+                        using (Notify frm = new Notify())
                         {
-                            MessageBox.Show("Cần đóng gói xong thùng hiện tại ");
-                            txtpartno.Text = "";
+                            CallNG();
+                            frm.content = "Label : " + txtpartno.Text + " không hợp lệ.Xin hãy kiểm tra lại !!!";
+                            frm.ShowDialog();
                         }
-
-                        else
-                        {
-                            //DialogResult ans = MessageBox.Show("Sai mã ,Đổi model ngay bây giờ", "Notice", MessageBoxButtons.YesNo);
-                            //if (ans == DialogResult.Yes)
-                            //{
-                            //    if (connect.countdata("select count(*) from cargo where partno='" + txtpartno.Text + "' and idcategory='3'") != 0)
-                            //    {
-                            //        txtmodel.Text = txtpartno.Text;
-                            //        txtpartno.Text = "";
-                            //        //kiem tra giai doan truoc da có endtime hay chưa
-                            //        DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
-                            //        if (dtendtime.Rows.Count > 0)
-                            //        {
-                            //            if (string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
-                            //            {
-                            //                //them endtime
-                            //                connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
-                            //            }
-                            //        }
-                            //        connect.exedata("exec spInsertTrackingUPH @partno='" + txtmodel.Text + "' ,@locationid='" + cblocation.SelectedValue.ToString() + "',@remark=''");
-                            //    }
-                            //    else
-                            //    {
-                            //        MessageBox.Show("Partno không tồn tại!");
-                            //        txtpartno.Text = "";
-                            //    }
-                            //}
-                            //else
-                            //{
-                            //    txtpartno.Text = "";
-                            //}
-                            MessageBox.Show("Sai mã ,xin hãy kiểm tra lại tem nhãn");
-                            txtpartno.Text = "";
-                        }
-
+                        txtpartno.Text = "";
                     }
-
-
-
-
                 }
             }
         }
@@ -308,6 +284,7 @@ namespace HANMISYSTEM
             //DataTable dtShortagePlan = connect.readdata("select shortage from view_shortage_plan where partno ='" + txtmodel.Text + "' and idlocation ='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'");
             if (txtboxno.Text.Length == 14)
             {
+
                 DataTable packqty = connect.readdata("select * from packinginfo where idpack='" + txtboxno.Text + "'");
                 DataTable dt = connect.readdata("select * from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
                 if (dt.Rows.Count == 0)
@@ -347,41 +324,99 @@ namespace HANMISYSTEM
                                 }
                                 else
                                 {
-                                    if (checkBox2.Checked == true)
+                                    if (packageController.CheckLabel(txtmodel.Text))
                                     {
-                                        // MessageBox.Show("true");
-                                        txtsoluong.Focus();
-                                        DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
-                                        DataTable dtpackinginfo = connect.readdata("select quantity from packinginfo where idpack='" + txtboxno.Text + "'");
-                                        txtsoluong.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
-                                        txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                        CheckPackageLabel frm = new CheckPackageLabel();
+                                        frm.label = txtmodel.Text;
+                                        frm.ShowDialog();
+
+                                        if (checkBox2.Checked == true)
+                                        {
+                                            txtsoluong.Focus();
+                                            DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
+                                            DataTable dtpackinginfo = connect.readdata("select quantity from packinginfo where idpack='" + txtboxno.Text + "'");
+                                            txtsoluong.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+
+                                        }
+                                        else if (checkBox2.Checked == false)
+                                        {
+                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtpartno.Focus();
+                                        }
+
+                                        txtactualqty.Text = packqty.Rows[0]["quantity"].ToString();
+
+
 
                                     }
-                                    else if (checkBox2.Checked == false)
+                                    else
                                     {
-                                        txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
-                                        txtpartno.Focus();
+                                        if (checkBox2.Checked == true)
+                                        {
+                                            txtsoluong.Focus();
+                                            DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
+                                            DataTable dtpackinginfo = connect.readdata("select quantity from packinginfo where idpack='" + txtboxno.Text + "'");
+                                            txtsoluong.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+
+                                        }
+                                        else if (checkBox2.Checked == false)
+                                        {
+                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtpartno.Focus();
+                                        }
+
+                                        txtactualqty.Text = packqty.Rows[0]["quantity"].ToString();
                                     }
 
-                                    txtactualqty.Text = packqty.Rows[0]["quantity"].ToString();
+
                                 }
                             }
 
                         }
                         else
                         {
-                            if (checkBox2.Checked == false)
+                            if (packageController.CheckLabel(txtmodel.Text))
                             {
-                                txtqty.Text = dt.Rows[0]["quantity"].ToString();
-                                txtpartno.Focus();
+                                CheckPackageLabel frm = new CheckPackageLabel();
+                                frm.label = txtmodel.Text;
+                                frm.ShowDialog();
+                                if (frm.label == txtmodel.Text)
+                                {
+                                    if (checkBox2.Checked == false)
+                                    {
+                                        txtqty.Text = dt.Rows[0]["quantity"].ToString();
+                                        txtpartno.Focus();
+                                    }
+                                    else
+                                    {
+                                        txtsoluong.Focus();
+                                        DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
+                                        txtsoluong.Text = dt.Rows[0]["quantity"].ToString();
+                                        txtqty.Text = dt.Rows[0]["quantity"].ToString();
+                                    }
+                                }
+
+
                             }
                             else
                             {
-                                txtsoluong.Focus();
-                                DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
-                                txtsoluong.Text = dt.Rows[0]["quantity"].ToString();
-                                txtqty.Text = dt.Rows[0]["quantity"].ToString();
+                                if (checkBox2.Checked == false)
+                                {
+                                    txtqty.Text = dt.Rows[0]["quantity"].ToString();
+                                    txtpartno.Focus();
+                                }
+                                else
+                                {
+                                    txtsoluong.Focus();
+                                    DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
+                                    txtsoluong.Text = dt.Rows[0]["quantity"].ToString();
+                                    txtqty.Text = dt.Rows[0]["quantity"].ToString();
+                                }
                             }
+
+
                         }
                     }
                 }
@@ -414,21 +449,10 @@ namespace HANMISYSTEM
                     checkBox1.Enabled = true;
                     txtpartno.Focus();
                     btnpacking.Enabled = true;
-                    HANMISYSTEM.Properties.Settings.Default.status = "CONTINUE";
-                    connect.exedata("update runingstatus set status='CONTINUE',partno='" + txtmodel.Text + "',WO='" + txtworkorder.Text + "' where idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation ='" + cblocation.SelectedValue + "'");
                     Properties.Settings.Default.Save();
                     txtmodel.Enabled = false;
                     cbwarehouse.Enabled = false;
                     cblocation.Enabled = false;
-                    DataTable dt = connect.readdata("select * from productionstatus where partno='" + txtmodel.Text.ToUpper() + "' and productiondate=convert(date,getdate()) and idlocation='" + cblocation.SelectedValue + "'");
-                    if (dt.Rows.Count > 0)
-                    {
-                        connect.exedata("update productionstatus set continuetime=getdate(),updatetime=getdate() where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "' and productiondate=convert(date,getdate())");
-                    }
-                    else
-                    {
-                        connect.exedata("insert into productionstatus (partno,idwarehouse,idlocation,productiondate,starttime,WO) values('" + txtmodel.Text.ToUpper() + "','" + cbwarehouse.SelectedValue + "','" + cblocation.SelectedValue + "',convert(date,getdate()),getdate(),'" + txtworkorder.Text + "')");
-                    }
                     checkStatus = true;
                     //timer1.Start();
                 }
@@ -859,10 +883,10 @@ namespace HANMISYSTEM
 
         private void btnremark_Click(object sender, EventArgs e)
         {
-            IssueReport fr = new IssueReport();
-            fr.lbLocation.Text = cblocation.SelectedValue.ToString();
-            fr.lbModel.Text = txtmodel.Text;
-            fr.ShowDialog();
+            //IssueReport fr = new IssueReport();
+            //fr.lbLocation.Text = cblocation.SelectedValue.ToString();
+            //fr.lbModel.Text = txtmodel.Text;
+            //fr.ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -880,22 +904,13 @@ namespace HANMISYSTEM
                 txtmodel.Text = fr.sendDataModel();
                 txtPlanID.Text = fr.SendPlanID();
                 lbsearch.Visible = false;
-
-                DataTable dt = connect.readdata("select currenttarget from updatestatus where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and productiondate=convert(date,getdate())");
-                if (dt.Rows.Count > 0)
+                if (!packageController.CheckChangePackingMethod(txtmodel.Text))
                 {
-                    if (dt.Rows[0]["currenttarget"].ToString() != "")
-                    {
-                        txttarget.Text = dt.Rows[0]["currenttarget"].ToString();
-                    }
-                    else
-                    {
-                        txttarget.Text = "0";
-                    }
+                    checkBox2.Enabled = false;
                 }
                 else
                 {
-                    txttarget.Text = "0";
+                    checkBox2.Enabled = true;
                 }
                 DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and productiondate=convert(date,getdate())");
                 if (dt1.Rows.Count > 0)
@@ -911,8 +926,6 @@ namespace HANMISYSTEM
                 txtqty.Text = "0";
                 txtactualqty.Text = "0";
                 txtboxno.Enabled = true; ;
-                //lbsearch.Visible = false;
-
             }
 
         }
@@ -921,7 +934,7 @@ namespace HANMISYSTEM
         {
             while (true)
             {
-                if (checkStatus == true && txtmodel.Text!="")
+                if (checkStatus == true && txtmodel.Text != "")
                 {
                     DataTable dtproductivity = connect.readdata("select productivity from cargo where partno='" + txtmodel.Text.ToUpper() + "'");
                     int pro = Convert.ToInt32(dtproductivity.Rows[0]["productivity"].ToString());
@@ -986,6 +999,12 @@ namespace HANMISYSTEM
                 await Task.Delay(10000);
             }
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Settings frm = new Settings();
+            frm.ShowDialog();
         }
     }
 }

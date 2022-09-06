@@ -39,6 +39,15 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtpartno = new System.Windows.Forms.TextBox();
             this.dgvplan = new System.Windows.Forms.DataGridView();
+            this.selectrow = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idlocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pst = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -69,15 +78,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.selectrow = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idlocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.wo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pst = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvplan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
@@ -185,10 +186,73 @@
             this.dgvplan.Location = new System.Drawing.Point(0, 0);
             this.dgvplan.Name = "dgvplan";
             this.dgvplan.RowHeadersVisible = false;
-            this.dgvplan.Size = new System.Drawing.Size(1043, 584);
+            this.dgvplan.Size = new System.Drawing.Size(1022, 584);
             this.dgvplan.TabIndex = 0;
             this.dgvplan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvplan_CellClick);
             this.dgvplan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvplan_MouseClick);
+            // 
+            // selectrow
+            // 
+            this.selectrow.HeaderText = "Chọn";
+            this.selectrow.Name = "selectrow";
+            this.selectrow.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.selectrow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // STT
+            // 
+            this.STT.DataPropertyName = "r";
+            this.STT.HeaderText = "STT";
+            this.STT.Name = "STT";
+            this.STT.ReadOnly = true;
+            // 
+            // idlocation
+            // 
+            this.idlocation.DataPropertyName = "idlocation";
+            this.idlocation.HeaderText = "Chuyền";
+            this.idlocation.Name = "idlocation";
+            this.idlocation.ReadOnly = true;
+            // 
+            // wo
+            // 
+            this.wo.DataPropertyName = "wocode";
+            this.wo.HeaderText = "WO";
+            this.wo.Name = "wo";
+            this.wo.ReadOnly = true;
+            // 
+            // partno
+            // 
+            this.partno.DataPropertyName = "partno";
+            this.partno.HeaderText = "Mặt hàng";
+            this.partno.Name = "partno";
+            this.partno.ReadOnly = true;
+            // 
+            // partname
+            // 
+            this.partname.DataPropertyName = "partname";
+            this.partname.HeaderText = "Tên mặt hàng";
+            this.partname.Name = "partname";
+            this.partname.ReadOnly = true;
+            // 
+            // quantity
+            // 
+            this.quantity.DataPropertyName = "productionplan";
+            this.quantity.HeaderText = "Kế hoạch";
+            this.quantity.Name = "quantity";
+            this.quantity.ReadOnly = true;
+            // 
+            // pst
+            // 
+            this.pst.DataPropertyName = "pst";
+            this.pst.HeaderText = "PST";
+            this.pst.Name = "pst";
+            this.pst.ReadOnly = true;
+            // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "Trạng thái";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
             // 
             // textBox3
             // 
@@ -293,14 +357,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.upload;
-            this.pictureBox1.Location = new System.Drawing.Point(919, 3);
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(43, 42);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 16;
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Visible = false;
             // 
             // dtpdateplan
             // 
@@ -346,7 +407,7 @@
             // 
             this.lbsearch.FormattingEnabled = true;
             this.lbsearch.ItemHeight = 18;
-            this.lbsearch.Location = new System.Drawing.Point(136, 283);
+            this.lbsearch.Location = new System.Drawing.Point(136, 242);
             this.lbsearch.Name = "lbsearch";
             this.lbsearch.Size = new System.Drawing.Size(144, 184);
             this.lbsearch.TabIndex = 22;
@@ -371,6 +432,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.label8);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.btnexcel);
@@ -392,7 +454,7 @@
             this.panel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel2.Location = new System.Drawing.Point(0, 64);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(313, 664);
+            this.panel2.Size = new System.Drawing.Size(334, 664);
             this.panel2.TabIndex = 24;
             // 
             // label8
@@ -408,7 +470,7 @@
             // 
             this.txtwo.Location = new System.Drawing.Point(136, 178);
             this.txtwo.Name = "txtwo";
-            this.txtwo.Size = new System.Drawing.Size(144, 24);
+            this.txtwo.Size = new System.Drawing.Size(88, 24);
             this.txtwo.TabIndex = 7;
             // 
             // panel3
@@ -416,9 +478,9 @@
             this.panel3.Controls.Add(this.panel5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(313, 64);
+            this.panel3.Location = new System.Drawing.Point(334, 64);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(1043, 664);
+            this.panel3.Size = new System.Drawing.Size(1022, 664);
             this.panel3.TabIndex = 25;
             // 
             // panel5
@@ -427,7 +489,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(0, 80);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1043, 584);
+            this.panel5.Size = new System.Drawing.Size(1022, 584);
             this.panel5.TabIndex = 1;
             // 
             // panel4
@@ -438,7 +500,7 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1043, 80);
+            this.panel4.Size = new System.Drawing.Size(1022, 80);
             this.panel4.TabIndex = 22;
             // 
             // panel7
@@ -495,68 +557,12 @@
             this.panel6.Size = new System.Drawing.Size(586, 80);
             this.panel6.TabIndex = 23;
             // 
-            // selectrow
+            // textBox1
             // 
-            this.selectrow.HeaderText = "Chọn";
-            this.selectrow.Name = "selectrow";
-            this.selectrow.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.selectrow.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // STT
-            // 
-            this.STT.DataPropertyName = "r";
-            this.STT.HeaderText = "STT";
-            this.STT.Name = "STT";
-            this.STT.ReadOnly = true;
-            // 
-            // idlocation
-            // 
-            this.idlocation.DataPropertyName = "idlocation";
-            this.idlocation.HeaderText = "Chuyền";
-            this.idlocation.Name = "idlocation";
-            this.idlocation.ReadOnly = true;
-            // 
-            // wo
-            // 
-            this.wo.DataPropertyName = "wocode";
-            this.wo.HeaderText = "WO";
-            this.wo.Name = "wo";
-            this.wo.ReadOnly = true;
-            // 
-            // partno
-            // 
-            this.partno.DataPropertyName = "partno";
-            this.partno.HeaderText = "Mặt hàng";
-            this.partno.Name = "partno";
-            this.partno.ReadOnly = true;
-            // 
-            // partname
-            // 
-            this.partname.DataPropertyName = "partname";
-            this.partname.HeaderText = "Tên mặt hàng";
-            this.partname.Name = "partname";
-            this.partname.ReadOnly = true;
-            // 
-            // quantity
-            // 
-            this.quantity.DataPropertyName = "productionplan";
-            this.quantity.HeaderText = "Kế hoạch";
-            this.quantity.Name = "quantity";
-            this.quantity.ReadOnly = true;
-            // 
-            // pst
-            // 
-            this.pst.DataPropertyName = "pst";
-            this.pst.HeaderText = "PST";
-            this.pst.Name = "pst";
-            this.pst.ReadOnly = true;
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "Trạng thái";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
+            this.textBox1.Location = new System.Drawing.Point(230, 178);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(50, 24);
+            this.textBox1.TabIndex = 24;
             // 
             // productionplan
             // 
@@ -638,5 +644,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantity;
         private System.Windows.Forms.DataGridViewTextBoxColumn pst;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

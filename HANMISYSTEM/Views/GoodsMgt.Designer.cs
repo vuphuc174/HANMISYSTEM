@@ -323,7 +323,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.upload;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.export;
             this.pictureBox1.Location = new System.Drawing.Point(588, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(45, 43);
@@ -354,7 +354,7 @@
             // 
             // pictureBox2
             // 
-            this.pictureBox2.Image = global::HANMISYSTEM.Properties.Resources.upload;
+            this.pictureBox2.Image = global::HANMISYSTEM.Properties.Resources.export;
             this.pictureBox2.Location = new System.Drawing.Point(829, 505);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(27, 21);

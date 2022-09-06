@@ -525,8 +525,7 @@ namespace HANMISYSTEM
 
         private void llbom_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            bom fr = new bom();
-            TabCreating(tabcontrol1, "BOM mgt", fr);
+
         }
 
         private void llstockproduction_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

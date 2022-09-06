@@ -14,7 +14,7 @@ namespace HANMISYSTEM
         static string uid = HANMISYSTEM.Properties.Settings.Default.uid;
         static string pwd = HANMISYSTEM.Properties.Settings.Default.pwd;
         //public SqlConnection con = new SqlConnection(@"Data Source=" + sn + ";Initial Catalog=HANMI;Trusted_Connection=no;uid = " + uid + ";pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30");
-        public SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-3E1B9HM\SQLEXPRESS;Initial Catalog=HANMI;Trusted_Connection=no;uid = sa;pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30");
+        public SqlConnection con = new SqlConnection(@"Data Source=192.168.1.252,1434;Initial Catalog=HANMI;Trusted_Connection=no;uid = sa;pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30");
         public void openconnect()
         {
             if (con.State == ConnectionState.Closed)

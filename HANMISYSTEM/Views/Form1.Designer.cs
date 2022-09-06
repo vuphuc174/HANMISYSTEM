@@ -74,6 +74,9 @@
             this.txtworkorder = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -81,6 +84,9 @@
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
+            this.panel7.SuspendLayout();
+            this.panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -111,9 +117,9 @@
             this.cbwarehouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbwarehouse.FormattingEnabled = true;
             this.cbwarehouse.ItemHeight = 18;
-            this.cbwarehouse.Location = new System.Drawing.Point(541, 8);
+            this.cbwarehouse.Location = new System.Drawing.Point(541, 11);
             this.cbwarehouse.Name = "cbwarehouse";
-            this.cbwarehouse.Size = new System.Drawing.Size(263, 26);
+            this.cbwarehouse.Size = new System.Drawing.Size(252, 26);
             this.cbwarehouse.TabIndex = 1;
             this.cbwarehouse.SelectedIndexChanged += new System.EventHandler(this.cbwarehouse_SelectedIndexChanged);
             // 
@@ -519,7 +525,7 @@
             this.txtworkorder.ReadOnly = true;
             this.txtworkorder.Size = new System.Drawing.Size(167, 34);
             this.txtworkorder.TabIndex = 0;
-            this.txtworkorder.Text = "aaaa";
+            this.txtworkorder.Text = "...";
             // 
             // panel5
             // 
@@ -552,6 +558,7 @@
             // 
             // panel6
             // 
+            this.panel6.Controls.Add(this.panel7);
             this.panel6.Controls.Add(this.txtactualqty);
             this.panel6.Controls.Add(this.label7);
             this.panel6.Controls.Add(this.label11);
@@ -563,6 +570,36 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(529, 622);
             this.panel6.TabIndex = 25;
+            // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.panel8);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 0);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(529, 44);
+            this.panel7.TabIndex = 22;
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.pictureBox1);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel8.Location = new System.Drawing.Point(0, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(95, 44);
+            this.panel8.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.settings1;
+            this.pictureBox1.Location = new System.Drawing.Point(45, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(47, 30);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // frmprod
             // 
@@ -593,6 +630,9 @@
             this.panel5.PerformLayout();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -644,6 +684,9 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.TextBox txtPlanID;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panel8;
     }
 }
 

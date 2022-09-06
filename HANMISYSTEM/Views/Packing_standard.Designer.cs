@@ -59,7 +59,17 @@
             this.chkpallet = new System.Windows.Forms.CheckBox();
             this.txtcanqty = new System.Windows.Forms.TextBox();
             this.chkcan = new System.Windows.Forms.CheckBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -77,10 +87,11 @@
             this.rol,
             this.pal,
             this.can});
-            this.dataGridView1.Location = new System.Drawing.Point(264, 66);
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(666, 461);
+            this.dataGridView1.Size = new System.Drawing.Size(892, 597);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -150,7 +161,7 @@
             // txtpartno
             // 
             this.txtpartno.Enabled = false;
-            this.txtpartno.Location = new System.Drawing.Point(54, 66);
+            this.txtpartno.Location = new System.Drawing.Point(51, 10);
             this.txtpartno.Name = "txtpartno";
             this.txtpartno.Size = new System.Drawing.Size(136, 20);
             this.txtpartno.TabIndex = 1;
@@ -159,7 +170,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 69);
+            this.label1.Location = new System.Drawing.Point(-1, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(27, 13);
             this.label1.TabIndex = 2;
@@ -169,7 +180,7 @@
             // 
             this.chkbox.AutoSize = true;
             this.chkbox.Enabled = false;
-            this.chkbox.Location = new System.Drawing.Point(54, 134);
+            this.chkbox.Location = new System.Drawing.Point(44, 85);
             this.chkbox.Name = "chkbox";
             this.chkbox.Size = new System.Drawing.Size(48, 17);
             this.chkbox.TabIndex = 3;
@@ -180,7 +191,7 @@
             // txtpartname
             // 
             this.txtpartname.Enabled = false;
-            this.txtpartname.Location = new System.Drawing.Point(54, 92);
+            this.txtpartname.Location = new System.Drawing.Point(51, 36);
             this.txtpartname.Name = "txtpartname";
             this.txtpartname.Size = new System.Drawing.Size(204, 20);
             this.txtpartname.TabIndex = 1;
@@ -188,7 +199,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(5, 95);
+            this.label2.Location = new System.Drawing.Point(2, 39);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(47, 13);
             this.label2.TabIndex = 2;
@@ -198,7 +209,7 @@
             // 
             this.chkbag.AutoSize = true;
             this.chkbag.Enabled = false;
-            this.chkbag.Location = new System.Drawing.Point(131, 134);
+            this.chkbag.Location = new System.Drawing.Point(121, 85);
             this.chkbag.Name = "chkbag";
             this.chkbag.Size = new System.Drawing.Size(48, 17);
             this.chkbag.TabIndex = 3;
@@ -210,7 +221,7 @@
             // 
             this.chkcrt.AutoSize = true;
             this.chkcrt.Enabled = false;
-            this.chkcrt.Location = new System.Drawing.Point(210, 134);
+            this.chkcrt.Location = new System.Drawing.Point(200, 85);
             this.chkcrt.Name = "chkcrt";
             this.chkcrt.Size = new System.Drawing.Size(48, 17);
             this.chkcrt.TabIndex = 3;
@@ -220,9 +231,9 @@
             // 
             // btnsave
             // 
-            this.btnsave.Location = new System.Drawing.Point(54, 294);
+            this.btnsave.Location = new System.Drawing.Point(121, 564);
             this.btnsave.Name = "btnsave";
-            this.btnsave.Size = new System.Drawing.Size(75, 23);
+            this.btnsave.Size = new System.Drawing.Size(101, 40);
             this.btnsave.TabIndex = 4;
             this.btnsave.Text = "Lưu lại";
             this.btnsave.UseVisualStyleBackColor = true;
@@ -231,7 +242,7 @@
             // txtboxqty
             // 
             this.txtboxqty.Enabled = false;
-            this.txtboxqty.Location = new System.Drawing.Point(54, 157);
+            this.txtboxqty.Location = new System.Drawing.Point(44, 108);
             this.txtboxqty.Name = "txtboxqty";
             this.txtboxqty.Size = new System.Drawing.Size(34, 20);
             this.txtboxqty.TabIndex = 1;
@@ -240,7 +251,7 @@
             // txtbagqty
             // 
             this.txtbagqty.Enabled = false;
-            this.txtbagqty.Location = new System.Drawing.Point(131, 157);
+            this.txtbagqty.Location = new System.Drawing.Point(121, 108);
             this.txtbagqty.Name = "txtbagqty";
             this.txtbagqty.Size = new System.Drawing.Size(34, 20);
             this.txtbagqty.TabIndex = 1;
@@ -248,14 +259,14 @@
             // txtcrtqty
             // 
             this.txtcrtqty.Enabled = false;
-            this.txtcrtqty.Location = new System.Drawing.Point(210, 157);
+            this.txtcrtqty.Location = new System.Drawing.Point(200, 108);
             this.txtcrtqty.Name = "txtcrtqty";
             this.txtcrtqty.Size = new System.Drawing.Size(34, 20);
             this.txtcrtqty.TabIndex = 1;
             // 
             // txtsearch
             // 
-            this.txtsearch.Location = new System.Drawing.Point(319, 37);
+            this.txtsearch.Location = new System.Drawing.Point(107, 21);
             this.txtsearch.Name = "txtsearch";
             this.txtsearch.Size = new System.Drawing.Size(136, 20);
             this.txtsearch.TabIndex = 1;
@@ -264,7 +275,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(261, 40);
+            this.label3.Location = new System.Drawing.Point(18, 21);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(49, 13);
             this.label3.TabIndex = 5;
@@ -273,7 +284,7 @@
             // txttrayqty
             // 
             this.txttrayqty.Enabled = false;
-            this.txttrayqty.Location = new System.Drawing.Point(54, 211);
+            this.txttrayqty.Location = new System.Drawing.Point(44, 162);
             this.txttrayqty.Name = "txttrayqty";
             this.txttrayqty.Size = new System.Drawing.Size(34, 20);
             this.txttrayqty.TabIndex = 1;
@@ -282,7 +293,7 @@
             // txtrollqty
             // 
             this.txtrollqty.Enabled = false;
-            this.txtrollqty.Location = new System.Drawing.Point(131, 211);
+            this.txtrollqty.Location = new System.Drawing.Point(121, 162);
             this.txtrollqty.Name = "txtrollqty";
             this.txtrollqty.Size = new System.Drawing.Size(34, 20);
             this.txtrollqty.TabIndex = 1;
@@ -290,7 +301,7 @@
             // txtpalletqty
             // 
             this.txtpalletqty.Enabled = false;
-            this.txtpalletqty.Location = new System.Drawing.Point(210, 211);
+            this.txtpalletqty.Location = new System.Drawing.Point(200, 162);
             this.txtpalletqty.Name = "txtpalletqty";
             this.txtpalletqty.Size = new System.Drawing.Size(34, 20);
             this.txtpalletqty.TabIndex = 1;
@@ -299,7 +310,7 @@
             // 
             this.chktray.AutoSize = true;
             this.chktray.Enabled = false;
-            this.chktray.Location = new System.Drawing.Point(54, 188);
+            this.chktray.Location = new System.Drawing.Point(44, 139);
             this.chktray.Name = "chktray";
             this.chktray.Size = new System.Drawing.Size(48, 17);
             this.chktray.TabIndex = 3;
@@ -311,7 +322,7 @@
             // 
             this.chkroll.AutoSize = true;
             this.chkroll.Enabled = false;
-            this.chkroll.Location = new System.Drawing.Point(131, 188);
+            this.chkroll.Location = new System.Drawing.Point(121, 139);
             this.chkroll.Name = "chkroll";
             this.chkroll.Size = new System.Drawing.Size(48, 17);
             this.chkroll.TabIndex = 3;
@@ -323,7 +334,7 @@
             // 
             this.chkpallet.AutoSize = true;
             this.chkpallet.Enabled = false;
-            this.chkpallet.Location = new System.Drawing.Point(210, 188);
+            this.chkpallet.Location = new System.Drawing.Point(200, 139);
             this.chkpallet.Name = "chkpallet";
             this.chkpallet.Size = new System.Drawing.Size(46, 17);
             this.chkpallet.TabIndex = 3;
@@ -334,7 +345,7 @@
             // txtcanqty
             // 
             this.txtcanqty.Enabled = false;
-            this.txtcanqty.Location = new System.Drawing.Point(54, 268);
+            this.txtcanqty.Location = new System.Drawing.Point(44, 219);
             this.txtcanqty.Name = "txtcanqty";
             this.txtcanqty.Size = new System.Drawing.Size(34, 20);
             this.txtcanqty.TabIndex = 1;
@@ -344,7 +355,7 @@
             // 
             this.chkcan.AutoSize = true;
             this.chkcan.Enabled = false;
-            this.chkcan.Location = new System.Drawing.Point(54, 245);
+            this.chkcan.Location = new System.Drawing.Point(44, 196);
             this.chkcan.Name = "chkcan";
             this.chkcan.Size = new System.Drawing.Size(48, 17);
             this.chkcan.TabIndex = 3;
@@ -352,40 +363,103 @@
             this.chkcan.UseVisualStyleBackColor = true;
             this.chkcan.CheckedChanged += new System.EventHandler(this.chkcan_CheckedChanged);
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.checkBox2);
+            this.panel1.Controls.Add(this.checkBox1);
+            this.panel1.Controls.Add(this.btnsave);
+            this.panel1.Controls.Add(this.txtpartno);
+            this.panel1.Controls.Add(this.chkpallet);
+            this.panel1.Controls.Add(this.txtboxqty);
+            this.panel1.Controls.Add(this.chkcrt);
+            this.panel1.Controls.Add(this.txtbagqty);
+            this.panel1.Controls.Add(this.chkroll);
+            this.panel1.Controls.Add(this.txttrayqty);
+            this.panel1.Controls.Add(this.chkbag);
+            this.panel1.Controls.Add(this.txtcanqty);
+            this.panel1.Controls.Add(this.chkcan);
+            this.panel1.Controls.Add(this.txtcrtqty);
+            this.panel1.Controls.Add(this.chktray);
+            this.panel1.Controls.Add(this.txtrollqty);
+            this.panel1.Controls.Add(this.chkbox);
+            this.panel1.Controls.Add(this.txtpalletqty);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Controls.Add(this.txtpartname);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(252, 653);
+            this.panel1.TabIndex = 6;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.panel3);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(252, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(892, 653);
+            this.panel2.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.label3);
+            this.panel3.Controls.Add(this.txtsearch);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(892, 56);
+            this.panel3.TabIndex = 6;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.dataGridView1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(0, 56);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(892, 597);
+            this.panel4.TabIndex = 7;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(44, 260);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(80, 17);
+            this.checkBox1.TabIndex = 5;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(44, 283);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(80, 17);
+            this.checkBox2.TabIndex = 5;
+            this.checkBox2.Text = "checkBox1";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
             // Packing_standard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(943, 539);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.btnsave);
-            this.Controls.Add(this.chkpallet);
-            this.Controls.Add(this.chkcrt);
-            this.Controls.Add(this.chkroll);
-            this.Controls.Add(this.chkbag);
-            this.Controls.Add(this.chkcan);
-            this.Controls.Add(this.chktray);
-            this.Controls.Add(this.chkbox);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.txtpartname);
-            this.Controls.Add(this.txtpalletqty);
-            this.Controls.Add(this.txtrollqty);
-            this.Controls.Add(this.txtcrtqty);
-            this.Controls.Add(this.txtcanqty);
-            this.Controls.Add(this.txttrayqty);
-            this.Controls.Add(this.txtbagqty);
-            this.Controls.Add(this.txtboxqty);
-            this.Controls.Add(this.txtsearch);
-            this.Controls.Add(this.txtpartno);
-            this.Controls.Add(this.dataGridView1);
+            this.ClientSize = new System.Drawing.Size(1144, 653);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Packing_standard";
             this.Text = "Packing_standard";
             this.Load += new System.EventHandler(this.Packing_standard_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -422,5 +496,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn rol;
         private System.Windows.Forms.DataGridViewTextBoxColumn pal;
         private System.Windows.Forms.DataGridViewTextBoxColumn can;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel panel3;
     }
 }

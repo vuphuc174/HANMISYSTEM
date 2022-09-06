@@ -87,7 +87,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.logo;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.production;
             this.pictureBox1.Location = new System.Drawing.Point(9, 30);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(165, 61);
