@@ -98,6 +98,10 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Index_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.model = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.judgestatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.panel17 = new System.Windows.Forms.Panel();
@@ -106,10 +110,6 @@
             this.lbFinalJudge = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
-            this.Index_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.model = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.judgestatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.time = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gb1.SuspendLayout();
             this.gb2.SuspendLayout();
             this.gb3.SuspendLayout();
@@ -967,6 +967,36 @@
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dataGridView1_RowStateChanged_1);
             // 
+            // Index_col
+            // 
+            this.Index_col.FillWeight = 30F;
+            this.Index_col.HeaderText = "No.";
+            this.Index_col.Name = "Index_col";
+            this.Index_col.ReadOnly = true;
+            // 
+            // model
+            // 
+            this.model.FillWeight = 70F;
+            this.model.HeaderText = "MODEL";
+            this.model.Name = "model";
+            this.model.ReadOnly = true;
+            this.model.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // judgestatus
+            // 
+            this.judgestatus.FillWeight = 50F;
+            this.judgestatus.HeaderText = "JUDGE";
+            this.judgestatus.Name = "judgestatus";
+            this.judgestatus.ReadOnly = true;
+            this.judgestatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // time
+            // 
+            this.time.HeaderText = "TIME";
+            this.time.Name = "time";
+            this.time.ReadOnly = true;
+            this.time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // panel3
             // 
             this.panel3.Controls.Add(this.label3);
@@ -1048,36 +1078,6 @@
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(10, 246);
             this.panel15.TabIndex = 17;
-            // 
-            // Index_col
-            // 
-            this.Index_col.FillWeight = 30F;
-            this.Index_col.HeaderText = "No.";
-            this.Index_col.Name = "Index_col";
-            this.Index_col.ReadOnly = true;
-            // 
-            // model
-            // 
-            this.model.FillWeight = 70F;
-            this.model.HeaderText = "MODEL";
-            this.model.Name = "model";
-            this.model.ReadOnly = true;
-            this.model.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // judgestatus
-            // 
-            this.judgestatus.FillWeight = 50F;
-            this.judgestatus.HeaderText = "JUDGE";
-            this.judgestatus.Name = "judgestatus";
-            this.judgestatus.ReadOnly = true;
-            this.judgestatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // time
-            // 
-            this.time.HeaderText = "TIME";
-            this.time.Name = "time";
-            this.time.ReadOnly = true;
-            this.time.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // CheckAccessory
             // 

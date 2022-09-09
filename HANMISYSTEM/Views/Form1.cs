@@ -445,7 +445,7 @@ namespace HANMISYSTEM
                     }
                     connect.exedata("exec spInsertTrackingUPH @partno='" + txtmodel.Text + "' ,@locationid='" + cblocation.SelectedValue.ToString() + "',@remark=''");
                     btnpower.Text = "CONTINUE";
-                    plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());
+                    //plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());
                     checkBox1.Enabled = true;
                     txtpartno.Focus();
                     btnpacking.Enabled = true;
@@ -903,6 +903,7 @@ namespace HANMISYSTEM
                 txtworkorder.Text = fr.SendData();
                 txtmodel.Text = fr.sendDataModel();
                 txtPlanID.Text = fr.SendPlanID();
+                plan = Convert.ToInt32(fr.SendPlan());
                 lbsearch.Visible = false;
                 if (!packageController.CheckChangePackingMethod(txtmodel.Text))
                 {
@@ -912,16 +913,7 @@ namespace HANMISYSTEM
                 {
                     checkBox2.Enabled = true;
                 }
-                DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and productiondate=convert(date,getdate())");
-                if (dt1.Rows.Count > 0)
-                {
-
-                    txtplan.Text = dt1.Rows[0]["productionplan"].ToString();
-                }
-                else
-                {
-                    txtplan.Text = "0";
-                }
+                txtplan.Text = plan.ToString();
                 txtboxno.Text = "";
                 txtqty.Text = "0";
                 txtactualqty.Text = "0";

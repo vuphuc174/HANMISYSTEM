@@ -1051,6 +1051,7 @@
     <Content Include="Resources\bugreport.png" />
     <Content Include="Resources\bugreport_Qa3_icon.ico" />
     <None Include="Resources\settings1.png" />
+    <None Include="Resources\search.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

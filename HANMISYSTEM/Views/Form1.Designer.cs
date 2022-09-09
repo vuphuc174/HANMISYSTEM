@@ -314,6 +314,7 @@
             this.checkBox1.TabIndex = 14;
             this.checkBox1.Text = "NG";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.Visible = false;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // txtngpartno
@@ -324,6 +325,7 @@
             this.txtngpartno.Name = "txtngpartno";
             this.txtngpartno.Size = new System.Drawing.Size(233, 29);
             this.txtngpartno.TabIndex = 15;
+            this.txtngpartno.Visible = false;
             this.txtngpartno.TextChanged += new System.EventHandler(this.txtngpartno_TextChanged);
             // 
             // label9
@@ -335,6 +337,7 @@
             this.label9.Size = new System.Drawing.Size(84, 24);
             this.label9.TabIndex = 6;
             this.label9.Text = "Mã hàng";
+            this.label9.Visible = false;
             // 
             // txtngqty
             // 
@@ -344,6 +347,7 @@
             this.txtngqty.Name = "txtngqty";
             this.txtngqty.Size = new System.Drawing.Size(38, 29);
             this.txtngqty.TabIndex = 16;
+            this.txtngqty.Visible = false;
             // 
             // checkBox2
             // 

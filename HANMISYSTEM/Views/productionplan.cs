@@ -28,6 +28,7 @@ namespace HANMISYSTEM
         private int count;
         private int counttrue;
         static private string _path;
+        const string searchField = " p.idlocation ,p.id,p.partno,c.partname,p.productionplan,p.pst,p.status ";
         public productionplan()
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace HANMISYSTEM
             DataTable Exceldt = ds.Tables[0];
             count = 0;
             counttrue = 0;
-            for (int i =0 ; i < Exceldt.Rows.Count; i++)
+            for (int i = 0; i < Exceldt.Rows.Count; i++)
             {
 
                 if (Exceldt.Rows[i]["Partno"] != DBNull.Value && Exceldt.Rows[i]["Idwarehouse"] != DBNull.Value && Exceldt.Rows[i]["Productiondate"] != DBNull.Value && Exceldt.Rows[i]["Idlocation"] != DBNull.Value && Exceldt.Rows[i]["Productionplan"] != DBNull.Value)
@@ -146,7 +147,7 @@ namespace HANMISYSTEM
 
                 }
             }
-            
+
             //creating object of SqlBulkCopy      
             SqlBulkCopy objbulk = new SqlBulkCopy(connect.con);
             //assigning Destination table name      
@@ -163,7 +164,7 @@ namespace HANMISYSTEM
             sqlConnection.ConnectionString = "server = '" + HANMISYSTEM.Properties.Settings.Default.servername + "'; database = HANMI; User ID = '" + HANMISYSTEM.Properties.Settings.Default.uid + "'; Password = '" + HANMISYSTEM.Properties.Settings.Default.pwd + "'"; //Connection Details    
             connect.con.Open();
             objbulk.WriteToServer(Exceldt);
-            
+
             MessageBox.Show("Data has been Imported done with : " + counttrue + " success and " + count + " fails", "Imported", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Thread loadThread = new Thread(new ThreadStart(loadplan));
             loadThread.Start();
@@ -193,11 +194,11 @@ namespace HANMISYSTEM
             }
 
         }
+
         private void productionplan_Load(object sender, EventArgs e)
         {
             DataTable dt2;
-            loaddata("select ROW_NUMBER() over (order by p.pst asc) as r,isnull(p.WOCode,w.Code) as wo,p.partno,c.partname,p.productionplan,p.PST,p.Status from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='L1' and p.productiondate =CONVERT(date,getdate()) ");
-            DataTable dt = connect.readdata("select idwarehouse,namewarehouse from warehouse where idcategory='W1'");
+            DataTable dt = connect.readdata("select idwarehouse,namewarehouse from warehouse where idwarehouse='WH001'");
             if (dt != null)
             {
                 cbwarehouse.DataSource = dt;
@@ -219,28 +220,35 @@ namespace HANMISYSTEM
                 cblocation.DataSource = dt2;
                 cblocation.ValueMember = "idlocation";
                 cblocation.DisplayMember = "namelocation1";
+
+                cbline.DataSource = dt2;
+                cbline.DisplayMember = "namelocation1";
+                cbline.ValueMember = "idlocation";
+                loaddata("select "+searchField+" from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='" + dt2.Rows[0]["idlocation"].ToString() + "' and p.productiondate =CONVERT(date,getdate()) ");
             }
-            DataTable dtline = connect.readdata("select * from location");
-            cbline.DataSource = dtline;
-            cbline.DisplayMember = "namelocation1";
-            cbline.ValueMember = "idlocation";
-            cbline.SelectedValue = "L1";
 
         }
         private void loaddata(string cmd)
         {
-            DataTable dt = connect.readdata(cmd);
-            if (dt != null)
+            try
             {
-                dgvplan.DataSource = dt;
+                DataTable dt = connect.readdata(cmd);
+                if (dt != null)
+                {
+                    dgvplan.DataSource = dt;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         Isnumber _isnumber = new Isnumber();
         private bool checkWOExisted(string WO)
         {
-            if(WO!="")
+            if (WO != "")
             {
-                if(connect.countdata("select count(id) from productionplan where WOCode='"+WO+"'")!=0)
+                if (connect.countdata("select count(id) from productionplan where WOCode='" + WO + "'") != 0)
                 {
                     return true;
                 }
@@ -252,13 +260,13 @@ namespace HANMISYSTEM
         private void btnadd_Click(object sender, EventArgs e)
         {
 
-            if (txtpartno.Text == "" || txtplan.Text == "" || Regex.Replace(txtplan.Text, " ", string.Empty) == "0" || _isnumber.IsNumber(txtplan.Text) == false || _isnumber.IsPositive(txtplan.Text)==false)
+            if (txtpartno.Text == "" || txtplan.Text == "" || Regex.Replace(txtplan.Text, " ", string.Empty) == "0" || _isnumber.IsNumber(txtplan.Text) == false || _isnumber.IsPositive(txtplan.Text) == false)
             {
                 MessageBox.Show("Giá trị nhập không hợp lệ");
             }
             else
             {
-                if (connect.countdata("select count(partno) from cargo where partno ='" + txtpartno.Text + "'") == 0 || checkWOExisted(txtwo.Text)==true)
+                if (connect.countdata("select count(partno) from cargo where partno ='" + txtpartno.Text + "'") == 0 || checkWOExisted(txtwo.Text) == true)
                 {
                     MessageBox.Show("Mã hàng không tồn tại ");
                     txtpartno.Text = "";
@@ -266,18 +274,10 @@ namespace HANMISYSTEM
                 }
                 else
                 {
-                    if (connect.exedata("insert into productionplan (partno,idwarehouse,pst,productiondate,idlocation,productionplan,WOCode) values('" + txtpartno.Text + "','" + cbwarehouse.SelectedValue + "','"+dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:00")+"','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "','" + cblocation.SelectedValue + "','" + txtplan.Text + "','"+txtwo.Text+"')") == true)
+                    if (connect.exedata("insert into productionplan (partno,idwarehouse,pst,productiondate,idlocation,productionplan,WOCode) values('" + txtpartno.Text + "','" + cbwarehouse.SelectedValue + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:00") + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "','" + cblocation.SelectedValue + "','" + txtplan.Text + "','" + txtwo.Text + "')") == true)
                     {
-                        MessageBox.Show("Thành công!" + dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                        if (chkdate.Checked == true)
-                        {
-                            loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on  p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
-                        }
-                        else
-                        {
-                            loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' order by productiondate desc");
-                        }
-                        
+                        MessageBox.Show("Thành công! ." + dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+                        loaddata("SELECT "+searchField+" FROM productionplan p inner join cargo c on  p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
                         txtpartno.Text = "";
                         txtplan.Text = "";
                         lbsearch.Visible = false;
@@ -293,49 +293,60 @@ namespace HANMISYSTEM
 
         private void dgvplan_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex > -1)
+            try
             {
-                cblocation.SelectedValue = dgvplan.Rows[e.RowIndex].Cells["idlocation"].Value.ToString();
-                txtpartno.Text = dgvplan.Rows[e.RowIndex].Cells["partno"].Value.ToString();
-                lbsearch.Visible = false;
-                txtplan.Text = dgvplan.Rows[e.RowIndex].Cells["productionplan"].Value.ToString();
+                if (e.RowIndex > -1)
+                {
+                    txtPlanID.Text = dgvplan.Rows[e.RowIndex].Cells["ID_col"].Value.ToString();
+                    txtpartno.Text = dgvplan.Rows[e.RowIndex].Cells["partno"].Value.ToString();
+                    lbsearch.Visible = false;
+                    txtplan.Text = dgvplan.Rows[e.RowIndex].Cells["quantity"].Value.ToString();
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+  
         }
 
         private void btnsave_Click(object sender, EventArgs e)
         {
-            DataTable dtplan = connect.readdata("select productionplan from productionplan where partno ='" + txtpartno.Text + "' and idlocation ='" + cblocation.SelectedValue.ToString() + "' and productiondate='" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "'");
-            if (dtplan.Rows.Count > 0)
+            try
             {
-                if (txtpartno.Text == "" || txtplan.Text == "" || Regex.Replace(txtplan.Text, " ", string.Empty) == "0" || _isnumber.IsNumber(txtplan.Text) ==false|| _isnumber.IsPositive(txtplan.Text)==false)
+               
+                if (!string.IsNullOrEmpty(txtPlanID.Text))
                 {
-                    MessageBox.Show("Giá trị nhập không hợp lệ");
-                }
-                else
-                {
-                    if (connect.exedata("update productionplan set productionplan='" + txtplan.Text + "' where idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation='" + cblocation.SelectedValue + "'and partno='" + txtpartno.Text + "' and productiondate='" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "'"))
+                    if (txtpartno.Text == "" || txtplan.Text == "" || Regex.Replace(txtplan.Text, " ", string.Empty) == "0" || _isnumber.IsNumber(txtplan.Text) == false || _isnumber.IsPositive(txtplan.Text) == false)
                     {
-                        MessageBox.Show("Thành công!");
-                        if (chkdate.Checked == true)
-                        {
-                            loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
-                        }
-                        else
-                        {
-                            loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' order by productiondate desc");
-                        }
-                        lbsearch.Visible = false;
+                        MessageBox.Show("Giá trị nhập không hợp lệ");
                     }
                     else
                     {
-                        MessageBox.Show("Failed");
+                        if (connect.exedata("update productionplan set productionplan='" + txtplan.Text + "' where ID ='"+txtPlanID.Text+"'"))
+                        {
+                            MessageBox.Show("Thành công!");
+                            loaddata("SELECT "+searchField+" FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
+                            txtPlanID.Text = "";
+                            txtpartno.Text = "";
+                            lbsearch.Visible = false;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Failed");
+                        }
                     }
                 }
+                else
+                {
+                    MessageBox.Show("Kế hoạch không có sẵn để sửa !!!");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Kế hoạch không có sẵn để sửa !!!");
+                MessageBox.Show(ex.Message);
             }
+           
 
 
         }
@@ -392,7 +403,7 @@ namespace HANMISYSTEM
 
                 sWatch.Stop();
                 //work is done, no need for the stop button now...  
-                pictureBox1.Visible = false;
+
                 txtpath.Text = "";
                 btnbrowser.Enabled = true;
                 bw.Dispose();
@@ -400,7 +411,7 @@ namespace HANMISYSTEM
             };
 
             //lets allow the user to click stop  
-            pictureBox1.Visible = true;
+
             MessageBox.Show("Uploading has been started !");
 
             btnbrowser.Enabled = false;
@@ -426,7 +437,7 @@ namespace HANMISYSTEM
         {
             ExportToExcel _excel = new ExportToExcel();
             saveFileDialog1.FileName = "plandata";
-            saveFileDialog1.Filter= "Text Files | *.xlsx";
+            saveFileDialog1.Filter = "Text Files | *.xlsx";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 DataTable dtplan = connect.readdata("select Partno,Idwarehouse,Productiondate,Idlocation,Productionplan,'' as status from productionplan where partno ='deo co'");
@@ -436,46 +447,13 @@ namespace HANMISYSTEM
 
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
-            if (chkdate.Checked == true)
-            {
-                loaddata("SELECT * FROM productionplan where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' and partno like '%" + textBox3.Text + "%' order by productiondate desc");
-            }
-            else
-            {
-                loaddata("SELECT * FROM productionplan where idlocation ='" + cbline.SelectedValue.ToString() + "'  and partno like '%" + textBox3.Text + "%' order by productiondate desc");
-            }
+
         }
 
         private void chkdate_CheckedChanged(object sender, EventArgs e)
         {
 
-            if (chkdate.Checked == true)
-            {
-                dtpdateplan.Enabled = true;
-                loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" +  dtpdateplan.Value.ToString("yyyy-MM-dd") + "' order by productiondate desc");
-            }
-            else
-            {
-                dtpdateplan.Enabled = false;
-                loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' order by productiondate desc");
-            }
-        }
 
-        private void cbline_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (chkdate.Checked == true)
-            {
-                loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
-            }
-            else
-            {
-                loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' order by productiondate desc");
-            }
-        }
-
-        private void dtpdateplan_ValueChanged(object sender, EventArgs e)
-        {
-            loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
         }
         private int id;
         private void dgvplan_MouseClick(object sender, MouseEventArgs e)
@@ -501,14 +479,7 @@ namespace HANMISYSTEM
             if (dr == DialogResult.Yes)
             {
                 connect.exedata("delete from productionplan where partno='" + dgvplan.Rows[id].Cells[0].Value.ToString() + "'");
-                if (chkdate.Checked == true)
-                {
-                    loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
-                }
-                else
-                {
-                    loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' order by productiondate desc");
-                }
+                loaddata("SELECT row_number() over (order by pst asc) as r,p.idlocation ,id,p.partname,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
             }
         }
 
@@ -518,6 +489,7 @@ namespace HANMISYSTEM
             {
                 txtpartno.Text = lbsearch.SelectedItem.ToString();
                 lbsearch.Visible = false;
+                txtplan.Focus();
             }
         }
 
@@ -535,6 +507,19 @@ namespace HANMISYSTEM
         private void lbsearch_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+        string searchTerm;
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(textBox3.Text))
+            {
+                searchTerm = " and p.partno like '%"+textBox3.Text+"%'";
+            }
+            else
+            {
+                searchTerm = " ";
+            }    
+            loaddata("SELECT p.idlocation ,id,p.partno,c.partname,p.productionplan,p.pst,p.status FROM productionplan p inner join cargo c on p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Value.ToString("yyyy-MM-dd") + "' "+searchTerm+" order by productiondate desc");
         }
     }
 }

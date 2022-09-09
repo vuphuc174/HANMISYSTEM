@@ -51,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9841D6AEE4D1A746A1E3C97F583961E6"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A00EFF87BD65B2815AFD5C5483DB18B2"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
@@ -88,13 +94,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F4C9F02023103D156669A01429191A07"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "OwnerKey" = "8:_9841D6AEE4D1A746A1E3C97F583961E6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -139,6 +145,12 @@
         "OwnerKey" = "8:_AAB7E612B674AF14CC601059BE00A0B7"
         "MsmSig" = "8:_UNDEFINED"
         }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F4C9F02023103D156669A01429191A07"
+        "MsmSig" = "8:_UNDEFINED"
+        }
     }
     "Configurations"
     {
@@ -157,6 +169,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -173,6 +193,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
     }
     "Deployable"
@@ -329,6 +357,37 @@
                     }
                 }
             "SourcePath" = "8:EntityFramework.SqlServer.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9841D6AEE4D1A746A1E3C97F583961E6"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_9841D6AEE4D1A746A1E3C97F583961E6"
+                    {
+                    "Name" = "8:Newtonsoft.Json.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Newtonsoft.Json.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
@@ -526,15 +585,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HANMISYSTEM_SETUP"
-        "ProductCode" = "8:{9BE7FBF0-C989-4103-A939-98F4253DBF0A}"
-        "PackageCode" = "8:{1B429A81-AD57-42F6-BCB5-6E2618066A55}"
+        "ProductCode" = "8:{DD3708F2-3D09-457E-AB73-E8BA3968732C}"
+        "PackageCode" = "8:{BFA6A721-A29A-4AB2-B2F1-ECD1C5560C8B}"
         "UpgradeCode" = "8:{DD9A1577-9CC7-4253-BD71-35A1FD739AA7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.1"
         "Manufacturer" = "8:Hanmi Flexible Vina HaiPhong"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1062,7 +1121,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_36B480B4817A48DDAAAF7F4C9DFC1658"
             {
-            "SourcePath" = "8:..\\HANMISYSTEM\\obj\\Debug\\HANMISYSTEM.exe"
+            "SourcePath" = "8:"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"

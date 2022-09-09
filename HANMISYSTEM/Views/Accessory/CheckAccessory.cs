@@ -579,7 +579,6 @@ namespace HANMISYSTEM.Views.Accessory
                 fr.dataGridView1.DataSource = dtwo;
                 fr.ShowDialog();
                 txtmodel.Text = fr.sendDataModel();
-                txtmodel.Text = fr.sendDataModel();
                 LoadAccessory(fr.sendDataModel());
                 DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + lineID + "' and productiondate=convert(date,getdate())");
                 if (dt1.Rows.Count > 0)
