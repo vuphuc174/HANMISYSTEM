@@ -27,7 +27,15 @@ namespace HANMISYSTEM.Views.PartialView
         {
             HANMISYSTEM.Properties.Settings.Default.baudrate = cbbBaudRate.Text;
             HANMISYSTEM.Properties.Settings.Default.comport = cbbCOM.Text;
-
+            //save push notify type
+            if(radioButton1.Checked==true)
+            {
+                HANMISYSTEM.Properties.Settings.Default.pushnotifytype = "1";
+            }
+            else
+            {
+                HANMISYSTEM.Properties.Settings.Default.pushnotifytype = "2";
+            }
             HANMISYSTEM.Properties.Settings.Default.Save();
         }
 
@@ -51,9 +59,32 @@ namespace HANMISYSTEM.Views.PartialView
 
                 cbbBaudRate.SelectedIndex = 4;
             }
+            //push notify type 1,2
+            if(!string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.pushnotifytype))
+            {
+                switch(HANMISYSTEM.Properties.Settings.Default.pushnotifytype) 
+                {
+                    case "1":
+                        radioButton1.Checked = true;
+                        break;
+                    case "2":
+                        radioButton2.Checked = true;
+                        break;
+                    default:
+                        radioButton1.Checked = true;
+                        break;
+                }
+            }
+            else
+            {
+                radioButton1.Checked = true;
+            }
            
         }
 
-      
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

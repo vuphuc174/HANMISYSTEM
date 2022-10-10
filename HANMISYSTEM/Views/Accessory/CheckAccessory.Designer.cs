@@ -1093,6 +1093,7 @@
             this.Name = "CheckAccessory";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CheckAccessory_FormClosing);
             this.Load += new System.EventHandler(this.CheckAccessory_Load);
             this.gb1.ResumeLayout(false);
             this.gb2.ResumeLayout(false);

@@ -25,6 +25,7 @@ namespace HANMISYSTEM
 
 
         private delegate void dlgAddItem();
+        string lineID;
         private int count;
         private int counttrue;
         static private string _path;
@@ -209,9 +210,11 @@ namespace HANMISYSTEM
             if (dt3.Rows[0]["location"].ToString() == "all")
             {
                 dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "'");
+                lineID = "L1";
             }
             else
             {
+                lineID = dt3.Rows[0]["location"].ToString();
                 dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation='" + dt3.Rows[0]["location"].ToString() + "'");
             }
 
@@ -228,6 +231,22 @@ namespace HANMISYSTEM
             }
 
         }
+        private string GetTeamCode1(int id)
+        {
+            try
+            {
+                DataTable dtTeam = connect.readdata("select Code1 from Team where ID ='" + id + "'");
+                return dtTeam.Rows[0]["Code1"].ToString();
+            }
+            catch
+            {
+                return "H01";
+            }
+        }
+        //private String GenerateWO()
+        //{
+
+        //}
         private void loaddata(string cmd)
         {
             try

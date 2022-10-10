@@ -33,6 +33,7 @@ namespace HANMISYSTEM.Views.Accessory
         Thread t;
         bool varcheck;
         string lineID;
+        public string pushnotifytype;
         private void btnon_Click(object sender, EventArgs e)
         {
             if (Convert.ToInt32(txtPlan.Text) <= 0)
@@ -82,14 +83,15 @@ namespace HANMISYSTEM.Views.Accessory
                             doJob();
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     {
+                        throw;
                         //MessageBox.Show(ex.Message);
                     }
 
                     //}
                 }
-
+                Thread.Sleep(200);
 
 
 
@@ -127,6 +129,15 @@ namespace HANMISYSTEM.Views.Accessory
         }
         private void CheckAccessory_Load(object sender, EventArgs e)
         {
+            //set push notify type 
+            if (!string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.pushnotifytype))
+            {
+                pushnotifytype = HANMISYSTEM.Properties.Settings.Default.pushnotifytype;
+            }
+            else
+            {
+                pushnotifytype = "1";
+            }
             varcheck = true;
             DataTable dt2;
             DataTable dt3 = connect.readdata("select * from tbl_user where username='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
@@ -207,10 +218,17 @@ namespace HANMISYSTEM.Views.Accessory
                 }
             }
 
-            // Control.CheckForIllegalCrossThreadCalls = false;
-            t = new Thread(checkTask);
-            t.IsBackground = true;
-            t.Start();
+            try
+            {
+                // Control.CheckForIllegalCrossThreadCalls = false;
+                t = new Thread(checkTask);
+                t.IsBackground = true;
+                t.Start();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
             HideAll();
         }
@@ -259,12 +277,23 @@ namespace HANMISYSTEM.Views.Accessory
                 //serialPort.WriteLine('\n' + "@B1" + '\r');
 
 
-                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
-                serialPort.Write(chanel1, 0, chanel1.Length);
+                if (pushnotifytype == "1")
+                {
+                    //chanel 1
+                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
+                    serialPort.Write(chanel1, 0, chanel1.Length);
+                }
+                else
+                {
+                    ////chanel 2
+                    var chanel2 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x01, 0xAE };
+                    serialPort.Write(chanel2, 0, chanel2.Length);
+                }
                 serialPort.Close();
             }
-            catch (Exception ex)
+            catch
             {
+                throw;
                 //MessageBox.Show(ex.Message);
             }
 
@@ -592,12 +621,23 @@ namespace HANMISYSTEM.Views.Accessory
                 }
                 lbPackageID.Text = "";
                 lbCurrentQtyPack.Text = "0";
-                lbQuantity.Text = "0";
+                lbQuantity.Text = GetCurrentQuantity_Day(txtmodel.Text.ToUpper());
 
             }
 
         }
-
+        private string GetCurrentQuantity_Day(string code)
+        {
+            try
+            {
+                DataTable dtResult = connect.readdata("select sum(qty) as quantity from productionhistory where partno='" + code + "' and CONVERT(date,productiontime) =CONVERT(date,getdate()) ");
+                return (dtResult.Rows[0]["quantity"].ToString()=="")?"0": dtResult.Rows[0]["quantity"].ToString();
+            }
+            catch
+            {
+                return "0";
+            }
+        }
         private void panel19_Paint(object sender, PaintEventArgs e)
         {
 
@@ -634,6 +674,13 @@ namespace HANMISYSTEM.Views.Accessory
                 lbPackageQuantity.Text = "0";
                 lbPackageCapa.Text = "0";
             }
+        }
+
+        private void CheckAccessory_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.Hide();
+            this.Parent = null;
+            e.Cancel = true;
         }
     }
 }

@@ -43,5 +43,8 @@
     <Setting Name="baudrate" Type="System.String" Scope="User">
       <Value Profile="(Default)">9600</Value>
     </Setting>
+    <Setting Name="pushnotifytype" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

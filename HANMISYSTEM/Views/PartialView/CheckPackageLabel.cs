@@ -17,10 +17,20 @@ namespace HANMISYSTEM.Views.PartialView
         {
             InitializeComponent();
         }
+        public string pushnotifytype;
         public string label;
         SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
         private void CheckPackageLabel_Load(object sender, EventArgs e)
         {
+            //set push notify type 
+            if (!string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.pushnotifytype))
+            {
+                pushnotifytype = HANMISYSTEM.Properties.Settings.Default.pushnotifytype;
+            }
+            else
+            {
+                pushnotifytype = "1";
+            }
             txtInput.Focus();
         }
         private void CallNG()
@@ -40,8 +50,22 @@ namespace HANMISYSTEM.Views.PartialView
                 //serialPort.WriteLine('\n' + "@B1" + '\r');
 
 
-                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
-                serialPort.Write(chanel1, 0, chanel1.Length);
+                //var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
+                //serialPort.Write(chanel1, 0, chanel1.Length);
+                ////chanel 2
+                if (pushnotifytype == "1")
+                {
+                    //chanel 1
+                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
+                    serialPort.Write(chanel1, 0, chanel1.Length);
+                }
+                else
+                {
+                    ////chanel 2
+                    var chanel2 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x01, 0xAE };
+                    serialPort.Write(chanel2, 0, chanel2.Length);
+                }
+                //Thread.Sleep(10);
                 serialPort.Close();
             }
             catch (Exception ex)
@@ -71,6 +95,11 @@ namespace HANMISYSTEM.Views.PartialView
                     }
                 }
             }
+        }
+
+        private void txtInput_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

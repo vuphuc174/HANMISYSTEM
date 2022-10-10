@@ -164,5 +164,17 @@ namespace HANMISYSTEM.Properties {
                 this["baudrate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public string pushnotifytype {
+            get {
+                return ((string)(this["pushnotifytype"]));
+            }
+            set {
+                this["pushnotifytype"] = value;
+            }
+        }
     }
 }

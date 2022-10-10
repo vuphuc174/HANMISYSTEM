@@ -31,6 +31,7 @@ namespace HANMISYSTEM
         PackingController packageController = new PackingController();
         int plan;
         bool checkStatus;
+        public string pushnotifytype;
         private void CallOK()
         {
             try
@@ -40,7 +41,7 @@ namespace HANMISYSTEM
                     serialPort.Open();
                 }
                 //close relay
-                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x04, 0xB0 };
                 serialPort.Write(chanel1, 0, chanel1.Length);
                 //serialPort.WriteLine('\n' + "@R0" + '\r');
                 //Thread.Sleep(10);
@@ -75,8 +76,21 @@ namespace HANMISYSTEM
                 //serialPort.WriteLine('\n' + "@B1" + '\r');
 
 
-                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
-                serialPort.Write(chanel1, 0, chanel1.Length);
+                if(pushnotifytype=="1")
+                {
+                    //chanel 1
+                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x01, 0xAD };
+                    serialPort.Write(chanel1, 0, chanel1.Length);
+                }
+                else
+                {
+                    ////chanel 2
+                    var chanel2 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x01, 0xAE };
+                    serialPort.Write(chanel2, 0, chanel2.Length);
+                }
+
+   
+                //Thread.Sleep(10);
                 serialPort.Close();
             }
             catch (Exception ex)
@@ -87,6 +101,16 @@ namespace HANMISYSTEM
         }
         private void frmprod_Load(object sender, EventArgs e)
         {
+
+            //set push notify type 
+            if( !string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.pushnotifytype))
+            {
+                pushnotifytype=HANMISYSTEM.Properties.Settings.Default.pushnotifytype;
+            }
+            else
+            {
+                pushnotifytype = "1";
+            }
             DataTable dt2;
             DataTable dt3 = connect.readdata("select * from tbl_user where username='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
             DataTable dt1 = connect.readdata("select * from warehouse where idwarehouse='WH001'");
@@ -161,7 +185,10 @@ namespace HANMISYSTEM
                                 }
                                 else
                                 {
-
+                                    if(pushnotifytype=="2")
+                                    {
+                                        CallOK();
+                                    }
                                     //them lich su va running status
                                     //connect.exedata("exec spInsertProductionHistory @idwarehouse='" + cbwarehouse.SelectedValue + "',@partno='" + txtpartno.Text.ToUpper() + "',@remark='" + remark + "',@idlocation='" + cblocation.SelectedValue + "',@idpack='" + txtboxno.Text + "'");
                                     connect.exedata("update runingstatus set partno=@partno where idlocation='" + cblocation.SelectedValue.ToString() + "'");
@@ -195,12 +222,19 @@ namespace HANMISYSTEM
                                     {
                                         txtpartno.Text = "";
                                     }
+                                    
                                 }
                             }
                             else
                             {
-                                MessageBox.Show("Chưa có kết hoạch " + plan + connect.countdata("select count(*) from productionhistory where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and convert(date,productiontime)=convert(date,getdate())"));
+                                using (Notify frm =new Notify())
+                                {
+                                    frm.content = "Kế hoạch đã hoàn thành ";
+                                    frm.ShowDialog();
+                                }
                                 txtpartno.Text = "";
+                                //MessageBox.Show("Chưa có kết hoạch " + plan + connect.countdata("select count(*) from productionhistory where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and convert(date,productiontime)=convert(date,getdate())"));
+                                
                             }
                         }
                     }

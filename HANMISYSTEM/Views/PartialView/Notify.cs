@@ -17,9 +17,19 @@ namespace HANMISYSTEM.Views.PartialView
         {
             InitializeComponent();
         }
+        public string pushnotifytype;
         public string content;
         private void Notify_Load(object sender, EventArgs e)
         {
+            //set push notify type 
+            if (!string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.pushnotifytype))
+            {
+                pushnotifytype = HANMISYSTEM.Properties.Settings.Default.pushnotifytype;
+            }
+            else
+            {
+                pushnotifytype = "1";
+            }
             lbContent.Text = content;
         }
         SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
@@ -38,8 +48,19 @@ namespace HANMISYSTEM.Views.PartialView
                 //serialPort.WriteLine('\n' + "@G1" + '\r');
                 //Thread.Sleep(10);
                 //serialPort.WriteLine('\n' + "@B0" + '\r');
-                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
-                serialPort.Write(chanel1, 0, chanel1.Length);
+                //var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                //serialPort.Write(chanel1, 0, chanel1.Length);
+                if (pushnotifytype == "1")
+                {
+                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                    serialPort.Write(chanel1, 0, chanel1.Length);
+                }
+                else
+                {
+                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x02, 0xAF };
+                    serialPort.Write(chanel1, 0, chanel1.Length);
+                }
+                   
                 serialPort.Close();
             }
             catch (Exception ex)
@@ -57,6 +78,11 @@ namespace HANMISYSTEM.Views.PartialView
         private void Notify_FormClosed(object sender, FormClosedEventArgs e)
         {
             CallOK();
+        }
+
+        private void btnConfirm_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
