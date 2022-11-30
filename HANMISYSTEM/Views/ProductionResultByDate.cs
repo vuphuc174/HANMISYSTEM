@@ -31,8 +31,8 @@ namespace HANMISYSTEM.Views
             cblocation.DataSource = dtlocation;
             cblocation.DisplayMember = "namelocation1";
             cblocation.ValueMember = "idlocation";
-            cblocation.SelectedValue = "-1";
-            dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where productiondate=Convert(date,getdate())");
+            cblocation.SelectedValue = "L1";
+            dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where idlocation ='L1' and productiondate=Convert(date,getdate())");
             try
             {
                 dgvdata.DataSource = dtdata;
@@ -66,7 +66,7 @@ namespace HANMISYSTEM.Views
         private void cblocation_SelectedIndexChanged(object sender, EventArgs e)
         {
             txtsearch.Text = "";
-            if(cblocation.SelectedValue.ToString()!="-1")
+            if (cblocation.SelectedValue.ToString() != "-1")
             {
                 dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where idlocation='" + cblocation.SelectedValue.ToString() + "'");
                 try
@@ -90,19 +90,19 @@ namespace HANMISYSTEM.Views
                     MessageBox.Show("Error :" + ex);
                 }
             }
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             txtsearch.Text = "";
-            if(cblocation.Text=="ALL")
+            if (cblocation.Text == "ALL")
             {
                 dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where productiondate between '" + dtpfrom.Value.ToString("yyyy-MM-dd") + "' and '" + dtpto.Value.ToString("yyyy-MM-dd") + "'");
             }
             else
             {
-                dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where idlocation='"+cblocation.SelectedValue.ToString()+"' and productiondate between '" + dtpfrom.Value.ToString("yyyy-MM-dd") + "' and '" + dtpto.Value.ToString("yyyy-MM-dd") + "'");
+                dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where idlocation='" + cblocation.SelectedValue.ToString() + "' and productiondate between '" + dtpfrom.Value.ToString("yyyy-MM-dd") + "' and '" + dtpto.Value.ToString("yyyy-MM-dd") + "'");
             }
             try
             {

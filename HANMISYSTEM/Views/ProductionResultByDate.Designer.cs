@@ -32,8 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnsearch = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
             this.btnexcel = new System.Windows.Forms.Button();
+            this.btnsearch = new System.Windows.Forms.Button();
             this.dtpto = new System.Windows.Forms.DateTimePicker();
             this.dtpfrom = new System.Windows.Forms.DateTimePicker();
             this.txtsearch = new System.Windows.Forms.TextBox();
@@ -45,26 +46,31 @@
             this.cblocation = new System.Windows.Forms.ComboBox();
             this.cbwarehouse = new System.Windows.Forms.ComboBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel5 = new System.Windows.Forms.Panel();
             this.dgvdata = new System.Windows.Forms.DataGridView();
             this.PartNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PartName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ProductionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.gradientPanel1 = new HANMISYSTEM.Module.GradientPanel();
+            this.label7 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.lbtotal = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
             this.panel4.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
+            this.gradientPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
+            this.panel1.BackColor = System.Drawing.Color.White;
             this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.btnsearch);
             this.panel1.Controls.Add(this.dtpto);
@@ -85,15 +91,14 @@
             this.panel1.TabIndex = 0;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
-            // btnsearch
+            // panel4
             // 
-            this.btnsearch.Location = new System.Drawing.Point(643, 42);
-            this.btnsearch.Name = "btnsearch";
-            this.btnsearch.Size = new System.Drawing.Size(85, 30);
-            this.btnsearch.TabIndex = 5;
-            this.btnsearch.Text = "Search";
-            this.btnsearch.UseVisualStyleBackColor = true;
-            this.btnsearch.Click += new System.EventHandler(this.button1_Click);
+            this.panel4.Controls.Add(this.btnexcel);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel4.Location = new System.Drawing.Point(1043, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(195, 75);
+            this.panel4.TabIndex = 6;
             // 
             // btnexcel
             // 
@@ -104,6 +109,16 @@
             this.btnexcel.Text = "Excel";
             this.btnexcel.UseVisualStyleBackColor = true;
             this.btnexcel.Click += new System.EventHandler(this.btnexcel_Click);
+            // 
+            // btnsearch
+            // 
+            this.btnsearch.Location = new System.Drawing.Point(643, 42);
+            this.btnsearch.Name = "btnsearch";
+            this.btnsearch.Size = new System.Drawing.Size(85, 30);
+            this.btnsearch.TabIndex = 5;
+            this.btnsearch.Text = "Search";
+            this.btnsearch.UseVisualStyleBackColor = true;
+            this.btnsearch.Click += new System.EventHandler(this.button1_Click);
             // 
             // dtpto
             // 
@@ -195,17 +210,28 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.dgvdata);
+            this.panel2.Controls.Add(this.panel5);
+            this.panel2.Controls.Add(this.gradientPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 75);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1238, 519);
             this.panel2.TabIndex = 0;
             // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.dgvdata);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel5.Location = new System.Drawing.Point(0, 42);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(1238, 477);
+            this.panel5.TabIndex = 2;
+            // 
             // dgvdata
             // 
             this.dgvdata.AllowUserToAddRows = false;
             this.dgvdata.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvdata.BorderStyle = System.Windows.Forms.BorderStyle.None;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -232,7 +258,7 @@
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dgvdata.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvdata.RowHeadersVisible = false;
-            this.dgvdata.Size = new System.Drawing.Size(1238, 519);
+            this.dgvdata.Size = new System.Drawing.Size(1238, 477);
             this.dgvdata.TabIndex = 0;
             this.dgvdata.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dgvData_CellStateChanged);
             this.dgvdata.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvData_RowStateChanged);
@@ -264,14 +290,29 @@
             this.Quantity.HeaderText = "Quantity";
             this.Quantity.Name = "Quantity";
             // 
-            // panel4
+            // gradientPanel1
             // 
-            this.panel4.Controls.Add(this.btnexcel);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1043, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(195, 75);
-            this.panel4.TabIndex = 6;
+            this.gradientPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gradientPanel1.ColorBottom = System.Drawing.Color.LightGray;
+            this.gradientPanel1.ColorTop = System.Drawing.Color.White;
+            this.gradientPanel1.Controls.Add(this.label7);
+            this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
+            this.gradientPanel1.Name = "gradientPanel1";
+            this.gradientPanel1.Size = new System.Drawing.Size(1238, 42);
+            this.gradientPanel1.TabIndex = 1;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.BackColor = System.Drawing.Color.Transparent;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.ForeColor = System.Drawing.Color.Gray;
+            this.label7.Location = new System.Drawing.Point(8, 10);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(109, 24);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Danh sách";
             // 
             // label6
             // 
@@ -295,6 +336,7 @@
             // 
             // panel3
             // 
+            this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.Controls.Add(this.lbtotal);
             this.panel3.Controls.Add(this.label6);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -317,9 +359,12 @@
             this.Load += new System.EventHandler(this.ProductionResultByDate_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
             this.panel4.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
+            this.gradientPanel1.ResumeLayout(false);
+            this.gradientPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
@@ -353,5 +398,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lbtotal;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel5;
+        private Module.GradientPanel gradientPanel1;
+        private System.Windows.Forms.Label label7;
     }
 }

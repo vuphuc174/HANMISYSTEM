@@ -40,6 +40,12 @@
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dvt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -67,12 +73,6 @@
             this.lbmonth = new System.Windows.Forms.Label();
             this.lbday = new System.Windows.Forms.Label();
             this.btnprint = new System.Windows.Forms.Button();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dvt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.qty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.remark = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -189,6 +189,44 @@
             this.dataGridView1.Size = new System.Drawing.Size(662, 333);
             this.dataGridView1.TabIndex = 5;
             // 
+            // STT
+            // 
+            this.STT.DataPropertyName = "stt";
+            this.STT.HeaderText = "STT";
+            this.STT.Name = "STT";
+            // 
+            // partno
+            // 
+            this.partno.DataPropertyName = "partno";
+            this.partno.HeaderText = "Mã hàng";
+            this.partno.Name = "partno";
+            // 
+            // partname
+            // 
+            this.partname.DataPropertyName = "partname";
+            this.partname.HeaderText = "Tên Hàng";
+            this.partname.Name = "partname";
+            // 
+            // dvt
+            // 
+            this.dvt.DataPropertyName = "dvt";
+            this.dvt.HeaderText = "ĐVT";
+            this.dvt.Name = "dvt";
+            // 
+            // qty
+            // 
+            this.qty.DataPropertyName = "qty";
+            dataGridViewCellStyle1.Format = "N0";
+            this.qty.DefaultCellStyle = dataGridViewCellStyle1;
+            this.qty.HeaderText = "Số lượng";
+            this.qty.Name = "qty";
+            // 
+            // remark
+            // 
+            this.remark.DataPropertyName = "remark";
+            this.remark.HeaderText = "Ghi chú";
+            this.remark.Name = "remark";
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
@@ -252,7 +290,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(721, 839);
             this.panel1.TabIndex = 7;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // lbdriver
             // 
@@ -325,10 +362,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.production;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.hanmi_logo;
             this.pictureBox1.Location = new System.Drawing.Point(14, 3);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(165, 61);
+            this.pictureBox1.Size = new System.Drawing.Size(162, 120);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
@@ -476,44 +514,6 @@
             this.btnprint.UseVisualStyleBackColor = true;
             this.btnprint.Click += new System.EventHandler(this.button1_Click);
             // 
-            // STT
-            // 
-            this.STT.DataPropertyName = "stt";
-            this.STT.HeaderText = "STT";
-            this.STT.Name = "STT";
-            // 
-            // partno
-            // 
-            this.partno.DataPropertyName = "partno";
-            this.partno.HeaderText = "Mã hàng";
-            this.partno.Name = "partno";
-            // 
-            // partname
-            // 
-            this.partname.DataPropertyName = "partname";
-            this.partname.HeaderText = "Tên Hàng";
-            this.partname.Name = "partname";
-            // 
-            // dvt
-            // 
-            this.dvt.DataPropertyName = "dvt";
-            this.dvt.HeaderText = "ĐVT";
-            this.dvt.Name = "dvt";
-            // 
-            // qty
-            // 
-            this.qty.DataPropertyName = "qty";
-            dataGridViewCellStyle1.Format = "N0";
-            this.qty.DefaultCellStyle = dataGridViewCellStyle1;
-            this.qty.HeaderText = "Số lượng";
-            this.qty.Name = "qty";
-            // 
-            // remark
-            // 
-            this.remark.DataPropertyName = "remark";
-            this.remark.HeaderText = "Ghi chú";
-            this.remark.Name = "remark";
-            // 
             // Printing_Slipout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -523,6 +523,7 @@
             this.Controls.Add(this.btnprint);
             this.Controls.Add(this.panel1);
             this.Name = "Printing_Slipout";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Printing_Slipout";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);

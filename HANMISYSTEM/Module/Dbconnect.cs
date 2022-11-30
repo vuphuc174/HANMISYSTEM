@@ -14,7 +14,7 @@ namespace HANMISYSTEM
         static string uid = HANMISYSTEM.Properties.Settings.Default.uid;
         static string pwd = HANMISYSTEM.Properties.Settings.Default.pwd;
         //public SqlConnection con = new SqlConnection(@"Data Source=" + sn + ";Initial Catalog=HANMI;Trusted_Connection=no;uid = " + uid + ";pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30");
-        public SqlConnection con = new SqlConnection(@"Data Source=192.168.1.252,1434;Initial Catalog=HANMI;Trusted_Connection=no;uid = sa;pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30");
+        public SqlConnection con = new SqlConnection(@"Data Source=192.168.1.252,1434;Initial Catalog=HANMI;Trusted_Connection=no;uid = sa;pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30;MultipleActiveResultSets=True");
         public void openconnect()
         {
             if (con.State == ConnectionState.Closed)
@@ -22,6 +22,7 @@ namespace HANMISYSTEM
                 con.Open();
             }
         }
+        
         public void closeconnect()
         {
             if (con.State == ConnectionState.Open)
@@ -46,6 +47,24 @@ namespace HANMISYSTEM
             }
             closeconnect();
             return check;
+        }
+        public async Task ExeDataAsync(string cmd)
+        {
+            await con.OpenAsync();
+
+            using (var command = new SqlCommand(cmd, con))
+            {
+                try
+                {
+                    await command.ExecuteNonQueryAsync();
+                }
+                catch
+                {
+                    throw;
+                }
+            }
+            con.Close();
+
         }
         public int countdata(string cmd)
         {

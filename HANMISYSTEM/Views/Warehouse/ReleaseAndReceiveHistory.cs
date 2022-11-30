@@ -56,7 +56,6 @@ namespace HANMISYSTEM.Views
                 cbfilter.SelectedIndex = 1;
             }
         }
-
         private void ReleaseAndReceiveHistory_Load(object sender, EventArgs e)
         {
 

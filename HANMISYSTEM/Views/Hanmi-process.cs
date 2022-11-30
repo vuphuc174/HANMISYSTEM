@@ -194,7 +194,7 @@ namespace HANMISYSTEM
                 MessageBox.Show("Stop working firstly");
                 fr1.btnpower.Text = "Stop line";
                 fr1.timer1.Stop();
-                connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + fr1.cbwarehouse.SelectedValue + "','" + fr1.txtpartno.Text + "','" + fr1.cblocation.SelectedValue + "','" + DateTime.Now + "','Break time')");
+                connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + fr1.wh + "','" + fr1.txtpartno.Text + "','" + fr1.cblocation.SelectedValue + "','" + DateTime.Now + "','Break time')");
                 connect.exedata("update productionstatus set stoptime='" + DateTime.Now + "',lastesttarget='" + fr1.txttarget.Text + "' where idlocation='" + fr1.cblocation.SelectedValue + "' and partno='" + fr1.txtmodel.Text + "' and productiondate='" + DateTime.Now.ToString("yyyy-MM-dd") + "'");
                 e.Cancel = true;
             }

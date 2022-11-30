@@ -86,5 +86,11 @@ namespace HANMISYSTEM.Views.PartialView
         {
 
         }
+
+        private void btnTestConnection_Click(object sender, EventArgs e)
+        {
+            DebugRelay frm = new DebugRelay();
+            frm.ShowDialog();
+        }
     }
 }

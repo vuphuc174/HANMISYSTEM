@@ -46,7 +46,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -83,7 +83,7 @@
       <HintPath>..\packages\ExcelDataReader.3.4.2\lib\net45\ExcelDataReader.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1001\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
@@ -392,10 +392,16 @@
     <Compile Include="Views\Hanmi-process.Designer.cs">
       <DependentUpon>Hanmi-process.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\inproduction.cs">
+    <Compile Include="Views\PartialView\PageSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\inproduction.Designer.cs">
+    <Compile Include="Views\PartialView\PageSearch.Designer.cs">
+      <DependentUpon>PageSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\inproduction.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\inproduction.Designer.cs">
       <DependentUpon>inproduction.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ioform.cs">
@@ -490,6 +496,12 @@
     <Compile Include="Views\PartialView\CheckPackageLabel.Designer.cs">
       <DependentUpon>CheckPackageLabel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PartialView\DebugRelay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PartialView\DebugRelay.Designer.cs">
+      <DependentUpon>DebugRelay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PartialView\Notify.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -538,10 +550,10 @@
     <Compile Include="Views\RawMgt\ReturnSupplier.Designer.cs">
       <DependentUpon>ReturnSupplier.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ReleaseAndReceiveHistory.cs">
+    <Compile Include="Views\Warehouse\ReleaseAndReceiveHistory.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ReleaseAndReceiveHistory.Designer.cs">
+    <Compile Include="Views\Warehouse\ReleaseAndReceiveHistory.Designer.cs">
       <DependentUpon>ReleaseAndReceiveHistory.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ReportViewer\IOReport.cs">
@@ -604,10 +616,10 @@
     <Compile Include="Views\Print-Layout.Designer.cs">
       <DependentUpon>Print-Layout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Printing_Slipout.cs">
+    <Compile Include="Views\Warehouse\Printing_Slipout.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Printing_Slipout.Designer.cs">
+    <Compile Include="Views\Warehouse\Printing_Slipout.Designer.cs">
       <DependentUpon>Printing_Slipout.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\productionplan.cs">
@@ -786,7 +798,10 @@
     <EmbeddedResource Include="Views\Hanmi-process.resx">
       <DependentUpon>Hanmi-process.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\inproduction.resx">
+    <EmbeddedResource Include="Views\PartialView\PageSearch.resx">
+      <DependentUpon>PageSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\inproduction.resx">
       <DependentUpon>inproduction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ioform.resx">
@@ -849,6 +864,9 @@
     <EmbeddedResource Include="Views\PartialView\CheckPackageLabel.resx">
       <DependentUpon>CheckPackageLabel.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartialView\DebugRelay.resx">
+      <DependentUpon>DebugRelay.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PartialView\Notify.resx">
       <DependentUpon>Notify.cs</DependentUpon>
     </EmbeddedResource>
@@ -873,7 +891,7 @@
     <EmbeddedResource Include="Views\RawMgt\ReturnSupplier.resx">
       <DependentUpon>ReturnSupplier.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ReleaseAndReceiveHistory.resx">
+    <EmbeddedResource Include="Views\Warehouse\ReleaseAndReceiveHistory.resx">
       <DependentUpon>ReleaseAndReceiveHistory.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ReportViewer\IOReport.resx">
@@ -906,7 +924,7 @@
     <EmbeddedResource Include="Views\Print-Layout.resx">
       <DependentUpon>Print-Layout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Printing_Slipout.resx">
+    <EmbeddedResource Include="Views\Warehouse\Printing_Slipout.resx">
       <DependentUpon>Printing_Slipout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\productionplan.resx">
@@ -1052,6 +1070,13 @@
     <Content Include="Resources\bugreport_Qa3_icon.ico" />
     <None Include="Resources\settings1.png" />
     <None Include="Resources\search.png" />
+    <None Include="Resources\hanmi_logo.jpg" />
+    <None Include="Resources\right.png" />
+    <None Include="Resources\previous.png" />
+    <None Include="Resources\rewind-button.png" />
+    <None Include="Resources\next.png" />
+    <None Include="Resources\forward-button.png" />
+    <None Include="Resources\Save.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

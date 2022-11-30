@@ -33,19 +33,6 @@ namespace HANMISYSTEM
         private void inproduction_Load(object sender, EventArgs e)
         {
             DataTable dtcheckpermission = connect.readdata("select t.idwarehouse,namewarehouse from tbl_user_permission t inner join warehouse w on t.idwarehouse=w.idwarehouse where username ='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
-            DataTable dt = connect.readdata("select PARTNO,PARTNAME,QTY,BOXQTY,BAGQTY,CARTQTY,TRAYQTY,ROLLQTY,CANQTY,PALLETQTY from view_stock_warehouse where idwarehouse ='WH002'");
-            if (dt != null)
-            {
-                try
-                {
-                    datagridview4.DataSource = dt;
-                }
-                catch
-                {
-
-                }
-            }
-
             if (dtcheckpermission.Rows.Count > 0)
             {
                 cbwarehouse.DataSource = dtcheckpermission;
@@ -66,33 +53,6 @@ namespace HANMISYSTEM
             }
         }
 
-        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex > -1)
-            {
-                if (datagridview4.Rows[e.RowIndex].Cells["partno"].Value.ToString() != "")
-                {
-                    txtpartno.Text = datagridview4.Rows[e.RowIndex].Cells["partno"].Value.ToString();
-                    lbsearch.Visible = false;
-                    if (connect.countdata("select count(partno) from packinginfo where partno ='" + txtpartno.Text + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'") > 0)
-                    {
-                        DataTable dtposition = connect.readdata("select top 1 position ,SUM(quantity) as sl from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtpartno.Text + "' group by position order by sl asc");
-                        lbsuggest.Text = dtposition.Rows[0]["position"].ToString();
-                        lbposition.Text = dtposition.Rows[0]["position"].ToString();
-                        DataTable dtstock = connect.readdata("select p.Partno,Partname, sum(quantity) as Qty from packinginfo p inner join cargo c on p.partno=c.partno where idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "' and position ='" + lbsuggest.Text + "' group by p.partno,partname");
-                        dataGridView2.DataSource = dtstock;
-                    }
-                    else
-                    {
-                        lbsuggest.Text = "Vui lòng chọn 1 vị trí mới";
-                    }
-                }
-            }
-
-        }
-
-
-
         private void txtpartno_Leave(object sender, EventArgs e)
         {
 
@@ -109,11 +69,39 @@ namespace HANMISYSTEM
 
 
         }
+        string issue;
+        private string CheckValid()
+        {
+            issue = "";
+            if (cbsupplier.Text == "")
+            {
+                issue += "Nhà cung cấp ,";
+            }
+            if (txtpartno.Text == "")
+            {
+                issue += "Mã hàng ,";
+            }
+            if (cbposition.Text == "")
+            {
+                issue += "Vị trí ,";
+            }
+            return issue;
+        }
+        private bool CheckDuplicate(string code)
+        {
+            for (int i = 0; i < dataGridView3.Rows.Count; i++)
+            {
+                if (code == dataGridView3.Rows[i].Cells["idpack"].Value.ToString())
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
         bool chk;
         private void txtidpack_TextChanged(object sender, EventArgs e)
         {
             chk = true;
-            txtqty.Text = "";
             if (txtidpack.Text.Length == 14)
             {
                 if (connect.countdata("select count (*) from packingstandard where partno='" + txtpartno.Text + "' and  idpacking like '" + txtidpack.Text.Substring(0, 3) + "%'") == 0)
@@ -131,82 +119,25 @@ namespace HANMISYSTEM
                     else
                     {
                         DataTable dt = connect.readdata("select * from packingstandard where partno='" + txtpartno.Text + "' and idpacking like '" + txtidpack.Text.Substring(0, 3) + "%'");
-                        txtqty.Text = dt.Rows[0]["quantity"].ToString();
-                        qty = Convert.ToDouble(txtqty.Text);
+                        qty = Convert.ToDouble(dt.Rows[0]["quantity"].ToString());
 
                         //working behide here 
-                        //tao hoa don
-                        if (cbsupplier.Text == "")
-                        {
-                            MessageBox.Show("Xin vui lòng chon NCC");
-                        }
-                        else
-                        {
-                            if (txtinvoice.Text == "")
-                            {
-                                string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
-                                int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
-                                txtinvoice.Text = str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
-                            }
-
-                        }
-
+        
                         //chuyen sang bang tam
                         Isnumber _isnumber = new Isnumber();
-                        note = "";
-                        if (cbsupplier.Text == "")
-                        {
-                            note += "Nhà cung cấp ,";
-                        }
-                        if (txtpartno.Text == "")
-                        {
-                            note += "Mã hàng ,";
-                        }
-                        if (txtidpack.Text == "" || txtidpack.Text.Length > 14)
-                        {
-                            note += "Mã thùng ,";
-                        }
-                        if (txtqty.Text == "" || _isnumber.IsNumber(txtqty.Text) == false)
-                        {
-                            note += "Số lượng ,";
-                            txtqty.Text = qty.ToString();
-                        }
-                        else
-                        {
-                            if (Convert.ToDouble(txtqty.Text) > qty || Convert.ToDouble(txtqty.Text) <= 0 || txtqty.Text == "")
-                            {
-                                note += "Số lượng ,";
-                                txtqty.Text = qty.ToString();
-                            }
-                        }
-
-                        if (cbposition.Text == "")
-                        {
-                            note += "Vị trí ,";
-                        }
-
                         // working on here
                         if (cbsupplier.SelectedValue.ToString() != cbwarehouse.SelectedValue.ToString())
                         {
-                            if (note == "")
+                            if (CheckValid()=="")
                             {
-                                for (int i = 0; i < dataGridView3.Rows.Count; i++)
+                                if (CheckDuplicate(txtidpack.Text))
                                 {
-                                    if (txtidpack.Text == dataGridView3.Rows[i].Cells["idpack"].Value.ToString())
-                                    {
-                                        chk = false;
-                                    }
-                                }
-                                if (chk == true)
-                                {
-
                                     if (connect.countdata("select count(idpack) from packinginfo where idpack ='" + txtidpack.Text + "'") == 0)
                                     {
                                         lineqty = 0;
                                         sumqty = 0;
-                                        dataGridView3.Rows.Add(txtidpack.Text, "", txtpartno.Text, txtqty.Text, cbposition.SelectedValue.ToString());
+                                        dataGridView3.Rows.Add(txtidpack.Text, "", txtpartno.Text, qty, cbposition.SelectedValue.ToString());
                                         txtidpack.Text = "";
-                                        txtqty.Text = "";
                                         for (int j = 0; j < dataGridView3.Rows.Count; j++)
                                         {
 
@@ -218,29 +149,28 @@ namespace HANMISYSTEM
                                     }
                                     else
                                     {
-                                        MessageBox.Show("Ma thung da ton tai");
+                                        listBox1.Items.Add("Mã đóng gói đã tồn tại " + txtidpack.Text);
                                         txtidpack.Text = "";
                                         txtidpack.Focus();
                                     }
-
-
                                 }
                                 else
                                 {
-                                    MessageBox.Show("Đã có trong danh sách !");
+                                    listBox1.Items.Add("Mã đóng gói đã có trong danh sách " +txtidpack.Text);
                                     txtidpack.Text = "";
                                     txtidpack.Focus();
                                 }
-                                lbnotify.Text = "...";
                             }
                             else
                             {
-                                lbnotify.Text = "Các trường sau đây không hợp lệ : \n" + note;
+                                listBox1.Items.Add(CheckValid());
+                                txtidpack.Text = "";
                             }
+
                         }
                         else
                         {
-                            MessageBox.Show("Đảm bảo 2 kho là khác nhau");
+                            listBox1.Items.Add("Đảm bảo 2 kho khác nhau " + txtidpack.Text);
                             txtidpack.Text = "";
                         }
                     }
@@ -268,8 +198,6 @@ namespace HANMISYSTEM
             }
             return r;
         }
-
-        string note;
         private void btnsave_Click(object sender, EventArgs e)
         {
             if (cbposition.Text == "")
@@ -290,10 +218,11 @@ namespace HANMISYSTEM
                     }
                     else
                     {
+                        string invoice = GenerateInvoice();
                         DataTable dtcategory = connect.readdata("select idcategory from warehouse where idwarehouse='" + cbsupplier.SelectedValue.ToString() + "'");
-                        if (connect.countdata("select count(idslipout) from slipout where idslipout='" + txtinvoice.Text + "'") == 0)
+                        if (connect.countdata("select count(idslipout) from slipout where idslipout='" + invoice + "'") == 0)
                         {
-                            if (connect.exedata("insert into slipout (idslipout,dateout,idwarehouse,idcustomer) values ('" + txtinvoice.Text + "',getdate(),'" + cbsupplier.SelectedValue.ToString() + "','" + cbwarehouse.SelectedValue.ToString() + "')"))
+                            if (connect.exedata("insert into slipout (idslipout,dateout,idwarehouse,idcustomer) values ('" + invoice + "',getdate(),'" + cbsupplier.SelectedValue.ToString() + "','" + cbwarehouse.SelectedValue.ToString() + "')"))
                             {
                                 for (int i = 0; i < dataGridView3.Rows.Count; i++)
                                 {
@@ -306,30 +235,8 @@ namespace HANMISYSTEM
                                     {
                                         connect.exedata("update dateofmanufacture set manufacturedate ='" + dataGridView3.Rows[i].Cells["dateofmanufacture"].Value.ToString() + "' where idpack='" + dataGridView3.Rows[i].Cells["idpack"].Value.ToString() + "'");
                                     }
-                                    connect.exedata("insert into slipoutinfo (idslipout,idpack,quantity,remark,carnumber,partno,packingdate) values ('" + txtinvoice.Text + "','" + dataGridView3.Rows[i].Cells["idpack"].Value.ToString() + "','" + dataGridView3.Rows[i].Cells["sl"].Value.ToString() + "','','','" + dataGridView3.Rows[i].Cells["partno1"].Value.ToString() + "',getdate())");
+                                    connect.exedata("insert into slipoutinfo (idslipout,idpack,quantity,remark,carnumber,partno,packingdate) values ('" + invoice + "','" + dataGridView3.Rows[i].Cells["idpack"].Value.ToString() + "','" + dataGridView3.Rows[i].Cells["sl"].Value.ToString() + "','','','" + dataGridView3.Rows[i].Cells["partno1"].Value.ToString() + "',getdate())");
                                 }
-                                //if (dtcategory.Rows[0]["idcategory"].ToString()=="W2")
-                                //{
-                                //    for (int i = 0; i < dataGridView3.Rows.Count; i++)
-                                //    {
-                                //        DataTable dtbom = connect.readdata("select * from bom where partno ='" + dataGridView3.Rows[i].Cells["partno1"].Value + "'");
-                                //        if(dtbom.Rows.Count!=0)
-                                //        {
-                                //            for(int j=0;j<dtbom.Rows.Count;j++)
-                                //            {
-                                //                if (connect.countdata("select count (partno) from stock where partno ='" + dtbom.Rows[j]["rawpartno"].ToString() + "' and idwarehouse='"+cbsupplier.SelectedValue.ToString()+"'") == 0)
-                                //                {
-                                //                    connect.exedata("insert into stock(idwarehouse,partno,quantity) valuse ('" + cbsupplier.SelectedValue.ToString() + "','" + dtbom.Rows[j]["rawpartno"].ToString() + "','" + (0 - (Convert.ToDouble(dataGridView3.Rows[i].Cells["sl"].Value) * Convert.ToDouble(dtbom.Rows[j]["quantity"].ToString()))) + "')");
-                                //                }
-                                //                else
-                                //                {
-                                //                    connect.exedata("update stock set quantity=quantity-'" + (Convert.ToDouble(dataGridView3.Rows[i].Cells["sl"].Value) * Convert.ToDouble(dtbom.Rows[j]["quantity"].ToString())) + "' where idwarehouse='" + cbsupplier.SelectedValue.ToString() + "' and partno ='" + dtbom.Rows[j]["rawpartno"].ToString() + "'");
-                                //                }
-                                //            }
-                                //        }
-
-                                //    }
-                                //}
                                 dtp.Visible = false;
                                 MessageBox.Show("Thành công ,Chuyển tới trang in ...please wait");
                                 Print_Layout fr_print_layout = new Print_Layout();
@@ -345,25 +252,16 @@ namespace HANMISYSTEM
                                 fr.lbday.Text = DateTime.Now.ToString("dd");
                                 fr.lbmonth.Text = DateTime.Now.ToString("MM");
                                 fr.lbyear.Text = DateTime.Now.ToString("yyyy");
-                                fr.lbinvoice.Text = txtinvoice.Text;
+                                fr.lbinvoice.Text = invoice;
                                 fr.lbewarehouse.Text = cbsupplier.Text;
                                 fr.lbiwarehouse.Text = "Material warehouse";
                                 fr.lbcarnumber.Text = "";
                                 fr.lbreason.Text = "";
-                                DataTable dt1 = connect.readdata("select cargo.partno,cargo.partname,SUM(quantity) as qty from cargo inner join slipoutinfo on cargo.partno=slipoutinfo.partno  where idslipout='" + txtinvoice.Text + "' group by cargo.partno,cargo.partname");
+                                DataTable dt1 = connect.readdata("select cargo.partno,cargo.partname,SUM(quantity) as qty from cargo inner join slipoutinfo on cargo.partno=slipoutinfo.partno  where idslipout='" + invoice + "' group by cargo.partno,cargo.partname");
                                 fr.dataGridView1.DataSource = dt1;
                                 fr.Show();
-
-                                txtinvoice.Text = "";
                                 txtsumqty.Text = "";
-                                //txtreason.Text = "";
-                                //txtcarnumber.Text = "";
-                                dataGridView3.Rows.Clear();
-                                DataTable dt = connect.readdata("select PARTNO,PARTNAME,QTY,BOXQTY,BAGQTY,CARTQTY,TRAYQTY,ROLLQTY,CANQTY,PALLETQTY from view_stock_warehouse where idwarehouse ='WH002' ");
-                                if (dt != null)
-                                {
-                                    datagridview4.DataSource = dt;
-                                }
+
                             }
                             else
                             {
@@ -373,14 +271,11 @@ namespace HANMISYSTEM
                         }
                         else
                         {
-                            string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
-                            int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
-                            txtinvoice.Text = str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
-                            connect.exedata("insert into slipout (idslipout,dateout,idwarehouse,idcustomer) values ('" + txtinvoice.Text + "','" + DateTime.Now.ToString() + "','" + cbsupplier.SelectedValue.ToString() + "','" + cbwarehouse.SelectedValue.ToString() + "')");
+                            connect.exedata("insert into slipout (idslipout,dateout,idwarehouse,idcustomer) values ('" + invoice + "','" + DateTime.Now.ToString() + "','" + cbsupplier.SelectedValue.ToString() + "','" + cbwarehouse.SelectedValue.ToString() + "')");
                             for (int i = 0; i < dataGridView3.Rows.Count; i++)
                             {
                                 connect.exedata("insert into packinginfo (idpack,partno,quantity,packingdate,idwarehouse,position) values ('" + dataGridView3.Rows[i].Cells["idpack"].Value.ToString() + "','" + dataGridView3.Rows[i].Cells["partno1"].Value.ToString() + "','" + dataGridView3.Rows[i].Cells["sl"].Value.ToString() + "','" + DateTime.Now.ToString() + "','" + cbwarehouse.SelectedValue.ToString() + "','" + dataGridView3.Rows[i].Cells["position"].Value.ToString() + "')");
-                                connect.exedata("insert into slipoutinfo (idslipout,idpack,quantity,remark,carnumber,partno,packingdate) values ('" + txtinvoice.Text + "','" + dataGridView3.Rows[i].Cells["idpack"].Value.ToString() + "','" + dataGridView3.Rows[i].Cells["sl"].Value.ToString() + "','','','" + dataGridView3.Rows[i].Cells["partno1"].Value.ToString() + "','" + DateTime.Now.ToString() + "')");
+                                connect.exedata("insert into slipoutinfo (idslipout,idpack,quantity,remark,carnumber,partno,packingdate) values ('" + invoice + "','" + dataGridView3.Rows[i].Cells["idpack"].Value.ToString() + "','" + dataGridView3.Rows[i].Cells["sl"].Value.ToString() + "','','','" + dataGridView3.Rows[i].Cells["partno1"].Value.ToString() + "','" + DateTime.Now.ToString() + "')");
                             }
                             MessageBox.Show("Thành công ,Chuyển tới trang in ...please wait");
                             Print_Layout fr_print_layout = new Print_Layout();
@@ -396,25 +291,16 @@ namespace HANMISYSTEM
                             fr.lbday.Text = DateTime.Now.ToString("dd");
                             fr.lbmonth.Text = DateTime.Now.ToString("MM");
                             fr.lbyear.Text = DateTime.Now.ToString("yyyy");
-                            fr.lbinvoice.Text = txtinvoice.Text;
+                            fr.lbinvoice.Text = invoice;
                             fr.lbewarehouse.Text = cbsupplier.Text;
                             fr.lbiwarehouse.Text = "Material warehouse";
                             fr.lbcarnumber.Text = "";
                             fr.lbreason.Text = "";
-                            DataTable dt1 = connect.readdata("select cargo.partno,cargo.partname,SUM(quantity) as qty from cargo inner join slipoutinfo on cargo.partno=slipoutinfo.partno  where idslipout='" + txtinvoice.Text + "' group by cargo.partno,cargo.partname");
+                            DataTable dt1 = connect.readdata("select cargo.partno,cargo.partname,SUM(quantity) as qty from cargo inner join slipoutinfo on cargo.partno=slipoutinfo.partno  where idslipout='" + invoice + "' group by cargo.partno,cargo.partname");
                             fr.dataGridView1.DataSource = dt1;
                             fr.Show();
-
-                            txtinvoice.Text = "";
                             txtsumqty.Text = "";
-                            //txtreason.Text = "";
-                            //txtcarnumber.Text = "";
                             dataGridView3.Rows.Clear();
-                            DataTable dt = connect.readdata("select PARTNO,PARTNAME,QTY,BOXQTY,BAGQTY,CARTQTY,TRAYQTY,ROLLQTY,CANQTY,PALLETQTY from view_stock_warehouse where idwarehouse ='WH002' ");
-                            if (dt != null)
-                            {
-                                datagridview4.DataSource = dt;
-                            }
 
                         }
 
@@ -472,8 +358,6 @@ namespace HANMISYSTEM
                     DataTable dtposition = connect.readdata("select top 1 position ,SUM(quantity) as sl from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtpartno.Text + "' group by position order by sl asc");
                     lbsuggest.Text = dtposition.Rows[0]["position"].ToString();
                     lbposition.Text = dtposition.Rows[0]["position"].ToString();
-                    DataTable dtstock = connect.readdata("select p.Partno,Partname, sum(quantity) as Qty from packinginfo p inner join cargo c on p.partno=c.partno where idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "' and position ='" + lbsuggest.Text + "' group by p.partno,partname");
-                    dataGridView2.DataSource = dtstock;
                 }
                 else
                 {
@@ -488,8 +372,6 @@ namespace HANMISYSTEM
 
         private void cbsupplier_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtinvoice.Text = "";
-            lbnotify.Text = "...";
             txtidpack.Text = "";
         }
         double sumqty;
@@ -627,27 +509,11 @@ namespace HANMISYSTEM
         {
             // dtp.Visible = false;
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private string GenerateInvoice()
         {
-            if (cbsupplier.Text == "")
-            {
-                MessageBox.Show("Xin vui lòng chon NCC");
-            }
-            else
-            {
-
-                string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
-                int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
-                txtinvoice.Text = str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
-
-
-            }
-        }
-
-        private void datagridview4_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
+            int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
+            return  str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
         }
     }
 

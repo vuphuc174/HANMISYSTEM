@@ -31,9 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmprod));
             this.label1 = new System.Windows.Forms.Label();
-            this.btnremark = new System.Windows.Forms.Button();
-            this.cbwarehouse = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.cblocation = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtpartno = new System.Windows.Forms.TextBox();
@@ -41,7 +38,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.txtqty = new System.Windows.Forms.TextBox();
-            this.btnpacking = new System.Windows.Forms.Button();
             this.txtactualqty = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.btnpower = new System.Windows.Forms.Button();
@@ -51,18 +47,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.txtproductionqty = new System.Windows.Forms.TextBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
-            this.txtngpartno = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtngqty = new System.Windows.Forms.TextBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.txtsoluong = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.lbsearch = new System.Windows.Forms.ListBox();
             this.txtmodel = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.txtinventory = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -73,6 +62,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtworkorder = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnPacking_renew = new HANMISYSTEM.Module.MyButton();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
@@ -99,40 +89,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Model";
             // 
-            // btnremark
-            // 
-            this.btnremark.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnremark.Location = new System.Drawing.Point(129, 222);
-            this.btnremark.Name = "btnremark";
-            this.btnremark.Size = new System.Drawing.Size(130, 32);
-            this.btnremark.TabIndex = 0;
-            this.btnremark.Text = "Ghi chú";
-            this.btnremark.UseVisualStyleBackColor = true;
-            this.btnremark.Click += new System.EventHandler(this.btnremark_Click);
-            // 
-            // cbwarehouse
-            // 
-            this.cbwarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbwarehouse.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbwarehouse.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbwarehouse.FormattingEnabled = true;
-            this.cbwarehouse.ItemHeight = 18;
-            this.cbwarehouse.Location = new System.Drawing.Point(541, 11);
-            this.cbwarehouse.Name = "cbwarehouse";
-            this.cbwarehouse.Size = new System.Drawing.Size(252, 26);
-            this.cbwarehouse.TabIndex = 1;
-            this.cbwarehouse.SelectedIndexChanged += new System.EventHandler(this.cbwarehouse_SelectedIndexChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(462, 15);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(73, 18);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Chọn kho";
-            // 
             // cblocation
             // 
             this.cblocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -140,7 +96,7 @@
             this.cblocation.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cblocation.FormattingEnabled = true;
             this.cblocation.ItemHeight = 18;
-            this.cblocation.Location = new System.Drawing.Point(886, 8);
+            this.cblocation.Location = new System.Drawing.Point(491, 11);
             this.cblocation.Name = "cblocation";
             this.cblocation.Size = new System.Drawing.Size(177, 26);
             this.cblocation.TabIndex = 1;
@@ -150,7 +106,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(810, 15);
+            this.label3.Location = new System.Drawing.Point(415, 14);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(70, 18);
             this.label3.TabIndex = 2;
@@ -159,11 +115,12 @@
             // txtpartno
             // 
             this.txtpartno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtpartno.Location = new System.Drawing.Point(129, 349);
+            this.txtpartno.Location = new System.Drawing.Point(129, 369);
             this.txtpartno.Name = "txtpartno";
             this.txtpartno.Size = new System.Drawing.Size(233, 29);
             this.txtpartno.TabIndex = 4;
             this.txtpartno.TextChanged += new System.EventHandler(this.txtpartno_TextChanged);
+            this.txtpartno.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtpartno_KeyPress);
             // 
             // txtboxno
             // 
@@ -188,7 +145,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(19, 355);
+            this.label5.Location = new System.Drawing.Point(19, 375);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(84, 24);
             this.label5.TabIndex = 6;
@@ -200,28 +157,17 @@
             this.txtqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtqty.Location = new System.Drawing.Point(394, 126);
             this.txtqty.Name = "txtqty";
-            this.txtqty.Size = new System.Drawing.Size(30, 29);
+            this.txtqty.Size = new System.Drawing.Size(49, 29);
             this.txtqty.TabIndex = 7;
-            // 
-            // btnpacking
-            // 
-            this.btnpacking.Enabled = false;
-            this.btnpacking.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnpacking.Location = new System.Drawing.Point(129, 309);
-            this.btnpacking.Name = "btnpacking";
-            this.btnpacking.Size = new System.Drawing.Size(130, 31);
-            this.btnpacking.TabIndex = 8;
-            this.btnpacking.Text = "Đóng gói";
-            this.btnpacking.UseVisualStyleBackColor = true;
-            this.btnpacking.Click += new System.EventHandler(this.btnpacking_Click);
             // 
             // txtactualqty
             // 
+            this.txtactualqty.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtactualqty.Enabled = false;
             this.txtactualqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtactualqty.Location = new System.Drawing.Point(46, 105);
             this.txtactualqty.Name = "txtactualqty";
-            this.txtactualqty.Size = new System.Drawing.Size(176, 60);
+            this.txtactualqty.Size = new System.Drawing.Size(176, 53);
             this.txtactualqty.TabIndex = 9;
             this.txtactualqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtactualqty.TextChanged += new System.EventHandler(this.txtactualqty_TextChanged);
@@ -295,59 +241,14 @@
             // 
             // txtproductionqty
             // 
+            this.txtproductionqty.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtproductionqty.Enabled = false;
             this.txtproductionqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 35F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtproductionqty.Location = new System.Drawing.Point(228, 105);
             this.txtproductionqty.Name = "txtproductionqty";
-            this.txtproductionqty.Size = new System.Drawing.Size(202, 60);
+            this.txtproductionqty.Size = new System.Drawing.Size(202, 53);
             this.txtproductionqty.TabIndex = 13;
             this.txtproductionqty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Enabled = false;
-            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(129, 387);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(57, 28);
-            this.checkBox1.TabIndex = 14;
-            this.checkBox1.Text = "NG";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.Visible = false;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // txtngpartno
-            // 
-            this.txtngpartno.Enabled = false;
-            this.txtngpartno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtngpartno.Location = new System.Drawing.Point(129, 415);
-            this.txtngpartno.Name = "txtngpartno";
-            this.txtngpartno.Size = new System.Drawing.Size(233, 29);
-            this.txtngpartno.TabIndex = 15;
-            this.txtngpartno.Visible = false;
-            this.txtngpartno.TextChanged += new System.EventHandler(this.txtngpartno_TextChanged);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(21, 421);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(84, 24);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "Mã hàng";
-            this.label9.Visible = false;
-            // 
-            // txtngqty
-            // 
-            this.txtngqty.Enabled = false;
-            this.txtngqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtngqty.Location = new System.Drawing.Point(386, 415);
-            this.txtngqty.Name = "txtngqty";
-            this.txtngqty.Size = new System.Drawing.Size(38, 29);
-            this.txtngqty.TabIndex = 16;
-            this.txtngqty.Visible = false;
             // 
             // checkBox2
             // 
@@ -384,26 +285,14 @@
             this.label10.Text = "Số lượng";
             this.label10.Visible = false;
             // 
-            // lbsearch
-            // 
-            this.lbsearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbsearch.FormattingEnabled = true;
-            this.lbsearch.ItemHeight = 24;
-            this.lbsearch.Location = new System.Drawing.Point(129, 41);
-            this.lbsearch.Name = "lbsearch";
-            this.lbsearch.Size = new System.Drawing.Size(223, 124);
-            this.lbsearch.TabIndex = 19;
-            this.lbsearch.Visible = false;
-            this.lbsearch.Click += new System.EventHandler(this.lbsearch_Click);
-            // 
             // txtmodel
             // 
+            this.txtmodel.Enabled = false;
             this.txtmodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtmodel.Location = new System.Drawing.Point(129, 16);
             this.txtmodel.Name = "txtmodel";
             this.txtmodel.Size = new System.Drawing.Size(233, 29);
             this.txtmodel.TabIndex = 20;
-            this.txtmodel.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label11
             // 
@@ -415,34 +304,12 @@
             this.label11.TabIndex = 12;
             this.label11.Text = "Sản lượng trong ngày";
             // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(42, 212);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(145, 24);
-            this.label12.TabIndex = 12;
-            this.label12.Text = "Tồn kho hiện tại";
-            // 
-            // txtinventory
-            // 
-            this.txtinventory.Enabled = false;
-            this.txtinventory.Font = new System.Drawing.Font("Microsoft Sans Serif", 60F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtinventory.Location = new System.Drawing.Point(45, 244);
-            this.txtinventory.Name = "txtinventory";
-            this.txtinventory.Size = new System.Drawing.Size(385, 98);
-            this.txtinventory.TabIndex = 21;
-            this.txtinventory.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.cbwarehouse);
             this.panel1.Controls.Add(this.cblocation);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
@@ -533,25 +400,19 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.btnPacking_renew);
             this.panel5.Controls.Add(this.label1);
             this.panel5.Controls.Add(this.btnpower);
-            this.panel5.Controls.Add(this.btnremark);
             this.panel5.Controls.Add(this.label6);
             this.panel5.Controls.Add(this.txtmodel);
             this.panel5.Controls.Add(this.txtpartno);
-            this.panel5.Controls.Add(this.lbsearch);
             this.panel5.Controls.Add(this.txtboxno);
             this.panel5.Controls.Add(this.txtsoluong);
             this.panel5.Controls.Add(this.label4);
             this.panel5.Controls.Add(this.checkBox2);
             this.panel5.Controls.Add(this.label10);
-            this.panel5.Controls.Add(this.txtngqty);
             this.panel5.Controls.Add(this.label5);
-            this.panel5.Controls.Add(this.txtngpartno);
-            this.panel5.Controls.Add(this.label9);
-            this.panel5.Controls.Add(this.checkBox1);
             this.panel5.Controls.Add(this.txtqty);
-            this.panel5.Controls.Add(this.btnpacking);
             this.panel5.Controls.Add(this.label8);
             this.panel5.Controls.Add(this.txtplan);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Left;
@@ -560,14 +421,28 @@
             this.panel5.Size = new System.Drawing.Size(555, 622);
             this.panel5.TabIndex = 24;
             // 
+            // btnPacking_renew
+            // 
+            this.btnPacking_renew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(150)))), ((int)(((byte)(240)))));
+            this.btnPacking_renew.FlatAppearance.BorderSize = 0;
+            this.btnPacking_renew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPacking_renew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPacking_renew.ForeColor = System.Drawing.Color.White;
+            this.btnPacking_renew.Location = new System.Drawing.Point(129, 309);
+            this.btnPacking_renew.Name = "btnPacking_renew";
+            this.btnPacking_renew.Size = new System.Drawing.Size(85, 37);
+            this.btnPacking_renew.TabIndex = 21;
+            this.btnPacking_renew.Text = "Đóng gói";
+            this.btnPacking_renew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPacking_renew.UseVisualStyleBackColor = false;
+            this.btnPacking_renew.Click += new System.EventHandler(this.btnPacking_renew_Click);
+            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.panel7);
             this.panel6.Controls.Add(this.txtactualqty);
             this.panel6.Controls.Add(this.label7);
             this.panel6.Controls.Add(this.label11);
-            this.panel6.Controls.Add(this.label12);
-            this.panel6.Controls.Add(this.txtinventory);
             this.panel6.Controls.Add(this.txtproductionqty);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel6.Location = new System.Drawing.Point(555, 82);
@@ -597,7 +472,7 @@
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.settings1;
-            this.pictureBox1.Location = new System.Drawing.Point(45, 6);
+            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(47, 30);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -644,12 +519,10 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button btnremark;
         private System.Windows.Forms.TextBox txtboxno;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtqty;
-        private System.Windows.Forms.Button btnpacking;
         private System.Windows.Forms.TextBox txtactualqty;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox txtplan;
@@ -658,24 +531,15 @@
         private System.Windows.Forms.TextBox txtproductionqty;
         public System.Windows.Forms.Button btnpower;
         public System.Windows.Forms.Timer timer1;
-        public System.Windows.Forms.ComboBox cbwarehouse;
-        public System.Windows.Forms.Label label2;
         public System.Windows.Forms.ComboBox cblocation;
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.TextBox txttarget;
         public System.Windows.Forms.TextBox txtpartno;
-        private System.Windows.Forms.CheckBox checkBox1;
-        private System.Windows.Forms.TextBox txtngpartno;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox txtngqty;
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.TextBox txtsoluong;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ListBox lbsearch;
         public System.Windows.Forms.TextBox txtmodel;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtinventory;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button1;
@@ -691,6 +555,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
+        private Module.MyButton btnPacking_renew;
     }
 }
 

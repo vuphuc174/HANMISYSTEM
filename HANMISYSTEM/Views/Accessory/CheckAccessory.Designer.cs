@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckAccessory));
             this.txtPlan = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -110,6 +111,7 @@
             this.lbFinalJudge = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel15 = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.gb1.SuspendLayout();
             this.gb2.SuspendLayout();
             this.gb3.SuspendLayout();
@@ -172,7 +174,7 @@
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(303, 37);
             this.label10.TabIndex = 0;
-            this.label10.Text = "THÔNG TIN";
+            this.label10.Text = "PACKAGE";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // btnoff
@@ -781,6 +783,7 @@
             this.lbPackageID.Name = "lbPackageID";
             this.lbPackageID.Size = new System.Drawing.Size(0, 18);
             this.lbPackageID.TabIndex = 14;
+            this.lbPackageID.TextChanged += new System.EventHandler(this.lbPackageID_TextChanged);
             // 
             // label6
             // 
@@ -1079,6 +1082,10 @@
             this.panel15.Size = new System.Drawing.Size(10, 246);
             this.panel15.TabIndex = 17;
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // CheckAccessory
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1212,5 +1219,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn model;
         private System.Windows.Forms.DataGridViewTextBoxColumn judgestatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn time;
+        private System.Windows.Forms.Timer timer1;
     }
 }

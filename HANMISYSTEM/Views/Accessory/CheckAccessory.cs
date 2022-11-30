@@ -268,15 +268,6 @@ namespace HANMISYSTEM.Views.Accessory
                 {
                     serialPort.Open();
                 }
-                //serialPort.WriteLine('\n' + "@R1" + '\r');
-                //Thread.Sleep(10);
-                //serialPort.WriteLine('\n' + "@Y0" + '\r');
-                //Thread.Sleep(10);
-                //serialPort.WriteLine('\n' + "@G0" + '\r');
-                //Thread.Sleep(10);
-                //serialPort.WriteLine('\n' + "@B1" + '\r');
-
-
                 if (pushnotifytype == "1")
                 {
                     //chanel 1
@@ -291,25 +282,25 @@ namespace HANMISYSTEM.Views.Accessory
                 }
                 serialPort.Close();
             }
-            catch
+            catch(Exception)
             {
-                throw;
-                //MessageBox.Show(ex.Message);
+       
             }
 
         }
+        bool checkStatus=true;
         private async void DoCheckAccessory(string data)
         {
             if (Judge(data))
             {
-                if (CheckJudgeStatus())
+                if (CheckJudgeStatus() && checkStatus==true)
                 {
-
+                    checkStatus=false;
+                    timer1.Start();
                     lbQuantity.Text = (Convert.ToInt32(lbQuantity.Text) + 1).ToString();
                     lbFinalJudge.Text = "OK";
                     lbFinalJudge.ForeColor = Color.Lime;
                     dataGridView1.Rows.Insert(0, dataGridView1.Rows.Count, txtmodel.Text, "OK", DateTime.Now);
-                    Task.Delay(200).Wait();
                     packingdatas.Add(new packingdata()
                     {
                         PackageID = lbPackageID.Text,
@@ -322,8 +313,8 @@ namespace HANMISYSTEM.Views.Accessory
 
                     lbPackageQuantity.Text = (Convert.ToInt32(lbPackageQuantity.Text) + 1).ToString();
                     await Task.Run(() => ClearJudge());
+                    //Thread.Sleep(510);
                 }
-                //txtScan.Text = "";
             }
             else
             {
@@ -332,7 +323,15 @@ namespace HANMISYSTEM.Views.Accessory
                 lbFinalJudge.Text = "NG";
                 lbFinalJudge.ForeColor = Color.Red;
                 dataGridView1.Rows.Insert(0, dataGridView1.Rows.Count, txtmodel.Text, "NG", DateTime.Now);
+                //save to stopalertcounter (table)--update 11/11/2022
+                try
+                {
+                    string remark = "Mã hàng không hợp lệ " + data;
+                    await connect.ExeDataAsync("Insert into StopAlertCounter(SubmitDate,PartNo,Remark,LocationID) values(getdate(),'" + txtmodel.Text + "','" + remark + "','" + lineID + "')"); ;
+                }
+                catch { }
                 //notify box
+                CallNG();
                 using (Notify frm = new Notify())
                 {
                     frm.content = data;
@@ -343,6 +342,7 @@ namespace HANMISYSTEM.Views.Accessory
 
 
             }
+    
         }
         private void CheckPackageChange(string data)
         {
@@ -442,7 +442,7 @@ namespace HANMISYSTEM.Views.Accessory
                         }
                     }
                 }
-
+          
 
             }
         }
@@ -476,6 +476,7 @@ namespace HANMISYSTEM.Views.Accessory
                     }
                 }
             }
+           
             return true;
         }
         private bool Judge(string accessory)
@@ -497,6 +498,7 @@ namespace HANMISYSTEM.Views.Accessory
         }
         private void ClearJudge()
         {
+
             Task.Delay(500).Wait();
             ThreadHelperClass.SetText(this, lbJudge1, "");
             ThreadHelperClass.SetText(this, lbJudge2, "");
@@ -667,6 +669,7 @@ namespace HANMISYSTEM.Views.Accessory
 
         private void lbPackageQuantity_TextChanged(object sender, EventArgs e)
         {
+            lbCurrentQtyPack.Text=lbPackageQuantity.Text;
             if (Convert.ToInt32(lbPackageQuantity.Text) >= Convert.ToInt32(lbPackageCapa.Text))
             {
                 MessageBox.Show("Mã đóng gói đã đầy ,xin hãy nhập mã đóng gói mới !!!");
@@ -681,6 +684,18 @@ namespace HANMISYSTEM.Views.Accessory
             this.Hide();
             this.Parent = null;
             e.Cancel = true;
+        }
+
+        private void lbPackageID_TextChanged(object sender, EventArgs e)
+        {
+            label10.Text=lbPackageID.Text;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            Task.Delay(500).Wait();
+            checkStatus = true;
+            timer1.Stop();
         }
     }
 }

@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Text;
+using System.IO.Ports;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,13 +47,42 @@ namespace HANMISYSTEM
             }
         }
         int expanderWidth = 250;
-        
+        SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
         private void MainFrm_Load(object sender, EventArgs e)
         {
             //User name
             toolStripDropDownButton3.Text = HANMISYSTEM.Properties.Settings.Default.username;
             //server name
             lbServerName.Text= HANMISYSTEM.Properties.Settings.Default.servername;
+            //off relay 
+            try
+            {
+                if (!serialPort.IsOpen)
+                {
+                    serialPort.Open();
+                }
+                //serialPort.WriteLine('\n' + "@R0" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@Y0" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@G1" + '\r');
+                //Thread.Sleep(10);
+                //serialPort.WriteLine('\n' + "@B0" + '\r');
+                //var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                //serialPort.Write(chanel1, 0, chanel1.Length);
+              
+                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                    serialPort.Write(chanel1, 0, chanel1.Length);
+             
+                    var chanel2 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x02, 0xAF };
+                    serialPort.Write(chanel2, 0, chanel2.Length);
+              
+
+                serialPort.Close();
+            }
+            catch
+            {
+            }
         }
 
         static int checkexist(TabControl tabcontrolname, string tabname)
