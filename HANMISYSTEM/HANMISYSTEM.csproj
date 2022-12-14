@@ -550,6 +550,18 @@
     <Compile Include="Views\RawMgt\ReturnSupplier.Designer.cs">
       <DependentUpon>ReturnSupplier.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Warehouse\Inventory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\Inventory.Designer.cs">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\InventoryBaseOnPackageID.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\InventoryBaseOnPackageID.Designer.cs">
+      <DependentUpon>InventoryBaseOnPackageID.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Warehouse\ReleaseAndReceiveHistory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -707,6 +719,12 @@
     </Compile>
     <Compile Include="Views\Warehousemgt.Designer.cs">
       <DependentUpon>Warehousemgt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\Warehouse_dashboard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\Warehouse_dashboard.Designer.cs">
+      <DependentUpon>Warehouse_dashboard.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\WorkOrder\WorkOrderResult.cs">
       <SubType>Form</SubType>
@@ -891,6 +909,12 @@
     <EmbeddedResource Include="Views\RawMgt\ReturnSupplier.resx">
       <DependentUpon>ReturnSupplier.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\Inventory.resx">
+      <DependentUpon>Inventory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\InventoryBaseOnPackageID.resx">
+      <DependentUpon>InventoryBaseOnPackageID.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehouse\ReleaseAndReceiveHistory.resx">
       <DependentUpon>ReleaseAndReceiveHistory.cs</DependentUpon>
     </EmbeddedResource>
@@ -973,6 +997,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehousemgt.resx">
       <DependentUpon>Warehousemgt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\Warehouse_dashboard.resx">
+      <DependentUpon>Warehouse_dashboard.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WorkOrder\WorkOrderResult.resx">
       <DependentUpon>WorkOrderResult.cs</DependentUpon>
@@ -1077,6 +1104,11 @@
     <None Include="Resources\next.png" />
     <None Include="Resources\forward-button.png" />
     <None Include="Resources\Save.png" />
+    <None Include="Resources\import1.png" />
+    <None Include="Resources\export1.png" />
+    <None Include="Resources\xlsx.png" />
+    <None Include="Resources\home.png" />
+    <None Include="Resources\right-arrow.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

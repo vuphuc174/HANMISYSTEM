@@ -125,6 +125,16 @@ namespace HANMISYSTEM
             closeconnect();
             return da;
         }
+        public async Task<DataTable> ReadDataAsync(string cmd)
+        {
+            DataTable dt = new DataTable();
+            openconnect();
+            var reader = await con.CreateCommand().ExecuteReaderAsync();
+            dt.Load(reader);
+            closeconnect();
+
+            return dt;
+        }
         public SqlDataReader readerdata(string sql)
         {
             openconnect();

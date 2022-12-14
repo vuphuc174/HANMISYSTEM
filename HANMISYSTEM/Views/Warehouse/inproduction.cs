@@ -55,19 +55,22 @@ namespace HANMISYSTEM
 
         private void txtpartno_Leave(object sender, EventArgs e)
         {
-
-            if (connect.countdata("select count(partno) from packinginfo where partno ='" + txtpartno.Text + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'") > 0)
+            try
             {
-                DataTable dtposition = connect.readdata("select top 1 position ,SUM(quantity) as sl from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtpartno.Text + "' group by position order by sl asc");
-                lbsuggest.Text = dtposition.Rows[0]["position"].ToString();
+                if (connect.countdata("select count(partno) from packinginfo where partno ='" + txtpartno.Text + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'") > 0)
+                {
+                    DataTable dtposition = connect.readdata("select top 1 position ,SUM(quantity) as sl from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtpartno.Text + "' group by position order by sl asc");
+                    lbsuggest.Text = dtposition.Rows[0]["position"].ToString();
+                }
+                else
+                {
+                    lbsuggest.Text = "Vui lòng chọn 1 vị trí mới";
+                }
             }
-            else
+            catch(Exception ex)
             {
-                lbsuggest.Text = "Vui lòng chọn 1 vị trí mới";
+                MessageBox.Show(ex.Message);
             }
-
-
-
         }
         string issue;
         private string CheckValid()

@@ -9,11 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HANMISYSTEM.Views
+namespace HANMISYSTEM.Views.Warehouse
 {
-    public partial class ReleaseAndReceiveHistory : Form
+    public partial class InventoryBaseOnPackageID : Form
     {
-        public ReleaseAndReceiveHistory()
+        public InventoryBaseOnPackageID()
         {
             InitializeComponent();
         }
@@ -46,7 +46,7 @@ namespace HANMISYSTEM.Views
                 ShowLessPage();
                 UpdatePageList();
                 CheckGoPageButton();
-                GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+                GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
             }
         }
         private void CheckGoPageButton()
@@ -242,17 +242,25 @@ namespace HANMISYSTEM.Views
         }
         private void btnGoLast_Click(object sender, EventArgs e)
         {
-            SetPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+            SetPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-
+            if (curPage < totalPage)
+            {
+                SetPage++;
+                //GetData(curPage, pageSize, txtsearch.Text);
+            }
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-
+            if (curPage > 1)
+            {
+                SetPage--;
+                //GetData(curPage, pageSize, txtsearch.Text);
+            }
         }
 
         private void btnGoFirst_Click(object sender, EventArgs e)
@@ -271,21 +279,17 @@ namespace HANMISYSTEM.Views
                 throw;
             }
         }
-        private int GetTotalPage(string searchTearm, string wh,string kind,string statdate,string endate)
+        private int GetTotalPage(string searchTearm, string wh)
         {
             DataTable dataTable;
-            string sql;
-            if(kind=="IN")
+            if (string.IsNullOrEmpty(searchTearm))
             {
-                sql = "with temp as(select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idcustomer='"+wh+"' and convert(date,s.dateout) between '"+statdate+"' and '"+endate+ "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%"+searchTearm+"%'") + " ) select count(*) as row from temp";
+                dataTable = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='"+wh+"') select COUNT(*) as row from temp");
             }
             else
             {
-                sql = "with temp as(select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idwarehouse='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%" + searchTearm + "%'") + " ) select count(*) as row from temp";
+                dataTable = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%"+searchTearm+"%'  or pi.idpack like '%"+searchTearm+ "%') and pi.idwarehouse ='" + wh + "' ) select COUNT(*) as row from temp");
             }
-            dataTable = connect.readdata(sql);
-            
-            
             if (dataTable.Rows.Count > 0)
             {
                 if (Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) % pageSize == 0)
@@ -300,33 +304,33 @@ namespace HANMISYSTEM.Views
 
             return 0;
         }
-        private void GetData(int page, int pageSize, string searchTearm, string wh, string kind, string statdate, string endate)
+        private void GetData(int page, int pageSize, string searchTearm, string wh)
         {
-            string sql;
             try
             {
-                if (kind=="IN")
+                if (string.IsNullOrEmpty(searchTearm))
                 {
-                    sql="with temp as  (select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idcustomer='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
+                    loaddata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='" + wh + "') select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + "");
                 }
                 else
                 {
-                    sql="with temp as  (select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idwarehouse='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
+                    loaddata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%" + searchTearm + "%'  or pi.idpack like '%" + searchTearm + "%') and pi.idwarehouse ='" + wh + "') select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + "");
                 }
-                loaddata(sql);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+
+
         }
         public void btn_gopage(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             SetPage = Convert.ToInt32(btn.Text);
-            GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString(),cbfilter.Text,startDate.Value.ToString("yyyy-MM-dd"),endDate.Value.ToString("yyyy-MM-dd"));
+            GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
         }
-        private void ReleaseAndReceiveHistory_Load(object sender, EventArgs e)
+        private void InventoryBaseOnPackageID_Load(object sender, EventArgs e)
         {
             DataTable dtWarehouse = connect.readdata("select * from warehouse");
             cbbWarehouse.DataSource = dtWarehouse;
@@ -336,7 +340,6 @@ namespace HANMISYSTEM.Views
             {
                 cbbWarehouse.SelectedValue = wh;
             }
-            cbfilter.SelectedIndex = 0;
             //
             buttons.Add(p1);
             buttons.Add(p2);
@@ -354,102 +357,44 @@ namespace HANMISYSTEM.Views
             }
             SetPage = 1;
             //GetData(1, pageSize, "");
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
 
             //pagelist
             UpdatePageList();
         }
-        bool checkSelect;
-        string sqlstr;
-        string encrypt;
-        private void btnprint_Click(object sender, EventArgs e)
-        {
-            sqlstr = "";
-            checkSelect = false;
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                if(row.Index!=-1)
-                {
-                    if (Convert.ToBoolean(row.Cells["select"].Value) == true)
-                    {
-                        checkSelect = true;
-                        break;
-                    }
+        
 
-                }
-               
-            }
-            if (checkSelect == false)
+        private void cbbWarehouse_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            SetPage = 1;
+        }
+
+        private void txtsearch_TextChanged(object sender, EventArgs e)
+        {
+            SetPage = 1;
+            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
+        }
+
+        private void btnExportExcel_Click(object sender, EventArgs e)
+        {
+            DataTable dt;
+            ExportToExcel exportToExcel = new ExportToExcel();
+
+            if (string.IsNullOrEmpty(txtsearch.Text))
             {
-                MessageBox.Show("Chưa có mã hoá đơn nào được chọn !");
+                dt = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='" + wh + "') select *  from temp");
             }
             else
             {
-                foreach (DataGridViewRow row in dataGridView1.Rows)
-                {
-                    DataGridViewCheckBoxCell cell = (DataGridViewCheckBoxCell)row.Cells["select"];
-                    if (Convert.ToBoolean(cell.Value))
-                    {
-                        if (sqlstr == "")
-                        {
-                            sqlstr = " where idslipout='" + row.Cells["idinvoice"].Value.ToString() + "'";
-                        }
-                        else
-                        {
-                            sqlstr += " or idslipout='" + row.Cells["idinvoice"].Value.ToString() + "'";
-                        }
-                    }
-                }
-                Printing_Slipout fr = new Printing_Slipout();
-                fr.lbday.Text = DateTime.Now.ToString("dd");
-                fr.lbmonth.Text = DateTime.Now.ToString("MM");
-                fr.lbyear.Text = DateTime.Now.ToString("yyyy");
-                if (cbfilter.Text == "IN")
-                {
-                    fr.lbiwarehouse.Text = cbbWarehouse.Text;
-                }
-                else
-                {
-                    fr.lbewarehouse.Text = cbbWarehouse.Text;
-                }
-                //fr.lbewarehouse.Text = cbwarehouse.Text;
-                //fr.lbiwarehouse.Text = cbiwarehouse.Text;
-                DataTable dt1 = connect.readdata("select ROW_NUMBER() over(order by s.partno asc) as stt,s.partno,c.partname,u.nameunit as dvt,SUM(quantity) as qty from slipoutinfo s inner join cargo c on s.partno=c.partno inner join unit u on u.idunit=c.idunit " + sqlstr + " group by s.partno,c.partname,u.nameunit");
-                fr.dataGridView1.DataSource = dt1;
-                fr.Show();
+                dt = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%" + txtsearch.Text + "%'  or pi.idpack like '%" + txtsearch.Text + "%') and pi.idwarehouse ='" + wh + "' ) select *  from temp");
             }
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //if(e.ColumnIndex==0)
-            //{
-            //    if(Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["select"].Value))
-            //    {
-            //        if (string.IsNullOrEmpty(encrypt))
-            //        {
-            //            encrypt = dataGridView1.Rows[e.RowIndex].Cells["idinvoice"].Value.ToString().Substring(0, 4).Substring(2, 2);
-            //        }
-            //        else
-            //        {
-            //            var temp= dataGridView1.Rows[e.RowIndex].Cells["idinvoice"].Value.ToString().Substring(0, 4).Substring(2, 2);
-            //            if(temp==encrypt)
-            //            {
-            //                dataGridView1.Rows[e.RowIndex].Cells["select"].Value = true;
-            //            }
-            //            else
-            //            {
-            //                dataGridView1.Rows[e.RowIndex].Cells["select"].Value = false;
-            //            }
-            //        }
-            //    }
-            //}
-        }
-
-        private void btnSearch_Click(object sender, EventArgs e)
-        {
-            SetPage = 1;
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+            saveFileDialog1.FileName = "HM_" + cbbWarehouse.Text;
+            saveFileDialog1.Filter =
+                "*.xlsx|*.xls";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                exportToExcel.ExportToExcelFunction(dt, saveFileDialog1.FileName.ToString());
+            }
         }
     }
 }

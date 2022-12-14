@@ -4,6 +4,7 @@ using HANMISYSTEM.Views;
 using HANMISYSTEM.Views.Accessory;
 using HANMISYSTEM.Views.Spray;
 using HANMISYSTEM.Views.UPH;
+using HANMISYSTEM.Views.Warehouse;
 using HANMISYSTEM.Views.WorkOrder;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,10 @@ namespace HANMISYSTEM
     public partial class MainFrm : Form
     {
         public int request;
-        
+
+        private Rectangle myTabRect;
+        private Rectangle myInsideRect;
+        private Rectangle myOutsideRect;
         public MainFrm()
         {
             DataTable dtwarehouse = dbconnect.readdata("select t.idwarehouse,w.namewarehouse from tbl_user t inner join warehouse w on t.idwarehouse=w.idwarehouse where username='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
@@ -36,7 +40,8 @@ namespace HANMISYSTEM
             TimeUpdater();
 
         }
-
+  
+        
         Dbconnect dbconnect = new Dbconnect();
         async void TimeUpdater()
         {
@@ -118,17 +123,36 @@ namespace HANMISYSTEM
 
                 TabControl.SelectedTab = TabPage;
 
+                myTabRect = tabcontrol1.GetTabRect(0);
+                
+                //myInsideRect = new Rectangle(tabcontrol1.DisplayRectangle.X - 1, tabcontrol1.DisplayRectangle.Y - 1, tabcontrol1.DisplayRectangle.Width + 1, tabcontrol1.DisplayRectangle.Height + 1);
+                //myOutsideRect = tabcontrol1.ClientRectangle;
+                //myOutsideRect.Width--;
+                //myOutsideRect.Height--;
+                //tabcontrol1.DrawItem += new DrawItemEventHandler(OnDrawItem);
                 Form.TopLevel = false;
 
                 Form.Parent = TabPage;
-
-                //  Form.MdiParent = this;
-
                 Form.Show();
-
                 Form.Dock = DockStyle.Fill;
 
             }
+        }
+        private void OnDrawItem(object sender, DrawItemEventArgs e)
+        {
+            // Draw your tab graphics here
+            Graphics g = e.Graphics;
+            Pen p = new Pen(Color.Blue);
+            g.DrawRectangle(p, myTabRect);
+
+            ////border of the tabpage
+            //p = new Pen(Color.Yellow);
+            //g.DrawRectangle(p, myInsideRect);
+
+            ////border outside of the tabpage
+            //p = new Pen(Color.Red);
+            //g.DrawRectangle(p, myOutsideRect);
+
         }
         private void tabControl1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -232,6 +256,17 @@ namespace HANMISYSTEM
         {
             Deliverygoods fr = new Deliverygoods();
             TabCreating(tabcontrol1, "Delivery goods", fr);
+        }
+        public System.Windows.Forms.TabControl MainTabControl
+        {
+            get
+            {
+                return tabcontrol1;
+            }
+        }
+        public void DoCreateTab(string title,Form form)
+        {
+            TabCreating(tabcontrol1, title, form);
         }
         private void DeliveryLabelContent(Expander expander)
         {
@@ -633,7 +668,8 @@ namespace HANMISYSTEM
         }
         private void btnStock_Click(object sender ,EventArgs e)
         {
-            StockMgt fr = new StockMgt();
+            Warehouse_dashboard fr = new Warehouse_dashboard();
+            fr.MainFormRef = this;
             TabCreating(tabcontrol1, "Inventory", fr);
         }
         private void btnProduction_history_Click(object sender, EventArgs e)

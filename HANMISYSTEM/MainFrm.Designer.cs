@@ -394,7 +394,6 @@
         private System.Windows.Forms.ToolStripMenuItem languagesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem vietnameseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
-        private System.Windows.Forms.TabControl tabcontrol1;
         private Module.GradientPanel gradientPanel1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -415,5 +414,6 @@
         private Module.GradientPanel gradientPanel3;
         private System.Windows.Forms.Label lbServerName;
         private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TabControl tabcontrol1;
     }
 }
