@@ -139,5 +139,10 @@ namespace HANMISYSTEM.Views.PartialView
         {
 
         }
+
+        private void myButton2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

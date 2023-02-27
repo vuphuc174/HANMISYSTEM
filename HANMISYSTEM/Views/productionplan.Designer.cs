@@ -39,6 +39,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.txtpartno = new System.Windows.Forms.TextBox();
             this.dgvplan = new System.Windows.Forms.DataGridView();
+            this.ID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idlocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.wo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pst = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -58,25 +66,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.txtPlanID = new System.Windows.Forms.TextBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.txtwo = new System.Windows.Forms.TextBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.txtPlanID = new System.Windows.Forms.TextBox();
-            this.ID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idlocation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.wo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pst = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvplan)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -135,6 +135,7 @@
             // 
             // cblocation
             // 
+            this.cblocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cblocation.FormattingEnabled = true;
             this.cblocation.Location = new System.Drawing.Point(27, 207);
             this.cblocation.Name = "cblocation";
@@ -188,6 +189,64 @@
             this.dgvplan.TabIndex = 0;
             this.dgvplan.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvplan_CellClick);
             this.dgvplan.MouseClick += new System.Windows.Forms.MouseEventHandler(this.dgvplan_MouseClick);
+            // 
+            // ID_col
+            // 
+            this.ID_col.DataPropertyName = "id";
+            this.ID_col.FillWeight = 50F;
+            this.ID_col.HeaderText = "ID";
+            this.ID_col.Name = "ID_col";
+            this.ID_col.ReadOnly = true;
+            this.ID_col.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // partno
+            // 
+            this.partno.DataPropertyName = "partno";
+            this.partno.HeaderText = "Mặt hàng";
+            this.partno.Name = "partno";
+            this.partno.ReadOnly = true;
+            // 
+            // partname
+            // 
+            this.partname.DataPropertyName = "partname";
+            this.partname.HeaderText = "Tên mặt hàng";
+            this.partname.Name = "partname";
+            this.partname.ReadOnly = true;
+            // 
+            // quantity
+            // 
+            this.quantity.DataPropertyName = "productionplan";
+            this.quantity.HeaderText = "Kế hoạch";
+            this.quantity.Name = "quantity";
+            this.quantity.ReadOnly = true;
+            // 
+            // idlocation
+            // 
+            this.idlocation.DataPropertyName = "idlocation";
+            this.idlocation.HeaderText = "Chuyền";
+            this.idlocation.Name = "idlocation";
+            this.idlocation.ReadOnly = true;
+            // 
+            // wo
+            // 
+            this.wo.DataPropertyName = "wocode";
+            this.wo.HeaderText = "WO";
+            this.wo.Name = "wo";
+            this.wo.ReadOnly = true;
+            // 
+            // pst
+            // 
+            this.pst.DataPropertyName = "pst";
+            this.pst.HeaderText = "PST";
+            this.pst.Name = "pst";
+            this.pst.ReadOnly = true;
+            // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "Trạng thái";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
             // 
             // textBox3
             // 
@@ -379,6 +438,14 @@
             this.panel2.Size = new System.Drawing.Size(283, 685);
             this.panel2.TabIndex = 24;
             // 
+            // txtPlanID
+            // 
+            this.txtPlanID.Enabled = false;
+            this.txtPlanID.Location = new System.Drawing.Point(30, 32);
+            this.txtPlanID.Name = "txtPlanID";
+            this.txtPlanID.Size = new System.Drawing.Size(100, 24);
+            this.txtPlanID.TabIndex = 26;
+            // 
             // panel8
             // 
             this.panel8.Controls.Add(this.button3);
@@ -405,6 +472,15 @@
             this.label8.Size = new System.Drawing.Size(64, 18);
             this.label8.TabIndex = 23;
             this.label8.Text = "Mã W/O";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(27, 11);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(54, 18);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Mã KH";
             // 
             // txtwo
             // 
@@ -469,81 +545,6 @@
             this.pictureBox1.TabIndex = 22;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(27, 11);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(54, 18);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Mã KH";
-            // 
-            // txtPlanID
-            // 
-            this.txtPlanID.Enabled = false;
-            this.txtPlanID.Location = new System.Drawing.Point(30, 32);
-            this.txtPlanID.Name = "txtPlanID";
-            this.txtPlanID.Size = new System.Drawing.Size(100, 24);
-            this.txtPlanID.TabIndex = 26;
-            // 
-            // ID_col
-            // 
-            this.ID_col.DataPropertyName = "id";
-            this.ID_col.FillWeight = 50F;
-            this.ID_col.HeaderText = "ID";
-            this.ID_col.Name = "ID_col";
-            this.ID_col.ReadOnly = true;
-            this.ID_col.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // partno
-            // 
-            this.partno.DataPropertyName = "partno";
-            this.partno.HeaderText = "Mặt hàng";
-            this.partno.Name = "partno";
-            this.partno.ReadOnly = true;
-            // 
-            // partname
-            // 
-            this.partname.DataPropertyName = "partname";
-            this.partname.HeaderText = "Tên mặt hàng";
-            this.partname.Name = "partname";
-            this.partname.ReadOnly = true;
-            // 
-            // quantity
-            // 
-            this.quantity.DataPropertyName = "productionplan";
-            this.quantity.HeaderText = "Kế hoạch";
-            this.quantity.Name = "quantity";
-            this.quantity.ReadOnly = true;
-            // 
-            // idlocation
-            // 
-            this.idlocation.DataPropertyName = "idlocation";
-            this.idlocation.HeaderText = "Chuyền";
-            this.idlocation.Name = "idlocation";
-            this.idlocation.ReadOnly = true;
-            // 
-            // wo
-            // 
-            this.wo.DataPropertyName = "wocode";
-            this.wo.HeaderText = "WO";
-            this.wo.Name = "wo";
-            this.wo.ReadOnly = true;
-            // 
-            // pst
-            // 
-            this.pst.DataPropertyName = "pst";
-            this.pst.HeaderText = "PST";
-            this.pst.Name = "pst";
-            this.pst.ReadOnly = true;
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "Trạng thái";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
             // 
             // productionplan
             // 

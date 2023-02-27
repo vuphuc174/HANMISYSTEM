@@ -36,6 +36,13 @@
             this.cbbWarehouse = new System.Windows.Forms.ComboBox();
             this.txtsearch = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idinvoice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.outwarehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.inwarehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.package = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnprint = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gradientPanel2 = new HANMISYSTEM.Module.GradientPanel();
@@ -77,13 +84,6 @@
             this.gradientPanel4 = new HANMISYSTEM.Module.GradientPanel();
             this.gradientPanel3 = new HANMISYSTEM.Module.GradientPanel();
             this.label4 = new System.Windows.Forms.Label();
-            this.select = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idinvoice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.outwarehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.inwarehouse = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.package = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
             this.gradientPanel2.SuspendLayout();
@@ -190,6 +190,54 @@
             this.dataGridView1.TabIndex = 11;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // select
+            // 
+            this.select.FillWeight = 50F;
+            this.select.HeaderText = "Select";
+            this.select.Name = "select";
+            // 
+            // STT
+            // 
+            this.STT.DataPropertyName = "row";
+            this.STT.FillWeight = 40F;
+            this.STT.HeaderText = "No.";
+            this.STT.Name = "STT";
+            // 
+            // idinvoice
+            // 
+            this.idinvoice.DataPropertyName = "idslipout";
+            this.idinvoice.HeaderText = "Invoice";
+            this.idinvoice.Name = "idinvoice";
+            // 
+            // outwarehouse
+            // 
+            this.outwarehouse.DataPropertyName = "warehouse";
+            this.outwarehouse.HeaderText = "From";
+            this.outwarehouse.Name = "outwarehouse";
+            // 
+            // inwarehouse
+            // 
+            this.inwarehouse.DataPropertyName = "customer";
+            this.inwarehouse.HeaderText = "TO";
+            this.inwarehouse.Name = "inwarehouse";
+            // 
+            // package
+            // 
+            this.package.DataPropertyName = "packqty";
+            this.package.FillWeight = 70F;
+            this.package.HeaderText = "Package Q\'ty";
+            this.package.Name = "package";
+            this.package.ReadOnly = true;
+            // 
+            // dateio
+            // 
+            this.dateio.DataPropertyName = "dateout";
+            dataGridViewCellStyle5.Format = "g";
+            dataGridViewCellStyle5.NullValue = null;
+            this.dateio.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dateio.HeaderText = "Date";
+            this.dateio.Name = "dateio";
+            // 
             // btnprint
             // 
             this.btnprint.Image = global::HANMISYSTEM.Properties.Resources.print;
@@ -238,9 +286,9 @@
             this.btnSearch.FlatAppearance.BorderSize = 0;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(365, 69);
+            this.btnSearch.Location = new System.Drawing.Point(362, 69);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(86, 27);
+            this.btnSearch.Size = new System.Drawing.Size(80, 27);
             this.btnSearch.TabIndex = 20;
             this.btnSearch.Text = "Tìm kiếm";
             this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -430,6 +478,7 @@
             this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.btnPrevious.TabIndex = 0;
             this.btnPrevious.TabStop = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click_1);
             // 
             // btnGoFirst
             // 
@@ -651,54 +700,6 @@
             this.label4.TabIndex = 1;
             this.label4.Text = "Danh sách";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // select
-            // 
-            this.select.FillWeight = 50F;
-            this.select.HeaderText = "Select";
-            this.select.Name = "select";
-            // 
-            // STT
-            // 
-            this.STT.DataPropertyName = "row";
-            this.STT.FillWeight = 40F;
-            this.STT.HeaderText = "No.";
-            this.STT.Name = "STT";
-            // 
-            // idinvoice
-            // 
-            this.idinvoice.DataPropertyName = "idslipout";
-            this.idinvoice.HeaderText = "Invoice";
-            this.idinvoice.Name = "idinvoice";
-            // 
-            // outwarehouse
-            // 
-            this.outwarehouse.DataPropertyName = "warehouse";
-            this.outwarehouse.HeaderText = "From";
-            this.outwarehouse.Name = "outwarehouse";
-            // 
-            // inwarehouse
-            // 
-            this.inwarehouse.DataPropertyName = "customer";
-            this.inwarehouse.HeaderText = "TO";
-            this.inwarehouse.Name = "inwarehouse";
-            // 
-            // package
-            // 
-            this.package.DataPropertyName = "packqty";
-            this.package.FillWeight = 70F;
-            this.package.HeaderText = "Package Q\'ty";
-            this.package.Name = "package";
-            this.package.ReadOnly = true;
-            // 
-            // dateio
-            // 
-            this.dateio.DataPropertyName = "dateout";
-            dataGridViewCellStyle5.Format = "g";
-            dataGridViewCellStyle5.NullValue = null;
-            this.dateio.DefaultCellStyle = dataGridViewCellStyle5;
-            this.dateio.HeaderText = "Date";
-            this.dateio.Name = "dateio";
             // 
             // ReleaseAndReceiveHistory
             // 

@@ -31,12 +31,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DebugRelay));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lbpushnotifytype = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.lbcom = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.lbbaudrate = new System.Windows.Forms.Label();
+            this.lbcom = new System.Windows.Forms.Label();
+            this.lbpushnotifytype = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCLoseCH2 = new HANMISYSTEM.Module.MyButton();
             this.btnCloseCH1 = new HANMISYSTEM.Module.MyButton();
             this.btnOpenCH2 = new HANMISYSTEM.Module.MyButton();
@@ -75,14 +75,14 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Cài đặt";
             // 
-            // lbpushnotifytype
+            // label3
             // 
-            this.lbpushnotifytype.AutoSize = true;
-            this.lbpushnotifytype.Location = new System.Drawing.Point(206, 41);
-            this.lbpushnotifytype.Name = "lbpushnotifytype";
-            this.lbpushnotifytype.Size = new System.Drawing.Size(108, 17);
-            this.lbpushnotifytype.TabIndex = 1;
-            this.lbpushnotifytype.Text = "push notify type";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(26, 98);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(78, 17);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "Baud rate :";
             // 
             // label2
             // 
@@ -93,14 +93,32 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "COM port :";
             // 
-            // label3
+            // lbbaudrate
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 98);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(78, 17);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "Baud rate :";
+            this.lbbaudrate.AutoSize = true;
+            this.lbbaudrate.Location = new System.Drawing.Point(108, 98);
+            this.lbbaudrate.Name = "lbbaudrate";
+            this.lbbaudrate.Size = new System.Drawing.Size(65, 17);
+            this.lbbaudrate.TabIndex = 1;
+            this.lbbaudrate.Text = "baudrate";
+            // 
+            // lbcom
+            // 
+            this.lbcom.AutoSize = true;
+            this.lbcom.Location = new System.Drawing.Point(108, 69);
+            this.lbcom.Name = "lbcom";
+            this.lbcom.Size = new System.Drawing.Size(34, 17);
+            this.lbcom.TabIndex = 1;
+            this.lbcom.Text = "com";
+            // 
+            // lbpushnotifytype
+            // 
+            this.lbpushnotifytype.AutoSize = true;
+            this.lbpushnotifytype.Location = new System.Drawing.Point(206, 41);
+            this.lbpushnotifytype.Name = "lbpushnotifytype";
+            this.lbpushnotifytype.Size = new System.Drawing.Size(108, 17);
+            this.lbpushnotifytype.TabIndex = 1;
+            this.lbpushnotifytype.Text = "push notify type";
             // 
             // groupBox2
             // 
@@ -117,24 +135,6 @@
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Relay";
-            // 
-            // lbcom
-            // 
-            this.lbcom.AutoSize = true;
-            this.lbcom.Location = new System.Drawing.Point(108, 69);
-            this.lbcom.Name = "lbcom";
-            this.lbcom.Size = new System.Drawing.Size(34, 17);
-            this.lbcom.TabIndex = 1;
-            this.lbcom.Text = "com";
-            // 
-            // lbbaudrate
-            // 
-            this.lbbaudrate.AutoSize = true;
-            this.lbbaudrate.Location = new System.Drawing.Point(108, 98);
-            this.lbbaudrate.Name = "lbbaudrate";
-            this.lbbaudrate.Size = new System.Drawing.Size(65, 17);
-            this.lbbaudrate.TabIndex = 1;
-            this.lbbaudrate.Text = "baudrate";
             // 
             // btnCLoseCH2
             // 
@@ -223,6 +223,7 @@
             this.myButton2.Text = "CH 1";
             this.myButton2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.myButton2.UseVisualStyleBackColor = false;
+            this.myButton2.Click += new System.EventHandler(this.myButton2_Click);
             // 
             // btnReadStatus
             // 

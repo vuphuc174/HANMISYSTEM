@@ -503,7 +503,16 @@ namespace HANMISYSTEM
         //private string str;
         private async Task SavePackingOptional(string pn, bool cpm, bool cl)
         {
-            await connect.ExeDataAsync("Update PackingOptional set ChangePackingMethod =" + (cpm ? "1" : "0") + " ,CheckLabel=" + (cl ? "1" : "0") + " where PartNo= '" + pn + "' ");
+            DataTable dtCheckExist = connect.readdata("select * from PackingOptional where PartNo ='"+pn+"'");
+            if(dtCheckExist.Rows.Count>0)
+            {
+                await connect.ExeDataAsync("Update PackingOptional set ChangePackingMethod =" + (cpm ? "1" : "0") + " ,CheckLabel=" + (cl ? "1" : "0") + " where PartNo= '" + pn + "' ");
+            }
+            else
+            {
+                await connect.ExeDataAsync("Insert into PackingOptional values('"+pn+"',"+ (cpm ? "1" : "0") + " ," + (cl ? "1" : "0") + ")");
+            }
+            
         }
         private async void btnsave_Click(object sender, EventArgs e)
         {

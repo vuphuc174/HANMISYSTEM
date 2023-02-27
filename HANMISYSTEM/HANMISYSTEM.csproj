@@ -121,6 +121,9 @@
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Common\PackingController.cs" />
     <Compile Include="Common\ThreadHelperClass.cs" />
+    <Compile Include="CustomControls\ToggleButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Expander\Accordion.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -253,23 +256,11 @@
     <Compile Include="Views\bomv2.Designer.cs">
       <DependentUpon>bomv2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\checkinventory.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\checkinventory.Designer.cs">
-      <DependentUpon>checkinventory.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\CustomMsgBox.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\CustomMsgBox.Designer.cs">
       <DependentUpon>CustomMsgBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\defect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\defect.Designer.cs">
-      <DependentUpon>defect.cs</DependentUpon>
     </Compile>
     <Compile Include="EF\bom.cs" />
     <Compile Include="EF\bomdaiban.cs" />
@@ -326,18 +317,6 @@
     <Compile Include="Views\DriverMgt.Designer.cs">
       <DependentUpon>DriverMgt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\EIS.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\EIS.Designer.cs">
-      <DependentUpon>EIS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Form2.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Form2.Designer.cs">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </Compile>
     <Compile Include="lang\MyResource.vi-VN.Designer.cs">
       <DependentUpon>MyResource.vi-VN.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -385,12 +364,6 @@
     </Compile>
     <Compile Include="Views\GoodsMgt.Designer.cs">
       <DependentUpon>GoodsMgt.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Hanmi-process.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\Hanmi-process.Designer.cs">
-      <DependentUpon>Hanmi-process.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PartialView\PageSearch.cs">
       <SubType>Form</SubType>
@@ -780,14 +753,8 @@
     <EmbeddedResource Include="Views\bomv2.resx">
       <DependentUpon>bomv2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\checkinventory.resx">
-      <DependentUpon>checkinventory.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\CustomMsgBox.resx">
       <DependentUpon>CustomMsgBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\defect.resx">
-      <DependentUpon>defect.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Deliverygoods.resx">
       <DependentUpon>Deliverygoods.cs</DependentUpon>
@@ -801,20 +768,11 @@
     <EmbeddedResource Include="Views\EditInvoice.resx">
       <DependentUpon>EditInvoice.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\EIS.resx">
-      <DependentUpon>EIS.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Form2.resx">
-      <DependentUpon>Form2.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\GoodsMgt.resx">
       <DependentUpon>GoodsMgt.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Hanmi-process.resx">
-      <DependentUpon>Hanmi-process.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartialView\PageSearch.resx">
       <DependentUpon>PageSearch.cs</DependentUpon>
@@ -1356,7 +1314,6 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="CustomControls\" />
     <Folder Include="Report\" />
     <Folder Include="Views\Drawing\" />
     <Folder Include="Views\Productions\" />

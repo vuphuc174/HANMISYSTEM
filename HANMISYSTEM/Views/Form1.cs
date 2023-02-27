@@ -860,24 +860,6 @@ namespace HANMISYSTEM
                             {
                                 connect.exedata("insert into packinginfo (idpack,partno,quantity,packingdate,idlocation,idwarehouse) values('" + txtboxno.Text + "','" + txtmodel.Text.ToUpper() + "','" + txtsoluong.Text + "',getdate(),'" + cblocation.SelectedValue + "','" + wh + "') ");
                             }
-
-                            //bom solve in here 
-                            //DataTable dtbom = connect.readdata("with temp(partno,rawpartno,quantity) as (select partno,rawpartno,quantity from bom where partno='" + txtmodel.Text + "' union all select a.partno,b.rawpartno,a.quantity*b.quantity from temp as a, bom as b where a.rawpartno=b.partno and (select ProcessID from cargo where partno ='" + txtmodel.Text + "')=(select ProcessID from cargo where partno=b.partno) ) select rawpartno, SUM(quantity) as quantity from (select * from temp t1 where (select ProcessID from cargo where partno ='" + txtmodel.Text + "')<>(select ProcessID from cargo where partno=t1.rawpartno)) as temp1 inner join cargo c1 on temp1.partno=c1.partno group by temp1.partno,rawpartno order by temp1.partno asc");
-                            //if (dtbom.Rows.Count > 0)
-                            //{
-                            //    for (int i = 0; i < dtbom.Rows.Count; i++)
-                            //    {
-                            //        if (connect.countdata("select count(partno) from stock where idwarehouse ='WH014' and partno='" + dtbom.Rows[i]["rawpartno"].ToString() + "'") == 0)
-                            //        {
-                            //            connect.exedata("insert into stock(idwarehouse,partno,quantity) values('WH014','" + dtbom.Rows[i]["rawpartno"].ToString() + "','" + (Convert.ToDouble(dtbom.Rows[i]["quantity"].ToString()) * Convert.ToDouble(txtsoluong.Text) * -1) + "')");
-                            //        }
-                            //        else
-                            //        {
-                            //            connect.exedata("update stock set quantity =quantity-" + (Convert.ToDouble(dtbom.Rows[i]["quantity"].ToString()) * Convert.ToDouble(txtsoluong.Text)) + " where partno='" + dtbom.Rows[i]["rawpartno"].ToString() + "'");
-                            //        }
-                            //    }
-                            //}
-                            //clear data
                             txtboxno.Text = "";
                             txtsoluong.Text = "";
                             txtboxno.Enabled = true;
@@ -896,7 +878,31 @@ namespace HANMISYSTEM
 
             }
         }
-
+        private async void UpdateData(string idpack,string partno)
+        {
+            try
+            {
+                DataTable dtpackage = connect.readdata("select count(*) as quantity from packinginfo where idpack='"+idpack+"'");
+                
+                if (dtpackage.Rows[0]["quantity"].ToString() != "0")
+                {
+                    //existed package
+                    await connect.ExeDataAsync("exec spUpdatePackingInfo_Increase @idpack='" + idpack + "'");
+                }
+                else
+                {
+                    //new package
+                    await connect.ExeDataAsync("exec spInsertPackingInfo @idpack='" + idpack + "',@partno='" + partno + "',@idlocation='" + cblocation.SelectedValue.ToString() + "',@idwarehouse='" + wh + "'");
+                }
+                await connect.ExeDataAsync("insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + wh + "','" + txtmodel.Text + "',GETDATE(),'',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')");
+                txtactualqty.Text = (Convert.ToInt32(txtactualqty.Text) + 1).ToString();
+                txtproductionqty.Text = (Convert.ToInt32(txtproductionqty.Text) + 1).ToString();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message); ;
+            }
+        }
         private async void txtpartno_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
@@ -913,7 +919,6 @@ namespace HANMISYSTEM
                     {
                         if (txtpartno.Text.ToUpper() == txtmodel.Text.ToUpper().ToString().ToUpper())
                         {
-
                             if (txtqty.Text == "0" || txtboxno.Text.Contains(" ") == true)
                             {
                                 MessageBox.Show("Mã đóng gói không hợp lệ !");
@@ -930,58 +935,60 @@ namespace HANMISYSTEM
                                     }
                                     else
                                     {
+                                        #region
                                         if (pushnotifytype == "2")
                                         {
                                             CallOK();
                                         }
-                                        txtproductionqty.Text = (Convert.ToInt32(txtproductionqty.Text) + 1).ToString();
+                                        //txtproductionqty.Text = (Convert.ToInt32(txtproductionqty.Text) + 1).ToString();
                                         //quanli packing
-                                        if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtboxno.Text + "'") == 0)
-                                        {
-                                            //err2
-                                            try
-                                            {
-                                                await connect.ExeDataAsync("exec spInsertPackingInfo @idpack='" + txtboxno.Text + "',@partno='" + txtmodel.Text.ToUpper() + "',@idlocation='" + cblocation.SelectedValue.ToString() + "',@idwarehouse='" + wh + "'");
+                                        //if (connect.countdata("select count(idpack) from packinginfo where idpack='" + txtboxno.Text + "'") == 0)
+                                        //{
+                                        //    //err2
+                                        //    try
+                                        //    {
+                                        //        await connect.ExeDataAsync("exec spInsertPackingInfo @idpack='" + txtboxno.Text + "',@partno='" + txtmodel.Text.ToUpper() + "',@idlocation='" + cblocation.SelectedValue.ToString() + "',@idwarehouse='" + wh + "'");
 
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MessageBox.Show("err2 :" + ex.Message);
-                                            }
-                                        }
-                                        else
-                                        {
-                                            //err4
-                                            try
-                                            {
-                                                await connect.ExeDataAsync("exec spUpdatePackingInfo_Increase @idpack='" + txtboxno.Text + "'");
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                MessageBox.Show("err4 :" + ex.Message);
-                                            }
+                                        //    }
+                                        //    catch (Exception ex)
+                                        //    {
+                                        //        MessageBox.Show("err2 :" + ex.Message);
+                                        //    }
+                                        //}
+                                        //else
+                                        //{
+                                        //    //err4
+                                        //    try
+                                        //    {
+                                        //        await connect.ExeDataAsync("exec spUpdatePackingInfo_Increase @idpack='" + txtboxno.Text + "'");
+                                        //    }
+                                        //    catch (Exception ex)
+                                        //    {
+                                        //        MessageBox.Show("err4 :" + ex.Message);
+                                        //    }
+                                        //}
+                                        ////err3
+                                        //try
+                                        //{
+                                        //    await connect.ExeDataAsync("insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + wh + "','" + txtmodel.Text + "',GETDATE(),'',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')");
 
-                                        }
-                                        //err3
-                                        try
-                                        {
-                                            await connect.ExeDataAsync("insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + wh + "','" + txtmodel.Text + "',GETDATE(),'',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')");
-
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("err3 :" + ex.Message);
-                                        }
-                                        //err1
-                                        try
-                                        {
-                                            txtactualqty.Text = (Convert.ToInt32(txtactualqty.Text) + 1).ToString();
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            MessageBox.Show("err1 :" + ex.Message);
-                                        }
+                                        //}
+                                        //catch (Exception ex)
+                                        //{
+                                        //    MessageBox.Show("err3 :" + ex.Message);
+                                        //}
+                                        ////err1
+                                        //try
+                                        //{
+                                        //    txtactualqty.Text = (Convert.ToInt32(txtactualqty.Text) + 1).ToString();
+                                        //}
+                                        //catch (Exception ex)
+                                        //{
+                                        //    MessageBox.Show("err1 :" + ex.Message);
+                                        //}
+                                        UpdateData(txtboxno.Text, txtmodel.Text);
                                         txtpartno.Text = "";
+                                        #endregion
 
                                     }
                                 }
@@ -1016,8 +1023,9 @@ namespace HANMISYSTEM
                     }
                 }
 
-
+                
             }
+            //Thread.Sleep(300);
         }
     }
 }

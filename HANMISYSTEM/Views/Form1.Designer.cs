@@ -62,12 +62,12 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtworkorder = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnPacking_renew = new HANMISYSTEM.Module.MyButton();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.btnPacking_renew = new HANMISYSTEM.Module.MyButton();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -256,9 +256,9 @@
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox2.Location = new System.Drawing.Point(368, 16);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(167, 28);
+            this.checkBox2.Size = new System.Drawing.Size(102, 28);
             this.checkBox2.TabIndex = 17;
-            this.checkBox2.Text = "Scan theo thùng";
+            this.checkBox2.Text = "Scan Lot";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -421,22 +421,6 @@
             this.panel5.Size = new System.Drawing.Size(555, 622);
             this.panel5.TabIndex = 24;
             // 
-            // btnPacking_renew
-            // 
-            this.btnPacking_renew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(150)))), ((int)(((byte)(240)))));
-            this.btnPacking_renew.FlatAppearance.BorderSize = 0;
-            this.btnPacking_renew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPacking_renew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPacking_renew.ForeColor = System.Drawing.Color.White;
-            this.btnPacking_renew.Location = new System.Drawing.Point(129, 309);
-            this.btnPacking_renew.Name = "btnPacking_renew";
-            this.btnPacking_renew.Size = new System.Drawing.Size(85, 37);
-            this.btnPacking_renew.TabIndex = 21;
-            this.btnPacking_renew.Text = "Đóng gói";
-            this.btnPacking_renew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPacking_renew.UseVisualStyleBackColor = false;
-            this.btnPacking_renew.Click += new System.EventHandler(this.btnPacking_renew_Click);
-            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.panel7);
@@ -479,6 +463,22 @@
             this.pictureBox1.TabIndex = 23;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // btnPacking_renew
+            // 
+            this.btnPacking_renew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(150)))), ((int)(((byte)(240)))));
+            this.btnPacking_renew.FlatAppearance.BorderSize = 0;
+            this.btnPacking_renew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPacking_renew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPacking_renew.ForeColor = System.Drawing.Color.White;
+            this.btnPacking_renew.Location = new System.Drawing.Point(129, 309);
+            this.btnPacking_renew.Name = "btnPacking_renew";
+            this.btnPacking_renew.Size = new System.Drawing.Size(85, 37);
+            this.btnPacking_renew.TabIndex = 21;
+            this.btnPacking_renew.Text = "Đóng gói";
+            this.btnPacking_renew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPacking_renew.UseVisualStyleBackColor = false;
+            this.btnPacking_renew.Click += new System.EventHandler(this.btnPacking_renew_Click);
             // 
             // frmprod
             // 

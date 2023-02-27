@@ -451,5 +451,10 @@ namespace HANMISYSTEM.Views
             SetPage = 1;
             SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
         }
+
+        private void btnPrevious_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

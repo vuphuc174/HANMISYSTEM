@@ -1,116 +1,323 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using tbl=System.Data;
+using tbl = System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Excel = Microsoft.Office.Interop.Excel;
-using Microsoft.Office.Interop.Excel;
 using System.Data.SqlClient;
 using System.Data;
+using Button = System.Windows.Forms.Button;
 
 namespace HANMISYSTEM
 {
     public partial class Production_history : Form
     {
-        //int PageSize = 20;
-
         public Production_history()
         {
             InitializeComponent();
         }
-        private string str;
+        List<Button> buttons = new List<Button>();
         Dbconnect connect = new Dbconnect();
-        public class Page
+        const int pageSize = 30;
+        int totalPage;
+        public string wh;
+        public int SetTotalPage
         {
-            public string Text { get; set; }
-            public string Value { get; set; }
-            public bool Selected { get; set; }
+            get { return totalPage; }
+            set
+            {
+                totalPage = value;
+                UpdateLabels();
+                UpdatePageList();
+            }
         }
-        static string sn = HANMISYSTEM.Properties.Settings.Default.servername;
-        static string uid = HANMISYSTEM.Properties.Settings.Default.uid;
-        static string pwd = HANMISYSTEM.Properties.Settings.Default.pwd;
-        
-        
-        
-        public void ExportToExcel(tbl.DataTable dataTable, string ExcelFilePath)
+        int curPage;
+        int SetPage
+        {
+            get { return curPage; }
+            set
+            {
+                curPage = value;
+                UpdateLabels();
+                LoadMorePage();
+                GoLastPage();
+                ShowLessPage();
+                UpdatePageList();
+                CheckGoPageButton();
+                GetData(curPage, pageSize, txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
+            }
+        }
+        private void CheckGoPageButton()
+        {
+            if (Convert.ToInt32(p6.Text) < totalPage)
+            {
+                p7.Visible = true;
+            }
+            else
+            {
+                p7.Visible = false;
+            }
+        }
+        private void GoLastPage()
+        {
+            if (curPage == totalPage)
+            {
+                int num;
+                num = totalPage % 6;
+                for (int i = 0; i < num; i++)
+                {
+                    buttons[i].Text = (totalPage - num + 1 + i).ToString();
+                    buttons[i].Visible = true;
+                }
+            }
+        }
+        private void ShowLessPage()
+        {
+            if (curPage.ToString() == p1.Text && curPage >= 4)
+            {
+                foreach (Button button in buttons)
+                {
+                    if (button.Text != "...")
+                        button.Text = (Convert.ToInt32(button.Text) - 3).ToString();
+                }
+            }
+        }
+        private void LoadMorePage()
+        {
+            if (curPage.ToString() == p6.Text && curPage < totalPage)
+            {
+                foreach (Button button in buttons)
+                {
+                    if (button.Text != "...")
+                        button.Text = (Convert.ToInt32(button.Text) + 3).ToString();
+                }
+            }
+        }
+        private void SetActivePage()
+        {
+            foreach (Button button in buttons)
+            {
+                if (button.Text == curPage.ToString())
+                {
+                    button.BackColor = Color.FromArgb(30, 140, 240);
+                    button.ForeColor = Color.White;
+                }
+            }
+        }
+        private void SetPageListVisible()
+        {
+            foreach (Button button in buttons)
+            {
+                button.Visible = false;
+            }
+        }
+        private void RemoveActive()
+        {
+            foreach (Button button in buttons)
+            {
+                button.BackColor = SystemColors.Control;
+                button.ForeColor = Color.Black;
+            }
+        }
+        private void HideAllPageNotExist()
+        {
+            foreach (Button button in buttons)
+            {
+                if (button.Text != "...")
+                {
+                    if (Convert.ToInt32(button.Text) > totalPage)
+                    {
+                        button.Visible = false;
+                        p7.Visible = false;
+                    }
+                }
+
+            }
+        }
+        private void UpdatePageList()
         {
             try
             {
-                int ColumnsCount;
+                SetPageListVisible();
 
-                if (dataTable == null || (ColumnsCount = dataTable.Columns.Count) == 0)
-                    throw new Exception("ExportToExcel: Null or empty input table!\n");
-
-                // create a new workbook
-                Microsoft.Office.Interop.Excel.Application Excel = new Microsoft.Office.Interop.Excel.Application();
-                Excel.Workbooks.Add(System.Reflection.Missing.Value);
-
-                object misValue = System.Reflection.Missing.Value;
-
-                // single worksheet
-                Microsoft.Office.Interop.Excel._Worksheet Worksheet = (Microsoft.Office.Interop.Excel._Worksheet)Excel.ActiveSheet;
-
-                object[] Header = new object[ColumnsCount];
-
-                // column headings
-                for (int i = 0; i < ColumnsCount; i++)
-                    Header[i] = dataTable.Columns[i].ColumnName;
-
-                Microsoft.Office.Interop.Excel.Range HeaderRange = Worksheet.get_Range((Microsoft.Office.Interop.Excel.Range)(Worksheet.Cells[1, 1]), (Microsoft.Office.Interop.Excel.Range)(Worksheet.Cells[1, ColumnsCount]));
-                HeaderRange.Value2 = Header;
-                HeaderRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
-                HeaderRange.Font.Bold = true;
-
-                // DataCells
-                int RowsCount = dataTable.Rows.Count;
-                object[,] Cells = new object[RowsCount, ColumnsCount];
-
-                for (int j = 0; j < RowsCount; j++)
-                    for (int i = 0; i < ColumnsCount; i++)
-                        Cells[j, i] = dataTable.Rows[j][i];
-
-                Worksheet.get_Range((Microsoft.Office.Interop.Excel.Range)(Worksheet.Cells[2, 1]), (Microsoft.Office.Interop.Excel.Range)(Worksheet.Cells[RowsCount + 1, ColumnsCount])).Value2 = Cells;
-
-                // check fielpath
-                if (ExcelFilePath != null && ExcelFilePath != "")
+                if (totalPage > 0)
                 {
-                    try
+                    RemoveActive();
+                    //show page list
+                    //if page is last
+                    if (curPage == totalPage)
                     {
-                        Worksheet.SaveAs(ExcelFilePath, misValue, misValue, misValue, misValue, misValue, misValue, misValue, misValue, misValue);
+                        int num;
+                        num = totalPage % 6;
+                        if (num > 0)
+                        {
+                            for (int i = 0; i < 6; i++)
+                            {
+                                buttons[i].Text = (totalPage - num + 1 + i).ToString();
+                                if (Convert.ToInt32(buttons[i].Text) <= totalPage)
+                                    buttons[i].Visible = true;
+                            }
+                        }
+                        else
+                        {
+                            for (int i = 0; i < 6; i++)
+                            {
+                                buttons[i].Text = (totalPage - 6 + 1 + i).ToString();
+                                if (Convert.ToInt32(buttons[i].Text) <= totalPage)
+                                    buttons[i].Visible = true;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        //go page not inside current page list
+                        if (!CheckContain(curPage.ToString()))
+                        {
+                            int num = (curPage / 6);
+                            if (curPage % 6 == 0)
+                            {
+                                for (int i = 0; i < 6; i++)
+                                {
+                                    buttons[i].Text = (num * 6 - 5 + i).ToString();
+                                    if (Convert.ToInt32(buttons[i].Text) <= totalPage || buttons[i].Text == "...")
+                                        buttons[i].Visible = true;
+                                }
 
-                        Excel.Visible = true;
+                            }
+                            else
+                            {
+                                for (int i = 0; i < 6; i++)
+                                {
+
+                                    buttons[i].Text = ((num + 1) * 6 - 5 + i).ToString();
+                                    if (Convert.ToInt32(buttons[i].Text) <= totalPage || buttons[i].Text == "...")
+                                        buttons[i].Visible = true;
+
+
+                                }
+                            }
+
+
+                        }
+                        else
+                        {
+                            for (int i = 0; i <= ((totalPage >= 6) ? 6 : totalPage - 1); i++)
+                            {
+                                if (buttons[i].Text != "..." && curPage == 1)
+                                {
+                                    buttons[i].Text = (i + 1).ToString();
+                                }
+                                buttons[i].Visible = true;
+                            }
+                        }
+
                     }
-                    catch (Exception ex)
-                    {
-                        throw new Exception("ExportToExcel: Excel file could not be saved! Check filepath.\n" + ex.Message);
-                    }
+                    SetActivePage();
+                    HideAllPageNotExist();
+
                 }
-                else // no filepath is given
-                {
-                    Excel.Visible = true;
-                }
+
             }
             catch (Exception ex)
             {
-                throw new Exception("ExportToExcel: \n" + ex.Message);
+                MessageBox.Show(ex.Message);
             }
+
+        }
+        private bool CheckContain(string page)
+        {
+            foreach (Button button in buttons)
+            {
+                if (button.Text == page)
+                    return true;
+            }
+            return false;
+        }
+        private void UpdateLabels()
+        {
+            lbCurrentPage.Text = curPage.ToString();
+            lbTotalPage.Text = totalPage.ToString();
+        }
+        private void btnGoLast_Click(object sender, EventArgs e)
+        {
+            SetPage = GetTotalPage(txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
+        }
+
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnGoFirst_Click(object sender, EventArgs e)
+        {
+            SetPage = 1;
         }
         private void loaddata(string cmd)
         {
-            tbl.DataTable dt = connect.readdata(cmd);
-            if (dt.Rows.Count > 0)
+            try
             {
+                DataTable dt = connect.readdata(cmd);
                 dataGridView1.DataSource = dt;
             }
+            catch
+            {
+                throw;
+            }
+        }
+        private int GetTotalPage(string searchTearm, string wh, string lineID, string statdate, string endate)
+        {
+            DataTable dataTable;
+            string sql;
+            sql = "select COUNT(*) as row  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='"+wh+"' and idlocation ='"+lineID+"' and CONVERT(date,productionhistory.productiontime) between '"+statdate+"' and '"+endate+"'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and productionhistory.partno like '%" + searchTearm + "%'") + "";
+            dataTable = connect.readdata(sql);
+
+
+            if (dataTable.Rows.Count > 0)
+            {
+                if (Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) % pageSize == 0)
+                {
+                    return Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) / pageSize;
+                }
+                else
+                {
+                    return Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) / pageSize + 1;
+                }
+            }
+
+            return 0;
+        }
+        private void GetData(int page, int pageSize, string searchTearm, string wh, string lineID, string statdate, string endate)
+        {
+            string sql;
+            try
+            {
+                sql = "with temp as  (select ROW_NUMBER() over (order by productionhistory.productiontime desc) as row, idpack,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='" + wh + "' and idlocation ='" + lineID + "' and CONVERT(date,productionhistory.productiontime) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and productionhistory.partno like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
+                loaddata(sql);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void btn_gopage(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            SetPage = Convert.ToInt32(btn.Text);
+            GetData(curPage, pageSize, txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
         }
         private void Production_history_Load(object sender, EventArgs e)
         {
+
             tbl.DataTable dt = connect.readdata("select * from warehouse");
-            if(dt.Rows.Count>0)
+            if (dt.Rows.Count > 0)
             {
                 cbwarehouse.DataSource = dt;
                 cbwarehouse.ValueMember = "idwarehouse";
@@ -120,132 +327,40 @@ namespace HANMISYSTEM
             cblocation.DataSource = dtlocation;
             cblocation.DisplayMember = "namelocation1";
             cblocation.ValueMember = "idlocation";
-            cblocation.SelectedValue="L1";
-            loaddata("select top 100  namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='WH001' and idlocation ='L1'");
-           
-        }
-
-        private void txtsearch_TextChanged(object sender, EventArgs e)
-        {
-            if(txtsearch.Text!="")
+            cblocation.SelectedValue = "L1";
+            buttons.Add(p1);
+            buttons.Add(p2);
+            buttons.Add(p3);
+            buttons.Add(p4);
+            buttons.Add(p5);
+            buttons.Add(p6);
+            buttons.Add(p7);
+            foreach (Button button in buttons)
             {
-                str = "select namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where namewarehouse like '%" + txtsearch.Text + "%' or cargo.partno like '%" + txtsearch.Text + "%' or partname like '%" + txtsearch.Text + "%' and warehouse.idwarehouse='"+cbwarehouse.SelectedValue+"'";
-                tbl.DataTable dt=connect.readdata(str);
-                dataGridView1.DataSource = dt;
+                if (button.Text != "...")
+                {
+                    button.Click += btn_gopage;
+                }
             }
-            else
-            {
+            SetPage = 1;
+            //GetData(1, pageSize, "");
+            SetTotalPage = GetTotalPage(txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
 
-            }
+            //pagelist
+            UpdatePageList();
         }
-
         private void btnsearch_Click(object sender, EventArgs e)
         {
-            if(txtsearch.Text=="")
-            {
-                str = "select namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where productiontime between '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "' and warehouse.idwarehouse='" + cbwarehouse.SelectedValue + "'  and idlocation='" + cblocation.SelectedValue.ToString() + "'";
-            }
-            else
-            {
-                str = "select namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where namewarehouse like '%" + txtsearch.Text + "%' or cargo.partno like '%" + txtsearch.Text + "%' or partname like '%" + txtsearch.Text + "%' and productiontime between '" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "' and '" + dateTimePicker2.Value.ToString("yyyy-MM-dd") + "' and warehouse.idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation ='" + cblocation.SelectedValue.ToString() + "'";
-            }
-            tbl.DataTable dt = connect.readdata(str);
-            dataGridView1.DataSource = dt;
+            SetPage = 1;
+            SetTotalPage = GetTotalPage(txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
         }
 
         private void btnexcel_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                if(txtsearch.Text=="")
-                {
-                    str="select namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse='"+cbwarehouse.SelectedValue+"'";
-                    tbl.DataTable dt = connect.readdata(str);
-                    ExportToExcel(dt, saveFileDialog1.FileName.ToString());
-                }
-                else
-                {
-                    tbl.DataTable dt = connect.readdata(str);
-                    ExportToExcel(dt, saveFileDialog1.FileName.ToString());
-                }
-                
             }
         }
-
-        private void cbwarehouse_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            loaddata("select top 100  namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='"+cbwarehouse.SelectedValue.ToString()+"' and idlocation ='L1'");        
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-          
-        }
-
-        private void btndata_Click(object sender, EventArgs e)
-        {
-            // creating Excel Application  
-            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
-            // creating new WorkBook within Excel application  
-            Microsoft.Office.Interop.Excel._Workbook workbook = app.Workbooks.Add(Type.Missing);
-            // creating new Excelsheet in workbook  
-            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
-            // see the excel sheet behind the program  
-            app.Visible = true;
-            // get the reference of first sheet. By default its name is Sheet1.  
-            // store its reference to worksheet  
-            worksheet = workbook.Sheets["Sheet1"];
-            worksheet = workbook.ActiveSheet;
-            // changing the name of active sheet  
-            worksheet.Name = "Exported from gridview";
-            // storing header part in Excel  
-            for (int i = 1; i < dataGridView1.Columns.Count + 1; i++)
-            {
-                worksheet.Cells[1, i] = dataGridView1.Columns[i - 1].HeaderText;
-            }
-            // storing Each row and column value to excel sheet  
-            for (int i = 0; i < dataGridView1.Rows.Count - 1; i++)
-            {
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    worksheet.Cells[i + 2, j + 1] = dataGridView1.Rows[i].Cells[j].Value.ToString();
-                }
-            }
-            if (saveFileDialog2.ShowDialog() == DialogResult.OK)
-            {
-
-                workbook.SaveAs(saveFileDialog2.FileName.ToString(), Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-
-            }
-            // save the application  
-
-            // Exit from the application  
-            app.Quit();  
-        }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void cblocation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            loaddata("select top 100  namewarehouse,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='"+cbwarehouse.SelectedValue.ToString()+"' and idlocation ='"+cblocation.SelectedValue.ToString()+"'");
-        }
+       
     }
 }

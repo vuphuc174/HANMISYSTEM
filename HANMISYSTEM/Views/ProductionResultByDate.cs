@@ -65,31 +65,31 @@ namespace HANMISYSTEM.Views
 
         private void cblocation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtsearch.Text = "";
-            if (cblocation.SelectedValue.ToString() != "-1")
-            {
-                dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where idlocation='" + cblocation.SelectedValue.ToString() + "'");
-                try
-                {
-                    dgvdata.DataSource = dtdata;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error :" + ex);
-                }
-            }
-            else
-            {
-                dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result");
-                try
-                {
-                    dgvdata.DataSource = dtdata;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error :" + ex);
-                }
-            }
+            //txtsearch.Text = "";
+            //if (cblocation.SelectedValue.ToString() != "-1")
+            //{
+            //    dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result where idlocation='" + cblocation.SelectedValue.ToString() + "'");
+            //    try
+            //    {
+            //        dgvdata.DataSource = dtdata;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error :" + ex);
+            //    }
+            //}
+            //else
+            //{
+            //    dtdata = connect.readdata("select partno,partname,productiondate,quantity from view_production_result");
+            //    try
+            //    {
+            //        dgvdata.DataSource = dtdata;
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        MessageBox.Show("Error :" + ex);
+            //    }
+            //}
 
         }
 
