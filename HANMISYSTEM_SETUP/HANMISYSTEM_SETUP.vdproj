@@ -39,6 +39,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_623826943305010C1E1A291251B1B451"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_826FF6786E064030B61AA60189BFE9E8"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -83,6 +89,24 @@
         {
         "MsmKey" = "8:_CE22933FC87A5B9BC2F59FB6B2029ED6"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
+        "OwnerKey" = "8:_623826943305010C1E1A291251B1B451"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F13E1C9B7741FFC3EEF8106D8B590A4A"
+        "OwnerKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -143,6 +167,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_AAB7E612B674AF14CC601059BE00A0B7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_623826943305010C1E1A291251B1B451"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -339,6 +375,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_623826943305010C1E1A291251B1B451"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_623826943305010C1E1A291251B1B451"
+                    {
+                    "Name" = "8:AxInterop.AcroPDFLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AxInterop.AcroPDFLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_826FF6786E064030B61AA60189BFE9E8"
             {
             "SourcePath" = "8:D:\\images\\ico\\hmsr.ico"
@@ -514,6 +581,57 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F027CC8A4C976D085D2A3BE7C09A0C92"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Interop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_F027CC8A4C976D085D2A3BE7C09A0C92"
+                    {
+                    "Name" = "8:Interop.AcroPDFLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Interop.AcroPDFLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_F13E1C9B7741FFC3EEF8106D8B590A4A"
+            {
+            "SourcePath" = "8:AcroPDF.dll"
+            "TargetName" = "8:AcroPDF.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F4C9F02023103D156669A01429191A07"
             {
             "AssemblyRegister" = "3:1"
@@ -601,15 +719,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HANMISYSTEM_SETUP"
-        "ProductCode" = "8:{151164C8-D007-48DE-99CC-1D2616A1B11B}"
-        "PackageCode" = "8:{596A6E18-0C90-400F-B6B6-2BED718BFC72}"
+        "ProductCode" = "8:{B4C7B037-B4F4-40F2-BD33-8D3B618626CD}"
+        "PackageCode" = "8:{777ECE76-589C-486D-8299-0F97BDEC5AAD}"
         "UpgradeCode" = "8:{DD9A1577-9CC7-4253-BD71-35A1FD739AA7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.1.5"
+        "ProductVersion" = "8:1.1.6"
         "Manufacturer" = "8:Hanmi Flexible Vina HaiPhong"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

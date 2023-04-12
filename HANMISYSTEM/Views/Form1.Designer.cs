@@ -40,7 +40,6 @@
             this.txtqty = new System.Windows.Forms.TextBox();
             this.txtactualqty = new System.Windows.Forms.TextBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnpower = new System.Windows.Forms.Button();
             this.txttarget = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.txtplan = new System.Windows.Forms.TextBox();
@@ -53,6 +52,7 @@
             this.txtmodel = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label13 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -62,28 +62,27 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtworkorder = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.toggleButton1 = new HANMISYSTEM.CustomControls.ToggleButton();
+            this.btnPacking_renew = new HANMISYSTEM.Module.MyButton();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.btnPacking_renew = new HANMISYSTEM.Module.MyButton();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.panel8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 21);
+            this.label1.Location = new System.Drawing.Point(24, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(63, 24);
             this.label1.TabIndex = 2;
@@ -124,8 +123,9 @@
             // 
             // txtboxno
             // 
+            this.txtboxno.Enabled = false;
             this.txtboxno.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtboxno.Location = new System.Drawing.Point(129, 126);
+            this.txtboxno.Location = new System.Drawing.Point(129, 215);
             this.txtboxno.Name = "txtboxno";
             this.txtboxno.Size = new System.Drawing.Size(259, 29);
             this.txtboxno.TabIndex = 5;
@@ -135,7 +135,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(21, 129);
+            this.label4.Location = new System.Drawing.Point(21, 218);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(89, 24);
             this.label4.TabIndex = 6;
@@ -155,7 +155,7 @@
             // 
             this.txtqty.Enabled = false;
             this.txtqty.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtqty.Location = new System.Drawing.Point(394, 126);
+            this.txtqty.Location = new System.Drawing.Point(394, 215);
             this.txtqty.Name = "txtqty";
             this.txtqty.Size = new System.Drawing.Size(49, 29);
             this.txtqty.TabIndex = 7;
@@ -177,17 +177,6 @@
             this.timer1.Interval = 10000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // btnpower
-            // 
-            this.btnpower.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnpower.Location = new System.Drawing.Point(129, 167);
-            this.btnpower.Name = "btnpower";
-            this.btnpower.Size = new System.Drawing.Size(130, 49);
-            this.btnpower.TabIndex = 0;
-            this.btnpower.Text = "Stop line";
-            this.btnpower.UseVisualStyleBackColor = true;
-            this.btnpower.Click += new System.EventHandler(this.btnpower_Click);
-            // 
             // txttarget
             // 
             this.txttarget.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -203,7 +192,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(19, 67);
+            this.label6.Location = new System.Drawing.Point(19, 156);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(91, 24);
             this.label6.TabIndex = 2;
@@ -213,7 +202,7 @@
             // 
             this.txtplan.Enabled = false;
             this.txtplan.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtplan.Location = new System.Drawing.Point(129, 64);
+            this.txtplan.Location = new System.Drawing.Point(129, 153);
             this.txtplan.Multiline = true;
             this.txtplan.Name = "txtplan";
             this.txtplan.Size = new System.Drawing.Size(130, 40);
@@ -233,7 +222,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(390, 99);
+            this.label8.Location = new System.Drawing.Point(390, 188);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(53, 24);
             this.label8.TabIndex = 12;
@@ -254,7 +243,7 @@
             // 
             this.checkBox2.AutoSize = true;
             this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox2.Location = new System.Drawing.Point(368, 16);
+            this.checkBox2.Location = new System.Drawing.Point(368, 105);
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(102, 28);
             this.checkBox2.TabIndex = 17;
@@ -289,7 +278,7 @@
             // 
             this.txtmodel.Enabled = false;
             this.txtmodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtmodel.Location = new System.Drawing.Point(129, 16);
+            this.txtmodel.Location = new System.Drawing.Point(129, 105);
             this.txtmodel.Name = "txtmodel";
             this.txtmodel.Size = new System.Drawing.Size(233, 29);
             this.txtmodel.TabIndex = 20;
@@ -306,6 +295,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.label13);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.textBox1);
@@ -316,6 +306,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1104, 48);
             this.panel1.TabIndex = 22;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.settings1;
+            this.pictureBox1.Location = new System.Drawing.Point(693, 11);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(47, 30);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 23;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // label13
             // 
@@ -400,9 +402,9 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.toggleButton1);
             this.panel5.Controls.Add(this.btnPacking_renew);
             this.panel5.Controls.Add(this.label1);
-            this.panel5.Controls.Add(this.btnpower);
             this.panel5.Controls.Add(this.label6);
             this.panel5.Controls.Add(this.txtmodel);
             this.panel5.Controls.Add(this.txtpartno);
@@ -420,6 +422,37 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(555, 622);
             this.panel5.TabIndex = 24;
+            // 
+            // toggleButton1
+            // 
+            this.toggleButton1.Location = new System.Drawing.Point(129, 43);
+            this.toggleButton1.MinimumSize = new System.Drawing.Size(45, 22);
+            this.toggleButton1.Name = "toggleButton1";
+            this.toggleButton1.OffBackColor = System.Drawing.Color.Gray;
+            this.toggleButton1.OffToggleColor = System.Drawing.Color.Gainsboro;
+            this.toggleButton1.OnBackColor = System.Drawing.Color.MediumSlateBlue;
+            this.toggleButton1.OnToggleColor = System.Drawing.Color.WhiteSmoke;
+            this.toggleButton1.Size = new System.Drawing.Size(68, 34);
+            this.toggleButton1.TabIndex = 22;
+            this.toggleButton1.UseVisualStyleBackColor = true;
+            this.toggleButton1.CheckedChanged += new System.EventHandler(this.toggleButton1_CheckedChanged);
+            // 
+            // btnPacking_renew
+            // 
+            this.btnPacking_renew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(150)))), ((int)(((byte)(240)))));
+            this.btnPacking_renew.Enabled = false;
+            this.btnPacking_renew.FlatAppearance.BorderSize = 0;
+            this.btnPacking_renew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPacking_renew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPacking_renew.ForeColor = System.Drawing.Color.White;
+            this.btnPacking_renew.Location = new System.Drawing.Point(129, 309);
+            this.btnPacking_renew.Name = "btnPacking_renew";
+            this.btnPacking_renew.Size = new System.Drawing.Size(85, 37);
+            this.btnPacking_renew.TabIndex = 21;
+            this.btnPacking_renew.Text = "Đóng gói";
+            this.btnPacking_renew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnPacking_renew.UseVisualStyleBackColor = false;
+            this.btnPacking_renew.Click += new System.EventHandler(this.btnPacking_renew_Click);
             // 
             // panel6
             // 
@@ -445,40 +478,11 @@
             // 
             // panel8
             // 
-            this.panel8.Controls.Add(this.pictureBox1);
             this.panel8.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel8.Location = new System.Drawing.Point(0, 0);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(95, 44);
             this.panel8.TabIndex = 0;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.settings1;
-            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(47, 30);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 23;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // btnPacking_renew
-            // 
-            this.btnPacking_renew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(150)))), ((int)(((byte)(240)))));
-            this.btnPacking_renew.FlatAppearance.BorderSize = 0;
-            this.btnPacking_renew.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPacking_renew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPacking_renew.ForeColor = System.Drawing.Color.White;
-            this.btnPacking_renew.Location = new System.Drawing.Point(129, 309);
-            this.btnPacking_renew.Name = "btnPacking_renew";
-            this.btnPacking_renew.Size = new System.Drawing.Size(85, 37);
-            this.btnPacking_renew.TabIndex = 21;
-            this.btnPacking_renew.Text = "Đóng gói";
-            this.btnPacking_renew.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnPacking_renew.UseVisualStyleBackColor = false;
-            this.btnPacking_renew.Click += new System.EventHandler(this.btnPacking_renew_Click);
             // 
             // frmprod
             // 
@@ -499,6 +503,7 @@
             this.Load += new System.EventHandler(this.frmprod_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -510,8 +515,6 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
-            this.panel8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -529,7 +532,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox txtproductionqty;
-        public System.Windows.Forms.Button btnpower;
         public System.Windows.Forms.Timer timer1;
         public System.Windows.Forms.ComboBox cblocation;
         public System.Windows.Forms.Label label3;
@@ -556,6 +558,7 @@
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Panel panel8;
         private Module.MyButton btnPacking_renew;
+        private CustomControls.ToggleButton toggleButton1;
     }
 }
 

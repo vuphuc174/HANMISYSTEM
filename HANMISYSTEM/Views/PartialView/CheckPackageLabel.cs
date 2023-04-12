@@ -20,6 +20,7 @@ namespace HANMISYSTEM.Views.PartialView
         public string pushnotifytype;
         public string label;
         SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
+        Dbconnect dbconnect = new Dbconnect();
         private void CheckPackageLabel_Load(object sender, EventArgs e)
         {
             //set push notify type 
@@ -76,11 +77,20 @@ namespace HANMISYSTEM.Views.PartialView
         }
         private void txtInput_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar==13)
+            if (e.KeyChar == 13)
             {
-              if(  label == txtInput.Text)
+                if (label == txtInput.Text)
                 {
-                    this.Close();
+                    if (CheckLabelAccessory())
+                    {
+                        txtChildPart.Visible = true;
+                        txtChildPart.Focus();
+                    }
+                    else
+                    {
+                        this.Close();
+                    }
+                    
                 }
                 else
                 {
@@ -96,10 +106,44 @@ namespace HANMISYSTEM.Views.PartialView
                 }
             }
         }
-
+        private bool CheckLabelAccessory()
+        {
+            DataTable dt = dbconnect.readdata("select * from LabelAccessory where LabelPartNo ='" + label + "'");
+            if (dt.Rows.Count > 0)
+            {
+                return true;
+            }
+            return false;
+        }
         private void txtInput_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void txtChildPart_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                DataTable dt = dbconnect.readdata("select * from LabelAccessory where LabelPartNo ='"+ label+"' and LabelAccessory ='"+txtChildPart.Text+"'");
+                if(dt.Rows.Count > 0)
+                {
+                    this.Close();
+                }
+                else
+
+                {
+                    //call ng 
+                    using (Notify f = new Notify())
+                    {
+                        CallNG();
+                        f.content = "Label : " + txtInput.Text + " & "+txtChildPart.Text +" không hợp lệ.Xin hãy kiểm tra lại !!!";
+                        f.ShowDialog();
+                        txtChildPart.Text = "";
+                        txtInput.SelectAll();
+                        txtInput.Focus();
+                    }
+                }
+            }
         }
     }
 }

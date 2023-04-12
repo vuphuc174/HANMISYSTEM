@@ -198,37 +198,46 @@ namespace HANMISYSTEM
 
         private void productionplan_Load(object sender, EventArgs e)
         {
-            DataTable dt2;
-            DataTable dt = connect.readdata("select idwarehouse,namewarehouse from warehouse where idwarehouse='WH001'");
-            if (dt != null)
+            try
             {
-                cbwarehouse.DataSource = dt;
-                cbwarehouse.ValueMember = "idwarehouse";
-                cbwarehouse.DisplayMember = "namewarehouse";
-            }
-            DataTable dt3 = connect.readdata("select * from tbl_user where username='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
-            if (dt3.Rows[0]["location"].ToString() == "all")
-            {
-                dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "'");
-                lineID = "L1";
-            }
-            else
-            {
-                lineID = dt3.Rows[0]["location"].ToString();
-                dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation='" + dt3.Rows[0]["location"].ToString() + "'");
-            }
+                DataTable dt2;
+                DataTable dt = connect.readdata("select idwarehouse,namewarehouse from warehouse where idwarehouse='WH001'");
+                if (dt != null)
+                {
+                    cbwarehouse.DataSource = dt;
+                    cbwarehouse.ValueMember = "idwarehouse";
+                    cbwarehouse.DisplayMember = "namewarehouse";
+                }
+                DataTable dt3 = connect.readdata("select * from tbl_user where username='" + HANMISYSTEM.Properties.Settings.Default.username + "'");
+                if (dt3.Rows[0]["location"].ToString() == "all")
+                {
+                    dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "'");
+                    lineID = "L1";
+                }
+                else
+                {
+                    lineID = dt3.Rows[0]["location"].ToString();
+                    dt2 = connect.readdata("select * from location where idwarehouse='" + cbwarehouse.SelectedValue + "' and idlocation='" + dt3.Rows[0]["location"].ToString() + "'");
+                }
 
-            if (dt2 != null)
-            {
-                cblocation.DataSource = dt2;
-                cblocation.ValueMember = "idlocation";
-                cblocation.DisplayMember = "namelocation1";
+                if (dt2 != null)
+                {
+                    cblocation.DataSource = dt2;
+                    cblocation.ValueMember = "idlocation";
+                    cblocation.DisplayMember = "namelocation1";
 
-                cbline.DataSource = dt2;
-                cbline.DisplayMember = "namelocation1";
-                cbline.ValueMember = "idlocation";
-                loaddata("select "+searchField+" from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='" + dt2.Rows[0]["idlocation"].ToString() + "' and p.productiondate =CONVERT(date,getdate()) ");
+                    cbline.DataSource = dt2;
+                    cbline.DisplayMember = "namelocation1";
+                    cbline.ValueMember = "idlocation";
+                    string cmd = "select " + searchField + " from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='" + dt2.Rows[0]["idlocation"].ToString() + "' and p.productiondate =CONVERT(date,getdate()) ";
+                   loaddata(cmd);
+                }
             }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
 
         }
         private string GetTeamCode1(int id)

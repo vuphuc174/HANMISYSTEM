@@ -371,6 +371,18 @@
     <Compile Include="Views\PartialView\PageSearch.Designer.cs">
       <DependentUpon>PageSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Production\Settings\LabelAccessory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Production\Settings\LabelAccessory.Designer.cs">
+      <DependentUpon>LabelAccessory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Production\Settings\LabelAccessoryIndex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Production\Settings\LabelAccessoryIndex.Designer.cs">
+      <DependentUpon>LabelAccessoryIndex.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Warehouse\inproduction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -776,6 +788,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartialView\PageSearch.resx">
       <DependentUpon>PageSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Production\Settings\LabelAccessory.resx">
+      <DependentUpon>LabelAccessory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Production\Settings\LabelAccessoryIndex.resx">
+      <DependentUpon>LabelAccessoryIndex.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehouse\inproduction.resx">
       <DependentUpon>inproduction.cs</DependentUpon>
@@ -1316,7 +1334,6 @@
   <ItemGroup>
     <Folder Include="Report\" />
     <Folder Include="Views\Drawing\" />
-    <Folder Include="Views\Productions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -28,6 +28,7 @@ namespace HANMISYSTEM
         Dbconnect connect = new Dbconnect();
         Isnumber _isnumber = new Isnumber();
         PackingController packageController = new PackingController();
+        bool toggleState = false;
         int plan;
         bool checkStatus;
         public string pushnotifytype;
@@ -451,79 +452,81 @@ namespace HANMISYSTEM
 
         }
 
+        #region
+        //private void btnpower_Click(object sender, EventArgs e)
+        //{
+        //    if (btnpower.Text == "Stop line")
+        //    {
+        //        DataTable dtplan = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text + "' and idlocation='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + wh + "' and productiondate= CONVERT(date, GETDATE()) ");
+        //        if (dtplan.Rows.Count > 0)
+        //        {
+        //            //kiem tra giai doan truoc da có endtime hay chưa
+        //            DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
+        //            if (dtendtime.Rows.Count > 0)
+        //            {
+        //                if (string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
+        //                {
+        //                    //them endtime
+        //                    connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
+        //                }
+        //            }
+        //            connect.exedata("exec spInsertTrackingUPH @partno='" + txtmodel.Text + "' ,@locationid='" + cblocation.SelectedValue.ToString() + "',@remark=''");
+        //            btnpower.Text = "CONTINUE";
+        //            //plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());
+        //            txtpartno.Focus();
+        //            btnPacking_renew.Enabled = true;
+        //            Properties.Settings.Default.Save();
+        //            txtmodel.Enabled = false;
+        //            cblocation.Enabled = false;
+        //            checkStatus = true;
+        //            //timer1.Start();
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Chưa có kế hoạch cho mã : " + txtmodel.Text + " ngày " + DateTime.Now.ToString("yyyy-MM-dd") + "");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        btnpower.Text = "Stop line";
+        //        HANMISYSTEM.Properties.Settings.Default.status = "Stop line";
+        //        connect.exedata("update runingstatus set status='Stop line' where idwarehouse='" + wh + "' and idlocation ='" + cblocation.SelectedValue + "'");
+        //        Properties.Settings.Default.Save();
+        //        txtmodel.Enabled = true;
+        //        btnPacking_renew.Enabled = false;
+        //        cblocation.Enabled = true;
+        //        DialogResult dlr;
+        //        checkStatus = false;
+        //        dlr = CustomMsgBox.Show("Tại sao bạn lại muốn dừng lại ", "Thông báo", "Kết thúc ngày làm việc", "Nghỉ giải lao", "Hủy");
+        //        if (dlr == DialogResult.Yes)
+        //        {
+        //            connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + txtmodel.Text + "' and LocationID='" + cblocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
+        //            connect.exedata("update runingstatus set partno='' where idwarehouse='WH001' and idlocation='" + cblocation.SelectedValue + "'");
+        //            connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + wh + "','" + txtmodel.Text.ToUpper() + "','" + cblocation.SelectedValue + "',getdate(),'Stop working day')");
+        //            connect.exedata("update productionstatus set stoptime=getdate(),lastesttarget='0' where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "'and productiondate=convert(date,getdate())");
+        //            txttarget.Text = "0";
+        //            txtboxno.Text = "";
+        //            txtqty.Text = "0";
+        //            txtactualqty.Text = "0";
 
-        private void btnpower_Click(object sender, EventArgs e)
-        {
-            if (btnpower.Text == "Stop line")
-            {
-                DataTable dtplan = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text + "' and idlocation='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + wh + "' and productiondate= CONVERT(date, GETDATE()) ");
-                if (dtplan.Rows.Count > 0)
-                {
-                    //kiem tra giai doan truoc da có endtime hay chưa
-                    DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
-                    if (dtendtime.Rows.Count > 0)
-                    {
-                        if (string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
-                        {
-                            //them endtime
-                            connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
-                        }
-                    }
-                    connect.exedata("exec spInsertTrackingUPH @partno='" + txtmodel.Text + "' ,@locationid='" + cblocation.SelectedValue.ToString() + "',@remark=''");
-                    btnpower.Text = "CONTINUE";
-                    //plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());
-                    txtpartno.Focus();
-                    btnPacking_renew.Enabled = true;
-                    Properties.Settings.Default.Save();
-                    txtmodel.Enabled = false;
-                    cblocation.Enabled = false;
-                    checkStatus = true;
-                    //timer1.Start();
-                }
-                else
-                {
-                    MessageBox.Show("Chưa có kế hoạch cho mã : " + txtmodel.Text + " ngày " + DateTime.Now.ToString("yyyy-MM-dd") + "");
-                }
-            }
-            else
-            {
-                btnpower.Text = "Stop line";
-                HANMISYSTEM.Properties.Settings.Default.status = "Stop line";
-                connect.exedata("update runingstatus set status='Stop line' where idwarehouse='" + wh + "' and idlocation ='" + cblocation.SelectedValue + "'");
-                Properties.Settings.Default.Save();
-                txtmodel.Enabled = true;
-                btnPacking_renew.Enabled = false;
-                cblocation.Enabled = true;
-                DialogResult dlr;
-                checkStatus = false;
-                dlr = CustomMsgBox.Show("Tại sao bạn lại muốn dừng lại ", "Thông báo", "Kết thúc ngày làm việc", "Nghỉ giải lao", "Hủy");
-                if (dlr == DialogResult.Yes)
-                {
-                    connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + txtmodel.Text + "' and LocationID='" + cblocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
-                    connect.exedata("update runingstatus set partno='' where idwarehouse='WH001' and idlocation='" + cblocation.SelectedValue + "'");
-                    connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + wh + "','" + txtmodel.Text.ToUpper() + "','" + cblocation.SelectedValue + "',getdate(),'Stop working day')");
-                    connect.exedata("update productionstatus set stoptime=getdate(),lastesttarget='0' where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "'and productiondate=convert(date,getdate())");
-                    txttarget.Text = "0";
-                    txtboxno.Text = "";
-                    txtqty.Text = "0";
-                    txtactualqty.Text = "0";
+        //        }
+        //        else if (dlr == DialogResult.No)
+        //        {
+        //            connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + txtmodel.Text + "' and LocationID='" + cblocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
+        //            connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + wh + "','" + txtpartno.Text + "','" + cblocation.SelectedValue + "',getdate(),'Break time')");
+        //            connect.exedata("update productionstatus set stoptime=getdate(),lastesttarget='" + txttarget.Text + "' where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "' and productiondate=convert(date,getdate())");
+        //        }
+        //        else
+        //        {
+        //            btnpower.Text = "CONTINUE";
+        //            txtmodel.Enabled = false;
+        //            checkStatus = true;
+        //        }
+        //    }
 
-                }
-                else if (dlr == DialogResult.No)
-                {
-                    connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + txtmodel.Text + "' and LocationID='" + cblocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
-                    connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + wh + "','" + txtpartno.Text + "','" + cblocation.SelectedValue + "',getdate(),'Break time')");
-                    connect.exedata("update productionstatus set stoptime=getdate(),lastesttarget='" + txttarget.Text + "' where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "' and productiondate=convert(date,getdate())");
-                }
-                else
-                {
-                    btnpower.Text = "CONTINUE";
-                    txtmodel.Enabled = false;
-                    checkStatus = true;
-                }
-            }
+        //}
+        #endregion
 
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -613,7 +616,7 @@ namespace HANMISYSTEM
 
         private void frmprod_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (btnpower.Text == "CONTINUE")
+            if (toggleState == true)
             {
                 MessageBox.Show("You can not close form while line runing");
                 e.Cancel = true;
@@ -910,9 +913,9 @@ namespace HANMISYSTEM
                 if (!string.IsNullOrEmpty(txtpartno.Text))
                 {
 
-                    if (btnpower.Text == "Stop line")
+                    if (toggleState==false)
                     {
-                        MessageBox.Show("Line was stopped");
+                        MessageBox.Show("Chuyển trạng thái chuyền trước khi scan");
                         txtpartno.Text = "";
                     }
                     else
@@ -1026,6 +1029,79 @@ namespace HANMISYSTEM
                 
             }
             //Thread.Sleep(300);
+        }
+
+        private void toggleButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            
+            if (toggleButton1.Checked==false)
+            {
+                toggleState = false;
+                HANMISYSTEM.Properties.Settings.Default.status = "Stop line";
+                connect.exedata("update runingstatus set status='Stop line' where idwarehouse='" + wh + "' and idlocation ='" + cblocation.SelectedValue + "'");
+                Properties.Settings.Default.Save();
+                txtmodel.Enabled = true;
+                btnPacking_renew.Enabled = false;
+                cblocation.Enabled = true;
+                DialogResult dlr;
+                checkStatus = false;
+                dlr = CustomMsgBox.Show("Tại sao bạn lại muốn dừng lại ", "Thông báo", "Kết thúc ngày làm việc", "Nghỉ giải lao", "Hủy");
+                if (dlr == DialogResult.Yes)
+                {
+                    connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + txtmodel.Text + "' and LocationID='" + cblocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
+                    connect.exedata("update runingstatus set partno='' where idwarehouse='WH001' and idlocation='" + cblocation.SelectedValue + "'");
+                    connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + wh + "','" + txtmodel.Text.ToUpper() + "','" + cblocation.SelectedValue + "',getdate(),'Stop working day')");
+                    connect.exedata("update productionstatus set stoptime=getdate(),lastesttarget='0' where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "'and productiondate=convert(date,getdate())");
+                    txttarget.Text = "0";
+                    txtboxno.Text = "";
+                    txtqty.Text = "0";
+                    txtactualqty.Text = "0";
+
+                }
+                else if (dlr == DialogResult.No)
+                {
+                    connect.exedata("with cte as (select top 1 EndTime from TrackingUPH where PartNo='" + txtmodel.Text + "' and LocationID='" + cblocation.SelectedValue.ToString() + "' order by StartTime Desc) update cte set EndTime =getdate()");
+                    connect.exedata("insert into productionhistory (idwarehouse,partno,idlocation,stoptime,remark) values ('" + wh + "','" + txtpartno.Text + "','" + cblocation.SelectedValue + "',getdate(),'Break time')");
+                    connect.exedata("update productionstatus set stoptime=getdate(),lastesttarget='" + txttarget.Text + "' where idlocation='" + cblocation.SelectedValue + "' and partno='" + txtmodel.Text.ToUpper() + "' and productiondate=convert(date,getdate())");
+                }
+                else
+                {
+                    toggleState = true;
+                    txtmodel.Enabled = false;
+                    checkStatus = true;
+                }
+            }
+            else
+            {
+                toggleState = true;
+                DataTable dtplan = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text + "' and idlocation='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + wh + "' and productiondate= CONVERT(date, GETDATE()) ");
+                if (dtplan.Rows.Count > 0)
+                {
+                    //kiem tra giai doan truoc da có endtime hay chưa
+                    DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
+                    if (dtendtime.Rows.Count > 0)
+                    {
+                        if (string.IsNullOrEmpty(dtendtime.Rows[0]["EndTime"].ToString()))
+                        {
+                            //them endtime
+                            connect.exedata("with cte as (select top 1 *  from TrackingUPH where LocationID = '" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date, StartTime) = CONVERT(date, getdate()) order by StartTime desc) update cte set EndTime = GETDATE(),Remark='EndTime added by system'");
+                        }
+                    }
+                    connect.exedata("exec spInsertTrackingUPH @partno='" + txtmodel.Text + "' ,@locationid='" + cblocation.SelectedValue.ToString() + "',@remark=''");
+                    //plan = Convert.ToInt32(dtplan.Rows[0]["productionplan"].ToString());
+                    txtpartno.Focus();
+                    btnPacking_renew.Enabled = true;
+                    Properties.Settings.Default.Save();
+                    txtmodel.Enabled = false;
+                    cblocation.Enabled = false;
+                    checkStatus = true;
+                    //timer1.Start();
+                }
+                else
+                {
+                    MessageBox.Show("Chưa có kế hoạch cho mã : " + txtmodel.Text + " ngày " + DateTime.Now.ToString("yyyy-MM-dd") + "");
+                }
+            }
         }
     }
 }

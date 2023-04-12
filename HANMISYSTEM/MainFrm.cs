@@ -2,6 +2,7 @@
 using HANMISYSTEM.Module;
 using HANMISYSTEM.Views;
 using HANMISYSTEM.Views.Accessory;
+using HANMISYSTEM.Views.Production.Settings;
 using HANMISYSTEM.Views.Spray;
 using HANMISYSTEM.Views.UPH;
 using HANMISYSTEM.Views.Warehouse;
@@ -116,25 +117,32 @@ namespace HANMISYSTEM
             }
             else
             {
+                try
+                {
+                    TabPage TabPage = new TabPage { Text = Text };
 
-                TabPage TabPage = new TabPage { Text = Text };
+                    TabControl.TabPages.Add(TabPage);
 
-                TabControl.TabPages.Add(TabPage);
+                    TabControl.SelectedTab = TabPage;
 
-                TabControl.SelectedTab = TabPage;
+                    myTabRect = tabcontrol1.GetTabRect(0);
 
-                myTabRect = tabcontrol1.GetTabRect(0);
+                    //myInsideRect = new Rectangle(tabcontrol1.DisplayRectangle.X - 1, tabcontrol1.DisplayRectangle.Y - 1, tabcontrol1.DisplayRectangle.Width + 1, tabcontrol1.DisplayRectangle.Height + 1);
+                    //myOutsideRect = tabcontrol1.ClientRectangle;
+                    //myOutsideRect.Width--;
+                    //myOutsideRect.Height--;
+                    //tabcontrol1.DrawItem += new DrawItemEventHandler(OnDrawItem);
+                    Form.TopLevel = false;
+
+                    Form.Parent = TabPage;
+                    Form.Show();
+                    Form.Dock = DockStyle.Fill;
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Lỗi " + ex.Message);
+                }
                 
-                //myInsideRect = new Rectangle(tabcontrol1.DisplayRectangle.X - 1, tabcontrol1.DisplayRectangle.Y - 1, tabcontrol1.DisplayRectangle.Width + 1, tabcontrol1.DisplayRectangle.Height + 1);
-                //myOutsideRect = tabcontrol1.ClientRectangle;
-                //myOutsideRect.Width--;
-                //myOutsideRect.Height--;
-                //tabcontrol1.DrawItem += new DrawItemEventHandler(OnDrawItem);
-                Form.TopLevel = false;
-
-                Form.Parent = TabPage;
-                Form.Show();
-                Form.Dock = DockStyle.Fill;
 
             }
         }
@@ -312,6 +320,7 @@ namespace HANMISYSTEM
             MyButton btnWarehouse = new MyButton();
             MyButton btnRegisterAccessory = new MyButton();
             MyButton btnUsermgt = new MyButton();
+            MyButton btnlabelaccessory = new MyButton();
 
             //product
             btnProduct.Text = "Quản lí mặt hàng";
@@ -343,6 +352,14 @@ namespace HANMISYSTEM
             btnUsermgt.Click += new EventHandler(btnUsermgt_Click);
             btnUsermgt.Top = 90;
             panel.Controls.Add(btnUsermgt);
+
+            //label accessory
+            btnlabelaccessory.Text = "Quản lý label packing";
+            btnlabelaccessory.Font = fontContent;
+            btnlabelaccessory.Size = new System.Drawing.Size(expanderWidth - 10, 30);
+            btnlabelaccessory.Click += new EventHandler(btnLabelAccessory_Click);
+            btnlabelaccessory.Top = 120;
+            panel.Controls.Add(btnlabelaccessory);
             //
             panel.Size = new System.Drawing.Size(expanderWidth - 10, 300);
             panel.Left = 10;
@@ -593,6 +610,11 @@ namespace HANMISYSTEM
         {
             Usermgt fr = new Usermgt();
             TabCreating(tabcontrol1, "Quản lý User", fr);
+        }
+        private void btnLabelAccessory_Click(object sender, EventArgs e)
+        {
+            LabelAccessory fr = new LabelAccessory();
+            TabCreating(tabcontrol1, "Quản lý label packing", fr);
         }
         private void btnApproval_Click(object sender,EventArgs e)
         {
