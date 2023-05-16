@@ -77,7 +77,7 @@ namespace HANMISYSTEM.Views.PartialView
         }
         private void txtInput_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
+            if (e.KeyChar == 13 && txtInput.Text.Length>0)
             {
                 if (label == txtInput.Text)
                 {

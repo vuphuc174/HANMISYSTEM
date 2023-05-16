@@ -73,6 +73,16 @@ namespace HANMISYSTEM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _568140 {
+            get {
+                object obj = ResourceManager.GetObject("568140", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -201,6 +211,26 @@ namespace HANMISYSTEM.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap copy24x24 {
+            get {
+                object obj = ResourceManager.GetObject("copy24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap delete24x24 {
+            get {
+                object obj = ResourceManager.GetObject("delete24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] deliveryform {
@@ -217,6 +247,16 @@ namespace HANMISYSTEM.Properties {
             get {
                 object obj = ResourceManager.GetObject("deliveryorder", resourceCulture);
                 return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap edit_button24x24 {
+            get {
+                object obj = ResourceManager.GetObject("edit_button24x24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -446,6 +486,16 @@ namespace HANMISYSTEM.Properties {
         internal static System.Drawing.Bitmap packing {
             get {
                 object obj = ResourceManager.GetObject("packing", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap pen {
+            get {
+                object obj = ResourceManager.GetObject("pen", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

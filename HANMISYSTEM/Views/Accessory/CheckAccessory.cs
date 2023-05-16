@@ -485,7 +485,7 @@ namespace HANMISYSTEM.Views.Accessory
             {
                 if (lbAccessory[i].Text != "")
                 {
-                    if (lbAccessory[i].Text.Contains(accessory) && lbJudge[i].Text!="OK")
+                    if (lbAccessory[i].Text==accessory && lbJudge[i].Text!="OK")
                     //if (accessory == lbAccessory[i].Text)
                     {
                         lbJudge[i].Text = "OK";

@@ -121,6 +121,9 @@
     <Compile Include="ApplicationContext.cs" />
     <Compile Include="Common\PackingController.cs" />
     <Compile Include="Common\ThreadHelperClass.cs" />
+    <Compile Include="CustomControls\MyComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomControls\ToggleButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -359,10 +362,16 @@
     <Compile Include="Views\Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\GoodsMgt.cs">
+    <Compile Include="Views\Producs\AddProduct.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\GoodsMgt.Designer.cs">
+    <Compile Include="Views\Producs\AddProduct.Designer.cs">
+      <DependentUpon>AddProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producs\GoodsMgt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Producs\GoodsMgt.Designer.cs">
       <DependentUpon>GoodsMgt.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PartialView\PageSearch.cs">
@@ -783,7 +792,10 @@
     <EmbeddedResource Include="Views\Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\GoodsMgt.resx">
+    <EmbeddedResource Include="Views\Producs\AddProduct.resx">
+      <DependentUpon>AddProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Producs\GoodsMgt.resx">
       <DependentUpon>GoodsMgt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PartialView\PageSearch.resx">
@@ -1069,6 +1081,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Resources\2939.12-bug-report-icon-iconbunny.jpg" />
+    <None Include="Resources\568140.png" />
     <Content Include="Resources\bugreport.png" />
     <Content Include="Resources\bugreport_Qa3_icon.ico" />
     <None Include="Resources\settings1.png" />
@@ -1085,6 +1098,11 @@
     <None Include="Resources\xlsx.png" />
     <None Include="Resources\home.png" />
     <None Include="Resources\right-arrow.png" />
+    <None Include="Resources\pen.png" />
+    <None Include="Resources\edit_button24x24.png" />
+    <None Include="Resources\delete24x24.png" />
+    <None Include="Resources\copy24x24.png" />
+    <None Include="Resources\expand1.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
