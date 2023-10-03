@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data;
 using Button = System.Windows.Forms.Button;
+using OfficeOpenXml;
+using System.IO;
+using HANMISYSTEM.Common;
 
 namespace HANMISYSTEM
 {
@@ -276,7 +279,7 @@ namespace HANMISYSTEM
         {
             DataTable dataTable;
             string sql;
-            sql = "select COUNT(*) as row  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='"+wh+"' and idlocation ='"+lineID+"' and CONVERT(date,productionhistory.productiontime) between '"+statdate+"' and '"+endate+"'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and productionhistory.partno like '%" + searchTearm + "%'") + "";
+            sql = "select COUNT(*) as row  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='"+wh+"' and idlocation ='"+lineID+"' and CONVERT(date,productionhistory.productiontime) between '"+statdate+"' and '"+endate+"'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and (productionhistory.partno like '%" + searchTearm + "%' or idpack like '%" + searchTearm + "%')") + " ";
             dataTable = connect.readdata(sql);
 
 
@@ -299,8 +302,8 @@ namespace HANMISYSTEM
             string sql;
             try
             {
-                sql = "with temp as  (select ROW_NUMBER() over (order by productionhistory.productiontime desc) as row, idpack,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='" + wh + "' and idlocation ='" + lineID + "' and CONVERT(date,productionhistory.productiontime) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and productionhistory.partno like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
-                loaddata(sql);
+                sql = "with temp as  (select ROW_NUMBER() over (order by productionhistory.productiontime desc) as row, idpack,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='" + wh + "' and idlocation ='" + lineID + "' and CONVERT(date,productionhistory.productiontime) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and (productionhistory.partno like '%" + searchTearm + "%' or idpack like '%"+searchTearm+"%')") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
+                    loaddata(sql);
             }
             catch (Exception ex)
             {
@@ -342,25 +345,26 @@ namespace HANMISYSTEM
                     button.Click += btn_gopage;
                 }
             }
-            SetPage = 1;
-            //GetData(1, pageSize, "");
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
+            //SetPage = 1;
+            ////GetData(1, pageSize, "");
+            //SetTotalPage = GetTotalPage(txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
 
-            //pagelist
-            UpdatePageList();
+            ////pagelist
+            //UpdatePageList();
         }
+        DataTable dtHistory;
         private void btnsearch_Click(object sender, EventArgs e)
         {
+            string cmd = $"select ROW_NUMBER() over (order by productionhistory.productiontime desc) as row, idpack,cargo.partno,partname,productiontime,stoptime,remark,qty,idlocation  from productionhistory inner join cargo on productionhistory.partno=cargo.partno inner join warehouse on productionhistory.idwarehouse=warehouse.idwarehouse where warehouse.idwarehouse ='{cbwarehouse.SelectedValue.ToString()}' and idlocation ='{cblocation.SelectedValue.ToString()}' and CONVERT(date,productionhistory.productiontime) between '{dateTimePicker1.Value.ToString("yyyy-MM-dd")}' and '{dateTimePicker2.Value.ToString("yyyy-MM-dd")}'  " + ((string.IsNullOrEmpty(txtsearch.Text)) ? " " : " and ( productionhistory.partno like '%" + txtsearch.Text + "%' or idpack like '%"+txtsearch.Text+"%')");
+            dtHistory = connect.readdata(cmd);
             SetPage = 1;
             SetTotalPage = GetTotalPage(txtsearch.Text, cbwarehouse.SelectedValue.ToString(), cblocation.SelectedValue.ToString(), dateTimePicker1.Value.ToString("yyyy-MM-dd"), dateTimePicker2.Value.ToString("yyyy-MM-dd"));
         }
 
         private void btnexcel_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-            {
-            }
+            ExcelHelper.ExportDataTableToExcel(dtHistory);
         }
-       
+        
     }
 }

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.Index_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,6 +73,12 @@
             this.lbCurrentPage = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.btnPrevious = new System.Windows.Forms.PictureBox();
+            this.btnGoFirst = new System.Windows.Forms.PictureBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.btnNext = new System.Windows.Forms.PictureBox();
+            this.btnGoLast = new System.Windows.Forms.PictureBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.pnPageList = new System.Windows.Forms.Panel();
             this.p7 = new System.Windows.Forms.Button();
@@ -84,12 +90,6 @@
             this.p1 = new System.Windows.Forms.Button();
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.btnPrevious = new System.Windows.Forms.PictureBox();
-            this.btnGoFirst = new System.Windows.Forms.PictureBox();
-            this.panel8 = new System.Windows.Forms.Panel();
-            this.btnNext = new System.Windows.Forms.PictureBox();
-            this.btnGoLast = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -99,14 +99,14 @@
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel7.SuspendLayout();
-            this.panel10.SuspendLayout();
-            this.pnPageList.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoFirst)).BeginInit();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoLast)).BeginInit();
+            this.panel10.SuspendLayout();
+            this.pnPageList.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
             this.SuspendLayout();
@@ -117,14 +117,14 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Gray;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.ColumnHeadersHeight = 35;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Index_col,
@@ -289,12 +289,13 @@
             // 
             // btnsave
             // 
+            this.btnsave.BackColor = System.Drawing.SystemColors.Control;
             this.btnsave.Location = new System.Drawing.Point(105, 2);
             this.btnsave.Name = "btnsave";
             this.btnsave.Size = new System.Drawing.Size(122, 40);
             this.btnsave.TabIndex = 4;
             this.btnsave.Text = "Lưu lại";
-            this.btnsave.UseVisualStyleBackColor = true;
+            this.btnsave.UseVisualStyleBackColor = false;
             this.btnsave.Click += new System.EventHandler(this.btnsave_Click);
             // 
             // txtboxqty
@@ -464,9 +465,10 @@
             // chkCheckLabelPackage
             // 
             this.chkCheckLabelPackage.AutoSize = true;
-            this.chkCheckLabelPackage.Location = new System.Drawing.Point(23, 313);
+            this.chkCheckLabelPackage.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkCheckLabelPackage.Location = new System.Drawing.Point(21, 313);
             this.chkCheckLabelPackage.Name = "chkCheckLabelPackage";
-            this.chkCheckLabelPackage.Size = new System.Drawing.Size(134, 17);
+            this.chkCheckLabelPackage.Size = new System.Drawing.Size(172, 21);
             this.chkCheckLabelPackage.TabIndex = 5;
             this.chkCheckLabelPackage.Text = "Kiểm tra label đóng gói";
             this.chkCheckLabelPackage.UseVisualStyleBackColor = true;
@@ -474,9 +476,10 @@
             // chkChangePackingMethod
             // 
             this.chkChangePackingMethod.AutoSize = true;
-            this.chkChangePackingMethod.Location = new System.Drawing.Point(23, 290);
+            this.chkChangePackingMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.chkChangePackingMethod.Location = new System.Drawing.Point(21, 285);
             this.chkChangePackingMethod.Name = "chkChangePackingMethod";
-            this.chkChangePackingMethod.Size = new System.Drawing.Size(176, 17);
+            this.chkChangePackingMethod.Size = new System.Drawing.Size(224, 21);
             this.chkChangePackingMethod.TabIndex = 5;
             this.chkChangePackingMethod.Text = "Thay đổi phương thức đóng gói";
             this.chkChangePackingMethod.UseVisualStyleBackColor = true;
@@ -560,6 +563,74 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(430, 44);
             this.panel7.TabIndex = 0;
+            // 
+            // panel9
+            // 
+            this.panel9.Controls.Add(this.btnPrevious);
+            this.panel9.Controls.Add(this.btnGoFirst);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel9.Location = new System.Drawing.Point(0, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(85, 44);
+            this.panel9.TabIndex = 2;
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnPrevious.Image = global::HANMISYSTEM.Properties.Resources.rewind_button;
+            this.btnPrevious.Location = new System.Drawing.Point(47, 15);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(35, 14);
+            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnPrevious.TabIndex = 0;
+            this.btnPrevious.TabStop = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
+            // btnGoFirst
+            // 
+            this.btnGoFirst.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGoFirst.Image = global::HANMISYSTEM.Properties.Resources.previous;
+            this.btnGoFirst.Location = new System.Drawing.Point(6, 15);
+            this.btnGoFirst.Name = "btnGoFirst";
+            this.btnGoFirst.Size = new System.Drawing.Size(35, 14);
+            this.btnGoFirst.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnGoFirst.TabIndex = 0;
+            this.btnGoFirst.TabStop = false;
+            this.btnGoFirst.Click += new System.EventHandler(this.btnGoFirst_Click);
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.btnNext);
+            this.panel8.Controls.Add(this.btnGoLast);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel8.Location = new System.Drawing.Point(341, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(89, 44);
+            this.panel8.TabIndex = 1;
+            // 
+            // btnNext
+            // 
+            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNext.Image = global::HANMISYSTEM.Properties.Resources.forward_button;
+            this.btnNext.Location = new System.Drawing.Point(14, 15);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(35, 14);
+            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnNext.TabIndex = 0;
+            this.btnNext.TabStop = false;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
+            // 
+            // btnGoLast
+            // 
+            this.btnGoLast.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGoLast.Image = global::HANMISYSTEM.Properties.Resources.next;
+            this.btnGoLast.Location = new System.Drawing.Point(55, 15);
+            this.btnGoLast.Name = "btnGoLast";
+            this.btnGoLast.Size = new System.Drawing.Size(35, 14);
+            this.btnGoLast.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnGoLast.TabIndex = 0;
+            this.btnGoLast.TabStop = false;
+            this.btnGoLast.Click += new System.EventHandler(this.btnGoLast_Click);
             // 
             // panel10
             // 
@@ -694,74 +765,6 @@
             this.panel12.Size = new System.Drawing.Size(246, 9);
             this.panel12.TabIndex = 0;
             // 
-            // panel9
-            // 
-            this.panel9.Controls.Add(this.btnPrevious);
-            this.panel9.Controls.Add(this.btnGoFirst);
-            this.panel9.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel9.Location = new System.Drawing.Point(0, 0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(85, 44);
-            this.panel9.TabIndex = 2;
-            // 
-            // btnPrevious
-            // 
-            this.btnPrevious.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnPrevious.Image = global::HANMISYSTEM.Properties.Resources.rewind_button;
-            this.btnPrevious.Location = new System.Drawing.Point(47, 15);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(35, 14);
-            this.btnPrevious.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnPrevious.TabIndex = 0;
-            this.btnPrevious.TabStop = false;
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
-            // 
-            // btnGoFirst
-            // 
-            this.btnGoFirst.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGoFirst.Image = global::HANMISYSTEM.Properties.Resources.previous;
-            this.btnGoFirst.Location = new System.Drawing.Point(6, 15);
-            this.btnGoFirst.Name = "btnGoFirst";
-            this.btnGoFirst.Size = new System.Drawing.Size(35, 14);
-            this.btnGoFirst.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnGoFirst.TabIndex = 0;
-            this.btnGoFirst.TabStop = false;
-            this.btnGoFirst.Click += new System.EventHandler(this.btnGoFirst_Click);
-            // 
-            // panel8
-            // 
-            this.panel8.Controls.Add(this.btnNext);
-            this.panel8.Controls.Add(this.btnGoLast);
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel8.Location = new System.Drawing.Point(341, 0);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(89, 44);
-            this.panel8.TabIndex = 1;
-            // 
-            // btnNext
-            // 
-            this.btnNext.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnNext.Image = global::HANMISYSTEM.Properties.Resources.forward_button;
-            this.btnNext.Location = new System.Drawing.Point(14, 15);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(35, 14);
-            this.btnNext.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnNext.TabIndex = 0;
-            this.btnNext.TabStop = false;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
-            // 
-            // btnGoLast
-            // 
-            this.btnGoLast.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGoLast.Image = global::HANMISYSTEM.Properties.Resources.next;
-            this.btnGoLast.Location = new System.Drawing.Point(55, 15);
-            this.btnGoLast.Name = "btnGoLast";
-            this.btnGoLast.Size = new System.Drawing.Size(35, 14);
-            this.btnGoLast.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.btnGoLast.TabIndex = 0;
-            this.btnGoLast.TabStop = false;
-            this.btnGoLast.Click += new System.EventHandler(this.btnGoLast_Click);
-            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.dataGridView1);
@@ -803,15 +806,15 @@
             this.panel6.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
-            this.panel10.ResumeLayout(false);
-            this.pnPageList.ResumeLayout(false);
-            this.pnPageList.PerformLayout();
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoFirst)).EndInit();
             this.panel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoLast)).EndInit();
+            this.panel10.ResumeLayout(false);
+            this.pnPageList.ResumeLayout(false);
+            this.pnPageList.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();

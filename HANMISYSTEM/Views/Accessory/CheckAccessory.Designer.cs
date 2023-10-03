@@ -149,8 +149,9 @@
             this.txtPlan.Location = new System.Drawing.Point(169, 50);
             this.txtPlan.Multiline = true;
             this.txtPlan.Name = "txtPlan";
-            this.txtPlan.Size = new System.Drawing.Size(65, 34);
+            this.txtPlan.Size = new System.Drawing.Size(77, 34);
             this.txtPlan.TabIndex = 1;
+            this.txtPlan.Text = "0";
             // 
             // label8
             // 
@@ -888,6 +889,7 @@
             // 
             // txtmodel
             // 
+            this.txtmodel.Enabled = false;
             this.txtmodel.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtmodel.Location = new System.Drawing.Point(29, 12);
             this.txtmodel.Name = "txtmodel";

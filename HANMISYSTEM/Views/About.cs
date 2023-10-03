@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HANMISYSTEM
+namespace HANMISYSTEM.Views
 {
-    public partial class Analysis : Form
+    public partial class About : Form
     {
-        public Analysis()
+        public About()
         {
             InitializeComponent();
         }

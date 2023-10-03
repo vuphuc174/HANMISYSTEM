@@ -14,6 +14,10 @@ using HANMISYSTEM.Views.PartialView;
 using System.IO.Ports;
 using HANMISYSTEM.Common;
 using System.Threading;
+using HANMISYSTEM.Views.MsgBox;
+using HANMISYSTEM.Views.Production;
+using HANMISYSTEM.DAO;
+using System.IO;
 
 namespace HANMISYSTEM
 {
@@ -24,11 +28,14 @@ namespace HANMISYSTEM
             InitializeComponent();
             //AutoUpdateTarget();
         }
+        DAO_ProductionHistory dAO_ProductionHistory = new DAO_ProductionHistory();
+        DAO_PackingInfo dAO_PackingInfo = new DAO_PackingInfo();
         SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
         Dbconnect connect = new Dbconnect();
         Isnumber _isnumber = new Isnumber();
         PackingController packageController = new PackingController();
         bool toggleState = false;
+        string package_capa;
         int plan;
         bool checkStatus;
         public string pushnotifytype;
@@ -316,7 +323,13 @@ namespace HANMISYSTEM
                 DataTable dt = connect.readdata("select * from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
                 if (dt.Rows.Count == 0)
                 {
-                    MessageBox.Show("Phương thức đóng gói không tồn tại !");
+                    using(CustomMessageBox frm =new CustomMessageBox())
+                    {
+                        frm.lbContent.Text = "Phương thức đóng gói không tồn tại !";
+                        frm.ShowInTaskbar = false;
+                        frm.ShowDialog();
+                    }    
+                    //MessageBox.Show("Phương thức đóng gói không tồn tại !");
                     txtboxno.Text = "";
                     txtactualqty.Text = "0";
                 }
@@ -324,7 +337,13 @@ namespace HANMISYSTEM
                 {
                     if (dt.Rows[0]["quantity"].ToString() == "0")
                     {
-                        MessageBox.Show("Xin vui long chọn cách đóng gói khác");
+                        using (CustomMessageBox frm = new CustomMessageBox())
+                        {
+                            frm.lbContent.Text = "Xin vui long chọn cách đóng gói khác !";
+                            frm.ShowInTaskbar = false;
+                            frm.ShowDialog();
+                        }
+                        //MessageBox.Show("Xin vui long chọn cách đóng gói khác");
                         txtboxno.Text = "";
                     }
                     else
@@ -334,17 +353,30 @@ namespace HANMISYSTEM
                         {
                             if (packqty.Rows[0]["partno"].ToString() != txtmodel.Text.ToUpper().ToString())
                             {
-                                MessageBox.Show("Box này đã được sử dụng cho mã hàng khác !");
+                                using (CustomMessageBox frm = new CustomMessageBox())
+                                {
+                                    frm.lbContent.Text = "Box này đã được sử dụng cho mã hàng khác !";
+                                    frm.ShowInTaskbar = false;
+                                    frm.ShowDialog();
+                                }
+                                //MessageBox.Show("Box này đã được sử dụng cho mã hàng khác !");
                                 txtboxno.Focus();
                                 txtboxno.Text = "";
                                 txtqty.Text = "";
                             }
                             else
                             {
+                                package_capa = packqty.Rows[0]["quantity"].ToString();
                                 txtboxno.Enabled = false;
                                 if (Convert.ToInt32(packqty.Rows[0]["quantity"].ToString()) >= Convert.ToInt32(dt.Rows[0]["quantity"].ToString()))
                                 {
-                                    MessageBox.Show("Box full!");
+                                    //MessageBox.Show("Box full!");
+                                    using(CustomMessageBox frm =new CustomMessageBox())
+                                    {
+                                        frm.lbContent.Text = "Box đầy!";
+                                        frm.ShowInTaskbar = false;
+                                        frm.ShowDialog();
+                                    }
                                     txtboxno.Text = "";
                                     txtboxno.Enabled = true;
                                     txtsoluong.Text = "";
@@ -584,11 +616,10 @@ namespace HANMISYSTEM
             {
                 if (txtboxno.Text.Length >= 14)
                 {
-                    DataTable dtpack = connect.readdata("select quantity from packingstandard where partno ='" + txtmodel.Text.ToUpper() + "' and idpacking='" + txtboxno.Text.Substring(0, 3) + "' ");
-                    if (txtqty.Text != "0")
-                    {
+                    //DataTable dtpack = connect.readdata("select quantity from packingstandard where partno ='" + txtmodel.Text.ToUpper() + "' and idpacking='" + txtboxno.Text.Substring(0, 3) + "' ");
+           
                         txtboxno.Enabled = false;
-                        if (Convert.ToInt32(txtactualqty.Text) == Convert.ToInt32(dtpack.Rows[0]["quantity"].ToString()))
+                        if (Convert.ToInt32(txtactualqty.Text) == Convert.ToInt32(package_capa))
                         {
                             DialogResult dlr;
                             dlr = MessageBox.Show("Box đã đầy ,Xin hãy kết thúc quá trình đóng gói", "Notice", MessageBoxButtons.OK);
@@ -602,7 +633,7 @@ namespace HANMISYSTEM
                                 txtboxno.Focus();
                             }
                         }
-                    }
+                   
                 }
 
             }
@@ -715,6 +746,7 @@ namespace HANMISYSTEM
                 fr.dataGridView1.AutoGenerateColumns = false;
                 DataTable dtwo = connect.readdata("select ROW_NUMBER() over(order by p.partno) as r ,isnull(w.Code,p.WOCode) as WorkOrder,p.ID as PlanID,p.partno,c.partname,c.Color,c.Market,p.PST,p.productionplan from productionplan p  left join WorkOrder w on p.WorkOrderID=w.ID inner join cargo c on c.partno =p.partno where (p.Status is null or p.Status<> 0 )  and p.idlocation='" + cblocation.SelectedValue.ToString() + "' and productiondate =CONVERT(date,getdate())"); ;
                 fr.dataGridView1.DataSource = dtwo;
+                fr.ShowInTaskbar = false;
                 fr.ShowDialog();
                 txtworkorder.Text = fr.SendData();
                 txtmodel.Text = fr.sendDataModel();
@@ -881,8 +913,39 @@ namespace HANMISYSTEM
 
             }
         }
+
+        private async Task ErrorLog(string filePath, string message)
+        {
+            try
+            {
+                // Check if the file exists.
+                if (!File.Exists(filePath))
+                {
+                    // If the file doesn't exist, create it.
+                    using (FileStream fs = File.Create(filePath))
+                    {
+                        // Optionally, you can add an initial message or header to the file.
+                        byte[] initialMessage = new UTF8Encoding(true).GetBytes("Log File Created\n");
+                        await fs.WriteAsync(initialMessage, 0, initialMessage.Length);
+                    }
+                }
+
+                // Open the file in append mode and write the message.
+                using (StreamWriter writer = File.AppendText(filePath))
+                {
+                    string logLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}: {message}";
+                    await writer.WriteLineAsync(logLine);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any errors that occur during file operations (e.g., file permissions issues).
+                MessageBox.Show($"Error while writing to file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private async void UpdateData(string idpack,string partno)
         {
+
             try
             {
                 DataTable dtpackage = connect.readdata("select count(*) as quantity from packinginfo where idpack='"+idpack+"'");
@@ -898,11 +961,14 @@ namespace HANMISYSTEM
                     await connect.ExeDataAsync("exec spInsertPackingInfo @idpack='" + idpack + "',@partno='" + partno + "',@idlocation='" + cblocation.SelectedValue.ToString() + "',@idwarehouse='" + wh + "'");
                 }
                 await connect.ExeDataAsync("insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + wh + "','" + txtmodel.Text + "',GETDATE(),'',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')");
-                txtactualqty.Text = (Convert.ToInt32(txtactualqty.Text) + 1).ToString();
-                txtproductionqty.Text = (Convert.ToInt32(txtproductionqty.Text) + 1).ToString();
+                //txtactualqty.Text = (Convert.ToInt32(txtactualqty.Text) + 1).ToString();
+                txtactualqty.Text = await dAO_PackingInfo.GetPackageQty(txtboxno.Text);
+                // txtproductionqty.Text = (Convert.ToInt32(txtproductionqty.Text) + 1).ToString();
+                txtproductionqty.Text = await dAO_ProductionHistory.GetProductOutput(txtmodel.Text,cblocation.SelectedValue.ToString());
             }
             catch(Exception ex)
             {
+                await ErrorLog("errlog.txt",ex.Message);
                 MessageBox.Show(ex.Message); ;
             }
         }
@@ -1040,7 +1106,7 @@ namespace HANMISYSTEM
                 HANMISYSTEM.Properties.Settings.Default.status = "Stop line";
                 connect.exedata("update runingstatus set status='Stop line' where idwarehouse='" + wh + "' and idlocation ='" + cblocation.SelectedValue + "'");
                 Properties.Settings.Default.Save();
-                txtmodel.Enabled = true;
+                //txtmodel.Enabled = true;
                 btnPacking_renew.Enabled = false;
                 cblocation.Enabled = true;
                 DialogResult dlr;
@@ -1073,10 +1139,11 @@ namespace HANMISYSTEM
             }
             else
             {
-                toggleState = true;
+                
                 DataTable dtplan = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text + "' and idlocation='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + wh + "' and productiondate= CONVERT(date, GETDATE()) ");
                 if (dtplan.Rows.Count > 0)
                 {
+
                     //kiem tra giai doan truoc da có endtime hay chưa
                     DataTable dtendtime = connect.readdata("select top 1 EndTime  from TrackingUPH where LocationID='" + cblocation.SelectedValue.ToString() + "' and  CONVERT(date,StartTime)=convert(date,getdate()) order by StartTime desc");
                     if (dtendtime.Rows.Count > 0)
@@ -1095,13 +1162,34 @@ namespace HANMISYSTEM
                     txtmodel.Enabled = false;
                     cblocation.Enabled = false;
                     checkStatus = true;
+                    toggleState = true;
                     //timer1.Start();
                 }
                 else
                 {
                     MessageBox.Show("Chưa có kế hoạch cho mã : " + txtmodel.Text + " ngày " + DateTime.Now.ToString("yyyy-MM-dd") + "");
+                    toggleState = false;
+                    toggleButton1.Checked = false;
                 }
             }
+        }
+
+        private void btnLabelChecking_Click(object sender, EventArgs e)
+        {
+            if(UserSession.UserName=="kvline" && !string.IsNullOrEmpty(txtmodel.Text))
+            {
+                CheckMaterials frm = new CheckMaterials();
+                frm.ShowInTaskbar = false;
+                frm.WindowState = FormWindowState.Maximized;
+                frm.partno=txtmodel.Text;
+                frm.lineID = cblocation.SelectedValue.ToString();
+                frm.ShowDialog();
+            }
+        }
+
+        private void txtproductionqty_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

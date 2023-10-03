@@ -7,15 +7,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HANMISYSTEM.Common;
 using HANMISYSTEM.Module;
 
 namespace HANMISYSTEM.Views
 {
     public partial class ProductionResultByDate : Form
     {
-        public ProductionResultByDate()
+        private ContextMenuStrip contextMenuStrip;
+        private MainFrm _parrentFrom;
+        public ProductionResultByDate(MainFrm parrentFrom)
         {
             InitializeComponent();
+            contextMenuStrip = new ContextMenuStrip();
+            ToolStripMenuItem menuViewDetails = new ToolStripMenuItem("Xem chi tiết");
+            //ToolStripMenuItem menuItem2 = new ToolStripMenuItem("Delete");
+
+            // Add Click event handlers for menu items
+            menuViewDetails.Click += ViewDetails_Click;
+            contextMenuStrip.Items.AddRange(new ToolStripItem[] { menuViewDetails });
+
+            // Step 2: Associate ContextMenuStrip with DataGridView
+            dgvdata.ContextMenuStrip = contextMenuStrip;
+            _parrentFrom = parrentFrom;
+        }
+        private void ViewDetails_Click(object sender, EventArgs e)
+        {
+            // Handle the edit action here
+            _parrentFrom.btnProduction_history_Click(sender, e);
         }
         Dbconnect connect = new Dbconnect();
         DataTable dtdata;
@@ -113,18 +132,24 @@ namespace HANMISYSTEM.Views
                 MessageBox.Show("Error :" + ex);
             }
         }
-        ExportToExcel _excel = new ExportToExcel();
-        private void btnexcel_Click(object sender, EventArgs e)
-        {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+        private void dgvdata_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {   
+            DataGridView.HitTestInfo hitTestInfo = dgvdata.HitTest(e.X, e.Y);
+            if (e.Button == MouseButtons.Right)
             {
-                _excel.ExportToExcelFunction(dtdata, saveFileDialog1.FileName.ToString());
+                if (hitTestInfo.Type == DataGridViewHitTestType.Cell && e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    // Select the clicked cell
+                    dgvdata.CurrentCell = dgvdata.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    // Show the context menu
+                    contextMenuStrip.Show(dgvdata, e.Location);
+                }
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void btnexcel_Click_1(object sender, EventArgs e)
         {
-
+            ExcelHelper.ExportDataTableToExcel(dtdata);
         }
     }
 }

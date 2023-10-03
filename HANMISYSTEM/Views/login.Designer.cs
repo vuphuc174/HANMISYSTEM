@@ -96,6 +96,7 @@
             this.txtservername.Name = "txtservername";
             this.txtservername.Size = new System.Drawing.Size(100, 20);
             this.txtservername.TabIndex = 4;
+            this.txtservername.Text = "192.168.1.252,1434";
             // 
             // label3
             // 
@@ -157,6 +158,7 @@
             this.txtpwd.PasswordChar = '*';
             this.txtpwd.Size = new System.Drawing.Size(100, 20);
             this.txtpwd.TabIndex = 6;
+            this.txtpwd.Text = "Hanmi@123";
             // 
             // txtuid
             // 
@@ -164,6 +166,7 @@
             this.txtuid.Name = "txtuid";
             this.txtuid.Size = new System.Drawing.Size(100, 20);
             this.txtuid.TabIndex = 5;
+            this.txtuid.Text = "hanmi";
             // 
             // button1
             // 
@@ -199,6 +202,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtpassword);
             this.Controls.Add(this.txtuser);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(323, 366);
             this.MinimumSize = new System.Drawing.Size(323, 199);

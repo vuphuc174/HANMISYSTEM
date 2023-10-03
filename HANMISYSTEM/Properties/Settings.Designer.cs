@@ -25,7 +25,7 @@ namespace HANMISYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("sa")]
+        [global::System.Configuration.DefaultSettingValueAttribute("hanmi")]
         public string uid {
             get {
                 return ((string)(this["uid"]));
@@ -37,7 +37,7 @@ namespace HANMISYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("12345678")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Hanmi@123")]
         public string pwd {
             get {
                 return ((string)(this["pwd"]));

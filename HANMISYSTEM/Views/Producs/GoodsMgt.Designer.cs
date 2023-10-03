@@ -28,22 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Row_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.category = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.specificationinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.process = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tradingpartnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.othername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ProductKind = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Action_col = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ActionCopy_col = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ActionDelete_col = new System.Windows.Forms.DataGridViewImageColumn();
             this.btnadd = new System.Windows.Forms.Button();
             this.btnimport = new System.Windows.Forms.Button();
             this.txtpath = new System.Windows.Forms.TextBox();
@@ -90,6 +76,20 @@
             this.p1 = new System.Windows.Forms.Button();
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
+            this.Row_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.partname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.category = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.specificationinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productivity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.process = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tradingpartnumber = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.othername = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProductKind = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Action_col = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ActionCopy_col = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ActionDelete_col = new System.Windows.Forms.DataGridViewImageColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -145,114 +145,6 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.CellMouseEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseEnter);
             this.dataGridView1.CellMouseLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellMouseLeave);
-            // 
-            // Row_col
-            // 
-            this.Row_col.DataPropertyName = "row";
-            this.Row_col.FillWeight = 30F;
-            this.Row_col.HeaderText = "STT";
-            this.Row_col.Name = "Row_col";
-            this.Row_col.ReadOnly = true;
-            // 
-            // partno
-            // 
-            this.partno.DataPropertyName = "partno";
-            this.partno.HeaderText = "Mã hàng";
-            this.partno.Name = "partno";
-            this.partno.ReadOnly = true;
-            // 
-            // partname
-            // 
-            this.partname.DataPropertyName = "partname";
-            this.partname.HeaderText = "Tên mặt hàng";
-            this.partname.Name = "partname";
-            this.partname.ReadOnly = true;
-            // 
-            // category
-            // 
-            this.category.DataPropertyName = "namecategory";
-            this.category.HeaderText = "Danh mục";
-            this.category.Name = "category";
-            this.category.ReadOnly = true;
-            // 
-            // specificationinfo
-            // 
-            this.specificationinfo.DataPropertyName = "specificationinfo";
-            this.specificationinfo.HeaderText = "Thông số";
-            this.specificationinfo.Name = "specificationinfo";
-            this.specificationinfo.ReadOnly = true;
-            // 
-            // productivity
-            // 
-            this.productivity.DataPropertyName = "productivity";
-            dataGridViewCellStyle3.Format = "N0";
-            this.productivity.DefaultCellStyle = dataGridViewCellStyle3;
-            this.productivity.HeaderText = "Mức UPH đề xuất";
-            this.productivity.Name = "productivity";
-            this.productivity.ReadOnly = true;
-            // 
-            // unit
-            // 
-            this.unit.DataPropertyName = "nameunit";
-            this.unit.HeaderText = "Đơn vị";
-            this.unit.Name = "unit";
-            this.unit.ReadOnly = true;
-            // 
-            // process
-            // 
-            this.process.DataPropertyName = "process";
-            this.process.HeaderText = "Quy trình";
-            this.process.Name = "process";
-            this.process.ReadOnly = true;
-            // 
-            // tradingpartnumber
-            // 
-            this.tradingpartnumber.DataPropertyName = "tradingpartnumber";
-            this.tradingpartnumber.HeaderText = "Trading part number";
-            this.tradingpartnumber.Name = "tradingpartnumber";
-            this.tradingpartnumber.ReadOnly = true;
-            // 
-            // othername
-            // 
-            this.othername.DataPropertyName = "othername";
-            this.othername.HeaderText = "Tên tiếng việt";
-            this.othername.Name = "othername";
-            this.othername.ReadOnly = true;
-            // 
-            // ProductKind
-            // 
-            this.ProductKind.DataPropertyName = "ProductionKindID";
-            this.ProductKind.HeaderText = "Phân loại";
-            this.ProductKind.Name = "ProductKind";
-            this.ProductKind.ReadOnly = true;
-            // 
-            // Action_col
-            // 
-            this.Action_col.FillWeight = 40F;
-            this.Action_col.HeaderText = "";
-            this.Action_col.Image = global::HANMISYSTEM.Properties.Resources.edit_button24x24;
-            this.Action_col.Name = "Action_col";
-            this.Action_col.ReadOnly = true;
-            // 
-            // ActionCopy_col
-            // 
-            this.ActionCopy_col.FillWeight = 40F;
-            this.ActionCopy_col.HeaderText = "";
-            this.ActionCopy_col.Image = global::HANMISYSTEM.Properties.Resources.copy24x24;
-            this.ActionCopy_col.Name = "ActionCopy_col";
-            this.ActionCopy_col.ReadOnly = true;
-            this.ActionCopy_col.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ActionCopy_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ActionDelete_col
-            // 
-            this.ActionDelete_col.FillWeight = 40F;
-            this.ActionDelete_col.HeaderText = "";
-            this.ActionDelete_col.Image = global::HANMISYSTEM.Properties.Resources.delete24x24;
-            this.ActionDelete_col.Name = "ActionDelete_col";
-            this.ActionDelete_col.ReadOnly = true;
-            this.ActionDelete_col.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ActionDelete_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // btnadd
             // 
@@ -759,6 +651,116 @@
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(246, 9);
             this.panel12.TabIndex = 0;
+            // 
+            // Row_col
+            // 
+            this.Row_col.DataPropertyName = "row";
+            this.Row_col.FillWeight = 30F;
+            this.Row_col.HeaderText = "STT";
+            this.Row_col.Name = "Row_col";
+            this.Row_col.ReadOnly = true;
+            // 
+            // partno
+            // 
+            this.partno.DataPropertyName = "partno";
+            this.partno.FillWeight = 130F;
+            this.partno.HeaderText = "Mã hàng";
+            this.partno.Name = "partno";
+            this.partno.ReadOnly = true;
+            // 
+            // partname
+            // 
+            this.partname.DataPropertyName = "partname";
+            this.partname.HeaderText = "Tên mặt hàng";
+            this.partname.Name = "partname";
+            this.partname.ReadOnly = true;
+            // 
+            // category
+            // 
+            this.category.DataPropertyName = "namecategory";
+            this.category.HeaderText = "Danh mục";
+            this.category.Name = "category";
+            this.category.ReadOnly = true;
+            // 
+            // specificationinfo
+            // 
+            this.specificationinfo.DataPropertyName = "specificationinfo";
+            this.specificationinfo.HeaderText = "Thông số";
+            this.specificationinfo.Name = "specificationinfo";
+            this.specificationinfo.ReadOnly = true;
+            // 
+            // productivity
+            // 
+            this.productivity.DataPropertyName = "productivity";
+            dataGridViewCellStyle1.Format = "N0";
+            this.productivity.DefaultCellStyle = dataGridViewCellStyle1;
+            this.productivity.HeaderText = "Mức UPH đề xuất";
+            this.productivity.Name = "productivity";
+            this.productivity.ReadOnly = true;
+            // 
+            // unit
+            // 
+            this.unit.DataPropertyName = "nameunit";
+            this.unit.HeaderText = "Đơn vị";
+            this.unit.Name = "unit";
+            this.unit.ReadOnly = true;
+            // 
+            // process
+            // 
+            this.process.DataPropertyName = "process";
+            this.process.FillWeight = 80F;
+            this.process.HeaderText = "Quy trình";
+            this.process.Name = "process";
+            this.process.ReadOnly = true;
+            // 
+            // tradingpartnumber
+            // 
+            this.tradingpartnumber.DataPropertyName = "tradingpartnumber";
+            this.tradingpartnumber.HeaderText = "Trading part number";
+            this.tradingpartnumber.Name = "tradingpartnumber";
+            this.tradingpartnumber.ReadOnly = true;
+            // 
+            // othername
+            // 
+            this.othername.DataPropertyName = "othername";
+            this.othername.HeaderText = "Tên tiếng việt";
+            this.othername.Name = "othername";
+            this.othername.ReadOnly = true;
+            // 
+            // ProductKind
+            // 
+            this.ProductKind.DataPropertyName = "ProductionKindID";
+            this.ProductKind.HeaderText = "Phân loại";
+            this.ProductKind.Name = "ProductKind";
+            this.ProductKind.ReadOnly = true;
+            // 
+            // Action_col
+            // 
+            this.Action_col.FillWeight = 40F;
+            this.Action_col.HeaderText = "";
+            this.Action_col.Image = global::HANMISYSTEM.Properties.Resources.edit_button24x24;
+            this.Action_col.Name = "Action_col";
+            this.Action_col.ReadOnly = true;
+            // 
+            // ActionCopy_col
+            // 
+            this.ActionCopy_col.FillWeight = 40F;
+            this.ActionCopy_col.HeaderText = "";
+            this.ActionCopy_col.Image = global::HANMISYSTEM.Properties.Resources.copy24x24;
+            this.ActionCopy_col.Name = "ActionCopy_col";
+            this.ActionCopy_col.ReadOnly = true;
+            this.ActionCopy_col.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ActionCopy_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ActionDelete_col
+            // 
+            this.ActionDelete_col.FillWeight = 40F;
+            this.ActionDelete_col.HeaderText = "";
+            this.ActionDelete_col.Image = global::HANMISYSTEM.Properties.Resources.delete24x24;
+            this.ActionDelete_col.Name = "ActionDelete_col";
+            this.ActionDelete_col.ReadOnly = true;
+            this.ActionDelete_col.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ActionDelete_col.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // GoodsMgt
             // 

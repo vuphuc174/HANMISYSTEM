@@ -451,6 +451,7 @@
             this.lbsearch.TabIndex = 21;
             this.lbsearch.Visible = false;
             this.lbsearch.Click += new System.EventHandler(this.lbsearch_Click);
+            this.lbsearch.SelectedValueChanged += new System.EventHandler(this.lbsearch_SelectedValueChanged);
             // 
             // txtpartname
             // 

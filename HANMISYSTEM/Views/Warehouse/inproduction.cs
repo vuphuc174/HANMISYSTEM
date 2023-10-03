@@ -55,22 +55,7 @@ namespace HANMISYSTEM
 
         private void txtpartno_Leave(object sender, EventArgs e)
         {
-            try
-            {
-                if (connect.countdata("select count(partno) from packinginfo where partno ='" + txtpartno.Text + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'") > 0)
-                {
-                    DataTable dtposition = connect.readdata("select top 1 position ,SUM(quantity) as sl from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtpartno.Text + "' group by position order by sl asc");
-                    lbsuggest.Text = dtposition.Rows[0]["position"].ToString();
-                }
-                else
-                {
-                    lbsuggest.Text = "Vui lòng chọn 1 vị trí mới";
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            
         }
         string issue;
         private string CheckValid()
@@ -517,6 +502,26 @@ namespace HANMISYSTEM
             string str = mahoa1(cbsupplier.SelectedValue.ToString()) + mahoa1(cbwarehouse.SelectedValue.ToString());
             int a = connect.countdata("select count (*) from slipout where idslipout like'" + str + "%' ") + 1;
             return  str + DateTime.Now.ToString("yyyyMM") + a.ToString("0000");
+        }
+
+        private void lbsearch_SelectedValueChanged(object sender, EventArgs e)
+        {
+        //    try
+        //    {
+        //        if (connect.countdata($"select count(partno) from packinginfo where partno ='{lbsearch.SelectedItems}' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'") > 0)
+        //        {
+        //            DataTable dtposition = connect.readdata("select top 1 position ,SUM(quantity) as sl from packinginfo where idwarehouse ='" + cbwarehouse.SelectedValue.ToString() + "' and partno='" + txtpartno.Text + "' group by position order by sl asc");
+        //            lbsuggest.Text = dtposition.Rows[0]["position"].ToString();
+        //        }
+        //        else
+        //        {
+        //            lbsuggest.Text = "Vui lòng chọn 1 vị trí mới";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show(ex.Message);
+        //    }
         }
     }
 

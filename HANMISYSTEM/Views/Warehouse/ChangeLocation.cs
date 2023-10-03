@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HANMISYSTEM.Views
+namespace HANMISYSTEM.Views.Warehouse
 {
-    public partial class SaleForm : Form
+    public partial class ChangeLocation : Form
     {
-        public SaleForm()
+        public ChangeLocation()
         {
             InitializeComponent();
         }

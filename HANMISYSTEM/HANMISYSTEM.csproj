@@ -64,7 +64,7 @@
     <ManifestKeyFile>HANMISYSTEM_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <SignManifests>false</SignManifests>
@@ -72,12 +72,21 @@
   <PropertyGroup>
     <ApplicationIcon>hmsr.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=4.5.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.5.3\lib\net40\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="ExcelDataReader">
       <HintPath>..\packages\ExcelDataReader.3.4.2\lib\net45\ExcelDataReader.dll</HintPath>
@@ -92,8 +101,10 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.IO.Compression" />
@@ -112,14 +123,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analysis.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Analysis.Designer.cs">
-      <DependentUpon>Analysis.cs</DependentUpon>
-    </Compile>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Common\ExcelHelper.cs" />
     <Compile Include="Common\PackingController.cs" />
+    <Compile Include="Common\UserSession.cs" />
+    <Compile Include="DAO\DAO_PackingInfo.cs" />
+    <Compile Include="DAO\DAO_ProductionHistory.cs" />
+    <Compile Include="Themes\Dark_Theme.cs" />
+    <Compile Include="Themes\Theme.cs" />
     <Compile Include="Common\ThreadHelperClass.cs" />
     <Compile Include="CustomControls\MyComboBox.cs">
       <SubType>Component</SubType>
@@ -159,6 +170,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="Views\About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Accessory\CheckAccessory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -344,10 +361,58 @@
     </Compile>
     <Compile Include="Module\AdminCargo.cs" />
     <Compile Include="Module\Dbconnect.cs" />
-    <Compile Include="Views\Deliverygoods.cs">
+    <Compile Include="Views\MsgBox\CustomMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Deliverygoods.Designer.cs">
+    <Compile Include="Views\MsgBox\CustomMessageBox.Designer.cs">
+      <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producs\AddMaterial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Producs\AddMaterial.Designer.cs">
+      <DependentUpon>AddMaterial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producs\Materials.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Producs\Materials.Designer.cs">
+      <DependentUpon>Materials.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producs\Searching.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Producs\Searching.Designer.cs">
+      <DependentUpon>Searching.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Production\CheckLabelHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Production\CheckLabelHistory.Designer.cs">
+      <DependentUpon>CheckLabelHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Production\CheckMaterials.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Production\CheckMaterials.Designer.cs">
+      <DependentUpon>CheckMaterials.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Systems\AboutVersion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Systems\AboutVersion.Designer.cs">
+      <DependentUpon>AboutVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\ChangeLocation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\ChangeLocation.Designer.cs">
+      <DependentUpon>ChangeLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\Deliverygoods.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\Deliverygoods.Designer.cs">
       <DependentUpon>Deliverygoods.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EditInvoice.cs">
@@ -367,6 +432,12 @@
     </Compile>
     <Compile Include="Views\Producs\AddProduct.Designer.cs">
       <DependentUpon>AddProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Producs\CheckProductInv_POPUP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Producs\CheckProductInv_POPUP.Designer.cs">
+      <DependentUpon>CheckProductInv_POPUP.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Producs\GoodsMgt.cs">
       <SubType>Form</SubType>
@@ -391,6 +462,30 @@
     </Compile>
     <Compile Include="Views\Production\Settings\LabelAccessoryIndex.Designer.cs">
       <DependentUpon>LabelAccessoryIndex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Statistics.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Statistics.Designer.cs">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\ChangePassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\ChangePassword.Designer.cs">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\UserBasicInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\UserBasicInfo.Designer.cs">
+      <DependentUpon>UserBasicInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\Export.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\Export.Designer.cs">
+      <DependentUpon>Export.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Warehouse\inproduction.cs">
       <SubType>Form</SubType>
@@ -526,10 +621,10 @@
     <Compile Include="Views\Producs\ProductCategoryMgt.Designer.cs">
       <DependentUpon>ProductCategoryMgt.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProductionResultByDate.cs">
+    <Compile Include="Views\Production\ProductionResultByDate.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\ProductionResultByDate.Designer.cs">
+    <Compile Include="Views\Production\ProductionResultByDate.Designer.cs">
       <DependentUpon>ProductionResultByDate.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\RawMgt\QCCheck.cs">
@@ -573,12 +668,6 @@
     </Compile>
     <Compile Include="Views\ReportViewer\SlipReport.Designer.cs">
       <DependentUpon>SlipReport.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SaleForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\SaleForm.Designer.cs">
-      <DependentUpon>SaleForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Spray\AddSprayPlan.cs">
       <SubType>Form</SubType>
@@ -646,10 +735,10 @@
     <Compile Include="Views\productionstatus.Designer.cs">
       <DependentUpon>productionstatus.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Production_history.cs">
+    <Compile Include="Views\Production\Production_history.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Production_history.Designer.cs">
+    <Compile Include="Views\Production\Production_history.Designer.cs">
       <DependentUpon>Production_history.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -666,16 +755,10 @@
     <Compile Include="Views\Report_Detail.Designer.cs">
       <DependentUpon>Report_Detail.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Statistics.cs">
+    <Compile Include="Views\Warehouse\StockFollowLoction.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Statistics.Designer.cs">
-      <DependentUpon>Statistics.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\StockFollowLoction.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\StockFollowLoction.Designer.cs">
+    <Compile Include="Views\Warehouse\StockFollowLoction.Designer.cs">
       <DependentUpon>StockFollowLoction.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\StockMgt.cs">
@@ -726,14 +809,14 @@
     <Compile Include="Views\WorkOrder\WorkOrderResult.Designer.cs">
       <DependentUpon>WorkOrderResult.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Analysis.resx">
-      <DependentUpon>Analysis.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Expander\Expander.resx">
       <DependentUpon>Expander.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainFrm.resx">
       <DependentUpon>MainFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\About.resx">
+      <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Accessory\CheckAccessory.resx">
       <DependentUpon>CheckAccessory.cs</DependentUpon>
@@ -777,7 +860,31 @@
     <EmbeddedResource Include="Views\CustomMsgBox.resx">
       <DependentUpon>CustomMsgBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Deliverygoods.resx">
+    <EmbeddedResource Include="Views\MsgBox\CustomMessageBox.resx">
+      <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Producs\AddMaterial.resx">
+      <DependentUpon>AddMaterial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Producs\Materials.resx">
+      <DependentUpon>Materials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Producs\Searching.resx">
+      <DependentUpon>Searching.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Production\CheckLabelHistory.resx">
+      <DependentUpon>CheckLabelHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Production\CheckMaterials.resx">
+      <DependentUpon>CheckMaterials.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Systems\AboutVersion.resx">
+      <DependentUpon>AboutVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\ChangeLocation.resx">
+      <DependentUpon>ChangeLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\Deliverygoods.resx">
       <DependentUpon>Deliverygoods.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\DeliveryPlanForm.resx">
@@ -795,6 +902,9 @@
     <EmbeddedResource Include="Views\Producs\AddProduct.resx">
       <DependentUpon>AddProduct.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Producs\CheckProductInv_POPUP.resx">
+      <DependentUpon>CheckProductInv_POPUP.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Producs\GoodsMgt.resx">
       <DependentUpon>GoodsMgt.cs</DependentUpon>
     </EmbeddedResource>
@@ -806,6 +916,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Production\Settings\LabelAccessoryIndex.resx">
       <DependentUpon>LabelAccessoryIndex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Statistics.resx">
+      <DependentUpon>Statistics.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\ChangePassword.resx">
+      <DependentUpon>ChangePassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\UserBasicInfo.resx">
+      <DependentUpon>UserBasicInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\Export.resx">
+      <DependentUpon>Export.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehouse\inproduction.resx">
       <DependentUpon>inproduction.cs</DependentUpon>
@@ -888,7 +1010,7 @@
     <EmbeddedResource Include="Views\Producs\ProductCategoryMgt.resx">
       <DependentUpon>ProductCategoryMgt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProductionResultByDate.resx">
+    <EmbeddedResource Include="Views\Production\ProductionResultByDate.resx">
       <DependentUpon>ProductionResultByDate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\RawMgt\QCCheck.resx">
@@ -911,9 +1033,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ReportViewer\SlipReport.resx">
       <DependentUpon>SlipReport.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\SaleForm.resx">
-      <DependentUpon>SaleForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Spray\AddSprayPlan.resx">
       <DependentUpon>AddSprayPlan.cs</DependentUpon>
@@ -948,7 +1067,7 @@
     <EmbeddedResource Include="Views\productionstatus.resx">
       <DependentUpon>productionstatus.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Production_history.resx">
+    <EmbeddedResource Include="Views\Production\Production_history.resx">
       <DependentUpon>Production_history.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -962,10 +1081,7 @@
     <EmbeddedResource Include="Views\Report_Detail.resx">
       <DependentUpon>Report_Detail.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Statistics.resx">
-      <DependentUpon>Statistics.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\StockFollowLoction.resx">
+    <EmbeddedResource Include="Views\Warehouse\StockFollowLoction.resx">
       <DependentUpon>StockFollowLoction.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\StockMgt.resx">
@@ -992,6 +1108,7 @@
     <EmbeddedResource Include="Views\WorkOrder\WorkOrderResult.resx">
       <DependentUpon>WorkOrderResult.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.manifest" />
     <None Include="docs\deliveryform.xlsx" />
     <None Include="docs\exportprint.xlsx" />
     <None Include="docs\deliveryorder.xlsx" />
@@ -1082,6 +1199,7 @@
   <ItemGroup>
     <Content Include="Resources\2939.12-bug-report-icon-iconbunny.jpg" />
     <None Include="Resources\568140.png" />
+    <None Include="Resources\add1.png" />
     <Content Include="Resources\bugreport.png" />
     <Content Include="Resources\bugreport_Qa3_icon.ico" />
     <None Include="Resources\settings1.png" />
@@ -1103,6 +1221,10 @@
     <None Include="Resources\delete24x24.png" />
     <None Include="Resources\copy24x24.png" />
     <None Include="Resources\expand1.png" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\xlsx1.png" />
+    <None Include="Resources\close.png" />
+    <None Include="Resources\xls.png" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

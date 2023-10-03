@@ -19,7 +19,7 @@ namespace HANMISYSTEM.Views.Warehouse
         }
         Dbconnect connect = new Dbconnect();
         string wh;
-        private  void Warehouse_dashboard_Load(object sender, EventArgs e)
+        private void Warehouse_dashboard_Load(object sender, EventArgs e)
         {
             DataTable dtWarehouse = connect.readdata("select * from warehouse");
             cbbWarehouse.DataSource = dtWarehouse;
@@ -33,15 +33,15 @@ namespace HANMISYSTEM.Views.Warehouse
         DataTable dtpackages;
         DataTable dtnewimport;
         DataTable dtnewexport;
-        private  void LoadData(string wh)
+        private void LoadData(string wh)
         {
             try
             {
-                 dtproducts =  connect.readdata("select isnull(SUM(quantity),0) as quantity from packinginfo where idwarehouse='" + wh + "'  ");
-                 dtpackages = connect.readdata("select isnull(count(idpack),0) as quantity from packinginfo where idwarehouse='" + wh + "'");
-                 dtnewimport = connect.readdata("select isnull(SUM(si.quantity),0) as quantity from slipout sl inner join slipoutinfo si on sl.idslipout =si.idslipout where idcustomer='" + wh + "' and CONVERT(date,sl.dateout)=CONVERT(date,getdate())");
-                 dtnewexport = connect.readdata("select isnull(SUM(si.quantity),0) as quantity from slipout sl inner join slipoutinfo si on sl.idslipout =si.idslipout where idwarehouse='"+wh+"' and CONVERT(date,sl.dateout)=CONVERT(date,getdate())");
-                if(dtproducts!=null && dtpackages!=null && dtnewimport!=null && dtnewexport!=null)
+                dtproducts = connect.readdata("select isnull(SUM(quantity),0) as quantity from packinginfo where idwarehouse='" + wh + "'  ");
+                dtpackages = connect.readdata("select isnull(count(idpack),0) as quantity from packinginfo where idwarehouse='" + wh + "'");
+                dtnewimport = connect.readdata("select isnull(SUM(si.quantity),0) as quantity from slipout sl inner join slipoutinfo si on sl.idslipout =si.idslipout where idcustomer='" + wh + "' and CONVERT(date,sl.dateout)=CONVERT(date,getdate())");
+                dtnewexport = connect.readdata("select isnull(SUM(si.quantity),0) as quantity from slipout sl inner join slipoutinfo si on sl.idslipout =si.idslipout where idwarehouse='" + wh + "' and CONVERT(date,sl.dateout)=CONVERT(date,getdate())");
+                if (dtproducts != null && dtpackages != null && dtnewimport != null && dtnewexport != null)
                 {
                     ThreadHelperClass.SetText(this, lbnewexport, Convert.ToInt32(dtnewexport.Rows[0]["quantity"].ToString()).ToString("N0"));
                     ThreadHelperClass.SetText(this, lbproducts, Convert.ToInt32(dtproducts.Rows[0]["quantity"].ToString()).ToString("N0"));
@@ -49,7 +49,7 @@ namespace HANMISYSTEM.Views.Warehouse
                     ThreadHelperClass.SetText(this, lbnewimport, Convert.ToInt32(dtnewimport.Rows[0]["quantity"].ToString()).ToString("N0"));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -63,25 +63,25 @@ namespace HANMISYSTEM.Views.Warehouse
             {
                 Inventory inventory = new Inventory();
                 inventory.wh = cbbWarehouse.SelectedValue.ToString();
-                MainFormRef.DoCreateTab("Tồn kho theo mã hàng",inventory);
+                MainFormRef.DoCreateTab("Tồn kho theo mã hàng", inventory);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
-           
+
         }
 
-        private  void cbbWarehouse_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbbWarehouse_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbbWarehouse.SelectedItem!=null)
+            if (cbbWarehouse.SelectedItem != null)
             {
                 try
                 {
                     wh = cbbWarehouse.SelectedValue.ToString();
                     //await Task.Run((Action)(() => LoadData(wh)));
                     LoadData(wh);
-      
+
                 }
                 catch (Exception ex)
                 {
@@ -90,10 +90,7 @@ namespace HANMISYSTEM.Views.Warehouse
             }
 
 
-        }
-
-
-
+       }
         private void gradientPanel5_Click(object sender, EventArgs e)
         {
             try

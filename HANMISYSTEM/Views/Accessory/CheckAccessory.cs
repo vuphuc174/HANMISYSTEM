@@ -1,5 +1,6 @@
 ﻿using HANMISYSTEM.Common;
 using HANMISYSTEM.Module;
+using HANMISYSTEM.Views.MsgBox;
 using HANMISYSTEM.Views.PartialView;
 using Newtonsoft.Json;
 using System;
@@ -22,6 +23,17 @@ namespace HANMISYSTEM.Views.Accessory
         public CheckAccessory()
         {
             InitializeComponent();
+        }
+        private static CheckAccessory instance;
+        public static CheckAccessory Instance
+        {
+            get
+            {
+                if (instance == null || instance.IsDisposed)
+                    instance = new CheckAccessory();
+
+                return instance;
+            }
         }
         Dbconnect connect = new Dbconnect();
         const string warehouse = "WH001";
@@ -162,6 +174,7 @@ namespace HANMISYSTEM.Views.Accessory
                     MessageBox.Show("Connection faile", ex.ToString());
                 }
             }
+            #region CREATE_LIST
             accessoryGroup.Add(gb1);
             accessoryGroup.Add(gb2);
             accessoryGroup.Add(gb3);
@@ -200,6 +213,7 @@ namespace HANMISYSTEM.Views.Accessory
             lbAccessory.Add(lbAccessory10);
             lbAccessory.Add(lbAccessory11);
             lbAccessory.Add(lbAccessory12);
+            #endregion
             if (!Directory.Exists(path + "\\json"))
             {
                 Directory.CreateDirectory(path + "\\json");
@@ -213,8 +227,19 @@ namespace HANMISYSTEM.Views.Accessory
             {
                 using (StreamReader file = File.OpenText(path + "\\json\\packingdata.json"))
                 {
-                    JsonSerializer serializer = new JsonSerializer();
-                    packingdatas = (List<packingdata>)serializer.Deserialize(file, typeof(List<packingdata>));
+                    if (file.ReadToEnd().Trim() == "")
+                    {
+                        file.Close();
+                        //write file here
+                        File.WriteAllText(path + "\\json\\packingdata.json", "[]");
+                    }  
+                }
+                using (StreamReader file = File.OpenText(path + "\\json\\packingdata.json"))
+                {
+          
+                        JsonSerializer serializer = new JsonSerializer();
+                        packingdatas = (List<packingdata>)serializer.Deserialize(file, typeof(List<packingdata>));
+                    
                 }
             }
 
@@ -225,12 +250,27 @@ namespace HANMISYSTEM.Views.Accessory
                 t.IsBackground = true;
                 t.Start();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
 
             HideAll();
+        }
+        public static bool IsJsonFileEmpty(string filePath)
+        {
+            try
+            {
+                using (StreamReader file = File.OpenText(filePath))
+                {
+                    return file.ReadToEnd().Trim() == "";
+                }
+            }
+            catch (IOException)
+            {
+                // Handle exception if the file cannot be opened or read
+                return false;
+            }
         }
         string offType;
         private void btnoff_Click(object sender, EventArgs e)
@@ -246,6 +286,7 @@ namespace HANMISYSTEM.Views.Accessory
                 btnon.Enabled = true;
                 btnoff.Enabled = false;
                 txtScan.Enabled = false;
+                btnselectWO.Enabled = true;
                 offType = "";
             }
             if (dlr == DialogResult.No)
@@ -257,7 +298,9 @@ namespace HANMISYSTEM.Views.Accessory
                 btnon.Enabled = true;
                 btnoff.Enabled = false;
                 txtScan.Enabled = false;
+                btnselectWO.Enabled = true;
             }
+            
         }
         SerialPort serialPort = new SerialPort(HANMISYSTEM.Properties.Settings.Default.comport, Convert.ToInt32(HANMISYSTEM.Properties.Settings.Default.baudrate));
         private void CallNG()
@@ -282,20 +325,20 @@ namespace HANMISYSTEM.Views.Accessory
                 }
                 serialPort.Close();
             }
-            catch(Exception)
+            catch (Exception)
             {
-       
+
             }
 
         }
-        bool checkStatus=true;
+        bool checkStatus = true;
         private async void DoCheckAccessory(string data)
         {
             if (Judge(data))
             {
-                if (CheckJudgeStatus() && checkStatus==true)
+                if (CheckJudgeStatus() && checkStatus == true)
                 {
-                    checkStatus=false;
+                    checkStatus = false;
                     timer1.Start();
                     lbQuantity.Text = (Convert.ToInt32(lbQuantity.Text) + 1).ToString();
                     lbFinalJudge.Text = "OK";
@@ -327,7 +370,7 @@ namespace HANMISYSTEM.Views.Accessory
                 try
                 {
                     string remark = "Mã hàng không hợp lệ " + data;
-                    await connect.ExeDataAsync("Insert into StopAlertCounter(SubmitDate,PartNo,Remark,LocationID) values(getdate(),'" + txtmodel.Text + "','" + remark + "','" + lineID + "')"); ;
+                    await connect.ExeDataAsync($"Insert into StopAlertCounter(SubmitDate,PartNo,Remark,LocationID) values(getdate(),'{txtmodel.Text}',N'{remark}','{lineID}')"); ;
                 }
                 catch { }
                 //notify box
@@ -342,7 +385,7 @@ namespace HANMISYSTEM.Views.Accessory
 
 
             }
-    
+
         }
         private void CheckPackageChange(string data)
         {
@@ -353,7 +396,13 @@ namespace HANMISYSTEM.Views.Accessory
             //check phuong thuc dong goi
             if (dt.Rows.Count == 0 || dt.Rows[0]["quantity"].ToString() == "0")
             {
-                MessageBox.Show("Phương thức đóng gói không hợp lệ !");
+                using (CustomMessageBox frm = new CustomMessageBox())
+                {
+                    frm.lbContent.Text = "Phương thức đóng gói không hợp lệ !";
+                    frm.ShowInTaskbar = false;
+                    frm.ShowDialog();
+                }
+                //MessageBox.Show("Phương thức đóng gói không hợp lệ !");
                 //txtPackID.Text = "";
             }
             else
@@ -364,7 +413,13 @@ namespace HANMISYSTEM.Views.Accessory
                     //check partno -if other
                     if (packqty.Rows[0]["partno"].ToString() != txtmodel.Text)
                     {
-                        MessageBox.Show("Box này đã được sử dụng cho mã hàng khác !");
+                        using (CustomMessageBox frm = new CustomMessageBox())
+                        {
+                            frm.lbContent.Text = "Box này đã được sử dụng cho mã hàng khác !";
+                            frm.ShowInTaskbar = false;
+                            frm.ShowDialog();
+                        }
+                        //MessageBox.Show("Box này đã được sử dụng cho mã hàng khác !");
                         //txtPackID.Text = "";
                         //txtPackID.Focus();
                     }
@@ -372,7 +427,13 @@ namespace HANMISYSTEM.Views.Accessory
                     {
                         if (Convert.ToInt32(packqty.Rows[0]["quantity"].ToString()) >= Convert.ToInt32(dt.Rows[0]["quantity"].ToString()))
                         {
-                            MessageBox.Show("Box fulled !");
+                            using (CustomMessageBox frm = new CustomMessageBox())
+                            {
+                                frm.lbContent.Text = "Box fulled !";
+                                frm.ShowInTaskbar = false;
+                                frm.ShowDialog();
+                            }
+                            //MessageBox.Show("Box fulled !");
                             //txtPackID.Text = "";
                             //txtPackID.Focus();
                         }
@@ -442,7 +503,7 @@ namespace HANMISYSTEM.Views.Accessory
                         }
                     }
                 }
-          
+
 
             }
         }
@@ -476,7 +537,7 @@ namespace HANMISYSTEM.Views.Accessory
                     }
                 }
             }
-           
+
             return true;
         }
         private bool Judge(string accessory)
@@ -485,7 +546,7 @@ namespace HANMISYSTEM.Views.Accessory
             {
                 if (lbAccessory[i].Text != "")
                 {
-                    if (lbAccessory[i].Text==accessory && lbJudge[i].Text!="OK")
+                    if (lbAccessory[i].Text == accessory && lbJudge[i].Text != "OK")
                     //if (accessory == lbAccessory[i].Text)
                     {
                         lbJudge[i].Text = "OK";
@@ -604,6 +665,7 @@ namespace HANMISYSTEM.Views.Accessory
             {
                 DataTable dtLocation = connect.readdata("select namelocation1 from location where idlocation ='" + lineID + "'");
                 SelectWorkOrder fr = new SelectWorkOrder();
+                fr.ShowInTaskbar = false;
                 fr.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
                 fr.dataGridView1.AutoGenerateColumns = false;
                 DataTable dtwo = connect.readdata("select a.* ,ROW_NUMBER() over (order by a.PST asc) as r from (select distinct  a.PartNo,p.WOCode as WorkOrder,p.ID as PlanID,c.partname,c.Color,c.Market,p.PST,p.productionplan   from Accessory a inner join cargo c on a.PartNo=c.partno inner join productionplan p on a.PartNo=p.partno left join WorkOrder w on w.ID=p.WorkOrderID where p.idlocation ='" + lineID + "' and (p.Status is null or p.Status<> 0 )   and  (convert(date,p.PST)=CONVERT(date,getdate()) or CONVERT(date,p.productiondate)=CONVERT(date,getdate()))) a");
@@ -633,7 +695,7 @@ namespace HANMISYSTEM.Views.Accessory
             try
             {
                 DataTable dtResult = connect.readdata("select sum(qty) as quantity from productionhistory where partno='" + code + "' and CONVERT(date,productiontime) =CONVERT(date,getdate()) ");
-                return (dtResult.Rows[0]["quantity"].ToString()=="")?"0": dtResult.Rows[0]["quantity"].ToString();
+                return (dtResult.Rows[0]["quantity"].ToString() == "") ? "0" : dtResult.Rows[0]["quantity"].ToString();
             }
             catch
             {
@@ -669,7 +731,7 @@ namespace HANMISYSTEM.Views.Accessory
 
         private void lbPackageQuantity_TextChanged(object sender, EventArgs e)
         {
-            lbCurrentQtyPack.Text=lbPackageQuantity.Text;
+            lbCurrentQtyPack.Text = lbPackageQuantity.Text;
             if (Convert.ToInt32(lbPackageQuantity.Text) >= Convert.ToInt32(lbPackageCapa.Text))
             {
                 MessageBox.Show("Mã đóng gói đã đầy ,xin hãy nhập mã đóng gói mới !!!");
@@ -688,7 +750,7 @@ namespace HANMISYSTEM.Views.Accessory
 
         private void lbPackageID_TextChanged(object sender, EventArgs e)
         {
-            label10.Text=lbPackageID.Text;
+            label10.Text = lbPackageID.Text;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

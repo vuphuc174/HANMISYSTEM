@@ -670,69 +670,85 @@ namespace HANMISYSTEM
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            var clickedCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            // Check if the clicked cell belongs to the image column
-            if (clickedCell.OwningColumn.Name == "Action_col" && e.RowIndex >= 0)
+            if(e.RowIndex>=0)
             {
-                using (AddProduct frm =new AddProduct())
+                var clickedCell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                // Check if the clicked cell belongs to the image column
+                if (clickedCell.OwningColumn.Name == "Action_col" && e.RowIndex >= 0)
                 {
-                    try
+                    using (AddProduct frm = new AddProduct())
                     {
-                        frm.action = "EDIT";
-                        frm.lbAction.Text = "Sửa";
-                        frm.txtpartno.Text = dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString();
-                        frm.txtpartname.Text = dataGridView1.Rows[e.RowIndex].Cells["partname"].Value.ToString();
-                        frm.txtproductivity.Text = dataGridView1.Rows[e.RowIndex].Cells["productivity"].Value.ToString();
-                        frm.txtinfo.Text = dataGridView1.Rows[e.RowIndex].Cells["specificationinfo"].Value.ToString();
-                        frm.cbprocess.Text = dataGridView1.Rows[e.RowIndex].Cells["process"].Value.ToString();
-                        frm.cbcategory.Text = dataGridView1.Rows[e.RowIndex].Cells["category"].Value.ToString();
-                        frm.cbunit.Text = dataGridView1.Rows[e.RowIndex].Cells["unit"].Value.ToString();
-                        frm.cbProductKind.Text = dataGridView1.Rows[e.RowIndex].Cells["ProductKind"].Value.ToString();
-                        frm.txttradingpartnumber.Text = dataGridView1.Rows[e.RowIndex].Cells["tradingpartnumber"].Value.ToString();
-                        frm.txtothername.Text = dataGridView1.Rows[e.RowIndex].Cells["othername"].Value.ToString();
-                        frm.ShowDialog();
+                        try
+                        {
+                            frm.action = "EDIT";
+                            frm.lbAction.Text = "Sửa";
+                            frm.txtpartno.Text = dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString();
+                            frm.txtpartname.Text = dataGridView1.Rows[e.RowIndex].Cells["partname"].Value.ToString();
+                            frm.txtproductivity.Text = dataGridView1.Rows[e.RowIndex].Cells["productivity"].Value.ToString();
+                            frm.txtinfo.Text = dataGridView1.Rows[e.RowIndex].Cells["specificationinfo"].Value.ToString();
+                            frm.cbprocess.Text = dataGridView1.Rows[e.RowIndex].Cells["process"].Value.ToString();
+                            frm.cbcategory.Text = dataGridView1.Rows[e.RowIndex].Cells["category"].Value.ToString();
+                            frm.cbunit.Text = dataGridView1.Rows[e.RowIndex].Cells["unit"].Value.ToString();
+                            frm.cbProductKind.Text = dataGridView1.Rows[e.RowIndex].Cells["ProductKind"].Value.ToString();
+                            frm.txttradingpartnumber.Text = dataGridView1.Rows[e.RowIndex].Cells["tradingpartnumber"].Value.ToString();
+                            frm.txtothername.Text = dataGridView1.Rows[e.RowIndex].Cells["othername"].Value.ToString();
+                            frm.ShowDialog();
+                            SetPage = curPage;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
                     }
-                    catch(Exception ex)
+                }
+                else if (clickedCell.OwningColumn.Name == "ActionCopy_col" && e.RowIndex >= 0)
+                {
+                    using (AddProduct frm = new AddProduct())
                     {
-                        MessageBox.Show(ex.Message);
+                        try
+                        {
+                            frm.action = "COPY";
+                            frm.lbAction.Text = "Sao chép";
+                            frm.txtpartno.Text = dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString() + "COPY";
+                            frm.txtpartname.Text = dataGridView1.Rows[e.RowIndex].Cells["partname"].Value.ToString();
+                            frm.txtproductivity.Text = dataGridView1.Rows[e.RowIndex].Cells["productivity"].Value.ToString();
+                            frm.txtinfo.Text = dataGridView1.Rows[e.RowIndex].Cells["specificationinfo"].Value.ToString();
+                            frm.cbprocess.Text = dataGridView1.Rows[e.RowIndex].Cells["process"].Value.ToString();
+                            frm.cbcategory.Text = dataGridView1.Rows[e.RowIndex].Cells["category"].Value.ToString();
+                            frm.cbunit.Text = dataGridView1.Rows[e.RowIndex].Cells["unit"].Value.ToString();
+                            frm.cbProductKind.Text = dataGridView1.Rows[e.RowIndex].Cells["ProductKind"].Value.ToString();
+                            frm.txttradingpartnumber.Text = dataGridView1.Rows[e.RowIndex].Cells["tradingpartnumber"].Value.ToString();
+                            frm.txtothername.Text = dataGridView1.Rows[e.RowIndex].Cells["othername"].Value.ToString();
+                            frm.ShowDialog();
+                            SetPage = curPage;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message);
+                        }
+
                     }
-          
+                }
+                else if (clickedCell.OwningColumn.Name == "ActionDelete_col" && e.RowIndex >= 0)
+                {
+                    string pn = dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString();
+                    Delete(pn);
                 }
             }
-            else if (clickedCell.OwningColumn.Name == "ActionCopy_col" && e.RowIndex >= 0)
-            {
-                using (AddProduct frm = new AddProduct())
-                {
-                    try
-                    {
-                        frm.action = "COPY";
-                        frm.lbAction.Text = "Sao chép";
-                        frm.txtpartno.Text = dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString()+"COPY";
-                        frm.txtpartname.Text = dataGridView1.Rows[e.RowIndex].Cells["partname"].Value.ToString();
-                        frm.txtproductivity.Text = dataGridView1.Rows[e.RowIndex].Cells["productivity"].Value.ToString();
-                        frm.txtinfo.Text = dataGridView1.Rows[e.RowIndex].Cells["specificationinfo"].Value.ToString();
-                        frm.cbprocess.Text = dataGridView1.Rows[e.RowIndex].Cells["process"].Value.ToString();
-                        frm.cbcategory.Text = dataGridView1.Rows[e.RowIndex].Cells["category"].Value.ToString();
-                        frm.cbunit.Text = dataGridView1.Rows[e.RowIndex].Cells["unit"].Value.ToString();
-                        frm.cbProductKind.Text = dataGridView1.Rows[e.RowIndex].Cells["ProductKind"].Value.ToString();
-                        frm.txttradingpartnumber.Text = dataGridView1.Rows[e.RowIndex].Cells["tradingpartnumber"].Value.ToString();
-                        frm.txtothername.Text = dataGridView1.Rows[e.RowIndex].Cells["othername"].Value.ToString();
-                        frm.ShowDialog();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
-
-                }
-            }   
-            else if(clickedCell.OwningColumn.Name == "ActionDelete_col" && e.RowIndex >= 0){
-
-            }
-            SetPage = curPage;
+            
+            
         }
-
+        private void Delete(string pn)
+        {
+            using(CheckProductInv_POPUP frm =new CheckProductInv_POPUP())
+            {
+                frm.partno=pn;
+                frm.ShowDialog();
+                SetPage = curPage;
+            }
+        }
         private void btnsave_Click(object sender, EventArgs e)
         {
 

@@ -28,12 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btnexcel = new System.Windows.Forms.Button();
             this.btnsearch = new System.Windows.Forms.Button();
             this.dtpto = new System.Windows.Forms.DateTimePicker();
             this.dtpfrom = new System.Windows.Forms.DateTimePicker();
@@ -53,25 +51,26 @@
             this.ProductionDate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gradientPanel1 = new HANMISYSTEM.Module.GradientPanel();
+            this.btnexcel = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.label6 = new System.Windows.Forms.Label();
             this.lbtotal = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.gradientPanel2 = new HANMISYSTEM.Module.GradientPanel();
             this.panel1.SuspendLayout();
-            this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).BeginInit();
             this.gradientPanel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.gradientPanel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.AutoSize = true;
             this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.panel4);
             this.panel1.Controls.Add(this.btnsearch);
             this.panel1.Controls.Add(this.dtpto);
             this.panel1.Controls.Add(this.dtpfrom);
@@ -89,30 +88,10 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1238, 75);
             this.panel1.TabIndex = 0;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // panel4
-            // 
-            this.panel4.Controls.Add(this.btnexcel);
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(1043, 0);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(195, 75);
-            this.panel4.TabIndex = 6;
-            // 
-            // btnexcel
-            // 
-            this.btnexcel.Location = new System.Drawing.Point(94, 39);
-            this.btnexcel.Name = "btnexcel";
-            this.btnexcel.Size = new System.Drawing.Size(95, 36);
-            this.btnexcel.TabIndex = 4;
-            this.btnexcel.Text = "Excel";
-            this.btnexcel.UseVisualStyleBackColor = true;
-            this.btnexcel.Click += new System.EventHandler(this.btnexcel_Click);
             // 
             // btnsearch
             // 
-            this.btnsearch.Location = new System.Drawing.Point(643, 42);
+            this.btnsearch.Location = new System.Drawing.Point(576, 42);
             this.btnsearch.Name = "btnsearch";
             this.btnsearch.Size = new System.Drawing.Size(85, 30);
             this.btnsearch.TabIndex = 5;
@@ -123,7 +102,7 @@
             // dtpto
             // 
             this.dtpto.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpto.Location = new System.Drawing.Point(523, 47);
+            this.dtpto.Location = new System.Drawing.Point(456, 46);
             this.dtpto.Name = "dtpto";
             this.dtpto.Size = new System.Drawing.Size(114, 24);
             this.dtpto.TabIndex = 3;
@@ -131,7 +110,7 @@
             // dtpfrom
             // 
             this.dtpfrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpfrom.Location = new System.Drawing.Point(356, 47);
+            this.dtpfrom.Location = new System.Drawing.Point(332, 47);
             this.dtpfrom.Name = "dtpfrom";
             this.dtpfrom.Size = new System.Drawing.Size(95, 24);
             this.dtpfrom.TabIndex = 3;
@@ -140,14 +119,14 @@
             // 
             this.txtsearch.Location = new System.Drawing.Point(86, 48);
             this.txtsearch.Name = "txtsearch";
-            this.txtsearch.Size = new System.Drawing.Size(192, 24);
+            this.txtsearch.Size = new System.Drawing.Size(175, 24);
             this.txtsearch.TabIndex = 2;
             this.txtsearch.TextChanged += new System.EventHandler(this.txtsearch_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(292, 15);
+            this.label2.Location = new System.Drawing.Point(268, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(58, 18);
             this.label2.TabIndex = 1;
@@ -156,16 +135,16 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(477, 51);
+            this.label5.Location = new System.Drawing.Point(433, 53);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(35, 18);
+            this.label5.Size = new System.Drawing.Size(17, 18);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Đến";
+            this.label5.Text = "~";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(325, 53);
+            this.label4.Location = new System.Drawing.Point(301, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(25, 18);
             this.label4.TabIndex = 1;
@@ -193,7 +172,7 @@
             // 
             this.cblocation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cblocation.FormattingEnabled = true;
-            this.cblocation.Location = new System.Drawing.Point(356, 12);
+            this.cblocation.Location = new System.Drawing.Point(332, 12);
             this.cblocation.Name = "cblocation";
             this.cblocation.Size = new System.Drawing.Size(208, 26);
             this.cblocation.TabIndex = 0;
@@ -205,7 +184,7 @@
             this.cbwarehouse.FormattingEnabled = true;
             this.cbwarehouse.Location = new System.Drawing.Point(86, 12);
             this.cbwarehouse.Name = "cbwarehouse";
-            this.cbwarehouse.Size = new System.Drawing.Size(192, 26);
+            this.cbwarehouse.Size = new System.Drawing.Size(175, 26);
             this.cbwarehouse.TabIndex = 0;
             // 
             // panel2
@@ -231,16 +210,17 @@
             // 
             this.dgvdata.AllowUserToAddRows = false;
             this.dgvdata.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvdata.BackgroundColor = System.Drawing.Color.White;
             this.dgvdata.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(140)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvdata.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(140)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvdata.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            this.dgvdata.ColumnHeadersHeight = 35;
             this.dgvdata.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PartNo,
             this.PartName,
@@ -249,17 +229,19 @@
             this.dgvdata.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvdata.Location = new System.Drawing.Point(0, 0);
             this.dgvdata.Name = "dgvdata";
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(140)))), ((int)(((byte)(240)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvdata.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgvdata.ReadOnly = true;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(140)))), ((int)(((byte)(240)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvdata.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvdata.RowHeadersVisible = false;
             this.dgvdata.Size = new System.Drawing.Size(1238, 477);
             this.dgvdata.TabIndex = 0;
+            this.dgvdata.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvdata_CellMouseClick);
             this.dgvdata.CellStateChanged += new System.Windows.Forms.DataGridViewCellStateChangedEventHandler(this.dgvData_CellStateChanged);
             this.dgvdata.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvData_RowStateChanged);
             // 
@@ -268,39 +250,57 @@
             this.PartNo.DataPropertyName = "partno";
             this.PartNo.HeaderText = "PartNo";
             this.PartNo.Name = "PartNo";
+            this.PartNo.ReadOnly = true;
             // 
             // PartName
             // 
             this.PartName.DataPropertyName = "partname";
             this.PartName.HeaderText = "PartName";
             this.PartName.Name = "PartName";
+            this.PartName.ReadOnly = true;
             // 
             // ProductionDate
             // 
             this.ProductionDate.DataPropertyName = "productiondate";
             this.ProductionDate.HeaderText = "Production Date";
             this.ProductionDate.Name = "ProductionDate";
+            this.ProductionDate.ReadOnly = true;
             // 
             // Quantity
             // 
             this.Quantity.DataPropertyName = "quantity";
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = null;
-            this.Quantity.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Format = "N0";
+            dataGridViewCellStyle8.NullValue = null;
+            this.Quantity.DefaultCellStyle = dataGridViewCellStyle8;
             this.Quantity.HeaderText = "Quantity";
             this.Quantity.Name = "Quantity";
+            this.Quantity.ReadOnly = true;
             // 
             // gradientPanel1
             // 
             this.gradientPanel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.gradientPanel1.ColorBottom = System.Drawing.Color.LightGray;
             this.gradientPanel1.ColorTop = System.Drawing.Color.White;
+            this.gradientPanel1.Controls.Add(this.gradientPanel2);
             this.gradientPanel1.Controls.Add(this.label7);
             this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
             this.gradientPanel1.Name = "gradientPanel1";
             this.gradientPanel1.Size = new System.Drawing.Size(1238, 42);
             this.gradientPanel1.TabIndex = 1;
+            // 
+            // btnexcel
+            // 
+            this.btnexcel.Image = global::HANMISYSTEM.Properties.Resources.xls;
+            this.btnexcel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnexcel.Location = new System.Drawing.Point(87, 4);
+            this.btnexcel.Name = "btnexcel";
+            this.btnexcel.Size = new System.Drawing.Size(79, 36);
+            this.btnexcel.TabIndex = 5;
+            this.btnexcel.Text = "Excel";
+            this.btnexcel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnexcel.UseVisualStyleBackColor = true;
+            this.btnexcel.Click += new System.EventHandler(this.btnexcel_Click_1);
             // 
             // label7
             // 
@@ -345,6 +345,18 @@
             this.panel3.Size = new System.Drawing.Size(1238, 46);
             this.panel3.TabIndex = 1;
             // 
+            // gradientPanel2
+            // 
+            this.gradientPanel2.BackColor = System.Drawing.Color.Transparent;
+            this.gradientPanel2.ColorBottom = System.Drawing.Color.Empty;
+            this.gradientPanel2.ColorTop = System.Drawing.Color.Empty;
+            this.gradientPanel2.Controls.Add(this.btnexcel);
+            this.gradientPanel2.Dock = System.Windows.Forms.DockStyle.Right;
+            this.gradientPanel2.Location = new System.Drawing.Point(1036, 0);
+            this.gradientPanel2.Name = "gradientPanel2";
+            this.gradientPanel2.Size = new System.Drawing.Size(200, 40);
+            this.gradientPanel2.TabIndex = 6;
+            // 
             // ProductionResultByDate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -359,7 +371,6 @@
             this.Load += new System.EventHandler(this.ProductionResultByDate_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel4.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvdata)).EndInit();
@@ -367,6 +378,7 @@
             this.gradientPanel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.gradientPanel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -377,7 +389,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.DataGridView dgvdata;
-        private System.Windows.Forms.Button btnexcel;
         private System.Windows.Forms.DateTimePicker dtpto;
         private System.Windows.Forms.DateTimePicker dtpfrom;
         private System.Windows.Forms.TextBox txtsearch;
@@ -394,12 +405,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ProductionDate;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label lbtotal;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel5;
         private Module.GradientPanel gradientPanel1;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button btnexcel;
+        private Module.GradientPanel gradientPanel2;
     }
 }

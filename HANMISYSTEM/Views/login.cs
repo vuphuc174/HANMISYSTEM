@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using HANMISYSTEM.Common;
 
 namespace HANMISYSTEM
 {
@@ -19,15 +20,13 @@ namespace HANMISYSTEM
             InitializeComponent();
         }
 
-        private void btnlogin_Click(object sender, EventArgs e)
+        private bool CheckLogin(string username, string password)
         {
-            
-            DataTable dt = connect.readdata("select * from tbl_user where username ='"+txtuser.Text+"' and password='"+txtpassword.Text+"'");
-            if(dt.Rows.Count>0)
+            DataTable dt = connect.readdata($"select * from tbl_user where username ='{username}' and password='{password}'");
+            if (dt.Rows.Count > 0)
             {
-                
                 HANMISYSTEM.Properties.Settings.Default.username = txtuser.Text;
-                if(ckrememberme.Checked==true)
+                if (ckrememberme.Checked == true)
                 {
                     HANMISYSTEM.Properties.Settings.Default.rememberme = true;
                     HANMISYSTEM.Properties.Settings.Default.password = txtpassword.Text;
@@ -37,17 +36,26 @@ namespace HANMISYSTEM
                     HANMISYSTEM.Properties.Settings.Default.password = "";
                 }
                 Properties.Settings.Default.Save();
-                MainFrm fr = new MainFrm();
-                fr.Show();
-                this.Hide();
+                UserSession.LoggedIn = true;
+                UserSession.UserName = txtuser.Text;
+                return true;
+            }
+            return false;
+        }
+        private void btnlogin_Click(object sender, EventArgs e)
+        {
+
+            if (CheckLogin(txtuser.Text, txtpassword.Text))
+            {
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
             {
-                MessageBox.Show("Username or password incorrect");
-                txtpassword.Text = "";
-                txtpassword.Focus();
+                MessageBox.Show("Đăng nhập không thành công");
             }
-                
+
+
         }
 
         private void login_Load(object sender, EventArgs e)
@@ -58,7 +66,7 @@ namespace HANMISYSTEM
             ckrememberme.Checked = HANMISYSTEM.Properties.Settings.Default.rememberme;
             txtuid.Text = HANMISYSTEM.Properties.Settings.Default.uid;
             txtpwd.Text = HANMISYSTEM.Properties.Settings.Default.pwd;
-            
+
         }
 
         private void btnsave_Click(object sender, EventArgs e)
@@ -66,12 +74,12 @@ namespace HANMISYSTEM
             HANMISYSTEM.Properties.Settings.Default.uid = txtuid.Text;
             HANMISYSTEM.Properties.Settings.Default.servername = txtservername.Text;
             HANMISYSTEM.Properties.Settings.Default.pwd = txtpwd.Text;
-            HANMISYSTEM.Properties.Settings.Default.pwd=txtpwd.Text;
+            HANMISYSTEM.Properties.Settings.Default.pwd = txtpwd.Text;
             Properties.Settings.Default.Save();
             MessageBox.Show("Success");
         }
-    
-  
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             this.Size = this.Size.Height == 366 ? new Size(323, 200) : new Size(323, 366);

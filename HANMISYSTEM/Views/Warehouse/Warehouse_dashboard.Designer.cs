@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Warehouse_dashboard));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -58,6 +59,13 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.InvoiceNo_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.From_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.To_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PackageQuantity_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Time_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.gradientPanel1.SuspendLayout();
@@ -72,6 +80,8 @@
             this.gradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -88,6 +98,7 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.panel6);
             this.panel4.Controls.Add(this.gradientPanel1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(20, 193);
@@ -418,6 +429,73 @@
             this.textBox1.Size = new System.Drawing.Size(282, 24);
             this.textBox1.TabIndex = 0;
             // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dataGridView1);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 46);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1194, 408);
+            this.panel6.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeight = 35;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.InvoiceNo_col,
+            this.From_col,
+            this.To_col,
+            this.PackageQuantity_col,
+            this.Time_col});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.Size = new System.Drawing.Size(1194, 408);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // InvoiceNo_col
+            // 
+            this.InvoiceNo_col.HeaderText = "Invoice.No";
+            this.InvoiceNo_col.Name = "InvoiceNo_col";
+            this.InvoiceNo_col.ReadOnly = true;
+            // 
+            // From_col
+            // 
+            this.From_col.HeaderText = "From";
+            this.From_col.Name = "From_col";
+            this.From_col.ReadOnly = true;
+            // 
+            // To_col
+            // 
+            this.To_col.HeaderText = "To";
+            this.To_col.Name = "To_col";
+            this.To_col.ReadOnly = true;
+            // 
+            // PackageQuantity_col
+            // 
+            this.PackageQuantity_col.HeaderText = "Package Quantity";
+            this.PackageQuantity_col.Name = "PackageQuantity_col";
+            this.PackageQuantity_col.ReadOnly = true;
+            // 
+            // Time_col
+            // 
+            this.Time_col.HeaderText = "Time";
+            this.Time_col.Name = "Time_col";
+            this.Time_col.ReadOnly = true;
+            // 
             // Warehouse_dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -449,6 +527,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -484,5 +564,12 @@
         private System.Windows.Forms.Label lbproducts;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.ComboBox cbbWarehouse;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn From_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn To_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PackageQuantity_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Time_col;
     }
 }

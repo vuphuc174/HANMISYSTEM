@@ -99,11 +99,11 @@ namespace HANMISYSTEM.Views.Producs
         private bool CheckExist(string pn)
         {
             DataTable dt = connect.readdata("select partno from cargo where partno ='" + pn + "'");
-            if(dt.Rows.Count > 0)
+            if (dt.Rows.Count > 0)
             {
                 return true;
             }
-            return false;  
+            return false;
         }
         private int CheckValidState()
         {
@@ -111,7 +111,7 @@ namespace HANMISYSTEM.Views.Producs
             {
                 return 1;
             }
-            if(txtpartno.Text.Contains(" ") == true)
+            if (txtpartno.Text.Contains(" ") == true)
             {
                 return 2;
             }
@@ -123,21 +123,18 @@ namespace HANMISYSTEM.Views.Producs
         }
         private void myButton1_Click(object sender, EventArgs e)
         {
-            if(CheckValidState()==1)
+            if (CheckValidState() == 1)
             {
                 MessageBox.Show("Không được bỏ trống *");
             }
-            else if(CheckValidState()==2)
+            else if (CheckValidState() == 2)
             {
                 MessageBox.Show("Mã hàng không được chứa khoảng trắng ");
             }
-            else if(CheckValidState()==3)
-            {
-                MessageBox.Show("Partno đã tồn tại");
-            }
+
             else
             {
-                if(action=="EDIT")
+                if (action == "EDIT")
                 {
                     if (connect.exedata("update cargo set partname='" + txtpartname.Text + "',productivity ='" + txtproductivity.Text + "',specificationinfo='" + txtinfo.Text + "',othername='" + txtothername.Text + "',process='" + cbprocess.Text + "',idcategory='" + cbcategory.SelectedValue.ToString() + "',idunit='" + cbunit.SelectedValue.ToString() + "',ProductionKindID='" + cbProductKind.SelectedValue.ToString() + "',ProcessID='" + cbprocess.SelectedValue.ToString() + "' where partno ='" + txtpartno.Text + "'") == true)
                     {
@@ -157,25 +154,33 @@ namespace HANMISYSTEM.Views.Producs
                 }
                 else
                 {
-                    if (connect.exedata("insert into cargo (partno,partname,idcategory,specificationinfo,productivity,idunit,process,ProductionKindID,ProcessID)  values('" + txtpartno.Text.ToUpper() + "','" + txtpartname.Text + "','" + cbcategory.SelectedValue + "','" + txtinfo.Text + "','" + txtproductivity.Text + "','" + cbunit.SelectedValue + "','" + cbprocess.Text + "','" + cbProductKind.SelectedValue.ToString() + "','" + cbprocess.SelectedValue.ToString() + "')"))
+                    if (CheckValidState() == 3)
                     {
-                        if (connect.exedata("insert into packingstandard  (partno,idpacking,quantity) values ('" + txtpartno.Text.ToUpper() + "','" + cbpacking.Text + "','" + txtquantity.Text + "')") == false)
-                        {
-                            packingnotify fr = new packingnotify();
-                            fr.lbpartno.Text = txtpartno.Text;
-                            fr.lbidpacking.Text = cbpacking.Text;
-                            fr.ShowDialog();
-                        }
-                        MessageBox.Show("success");
-                        //loaddata("select partno,partname,category.namecategory,specificationinfo,productivity,unit.nameunit,process,tradingpartnumber,othername,(select name from ProductKind where ID=cargo.ProductionKindID) as ProductionKindID from cargo inner join unit  on cargo.idunit=unit.idunit inner join category on cargo.idcategory=category.idcategory");
-                        txtpartno.Text = "";
-                        txtpartname.Text = "";
-                        txtquantity.Text = "";
-                        txtinfo.Text = "";
-                        txtproductivity.Text = "";
+                        MessageBox.Show("Partno đã tồn tại");
                     }
+                    else
+                    {
+                        if (connect.exedata("insert into cargo (partno,partname,idcategory,specificationinfo,productivity,idunit,process,ProductionKindID,ProcessID)  values('" + txtpartno.Text.ToUpper() + "','" + txtpartname.Text + "','" + cbcategory.SelectedValue + "','" + txtinfo.Text + "','" + txtproductivity.Text + "','" + cbunit.SelectedValue + "','" + cbprocess.Text + "','" + cbProductKind.SelectedValue.ToString() + "','" + cbprocess.SelectedValue.ToString() + "')"))
+                        {
+                            if (connect.exedata("insert into packingstandard  (partno,idpacking,quantity) values ('" + txtpartno.Text.ToUpper() + "','" + cbpacking.Text + "','" + txtquantity.Text + "')") == false)
+                            {
+                                packingnotify fr = new packingnotify();
+                                fr.lbpartno.Text = txtpartno.Text;
+                                fr.lbidpacking.Text = cbpacking.Text;
+                                fr.ShowDialog();
+                            }
+                            MessageBox.Show("success");
+                            //loaddata("select partno,partname,category.namecategory,specificationinfo,productivity,unit.nameunit,process,tradingpartnumber,othername,(select name from ProductKind where ID=cargo.ProductionKindID) as ProductionKindID from cargo inner join unit  on cargo.idunit=unit.idunit inner join category on cargo.idcategory=category.idcategory");
+                            txtpartno.Text = "";
+                            txtpartname.Text = "";
+                            txtquantity.Text = "";
+                            txtinfo.Text = "";
+                            txtproductivity.Text = "";
+                        }
+                    }
+
                 }
-                
+
             }
         }
     }

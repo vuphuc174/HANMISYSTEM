@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing;
+using System.IO;
 
 namespace HANMISYSTEM
 {
@@ -30,7 +32,41 @@ namespace HANMISYSTEM
                 con.Close();
             }
         }
+        public bool StoreImage(string pn, byte[] imageBytes)
+        {
+            try
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand($"Update cargo set Image =@Image where partno ='{pn}'", con);
 
+                // Add image parameter to command object
+                SqlParameter parameter = new SqlParameter("@Image", System.Data.SqlDbType.VarBinary, -1);
+                parameter.Value = imageBytes;
+                command.Parameters.Add(parameter);
+
+                // Execute command
+
+                command.ExecuteNonQuery();
+                con.Close();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public Image GetImage(string id)
+        {
+            openconnect();
+            SqlCommand cmd = new SqlCommand($"SELECT Image FROM cargo WHERE partno = '{id}'", con);
+            byte[] imageData = (byte[])cmd.ExecuteScalar();
+            closeconnect();
+
+            MemoryStream ms = new MemoryStream(imageData);
+            Image image = Image.FromStream(ms);
+
+            return image;
+        }
         public Boolean exedata(string cmd)
         {
             openconnect();
@@ -48,6 +84,34 @@ namespace HANMISYSTEM
             closeconnect();
             return check;
         }
+        private async Task ErrorLog(string filePath, string message)
+        {
+            try
+            {
+                // Check if the file exists.
+                if (!File.Exists(filePath))
+                {
+                    // If the file doesn't exist, create it.
+                    using (FileStream fs = File.Create(filePath))
+                    {
+                        // Optionally, you can add an initial message or header to the file.
+                        byte[] initialMessage = new UTF8Encoding(true).GetBytes("Log File Created\n");
+                        await fs.WriteAsync(initialMessage, 0, initialMessage.Length);
+                    }
+                }
+
+                // Open the file in append mode and write the message.
+                using (StreamWriter writer = File.AppendText(filePath))
+                {
+                    string logLine = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}: {message}";
+                    await writer.WriteLineAsync(logLine);
+                }
+            }
+            catch
+            {
+               
+            }
+        }
         public async Task ExeDataAsync(string cmd)
         {
             await con.OpenAsync();
@@ -58,9 +122,9 @@ namespace HANMISYSTEM
                 {
                     await command.ExecuteNonQueryAsync();
                 }
-                catch
+                catch(Exception ex)
                 {
-                    throw;
+                    await ErrorLog("errorlog.txt", "Command: " + cmd + ".Details: " + ex.Message);
                 }
             }
             con.Close();
@@ -129,8 +193,13 @@ namespace HANMISYSTEM
         {
             DataTable dt = new DataTable();
             openconnect();
-            var reader = await con.CreateCommand().ExecuteReaderAsync();
-            dt.Load(reader);
+
+            using (SqlCommand command = new SqlCommand(cmd, con))
+            {
+                var reader = await command.ExecuteReaderAsync();
+                dt.Load(reader);
+            }
+
             closeconnect();
 
             return dt;
