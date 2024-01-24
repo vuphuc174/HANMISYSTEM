@@ -46,6 +46,7 @@
             this.lbheader.Size = new System.Drawing.Size(285, 67);
             this.lbheader.TabIndex = 11;
             this.lbheader.Text = "A New Version is Available.\r\nDo you want to Update ?\r\n";
+            this.lbheader.Visible = false;
             // 
             // lbnew
             // 

@@ -1,4 +1,5 @@
 ﻿using HANMISYSTEM.Common;
+using HANMISYSTEM.DAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,8 @@ namespace HANMISYSTEM.Views.Warehouse
             InitializeComponent();
         }
         Dbconnect connect = new Dbconnect();
+        DAO_PackingInfo dAO_PackingInfo = new DAO_PackingInfo();
+        DAO_Slipout dAO_Slipout = new DAO_Slipout();
         string wh;
         private void Warehouse_dashboard_Load(object sender, EventArgs e)
         {
@@ -27,27 +30,18 @@ namespace HANMISYSTEM.Views.Warehouse
             cbbWarehouse.ValueMember = "idwarehouse";
             cbbWarehouse.SelectedValue = "WH002";
             wh = cbbWarehouse.SelectedValue.ToString();
+            //timer1.Start();
             //await Task.Run(() => LoadData(wh));
         }
-        DataTable dtproducts;
-        DataTable dtpackages;
-        DataTable dtnewimport;
-        DataTable dtnewexport;
-        private void LoadData(string wh)
+
+        private async void LoadData(string wh)
         {
             try
             {
-                dtproducts = connect.readdata("select isnull(SUM(quantity),0) as quantity from packinginfo where idwarehouse='" + wh + "'  ");
-                dtpackages = connect.readdata("select isnull(count(idpack),0) as quantity from packinginfo where idwarehouse='" + wh + "'");
-                dtnewimport = connect.readdata("select isnull(SUM(si.quantity),0) as quantity from slipout sl inner join slipoutinfo si on sl.idslipout =si.idslipout where idcustomer='" + wh + "' and CONVERT(date,sl.dateout)=CONVERT(date,getdate())");
-                dtnewexport = connect.readdata("select isnull(SUM(si.quantity),0) as quantity from slipout sl inner join slipoutinfo si on sl.idslipout =si.idslipout where idwarehouse='" + wh + "' and CONVERT(date,sl.dateout)=CONVERT(date,getdate())");
-                if (dtproducts != null && dtpackages != null && dtnewimport != null && dtnewexport != null)
-                {
-                    ThreadHelperClass.SetText(this, lbnewexport, Convert.ToInt32(dtnewexport.Rows[0]["quantity"].ToString()).ToString("N0"));
-                    ThreadHelperClass.SetText(this, lbproducts, Convert.ToInt32(dtproducts.Rows[0]["quantity"].ToString()).ToString("N0"));
-                    ThreadHelperClass.SetText(this, lbpackages, Convert.ToInt32(dtpackages.Rows[0]["quantity"].ToString()).ToString("N0"));
-                    ThreadHelperClass.SetText(this, lbnewimport, Convert.ToInt32(dtnewimport.Rows[0]["quantity"].ToString()).ToString("N0"));
-                }
+                ThreadHelperClass.SetText(this, lbnewexport, Convert.ToInt32(await dAO_PackingInfo.GetTodayExport(wh)).ToString("N0"));
+                ThreadHelperClass.SetText(this, lbproducts, Convert.ToDouble(await dAO_PackingInfo.GetTotalProduct(wh)).ToString("N0"));
+                ThreadHelperClass.SetText(this, lbpackages, Convert.ToInt32(await dAO_PackingInfo.GetTotalPackage(wh)).ToString("N0"));
+                ThreadHelperClass.SetText(this, lbnewimport, Convert.ToInt32(await dAO_PackingInfo.GetTodayImport(wh)).ToString("N0"));
             }
             catch (Exception ex)
             {
@@ -90,7 +84,7 @@ namespace HANMISYSTEM.Views.Warehouse
             }
 
 
-       }
+        }
         private void gradientPanel5_Click(object sender, EventArgs e)
         {
             try
@@ -103,6 +97,14 @@ namespace HANMISYSTEM.Views.Warehouse
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private async Task LoadTransaction()
+        {
+            dgvRecentTransaction.DataSource = await dAO_Slipout.GetTop10NewTransaction(wh);
+        }
+        private async void timer1_Tick(object sender, EventArgs e)
+        {
+            await LoadTransaction();
         }
     }
 }

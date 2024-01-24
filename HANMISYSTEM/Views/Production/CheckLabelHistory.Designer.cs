@@ -28,12 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Partno_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Partname_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Judge_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.JudgeTime_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Remark_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Line_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
@@ -47,13 +54,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnSearch = new HANMISYSTEM.Module.MyButton();
-            this.ID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Partno_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Partname_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Judge_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.JudgeTime_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Remark_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Line_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -88,18 +88,19 @@
             // 
             this.panel7.Controls.Add(this.dataGridView1);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel7.Location = new System.Drawing.Point(0, 38);
+            this.panel7.Location = new System.Drawing.Point(0, 49);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(848, 516);
+            this.panel7.Size = new System.Drawing.Size(848, 505);
             this.panel7.TabIndex = 1;
             // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.Silver;
-            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID_col,
@@ -112,17 +113,66 @@
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.White;
-            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView1.Size = new System.Drawing.Size(848, 516);
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Size = new System.Drawing.Size(848, 505);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // ID_col
+            // 
+            this.ID_col.DataPropertyName = "id";
+            this.ID_col.HeaderText = "ID";
+            this.ID_col.Name = "ID_col";
+            this.ID_col.ReadOnly = true;
+            // 
+            // Partno_col
+            // 
+            this.Partno_col.DataPropertyName = "partno";
+            this.Partno_col.HeaderText = "Mã hàng";
+            this.Partno_col.Name = "Partno_col";
+            this.Partno_col.ReadOnly = true;
+            // 
+            // Partname_col
+            // 
+            this.Partname_col.DataPropertyName = "partname";
+            this.Partname_col.HeaderText = "Tên mặt hàng";
+            this.Partname_col.Name = "Partname_col";
+            this.Partname_col.ReadOnly = true;
+            // 
+            // Judge_col
+            // 
+            this.Judge_col.DataPropertyName = "judge";
+            this.Judge_col.HeaderText = "Đánh giá";
+            this.Judge_col.Name = "Judge_col";
+            this.Judge_col.ReadOnly = true;
+            // 
+            // JudgeTime_col
+            // 
+            this.JudgeTime_col.DataPropertyName = "judgetime";
+            this.JudgeTime_col.HeaderText = "Thời gian";
+            this.JudgeTime_col.Name = "JudgeTime_col";
+            this.JudgeTime_col.ReadOnly = true;
+            // 
+            // Remark_col
+            // 
+            this.Remark_col.DataPropertyName = "remark";
+            this.Remark_col.HeaderText = "Ghi chú";
+            this.Remark_col.Name = "Remark_col";
+            this.Remark_col.ReadOnly = true;
+            // 
+            // Line_col
+            // 
+            this.Line_col.DataPropertyName = "namelocation1";
+            this.Line_col.HeaderText = "Chuyền";
+            this.Line_col.Name = "Line_col";
+            this.Line_col.ReadOnly = true;
             // 
             // panel6
             // 
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(848, 38);
+            this.panel6.Size = new System.Drawing.Size(848, 49);
             this.panel6.TabIndex = 0;
             // 
             // panel2
@@ -231,66 +281,18 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(150)))), ((int)(((byte)(250)))));
+            this.btnSearch.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
             this.btnSearch.FlatAppearance.BorderSize = 0;
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(89, 12);
+            this.btnSearch.ForeColor = System.Drawing.Color.Black;
+            this.btnSearch.Location = new System.Drawing.Point(122, 12);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(113, 29);
+            this.btnSearch.Size = new System.Drawing.Size(81, 29);
             this.btnSearch.TabIndex = 0;
             this.btnSearch.Text = "Tìm kiếm";
+            this.btnSearch.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnSearch.UseVisualStyleBackColor = false;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // ID_col
-            // 
-            this.ID_col.DataPropertyName = "id";
-            this.ID_col.HeaderText = "ID";
-            this.ID_col.Name = "ID_col";
-            this.ID_col.ReadOnly = true;
-            // 
-            // Partno_col
-            // 
-            this.Partno_col.DataPropertyName = "partno";
-            this.Partno_col.HeaderText = "Mã hàng";
-            this.Partno_col.Name = "Partno_col";
-            this.Partno_col.ReadOnly = true;
-            // 
-            // Partname_col
-            // 
-            this.Partname_col.DataPropertyName = "partname";
-            this.Partname_col.HeaderText = "Tên mặt hàng";
-            this.Partname_col.Name = "Partname_col";
-            this.Partname_col.ReadOnly = true;
-            // 
-            // Judge_col
-            // 
-            this.Judge_col.DataPropertyName = "judge";
-            this.Judge_col.HeaderText = "Đánh giá";
-            this.Judge_col.Name = "Judge_col";
-            this.Judge_col.ReadOnly = true;
-            // 
-            // JudgeTime_col
-            // 
-            this.JudgeTime_col.DataPropertyName = "judgetime";
-            this.JudgeTime_col.HeaderText = "Thời gian";
-            this.JudgeTime_col.Name = "JudgeTime_col";
-            this.JudgeTime_col.ReadOnly = true;
-            // 
-            // Remark_col
-            // 
-            this.Remark_col.DataPropertyName = "remark";
-            this.Remark_col.HeaderText = "Ghi chú";
-            this.Remark_col.Name = "Remark_col";
-            this.Remark_col.ReadOnly = true;
-            // 
-            // Line_col
-            // 
-            this.Line_col.DataPropertyName = "namelocation1";
-            this.Line_col.HeaderText = "Chuyền";
-            this.Line_col.Name = "Line_col";
-            this.Line_col.ReadOnly = true;
             // 
             // CheckLabelHistory
             // 

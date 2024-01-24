@@ -45,17 +45,7 @@
             this.panel14 = new System.Windows.Forms.Panel();
             this.panel12 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.gradientPanel1 = new HANMISYSTEM.Module.GradientPanel();
-            this.panel11 = new System.Windows.Forms.Panel();
-            this.cbbWarehouse = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.gradientPanel3 = new HANMISYSTEM.Module.GradientPanel();
-            this.txtsearch = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.gradientPanel2 = new HANMISYSTEM.Module.GradientPanel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel13 = new System.Windows.Forms.Panel();
             this.btnExportExcel = new System.Windows.Forms.PictureBox();
             this.p6 = new System.Windows.Forms.Button();
@@ -79,7 +69,17 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.gradientPanel1 = new HANMISYSTEM.Module.GradientPanel();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.cbbWarehouse = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.gradientPanel3 = new HANMISYSTEM.Module.GradientPanel();
+            this.txtsearch = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.gradientPanel2 = new HANMISYSTEM.Module.GradientPanel();
             this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnNext)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoLast)).BeginInit();
@@ -87,13 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoFirst)).BeginInit();
             this.panel3.SuspendLayout();
-            this.gradientPanel1.SuspendLayout();
-            this.panel11.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.gradientPanel3.SuspendLayout();
-            this.gradientPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel13.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnExportExcel)).BeginInit();
             this.panel10.SuspendLayout();
@@ -104,6 +98,12 @@
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel7.SuspendLayout();
+            this.gradientPanel1.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.gradientPanel3.SuspendLayout();
+            this.gradientPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // p7
@@ -276,52 +276,6 @@
             this.panel3.Size = new System.Drawing.Size(1209, 43);
             this.panel3.TabIndex = 1;
             // 
-            // gradientPanel1
-            // 
-            this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.gradientPanel1.ColorBottom = System.Drawing.Color.White;
-            this.gradientPanel1.ColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gradientPanel1.Controls.Add(this.panel11);
-            this.gradientPanel1.Controls.Add(this.label1);
-            this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
-            this.gradientPanel1.Name = "gradientPanel1";
-            this.gradientPanel1.Size = new System.Drawing.Size(1209, 43);
-            this.gradientPanel1.TabIndex = 0;
-            // 
-            // panel11
-            // 
-            this.panel11.BackColor = System.Drawing.Color.Transparent;
-            this.panel11.Controls.Add(this.cbbWarehouse);
-            this.panel11.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel11.Location = new System.Drawing.Point(917, 0);
-            this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(292, 43);
-            this.panel11.TabIndex = 4;
-            // 
-            // cbbWarehouse
-            // 
-            this.cbbWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbbWarehouse.FormattingEnabled = true;
-            this.cbbWarehouse.Location = new System.Drawing.Point(24, 11);
-            this.cbbWarehouse.Name = "cbbWarehouse";
-            this.cbbWarehouse.Size = new System.Drawing.Size(265, 26);
-            this.cbbWarehouse.TabIndex = 3;
-            this.cbbWarehouse.SelectedIndexChanged += new System.EventHandler(this.cbbWarehouse_SelectedIndexChanged);
-            // 
-            // label1
-            // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.Gray;
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 43);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Danh sách";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.gradientPanel3);
@@ -332,70 +286,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1209, 93);
             this.panel2.TabIndex = 0;
-            // 
-            // gradientPanel3
-            // 
-            this.gradientPanel3.ColorBottom = System.Drawing.Color.Empty;
-            this.gradientPanel3.ColorTop = System.Drawing.Color.Empty;
-            this.gradientPanel3.Controls.Add(this.txtsearch);
-            this.gradientPanel3.Controls.Add(this.label2);
-            this.gradientPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gradientPanel3.Location = new System.Drawing.Point(0, 36);
-            this.gradientPanel3.Name = "gradientPanel3";
-            this.gradientPanel3.Size = new System.Drawing.Size(920, 57);
-            this.gradientPanel3.TabIndex = 6;
-            // 
-            // txtsearch
-            // 
-            this.txtsearch.Location = new System.Drawing.Point(97, 21);
-            this.txtsearch.Name = "txtsearch";
-            this.txtsearch.Size = new System.Drawing.Size(201, 24);
-            this.txtsearch.TabIndex = 2;
-            this.txtsearch.TextChanged += new System.EventHandler(this.txtsearch_TextChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(22, 24);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(69, 18);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Tìm kiếm";
-            // 
-            // gradientPanel2
-            // 
-            this.gradientPanel2.ColorBottom = System.Drawing.Color.White;
-            this.gradientPanel2.ColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.gradientPanel2.Controls.Add(this.label3);
-            this.gradientPanel2.Controls.Add(this.pictureBox2);
-            this.gradientPanel2.Controls.Add(this.pictureBox1);
-            this.gradientPanel2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gradientPanel2.Location = new System.Drawing.Point(0, 0);
-            this.gradientPanel2.Name = "gradientPanel2";
-            this.gradientPanel2.Size = new System.Drawing.Size(920, 36);
-            this.gradientPanel2.TabIndex = 5;
-            // 
-            // pictureBox2
-            // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = global::HANMISYSTEM.Properties.Resources.right_arrow;
-            this.pictureBox2.Location = new System.Drawing.Point(50, 12);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(10, 18);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox2.TabIndex = 0;
-            this.pictureBox2.TabStop = false;
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.home;
-            this.pictureBox1.Location = new System.Drawing.Point(21, 6);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(23, 27);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
             // 
             // panel13
             // 
@@ -555,6 +445,7 @@
             // 
             this.panel6.Controls.Add(this.dataGridView1);
             this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(1209, 436);
@@ -620,6 +511,94 @@
             this.panel7.Size = new System.Drawing.Size(430, 47);
             this.panel7.TabIndex = 1;
             // 
+            // gradientPanel1
+            // 
+            this.gradientPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.gradientPanel1.ColorBottom = System.Drawing.Color.White;
+            this.gradientPanel1.ColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.gradientPanel1.Controls.Add(this.panel11);
+            this.gradientPanel1.Controls.Add(this.label1);
+            this.gradientPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gradientPanel1.Location = new System.Drawing.Point(0, 0);
+            this.gradientPanel1.Name = "gradientPanel1";
+            this.gradientPanel1.Size = new System.Drawing.Size(1209, 43);
+            this.gradientPanel1.TabIndex = 0;
+            // 
+            // panel11
+            // 
+            this.panel11.BackColor = System.Drawing.Color.Transparent;
+            this.panel11.Controls.Add(this.cbbWarehouse);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel11.Location = new System.Drawing.Point(917, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(292, 43);
+            this.panel11.TabIndex = 4;
+            // 
+            // cbbWarehouse
+            // 
+            this.cbbWarehouse.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbWarehouse.FormattingEnabled = true;
+            this.cbbWarehouse.Location = new System.Drawing.Point(24, 11);
+            this.cbbWarehouse.Name = "cbbWarehouse";
+            this.cbbWarehouse.Size = new System.Drawing.Size(265, 26);
+            this.cbbWarehouse.TabIndex = 3;
+            this.cbbWarehouse.SelectedIndexChanged += new System.EventHandler(this.cbbWarehouse_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.Gray;
+            this.label1.Location = new System.Drawing.Point(0, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 43);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Danh sách";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // gradientPanel3
+            // 
+            this.gradientPanel3.ColorBottom = System.Drawing.Color.Empty;
+            this.gradientPanel3.ColorTop = System.Drawing.Color.Empty;
+            this.gradientPanel3.Controls.Add(this.txtsearch);
+            this.gradientPanel3.Controls.Add(this.label2);
+            this.gradientPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gradientPanel3.Location = new System.Drawing.Point(0, 36);
+            this.gradientPanel3.Name = "gradientPanel3";
+            this.gradientPanel3.Size = new System.Drawing.Size(920, 57);
+            this.gradientPanel3.TabIndex = 6;
+            // 
+            // txtsearch
+            // 
+            this.txtsearch.Location = new System.Drawing.Point(97, 21);
+            this.txtsearch.Name = "txtsearch";
+            this.txtsearch.Size = new System.Drawing.Size(201, 24);
+            this.txtsearch.TabIndex = 2;
+            this.txtsearch.TextChanged += new System.EventHandler(this.txtsearch_TextChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(22, 24);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(69, 18);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Tìm kiếm";
+            // 
+            // gradientPanel2
+            // 
+            this.gradientPanel2.ColorBottom = System.Drawing.Color.White;
+            this.gradientPanel2.ColorTop = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.gradientPanel2.Controls.Add(this.label3);
+            this.gradientPanel2.Controls.Add(this.pictureBox2);
+            this.gradientPanel2.Controls.Add(this.pictureBox1);
+            this.gradientPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gradientPanel2.Location = new System.Drawing.Point(0, 0);
+            this.gradientPanel2.Name = "gradientPanel2";
+            this.gradientPanel2.Size = new System.Drawing.Size(920, 36);
+            this.gradientPanel2.TabIndex = 5;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -631,6 +610,28 @@
             this.label3.Size = new System.Drawing.Size(206, 18);
             this.label3.TabIndex = 1;
             this.label3.Text = "Tồn kho theo mã đóng gói";
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox2.Image = global::HANMISYSTEM.Properties.Resources.right_arrow;
+            this.pictureBox2.Location = new System.Drawing.Point(50, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(10, 18);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox2.TabIndex = 0;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::HANMISYSTEM.Properties.Resources.home;
+            this.pictureBox1.Location = new System.Drawing.Point(21, 6);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(23, 27);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
             // 
             // InventoryBaseOnPackageID
             // 
@@ -652,15 +653,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.btnPrevious)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnGoFirst)).EndInit();
             this.panel3.ResumeLayout(false);
-            this.gradientPanel1.ResumeLayout(false);
-            this.panel11.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            this.gradientPanel3.ResumeLayout(false);
-            this.gradientPanel3.PerformLayout();
-            this.gradientPanel2.ResumeLayout(false);
-            this.gradientPanel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel13.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnExportExcel)).EndInit();
             this.panel10.ResumeLayout(false);
@@ -674,6 +667,14 @@
             this.panel5.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
+            this.gradientPanel1.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
+            this.gradientPanel3.ResumeLayout(false);
+            this.gradientPanel3.PerformLayout();
+            this.gradientPanel2.ResumeLayout(false);
+            this.gradientPanel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -1,12 +1,15 @@
 ﻿using ExpanderApp;
 using HANMISYSTEM.Common;
+using HANMISYSTEM.DAO;
 using HANMISYSTEM.Module;
 using HANMISYSTEM.Themes;
 using HANMISYSTEM.Views;
 using HANMISYSTEM.Views.Accessory;
+using HANMISYSTEM.Views.Credential;
 using HANMISYSTEM.Views.Producs;
 using HANMISYSTEM.Views.Production;
 using HANMISYSTEM.Views.Production.Settings;
+using HANMISYSTEM.Views.QualityControl;
 using HANMISYSTEM.Views.Spray;
 using HANMISYSTEM.Views.Systems;
 using HANMISYSTEM.Views.UPH;
@@ -30,7 +33,7 @@ namespace HANMISYSTEM
     public partial class MainFrm : Form
     {
         public int request;
-
+        DAO_Credential dAO_Credential = new DAO_Credential();
         private Rectangle myTabRect;
         string theme = "dark";
         public MainFrm()
@@ -46,8 +49,8 @@ namespace HANMISYSTEM
             TimeUpdater();
 
         }
-  
-        
+
+
         Dbconnect dbconnect = new Dbconnect();
         async void TimeUpdater()
         {
@@ -61,10 +64,10 @@ namespace HANMISYSTEM
                     //{
                     //    if (dt.Rows.Count > 0)
                     //    {
-                             lbcurdate.Text = DateTime.Now.ToString();
-                            //lbcurdate.Text = dt.Rows[0]["CurrentDateTime"].ToString();
-                        //}
-                        await Task.Delay(1000);
+                    lbcurdate.Text = DateTime.Now.ToString();
+                    //lbcurdate.Text = dt.Rows[0]["CurrentDateTime"].ToString();
+                    //}
+                    await Task.Delay(1000);
                     //}
                     //else
                     //{
@@ -84,7 +87,7 @@ namespace HANMISYSTEM
             //User name
             toolStripDropDownButton3.Text = HANMISYSTEM.Properties.Settings.Default.username;
             //server name
-            lbServerName.Text= HANMISYSTEM.Properties.Settings.Default.servername;
+            lbServerName.Text = HANMISYSTEM.Properties.Settings.Default.servername;
             //off relay 
             try
             {
@@ -101,13 +104,13 @@ namespace HANMISYSTEM
                 //serialPort.WriteLine('\n' + "@B0" + '\r');
                 //var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
                 //serialPort.Write(chanel1, 0, chanel1.Length);
-              
-                    var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
-                    serialPort.Write(chanel1, 0, chanel1.Length);
-             
-                    var chanel2 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x02, 0xAF };
-                    serialPort.Write(chanel2, 0, chanel2.Length);
-              
+
+                var chanel1 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x01, 0x02, 0xAE };
+                serialPort.Write(chanel1, 0, chanel1.Length);
+
+                var chanel2 = new byte[] { 0x55, 0x56, 0x00, 0x00, 0x00, 0x02, 0x02, 0xAF };
+                serialPort.Write(chanel2, 0, chanel2.Length);
+
 
                 serialPort.Close();
             }
@@ -157,11 +160,11 @@ namespace HANMISYSTEM
                     Form.Show();
                     Form.Dock = DockStyle.Fill;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("Lỗi " + ex.Message);
                 }
-                
+
 
             }
         }
@@ -252,6 +255,13 @@ namespace HANMISYSTEM
             MaterialContentLabel(expander4);
             accordion.Add(expander4);
 
+            //QC
+            Expander expander6 = new Expander();
+            expander6.BorderStyle = BorderStyle.FixedSingle;
+            ExpanderHelper.CreateLabelHeader(expander6, Color.White, "Quality Control", Color.FromArgb(128, 128, 255), HANMISYSTEM.Properties.Resources.Collapse1, HANMISYSTEM.Properties.Resources.Expand, 40, fontHeader);
+            QCContenLabel(expander6);
+            accordion.Add(expander6);
+
             Expander expander5 = new Expander();
             expander5.BorderStyle = BorderStyle.FixedSingle;
             ExpanderHelper.CreateLabelHeader(expander5, Color.White, "Cài đặt", Color.FromArgb(128, 128, 255), HANMISYSTEM.Properties.Resources.Collapse1, HANMISYSTEM.Properties.Resources.Expand, 40, fontHeader);
@@ -265,7 +275,7 @@ namespace HANMISYSTEM
             e.DrawBackground();
             Graphics g = e.Graphics;
             Font drawFont = new Font("Arial", 10);
-            g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml(Dark_Theme.bg_dark)),e.Bounds.X,e.Bounds.Y, e.Bounds.Width,e.Bounds.Height);
+            g.FillRectangle(new SolidBrush(ColorTranslator.FromHtml(Dark_Theme.bg_dark)), e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
             e.Graphics.DrawString("ˣ", drawFont, Brushes.White, e.Bounds.Right - 15, e.Bounds.Top + 4);
 
             e.Graphics.DrawString(this.tabcontrol1.TabPages[e.Index].Text, e.Font, Brushes.White, e.Bounds.Left + 1, e.Bounds.Top + 10);
@@ -284,7 +294,7 @@ namespace HANMISYSTEM
                 return tabcontrol1;
             }
         }
-        public void DoCreateTab(string title,Form form)
+        public void DoCreateTab(string title, Form form)
         {
             TabCreating(tabcontrol1, title, form);
         }
@@ -295,7 +305,7 @@ namespace HANMISYSTEM
             MyButton btnStock = new MyButton();
             MyButton btnInput = new MyButton();
             MyButton btnOutput = new MyButton();
-          
+
 
             //
             //input
@@ -311,7 +321,7 @@ namespace HANMISYSTEM
             btnOutput.Click += new EventHandler(btnOutput_Click);
             btnOutput.Top = 30;
             panel.Controls.Add(btnOutput);
-           
+
 
             //Stock
             btnStock.Text = "Tồn kho";
@@ -392,11 +402,37 @@ namespace HANMISYSTEM
             panel.Left = 10;
             expander.Content = panel;
         }
+        public void  QCContenLabel(Expander expander)
+        {
+            Font fontContent = new Font("Arial", 11);
+            Panel panel = new Panel();
+            MyButton btnIQC = new MyButton();
+            MyButton btnOQC = new MyButton();
+
+            //input
+            btnIQC.Text = "IQC";
+            btnIQC.Font = fontContent;
+            btnIQC.Size = new System.Drawing.Size(expanderWidth - 10, 30);
+            btnIQC.Click += new EventHandler(btnIQC_Click);
+            panel.Controls.Add(btnIQC);
+
+            //output
+            btnOQC.Text = "OQC";
+            btnOQC.Font = fontContent;
+            btnOQC.Size = new System.Drawing.Size(expanderWidth - 10, 30);
+            btnOQC.Click += new EventHandler(btnOQC_Click);
+            btnOQC.Top = 30;
+            panel.Controls.Add(btnOQC);
+
+            panel.Size = new System.Drawing.Size(expanderWidth - 10, 300);
+            panel.Left = 10;
+            expander.Content = panel;
+        }
         public void MaterialContentLabel(Expander expander)
         {
             Font fontContent = new Font("Arial", 11);
             Panel panel = new Panel();
-            
+
             MyButton btnStock = new MyButton();
             MyButton btnInput = new MyButton();
             MyButton btnOutput = new MyButton();
@@ -433,7 +469,7 @@ namespace HANMISYSTEM
             btnStock.Click += new EventHandler(btnStock_Click);
             btnStock.Top = 90;
             panel.Controls.Add(btnStock);
-            
+
 
 
             //Stock base on location
@@ -443,18 +479,18 @@ namespace HANMISYSTEM
             btnStockBaseOnLocation.Click += new EventHandler(btnStockBaseOnLocation_Click);
             btnStockBaseOnLocation.Top = 120;
             panel.Controls.Add(btnStockBaseOnLocation);
-         
+
 
             //Receive and Release History
-            btnReceiveAndReleaseHistory.Text = "In phiếu nhập xuất";
+            btnReceiveAndReleaseHistory.Text = "Lịch sử xuất nhập";
             btnReceiveAndReleaseHistory.Font = fontContent;
             btnReceiveAndReleaseHistory.Size = new System.Drawing.Size(expanderWidth - 10, 30);
             btnReceiveAndReleaseHistory.Click += new EventHandler(btnReceiveAndReleaseHistory_Click);
             btnReceiveAndReleaseHistory.Top = 150;
             panel.Controls.Add(btnReceiveAndReleaseHistory);
 
-            //IOForm 
-            btnIofrom.Text = "Lịch sử xuất nhập";
+            //IOForm
+            btnIofrom.Text = "Thống kê";
             btnIofrom.Font = fontContent;
             btnIofrom.Size = new System.Drawing.Size(expanderWidth - 10, 30);
             btnIofrom.Click += new EventHandler(btnIofrom_Click);
@@ -462,7 +498,7 @@ namespace HANMISYSTEM
             panel.Controls.Add(btnIofrom);
 
             //Approval
-            btnApproval.Text = "Yêu cầu xác nhận (" + request + ")" ;
+            btnApproval.Text = "Yêu cầu xác nhận (" + request + ")";
             btnApproval.Font = fontContent;
             btnApproval.Size = new System.Drawing.Size(expanderWidth - 10, 30);
             btnApproval.Click += new EventHandler(btnApproval_Click);
@@ -533,7 +569,7 @@ namespace HANMISYSTEM
         {
             Font fontContent = new Font("Arial", 11);
             Panel panel = new Panel();
-           
+
 
             MyButton btnForm1 = new MyButton();
             MyButton btnProductionPlan = new MyButton();
@@ -602,7 +638,7 @@ namespace HANMISYSTEM
             panel.Left = 10;
             expander.Content = panel;
         }
-        
+
         private void CreateContentLabel(Expander expander)
         {
             Font fontContent = new Font("Arial", 11);
@@ -641,30 +677,47 @@ namespace HANMISYSTEM
 
 
         //button enven click
-        private void btnUserBasicInfo_Click(object sender,EventArgs e)
+        private void btnIQC_Click(object sender,EventArgs e)
+        {
+
+        }
+        private void btnOQC_Click(object sender, EventArgs e)
+        {
+            OQCDashBoard frm = new OQCDashBoard();
+            TabCreating(tabcontrol1, "OQC Dashboard", frm);
+        }
+        private void btnUserBasicInfo_Click(object sender, EventArgs e)
         {
             UserBasicInfo frm = new UserBasicInfo();
             TabCreating(tabcontrol1, "Thông tin tài khoản", frm);
         }
-        private void btnUsermgt_Click(object sender,EventArgs e)
+        private async void btnUsermgt_Click(object sender, EventArgs e)
         {
-            Usermgt fr = new Usermgt();
-            TabCreating(tabcontrol1, "Quản lý User", fr);
+            if (await dAO_Credential.CheckCredential("USER_MGT"))
+            {
+                UserManagement fr = new UserManagement();
+                TabCreating(tabcontrol1, "Quản lý User", fr);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập!");
+            }
+
         }
         private void btnLabelAccessory_Click(object sender, EventArgs e)
         {
             LabelAccessory fr = new LabelAccessory();
             TabCreating(tabcontrol1, "Quản lý label packing", fr);
         }
-        private void btnApproval_Click(object sender,EventArgs e)
+        private void btnApproval_Click(object sender, EventArgs e)
         {
             ApprovalFrm fr = new ApprovalFrm();
             TabCreating(tabcontrol1, "Yêu cầu xác nhận", fr);
         }
-        private void btnIofrom_Click(object sender,EventArgs e)
+        private void btnIofrom_Click(object sender, EventArgs e)
         {
-            ioform fr = new ioform();
-            TabCreating(tabcontrol1, "Lịch sử xuất nhập", fr);
+            StockInOut fr = new StockInOut();
+            TabCreating(tabcontrol1, "Thống kê", fr);
         }
         private void btnRegisterAccessory_Click(object sender, EventArgs e)
         {
@@ -677,7 +730,7 @@ namespace HANMISYSTEM
             fr.Show();
             //TabCreating(tabcontrol1, "Kiem tra Accessory", fr);
         }
-        private void btnWorkOrderResult_Click(object sender,EventArgs e)
+        private void btnWorkOrderResult_Click(object sender, EventArgs e)
         {
             WorkOrderResult fr = new WorkOrderResult();
             TabCreating(tabcontrol1, "Ket qua Sx", fr);
@@ -688,32 +741,32 @@ namespace HANMISYSTEM
             TabCreating(tabcontrol1, "Quản lý kho", fr);
         }
 
-        private void btnProduct_Click(object sender ,EventArgs e)
+        private void btnProduct_Click(object sender, EventArgs e)
         {
             GoodsMgt fr = new GoodsMgt();
             TabCreating(tabcontrol1, "Quản lý mặt hàng", fr);
         }
-        private void btnReceiveAndReleaseHistory_Click(object sender,EventArgs e)
+        private void btnReceiveAndReleaseHistory_Click(object sender, EventArgs e)
         {
             ReleaseAndReceiveHistory fr = new ReleaseAndReceiveHistory();
             TabCreating(tabcontrol1, "Lịch sử xuất nhập", fr);
         }
-        private void btnStockBaseOnLocation_Click(object sender ,EventArgs e)
+        private void btnStockBaseOnLocation_Click(object sender, EventArgs e)
         {
             StockFollowLoction fr = new StockFollowLoction();
             TabCreating(tabcontrol1, "Tồn kho theo vị trí", fr);
         }
-        private void btnSprayPlan_Click(object sender,EventArgs e)
+        private void btnSprayPlan_Click(object sender, EventArgs e)
         {
             SprayPlan fr = new SprayPlan();
             TabCreating(tabcontrol1, "Spray Plan", fr);
         }
-        private void btnS_FactoryFrm_Click(object sender,EventArgs e )
+        private void btnS_FactoryFrm_Click(object sender, EventArgs e)
         {
             S_FactoryFrm fr = new S_FactoryFrm();
             TabCreating(tabcontrol1, "Spray Factory", fr);
         }
-        private void btnInput_Click(object sender,EventArgs e)
+        private void btnInput_Click(object sender, EventArgs e)
         {
             inproduction fr = new inproduction();
             TabCreating(tabcontrol1, "Input material mgt", fr);
@@ -733,7 +786,7 @@ namespace HANMISYSTEM
             Packing_standard fr = new Packing_standard();
             TabCreating(tabcontrol1, "Packing mgt", fr);
         }
-        private void btnStock_Click(object sender ,EventArgs e)
+        private void btnStock_Click(object sender, EventArgs e)
         {
             Warehouse_dashboard fr = new Warehouse_dashboard();
             fr.MainFormRef = this;
@@ -744,15 +797,23 @@ namespace HANMISYSTEM
             Production_history fr = new Production_history();
             TabCreating(tabcontrol1, "Production history", fr);
         }
-        private void btnForm1_Click(object sender,EventArgs e)
+        private void btnForm1_Click(object sender, EventArgs e)
         {
             frmprod fr = new frmprod();
             TabCreating(tabcontrol1, "Production", fr);
         }
-        private void btnProductionPlan_Click(object sender, EventArgs e)
+        private async void btnProductionPlan_Click(object sender, EventArgs e)
         {
-            productionplan fr = new productionplan();
-            TabCreating(tabcontrol1, "Production Plan", fr);
+            if (await dAO_Credential.CheckCredential("ADD_PLAN"))
+            {
+                productionplan fr = new productionplan();
+                TabCreating(tabcontrol1, "Production Plan", fr);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào đây!" + UserSession.Credentials.ToString());
+            }
+
         }
         private void btnProductionHistory_Click(object sender, EventArgs e)
         {
@@ -779,7 +840,7 @@ namespace HANMISYSTEM
 
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
-           
+
         }
 
 
@@ -830,6 +891,52 @@ namespace HANMISYSTEM
             frm.ShowInTaskbar = false;
             frm.StartPosition = FormStartPosition.CenterParent;
             frm.ShowDialog();
+        }
+
+        private async void btnUserMgt_Click_1(object sender, EventArgs e)
+        {
+            if (await dAO_Credential.CheckCredential("USER_MGT"))
+            {
+                UserManagement frm = new UserManagement();
+                TabCreating(tabcontrol1, "Quản lý tài khoản", frm);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào đây");
+            }
+
+        }
+
+        private async void RoleManagement_Click(object sender, EventArgs e)
+        {
+            if (await dAO_Credential.CheckCredential("USER_MGT"))
+            {
+                RoleManagement frm = new RoleManagement();
+                TabCreating(tabcontrol1, "Quản lý Role", frm);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào đây");
+            }
+        }
+
+        private async void btnCredential_Click(object sender, EventArgs e)
+        {
+            if (await dAO_Credential.CheckCredential("USER_MGT"))
+            {
+                CredentialManagement frm = new CredentialManagement();
+                TabCreating(tabcontrol1, "Phân quyền", frm);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập vào đây");
+            }
+        }
+
+        private void logsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logs logs = new Logs();
+            TabCreating(tabcontrol1, "System logs", logs);
         }
     }
 }

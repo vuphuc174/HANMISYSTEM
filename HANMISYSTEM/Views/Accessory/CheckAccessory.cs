@@ -666,10 +666,10 @@ namespace HANMISYSTEM.Views.Accessory
                 DataTable dtLocation = connect.readdata("select namelocation1 from location where idlocation ='" + lineID + "'");
                 SelectWorkOrder fr = new SelectWorkOrder();
                 fr.ShowInTaskbar = false;
+                fr.lineID = lineID;
                 fr.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
+                fr.ShowInTaskbar = false;
                 fr.dataGridView1.AutoGenerateColumns = false;
-                DataTable dtwo = connect.readdata("select a.* ,ROW_NUMBER() over (order by a.PST asc) as r from (select distinct  a.PartNo,p.WOCode as WorkOrder,p.ID as PlanID,c.partname,c.Color,c.Market,p.PST,p.productionplan   from Accessory a inner join cargo c on a.PartNo=c.partno inner join productionplan p on a.PartNo=p.partno left join WorkOrder w on w.ID=p.WorkOrderID where p.idlocation ='" + lineID + "' and (p.Status is null or p.Status<> 0 )   and  (convert(date,p.PST)=CONVERT(date,getdate()) or CONVERT(date,p.productiondate)=CONVERT(date,getdate()))) a");
-                fr.dataGridView1.DataSource = dtwo;
                 fr.ShowDialog();
                 txtmodel.Text = fr.sendDataModel();
                 LoadAccessory(fr.sendDataModel());

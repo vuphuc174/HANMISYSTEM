@@ -29,12 +29,13 @@ namespace HANMISYSTEM.Views.Production
         {
             if(string.IsNullOrEmpty(txtPartno.Text))
             {
-                DataTable dtHistory = connect.readdata($"select clh.id,clh.partno,c.partname,clh.judge,clh.judgetime,clh.remark,l.namelocation1 from CheckLabelHistory clh inner join cargo c on clh.partno=c.partno inner join location l on clh.lineID =l.idlocation where clh.lineID ={cbbLine.SelectedValue.ToString()} and convert(date,clh.JudgeTime) between '{dtpStartDate.Value.ToString("yyyy-MM-dd")}' and '{dtpEndDate.Value.ToString("yyyy-MM-dd")}'");
+                string cmd = $"select clh.id,clh.partno,c.partname,clh.judge,clh.judgetime,clh.remark,l.namelocation1 from CheckLabelHistory clh inner join cargo c on clh.partno=c.partno inner join location l on clh.lineID =l.idlocation where clh.lineID ='{cbbLine.SelectedValue.ToString()}' and convert(date,clh.JudgeTime) between '{dtpStartDate.Value.ToString("yyyy-MM-dd")}' and '{dtpEndDate.Value.ToString("yyyy-MM-dd")}'";
+                DataTable dtHistory = connect.readdata(cmd);
                 dataGridView1.DataSource = dtHistory;
             }
             else
             {
-                DataTable dtHistory = connect.readdata($"select clh.id,clh.partno,c.partname,clh.judge,clh.judgetime,clh.remark,l.namelocation1 from CheckLabelHistory clh inner join cargo c on clh.partno=c.partno inner join location l on clh.lineID =l.idlocation where clh.partno like '%{txtPartno.Text}%' and clh.lineID ={cbbLine.SelectedValue.ToString()} and convert(date,clh.JudgeTime) between '{dtpStartDate.Value.ToString("yyyy-MM-dd")}' and '{dtpEndDate.Value.ToString("yyyy-MM-dd")}'");
+                DataTable dtHistory = connect.readdata($"select clh.id,clh.partno,c.partname,clh.judge,clh.judgetime,clh.remark,l.namelocation1 from CheckLabelHistory clh inner join cargo c on clh.partno=c.partno inner join location l on clh.lineID =l.idlocation where clh.partno like '%{txtPartno.Text}%' and clh.lineID ='{cbbLine.SelectedValue.ToString()}' and convert(date,clh.JudgeTime) between '{dtpStartDate.Value.ToString("yyyy-MM-dd")}' and '{dtpEndDate.Value.ToString("yyyy-MM-dd")}'");
                 dataGridView1.DataSource = dtHistory;
             }
         }

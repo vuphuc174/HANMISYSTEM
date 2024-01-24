@@ -16,7 +16,7 @@ namespace HANMISYSTEM
         static string uid = HANMISYSTEM.Properties.Settings.Default.uid;
         static string pwd = HANMISYSTEM.Properties.Settings.Default.pwd;
         //public SqlConnection con = new SqlConnection(@"Data Source=" + sn + ";Initial Catalog=HANMI;Trusted_Connection=no;uid = " + uid + ";pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30");
-        public SqlConnection con = new SqlConnection(@"Data Source=192.168.1.252,1434;Initial Catalog=HANMI;Trusted_Connection=no;uid = sa;pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30;MultipleActiveResultSets=True");
+        public SqlConnection con = new SqlConnection(@"Data Source="+sn+";Initial Catalog=HANMI;Trusted_Connection=no;uid = sa;pwd= Hanmi@123;  Integrated Security=false ;Connect Timeout=30;MultipleActiveResultSets=True");
         public void openconnect()
         {
             if (con.State == ConnectionState.Closed)
@@ -112,22 +112,29 @@ namespace HANMISYSTEM
                
             }
         }
-        public async Task ExeDataAsync(string cmd)
+        public async Task<bool> ExeDataAsync(string cmd)
         {
-            await con.OpenAsync();
+            if(con.State!=ConnectionState.Open)
+            {
+                await con.OpenAsync();
+            }
+            
 
             using (var command = new SqlCommand(cmd, con))
             {
                 try
                 {
                     await command.ExecuteNonQueryAsync();
+                    closeconnect();
+                    return true;
                 }
                 catch(Exception ex)
                 {
                     await ErrorLog("errorlog.txt", "Command: " + cmd + ".Details: " + ex.Message);
+                    return false;
                 }
             }
-            con.Close();
+            
 
         }
         public int countdata(string cmd)
@@ -191,18 +198,27 @@ namespace HANMISYSTEM
         }
         public async Task<DataTable> ReadDataAsync(string cmd)
         {
-            DataTable dt = new DataTable();
-            openconnect();
 
-            using (SqlCommand command = new SqlCommand(cmd, con))
+            try
             {
-                var reader = await command.ExecuteReaderAsync();
-                dt.Load(reader);
+                if(con.State==ConnectionState.Closed){
+                    await con.OpenAsync();
+                }
+                DataTable dt = new DataTable();
+                using (SqlCommand command = new SqlCommand(cmd, con))
+                {
+                    var reader = await command.ExecuteReaderAsync();
+                    dt.Load(reader);
+                }
+                //bat len bi loi
+                //closeconnect();
+                return dt;
             }
-
-            closeconnect();
-
-            return dt;
+            catch(Exception ex)
+            {
+                await ErrorLog("errorlog.txt", "Command: " + cmd + ".Details: " + ex.Message);
+                return null;
+            }
         }
         public SqlDataReader readerdata(string sql)
         {

@@ -11,6 +11,11 @@ namespace HANMISYSTEM.DAO
     internal class DAO_ProductionHistory
     {
         Dbconnect connect = new Dbconnect();
+        public async Task<DataTable> GetPackageList(string partno,string lineID,DateTime fromDate,DateTime toDate)
+        {
+            DataTable packageList = await connect.ReadDataAsync($"select ph.idpack,ph.partno,SUM(qty) as quantity,pi.packingdate  from productionhistory ph inner join packinginfo pi on ph.idpack =pi.idpack where ph.idlocation ='{lineID}' and ph.partno ='{partno}' and CONVERT(date,productiontime) between '{fromDate.ToString("yyyy-MM-dd")}' and '{toDate.ToString("yyyy-MM-dd")}'  group by ph.idpack,ph.partno,pi.packingdate");
+            return packageList;
+        }
         public async Task<string> GetProductOutput(string partno,string lineID)
         {
             try

@@ -50,6 +50,10 @@
             this.vietnameseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VersionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnUserMgt = new System.Windows.Forms.ToolStripMenuItem();
+            this.RoleManagement = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnCredential = new System.Windows.Forms.ToolStripMenuItem();
+            this.logsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton3 = new System.Windows.Forms.ToolStripDropDownButton();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.logoutToolTip = new System.Windows.Forms.ToolStripMenuItem();
@@ -222,7 +226,11 @@
             this.toolStripDropDownButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.languagesToolStripMenuItem1,
-            this.VersionToolStripMenuItem});
+            this.VersionToolStripMenuItem,
+            this.btnUserMgt,
+            this.RoleManagement,
+            this.btnCredential,
+            this.logsToolStripMenuItem});
             this.toolStripDropDownButton2.ForeColor = System.Drawing.Color.White;
             this.toolStripDropDownButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton2.Image")));
             this.toolStripDropDownButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -236,7 +244,7 @@
             this.vietnameseToolStripMenuItem,
             this.englishToolStripMenuItem});
             this.languagesToolStripMenuItem1.Name = "languagesToolStripMenuItem1";
-            this.languagesToolStripMenuItem1.Size = new System.Drawing.Size(145, 24);
+            this.languagesToolStripMenuItem1.Size = new System.Drawing.Size(193, 24);
             this.languagesToolStripMenuItem1.Text = "Ngôn ngữ";
             // 
             // vietnameseToolStripMenuItem
@@ -256,9 +264,37 @@
             // VersionToolStripMenuItem
             // 
             this.VersionToolStripMenuItem.Name = "VersionToolStripMenuItem";
-            this.VersionToolStripMenuItem.Size = new System.Drawing.Size(145, 24);
+            this.VersionToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
             this.VersionToolStripMenuItem.Text = "Phiên bản";
             this.VersionToolStripMenuItem.Click += new System.EventHandler(this.VersionToolStripMenuItem_Click);
+            // 
+            // btnUserMgt
+            // 
+            this.btnUserMgt.Name = "btnUserMgt";
+            this.btnUserMgt.Size = new System.Drawing.Size(193, 24);
+            this.btnUserMgt.Text = "Quản lý tài khoản";
+            this.btnUserMgt.Click += new System.EventHandler(this.btnUserMgt_Click_1);
+            // 
+            // RoleManagement
+            // 
+            this.RoleManagement.Name = "RoleManagement";
+            this.RoleManagement.Size = new System.Drawing.Size(193, 24);
+            this.RoleManagement.Text = "Quản lý Role";
+            this.RoleManagement.Click += new System.EventHandler(this.RoleManagement_Click);
+            // 
+            // btnCredential
+            // 
+            this.btnCredential.Name = "btnCredential";
+            this.btnCredential.Size = new System.Drawing.Size(193, 24);
+            this.btnCredential.Text = "Phân quyền";
+            this.btnCredential.Click += new System.EventHandler(this.btnCredential_Click);
+            // 
+            // logsToolStripMenuItem
+            // 
+            this.logsToolStripMenuItem.Name = "logsToolStripMenuItem";
+            this.logsToolStripMenuItem.Size = new System.Drawing.Size(193, 24);
+            this.logsToolStripMenuItem.Text = "Logs";
+            this.logsToolStripMenuItem.Click += new System.EventHandler(this.logsToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton3
             // 
@@ -404,6 +440,7 @@
             this.Controls.Add(this.gradientPanel1);
             this.Controls.Add(this.toolStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(600, 600);
             this.Name = "MainFrm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HANMI FLEXIBLE VINA HAIPHONG";
@@ -457,5 +494,9 @@
         private System.Windows.Forms.ToolStripMenuItem sảnPhẩmToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kiểmTraNVLTrướcSXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem lịchSửKiểmTraTemKVToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem btnUserMgt;
+        private System.Windows.Forms.ToolStripMenuItem RoleManagement;
+        private System.Windows.Forms.ToolStripMenuItem btnCredential;
+        private System.Windows.Forms.ToolStripMenuItem logsToolStripMenuItem;
     }
 }

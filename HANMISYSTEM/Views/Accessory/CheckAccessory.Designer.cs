@@ -879,12 +879,14 @@
             // 
             // btnselectWO
             // 
+            this.btnselectWO.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(221)))), ((int)(((byte)(221)))), ((int)(((byte)(221)))));
+            this.btnselectWO.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnselectWO.Location = new System.Drawing.Point(298, 12);
             this.btnselectWO.Name = "btnselectWO";
-            this.btnselectWO.Size = new System.Drawing.Size(75, 34);
+            this.btnselectWO.Size = new System.Drawing.Size(75, 32);
             this.btnselectWO.TabIndex = 1;
             this.btnselectWO.Text = "Chọn";
-            this.btnselectWO.UseVisualStyleBackColor = true;
+            this.btnselectWO.UseVisualStyleBackColor = false;
             this.btnselectWO.Click += new System.EventHandler(this.btnselectWO_Click);
             // 
             // txtmodel

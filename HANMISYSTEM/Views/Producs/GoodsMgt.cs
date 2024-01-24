@@ -25,6 +25,7 @@ namespace HANMISYSTEM
         };
         List<Button> buttons = new List<Button>();
         const int pageSize = 20;
+       
         int totalPage;
         public int SetTotalPage
         {
@@ -609,6 +610,7 @@ namespace HANMISYSTEM
             using (AddProduct frm =new AddProduct())
             {
                 frm.action = "ADD";
+                frm.ShowInTaskbar = false;
                 frm.ShowDialog();
             }
         }
@@ -683,6 +685,7 @@ namespace HANMISYSTEM
                         {
                             frm.action = "EDIT";
                             frm.lbAction.Text = "Sửa";
+                            frm.partno= dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString();
                             frm.txtpartno.Text = dataGridView1.Rows[e.RowIndex].Cells["partno"].Value.ToString();
                             frm.txtpartname.Text = dataGridView1.Rows[e.RowIndex].Cells["partname"].Value.ToString();
                             frm.txtproductivity.Text = dataGridView1.Rows[e.RowIndex].Cells["productivity"].Value.ToString();
@@ -693,6 +696,7 @@ namespace HANMISYSTEM
                             frm.cbProductKind.Text = dataGridView1.Rows[e.RowIndex].Cells["ProductKind"].Value.ToString();
                             frm.txttradingpartnumber.Text = dataGridView1.Rows[e.RowIndex].Cells["tradingpartnumber"].Value.ToString();
                             frm.txtothername.Text = dataGridView1.Rows[e.RowIndex].Cells["othername"].Value.ToString();
+                            frm.ShowInTaskbar = false;
                             frm.ShowDialog();
                             SetPage = curPage;
                         }
@@ -721,6 +725,7 @@ namespace HANMISYSTEM
                             frm.cbProductKind.Text = dataGridView1.Rows[e.RowIndex].Cells["ProductKind"].Value.ToString();
                             frm.txttradingpartnumber.Text = dataGridView1.Rows[e.RowIndex].Cells["tradingpartnumber"].Value.ToString();
                             frm.txtothername.Text = dataGridView1.Rows[e.RowIndex].Cells["othername"].Value.ToString();
+                            frm.ShowInTaskbar = false;
                             frm.ShowDialog();
                             SetPage = curPage;
                         }

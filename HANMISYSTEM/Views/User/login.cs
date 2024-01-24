@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using HANMISYSTEM.Common;
+using HANMISYSTEM.DAO;
 
 namespace HANMISYSTEM
 {
@@ -19,8 +20,8 @@ namespace HANMISYSTEM
         {
             InitializeComponent();
         }
-
-        private bool CheckLogin(string username, string password)
+        DAO_Credential dAO_Credential = new DAO_Credential();
+        private async Task<bool> CheckLogin(string username, string password)
         {
             DataTable dt = connect.readdata($"select * from tbl_user where username ='{username}' and password='{password}'");
             if (dt.Rows.Count > 0)
@@ -37,15 +38,17 @@ namespace HANMISYSTEM
                 }
                 Properties.Settings.Default.Save();
                 UserSession.LoggedIn = true;
+                UserSession.UserID = dt.Rows[0]["ID"].ToString();
                 UserSession.UserName = txtuser.Text;
+                UserSession.Credentials =await dAO_Credential.GetListCredential(dt.Rows[0]["ID"].ToString());
                 return true;
             }
             return false;
         }
-        private void btnlogin_Click(object sender, EventArgs e)
+        private async void btnlogin_Click(object sender, EventArgs e)
         {
 
-            if (CheckLogin(txtuser.Text, txtpassword.Text))
+            if (await CheckLogin(txtuser.Text, txtpassword.Text))
             {
                 DialogResult = DialogResult.OK;
                 Close();

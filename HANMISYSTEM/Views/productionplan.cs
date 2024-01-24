@@ -1,4 +1,5 @@
-﻿using HANMISYSTEM.Module;
+﻿using HANMISYSTEM.DAO;
+using HANMISYSTEM.Module;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,19 +24,18 @@ namespace HANMISYSTEM
             WorkerSupportsCancellation = true
         };
 
-
+        DAO_ProductionPlan dAO_ProductionPlan = new DAO_ProductionPlan();
         private delegate void dlgAddItem();
         string lineID;
         private int count;
         private int counttrue;
         static private string _path;
-        const string searchField = " p.idlocation ,p.id,p.partno,c.partname,p.productionplan,p.pst,p.status ";
+        const string searchField = " p.idlocation ,p.id,p.partno,c.partname,p.productionplan,p.pst,p.status,p.WOCode ";
         public productionplan()
         {
             InitializeComponent();
         }
         Dbconnect connect = new Dbconnect();
-
         private void InsertExcelRecord()
         {
             string constr = string.Format(@"Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties=""Excel 12.0 Xml;HDR=YES;""", _path);
@@ -229,8 +229,8 @@ namespace HANMISYSTEM
                     cbline.DataSource = dt2;
                     cbline.DisplayMember = "namelocation1";
                     cbline.ValueMember = "idlocation";
-                    string cmd = "select " + searchField + " from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='" + dt2.Rows[0]["idlocation"].ToString() + "' and p.productiondate =CONVERT(date,getdate()) ";
-                   loaddata(cmd);
+                   
+             
                 }
             }
             catch(Exception ex)
@@ -256,10 +256,11 @@ namespace HANMISYSTEM
         //{
 
         //}
-        private void loaddata(string cmd)
+        private  void loaddata(string cmd)
         {
             try
             {
+                //string cmd = "select " + searchField + " from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='" + dt2.Rows[0]["idlocation"].ToString() + "' and p.productiondate =CONVERT(date,getdate()) ";
                 DataTable dt = connect.readdata(cmd);
                 if (dt != null)
                 {
@@ -285,16 +286,15 @@ namespace HANMISYSTEM
             }
             return false;
         }
-        private void btnadd_Click(object sender, EventArgs e)
+        private async void btnadd_Click(object sender, EventArgs e)
         {
-
             if (txtpartno.Text == "" || txtplan.Text == "" || Regex.Replace(txtplan.Text, " ", string.Empty) == "0" || _isnumber.IsNumber(txtplan.Text) == false || _isnumber.IsPositive(txtplan.Text) == false)
             {
                 MessageBox.Show("Giá trị nhập không hợp lệ");
             }
             else
             {
-                if (connect.countdata("select count(partno) from cargo where partno ='" + txtpartno.Text + "'") == 0 || checkWOExisted(txtwo.Text) == true)
+                if (connect.countdata("select count(partno) from cargo where partno ='" + txtpartno.Text + "'") == 0 )
                 {
                     MessageBox.Show("Mã hàng không tồn tại ");
                     txtpartno.Text = "";
@@ -302,10 +302,11 @@ namespace HANMISYSTEM
                 }
                 else
                 {
-                    if (connect.exedata("insert into productionplan (partno,idwarehouse,pst,productiondate,idlocation,productionplan,WOCode) values('" + txtpartno.Text + "','" + cbwarehouse.SelectedValue + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd hh:mm:00") + "','" + dateTimePicker1.Value.ToString("yyyy-MM-dd") + "','" + cblocation.SelectedValue + "','" + txtplan.Text + "','" + txtwo.Text + "')") == true)
+                    if (await dAO_ProductionPlan.AddNew(txtpartno.Text,cbwarehouse.SelectedValue.ToString(),dateTimePicker1.Value,cblocation.SelectedValue.ToString(),txtplan.Text ) == true)
                     {
                         MessageBox.Show("Thành công! ." + dateTimePicker1.Value.ToString("yyyy-MM-dd"));
-                        loaddata("SELECT "+searchField+" FROM productionplan p inner join cargo c on  p.partno=c.partno where idlocation ='" + cbline.SelectedValue.ToString() + "' and productiondate='" + dtpdateplan.Text + "' order by productiondate desc");
+                        string cmd = "select " + searchField + " from productionplan p inner join cargo c on p.partno =c.partno left join WorkOrder w on w.ID=p.WorkOrderID where idlocation='" + cbline.SelectedValue.ToString() + "' and p.productiondate =CONVERT(date,getdate()) ";
+                        loaddata(cmd);
                         txtpartno.Text = "";
                         txtplan.Text = "";
                         lbsearch.Visible = false;

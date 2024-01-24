@@ -124,11 +124,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Common\CheckCredential.cs" />
     <Compile Include="Common\ExcelHelper.cs" />
     <Compile Include="Common\PackingController.cs" />
+    <Compile Include="Common\StringHelper.cs" />
     <Compile Include="Common\UserSession.cs" />
+    <Compile Include="DAO\DAO_Accessory_QC.cs" />
+    <Compile Include="DAO\DAO_CheckAccessoryOptional.cs" />
+    <Compile Include="DAO\DAO_Credential.cs" />
+    <Compile Include="DAO\DAO_Line.cs" />
+    <Compile Include="DAO\DAO_LineUserAssignment.cs" />
     <Compile Include="DAO\DAO_PackingInfo.cs" />
+    <Compile Include="DAO\DAO_Product.cs" />
     <Compile Include="DAO\DAO_ProductionHistory.cs" />
+    <Compile Include="DAO\DAO_ProductionPlan.cs" />
+    <Compile Include="DAO\DAO_Role.cs" />
+    <Compile Include="DAO\DAO_Slipout.cs" />
+    <Compile Include="DAO\DAO_SlipoutInfo.cs" />
+    <Compile Include="DAO\DAO_Stock.cs" />
+    <Compile Include="DAO\DAO_SystemLog.cs" />
+    <Compile Include="DAO\DAO_User.cs" />
+    <Compile Include="DAO\DAO_UserGroup.cs" />
+    <Compile Include="DAO\DAO_UserGroupUser.cs" />
+    <Compile Include="DAO\DAO_Warehouse.cs" />
     <Compile Include="Themes\Dark_Theme.cs" />
     <Compile Include="Themes\Theme.cs" />
     <Compile Include="Common\ThreadHelperClass.cs" />
@@ -223,6 +241,30 @@
     </Compile>
     <Compile Include="Views\ChangeBoxQty.Designer.cs">
       <DependentUpon>ChangeBoxQty.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Credential\AddNewCredential.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Credential\AddNewCredential.Designer.cs">
+      <DependentUpon>AddNewCredential.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Credential\CredentialManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Credential\CredentialManagement.Designer.cs">
+      <DependentUpon>CredentialManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Credential\EditCredential.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Credential\EditCredential.Designer.cs">
+      <DependentUpon>EditCredential.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Credential\MultipleGroupNamesFound.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Credential\MultipleGroupNamesFound.Designer.cs">
+      <DependentUpon>MultipleGroupNamesFound.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\DeliveryResultDetail.cs">
       <SubType>Form</SubType>
@@ -347,6 +389,18 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Views\LineUserAssignment\AddNewLineUserAssignment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\LineUserAssignment\AddNewLineUserAssignment.Designer.cs">
+      <DependentUpon>AddNewLineUserAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Line\LineSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Line\LineSearch.Designer.cs">
+      <DependentUpon>LineSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Location_Mgt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -397,11 +451,113 @@
     <Compile Include="Views\Production\CheckMaterials.Designer.cs">
       <DependentUpon>CheckMaterials.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Production\ProductionHistoryByPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Production\ProductionHistoryByPackage.Designer.cs">
+      <DependentUpon>ProductionHistoryByPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QualityControl\FindAccessory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QualityControl\FindAccessory.Designer.cs">
+      <DependentUpon>FindAccessory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QualityControl\OQCDashBoard.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QualityControl\OQCDashBoard.Designer.cs">
+      <DependentUpon>OQCDashBoard.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QualityControl\UpdateAccessory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QualityControl\UpdateAccessory.Designer.cs">
+      <DependentUpon>UpdateAccessory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Role\EditRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Role\EditRole.Designer.cs">
+      <DependentUpon>EditRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Role\RoleSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Role\RoleSearch.Designer.cs">
+      <DependentUpon>RoleSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Systems\AboutVersion.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Systems\AboutVersion.Designer.cs">
       <DependentUpon>AboutVersion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Systems\Logs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Systems\Logs.Designer.cs">
+      <DependentUpon>Logs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddGroupForUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\AddGroupForUser.Designer.cs">
+      <DependentUpon>AddGroupForUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddNewGroupUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\AddNewGroupUser.Designer.cs">
+      <DependentUpon>AddNewGroupUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Role\AddNewRole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Role\AddNewRole.Designer.cs">
+      <DependentUpon>AddNewRole.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Role\RoleManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Role\RoleManagement.Designer.cs">
+      <DependentUpon>RoleManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LineUserAssignment\LineUserAssignment.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\LineUserAssignment\LineUserAssignment.Designer.cs">
+      <DependentUpon>LineUserAssignment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\AddNewUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\AddNewUser.Designer.cs">
+      <DependentUpon>AddNewUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\UserGroupSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\UserGroupSearch.Designer.cs">
+      <DependentUpon>UserGroupSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\UserManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\UserManagement.Designer.cs">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\UserResetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\UserResetPassword.Designer.cs">
+      <DependentUpon>UserResetPassword.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\User\UserSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\User\UserSearch.Designer.cs">
+      <DependentUpon>UserSearch.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Warehouse\ChangeLocation.cs">
       <SubType>Form</SubType>
@@ -502,10 +658,10 @@
     <Compile Include="Module\ExportToExcel.cs" />
     <Compile Include="Module\Isnumber.cs" />
     <Compile Include="Module\ketnoi_excel.cs" />
-    <Compile Include="Views\login.cs">
+    <Compile Include="Views\User\login.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\login.Designer.cs">
+    <Compile Include="Views\User\login.Designer.cs">
       <DependentUpon>login.cs</DependentUpon>
     </Compile>
     <Compile Include="Module\Packing_Standard.cs">
@@ -755,6 +911,12 @@
     <Compile Include="Views\Report_Detail.Designer.cs">
       <DependentUpon>Report_Detail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Warehouse\SlipoutDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\SlipoutDetails.Designer.cs">
+      <DependentUpon>SlipoutDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Warehouse\StockFollowLoction.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -796,6 +958,12 @@
     </Compile>
     <Compile Include="Views\Warehousemgt.Designer.cs">
       <DependentUpon>Warehousemgt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Warehouse\StockInOut.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Warehouse\StockInOut.Designer.cs">
+      <DependentUpon>StockInOut.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Warehouse\Warehouse_dashboard.cs">
       <SubType>Form</SubType>
@@ -842,6 +1010,18 @@
     <EmbeddedResource Include="Views\ChangeBoxQty.resx">
       <DependentUpon>ChangeBoxQty.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Credential\AddNewCredential.resx">
+      <DependentUpon>AddNewCredential.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Credential\CredentialManagement.resx">
+      <DependentUpon>CredentialManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Credential\EditCredential.resx">
+      <DependentUpon>EditCredential.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Credential\MultipleGroupNamesFound.resx">
+      <DependentUpon>MultipleGroupNamesFound.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\DeliveryResultDetail.resx">
       <DependentUpon>DeliveryResultDetail.cs</DependentUpon>
     </EmbeddedResource>
@@ -859,6 +1039,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CustomMsgBox.resx">
       <DependentUpon>CustomMsgBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LineUserAssignment\AddNewLineUserAssignment.resx">
+      <DependentUpon>AddNewLineUserAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Line\LineSearch.resx">
+      <DependentUpon>LineSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MsgBox\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
@@ -878,8 +1064,59 @@
     <EmbeddedResource Include="Views\Production\CheckMaterials.resx">
       <DependentUpon>CheckMaterials.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Production\ProductionHistoryByPackage.resx">
+      <DependentUpon>ProductionHistoryByPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QualityControl\FindAccessory.resx">
+      <DependentUpon>FindAccessory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QualityControl\OQCDashBoard.resx">
+      <DependentUpon>OQCDashBoard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QualityControl\UpdateAccessory.resx">
+      <DependentUpon>UpdateAccessory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Role\EditRole.resx">
+      <DependentUpon>EditRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Role\RoleSearch.resx">
+      <DependentUpon>RoleSearch.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Systems\AboutVersion.resx">
       <DependentUpon>AboutVersion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Systems\Logs.resx">
+      <DependentUpon>Logs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\AddGroupForUser.resx">
+      <DependentUpon>AddGroupForUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\AddNewGroupUser.resx">
+      <DependentUpon>AddNewGroupUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Role\AddNewRole.resx">
+      <DependentUpon>AddNewRole.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Role\RoleManagement.resx">
+      <DependentUpon>RoleManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\LineUserAssignment\LineUserAssignment.resx">
+      <DependentUpon>LineUserAssignment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\AddNewUser.resx">
+      <DependentUpon>AddNewUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\UserGroupSearch.resx">
+      <DependentUpon>UserGroupSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\UserManagement.resx">
+      <DependentUpon>UserManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\UserResetPassword.resx">
+      <DependentUpon>UserResetPassword.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\User\UserSearch.resx">
+      <DependentUpon>UserSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehouse\ChangeLocation.resx">
       <DependentUpon>ChangeLocation.cs</DependentUpon>
@@ -946,7 +1183,7 @@
     <EmbeddedResource Include="Views\Location_Mgt.resx">
       <DependentUpon>Location_Mgt.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\login.resx">
+    <EmbeddedResource Include="Views\User\login.resx">
       <DependentUpon>login.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Lost_Management.resx">
@@ -1081,6 +1318,9 @@
     <EmbeddedResource Include="Views\Report_Detail.resx">
       <DependentUpon>Report_Detail.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\SlipoutDetails.resx">
+      <DependentUpon>SlipoutDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehouse\StockFollowLoction.resx">
       <DependentUpon>StockFollowLoction.cs</DependentUpon>
     </EmbeddedResource>
@@ -1101,6 +1341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehousemgt.resx">
       <DependentUpon>Warehousemgt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Warehouse\StockInOut.resx">
+      <DependentUpon>StockInOut.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Warehouse\Warehouse_dashboard.resx">
       <DependentUpon>Warehouse_dashboard.cs</DependentUpon>

@@ -318,9 +318,9 @@ namespace HANMISYSTEM
             //DataTable dtShortagePlan = connect.readdata("select shortage from view_shortage_plan where partno ='" + txtmodel.Text + "' and idlocation ='" + cblocation.SelectedValue.ToString() + "' and idwarehouse='" + cbwarehouse.SelectedValue.ToString() + "'");
             if (txtboxno.Text.Length == 14)
             {
-
                 DataTable packqty = connect.readdata("select * from packinginfo where idpack='" + txtboxno.Text + "'");
                 DataTable dt = connect.readdata("select * from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
+                package_capa = dt.Rows[0]["quantity"].ToString();
                 if (dt.Rows.Count == 0)
                 {
                     using(CustomMessageBox frm =new CustomMessageBox())
@@ -366,7 +366,7 @@ namespace HANMISYSTEM
                             }
                             else
                             {
-                                package_capa = packqty.Rows[0]["quantity"].ToString();
+                                
                                 txtboxno.Enabled = false;
                                 if (Convert.ToInt32(packqty.Rows[0]["quantity"].ToString()) >= Convert.ToInt32(dt.Rows[0]["quantity"].ToString()))
                                 {
@@ -388,19 +388,19 @@ namespace HANMISYSTEM
                                         CheckPackageLabel frm = new CheckPackageLabel();
                                         frm.label = txtmodel.Text;
                                         frm.ShowDialog();
-
+                                        //scan LOT
                                         if (checkBox2.Checked == true)
                                         {
                                             txtsoluong.Focus();
                                             DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
                                             DataTable dtpackinginfo = connect.readdata("select quantity from packinginfo where idpack='" + txtboxno.Text + "'");
                                             txtsoluong.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
-                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtqty.Text = dt.Rows[0]["quantity"].ToString();
 
                                         }
                                         else if (checkBox2.Checked == false)
                                         {
-                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtqty.Text = dt.Rows[0]["quantity"].ToString(); 
                                             txtpartno.Focus();
                                         }
 
@@ -417,12 +417,12 @@ namespace HANMISYSTEM
                                             DataTable dtpacking = connect.readdata("select quantity from packingstandard where partno='" + txtmodel.Text.ToUpper() + "' and idpacking like '" + txtboxno.Text.Substring(0, 3) + "'");
                                             DataTable dtpackinginfo = connect.readdata("select quantity from packinginfo where idpack='" + txtboxno.Text + "'");
                                             txtsoluong.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
-                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtqty.Text = dt.Rows[0]["quantity"].ToString();
 
                                         }
                                         else if (checkBox2.Checked == false)
                                         {
-                                            txtqty.Text = (Convert.ToInt32(dt.Rows[0]["quantity"].ToString()) - Convert.ToInt32(packqty.Rows[0]["quantity"].ToString())).ToString();
+                                            txtqty.Text = dt.Rows[0]["quantity"].ToString();
                                             txtpartno.Focus();
                                         }
 
@@ -619,7 +619,7 @@ namespace HANMISYSTEM
                     //DataTable dtpack = connect.readdata("select quantity from packingstandard where partno ='" + txtmodel.Text.ToUpper() + "' and idpacking='" + txtboxno.Text.Substring(0, 3) + "' ");
            
                         txtboxno.Enabled = false;
-                        if (Convert.ToInt32(txtactualqty.Text) == Convert.ToInt32(package_capa))
+                        if (Convert.ToInt32(txtactualqty.Text) ==Convert.ToInt32(package_capa))
                         {
                             DialogResult dlr;
                             dlr = MessageBox.Show("Box đã đầy ,Xin hãy kết thúc quá trình đóng gói", "Notice", MessageBoxButtons.OK);
@@ -744,8 +744,7 @@ namespace HANMISYSTEM
                 SelectWorkOrder fr = new SelectWorkOrder();
                 fr.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
                 fr.dataGridView1.AutoGenerateColumns = false;
-                DataTable dtwo = connect.readdata("select ROW_NUMBER() over(order by p.partno) as r ,isnull(w.Code,p.WOCode) as WorkOrder,p.ID as PlanID,p.partno,c.partname,c.Color,c.Market,p.PST,p.productionplan from productionplan p  left join WorkOrder w on p.WorkOrderID=w.ID inner join cargo c on c.partno =p.partno where (p.Status is null or p.Status<> 0 )  and p.idlocation='" + cblocation.SelectedValue.ToString() + "' and productiondate =CONVERT(date,getdate())"); ;
-                fr.dataGridView1.DataSource = dtwo;
+                fr.lineID = cblocation.SelectedValue.ToString();
                 fr.ShowInTaskbar = false;
                 fr.ShowDialog();
                 txtworkorder.Text = fr.SendData();
@@ -947,10 +946,8 @@ namespace HANMISYSTEM
         {
 
             try
-            {
-                DataTable dtpackage = connect.readdata("select count(*) as quantity from packinginfo where idpack='"+idpack+"'");
-                
-                if (dtpackage.Rows[0]["quantity"].ToString() != "0")
+            {                
+                if (await dAO_PackingInfo.CheckExisted(idpack))
                 {
                     //existed package
                     await connect.ExeDataAsync("exec spUpdatePackingInfo_Increase @idpack='" + idpack + "'");
@@ -1176,7 +1173,7 @@ namespace HANMISYSTEM
 
         private void btnLabelChecking_Click(object sender, EventArgs e)
         {
-            if(UserSession.UserName=="kvline" && !string.IsNullOrEmpty(txtmodel.Text))
+            if(UserSession.UserName.ToUpper()=="KVLINE" && !string.IsNullOrEmpty(txtmodel.Text))
             {
                 CheckMaterials frm = new CheckMaterials();
                 frm.ShowInTaskbar = false;
@@ -1191,5 +1188,7 @@ namespace HANMISYSTEM
         {
 
         }
+
+
     }
 }

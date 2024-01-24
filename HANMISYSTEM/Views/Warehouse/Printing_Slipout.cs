@@ -12,6 +12,7 @@ using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.IO;
 using Microsoft.Office.Interop.Excel;
+using HANMISYSTEM.DAO;
 
 namespace HANMISYSTEM
 {
@@ -21,7 +22,8 @@ namespace HANMISYSTEM
         {
             InitializeComponent();
         }
-
+        public string _slipoutID;
+        DAO_SlipoutInfo dAO_SlipoutInfo = new DAO_SlipoutInfo();
         private PrintDocument printdoc1 = new PrintDocument();
         PrintPreviewDialog previewdlg = new PrintPreviewDialog();
         Panel pannel = null;
@@ -243,6 +245,15 @@ namespace HANMISYSTEM
                 
             }
 
+        }
+
+        private async void Printing_Slipout_Load(object sender, EventArgs e)
+        {
+            lbday.Text = DateTime.Now.ToString("dd");
+            lbmonth.Text = DateTime.Now.ToString("MM");
+            lbyear.Text = DateTime.Now.ToString("yyyy");
+            System.Data.DataTable dt1 = await dAO_SlipoutInfo.GetSlipoutInfo(_slipoutID);
+            dataGridView1.DataSource = dt1;
         }
     }
 }

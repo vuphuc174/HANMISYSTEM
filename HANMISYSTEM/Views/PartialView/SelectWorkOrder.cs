@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HANMISYSTEM.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -16,14 +17,17 @@ namespace HANMISYSTEM.Views.PartialView
         {
             InitializeComponent();
         }
-        //public DataTable dt;
+        public string lineID;
         public  string workorder;
         string model;
         string planID;
         string plan;
-        private void SelectWorkOrder_Load(object sender, EventArgs e)
+        DAO_ProductionPlan dAO_ProductionPlan = new DAO_ProductionPlan();
+        private async void SelectWorkOrder_Load(object sender, EventArgs e)
         {
             lbdate.Text = DateTime.Now.ToString("yyyy-MM-dd");
+            dataGridView1.DataSource = await dAO_ProductionPlan.GetProductionPlan(lineID);
+
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -45,10 +49,10 @@ namespace HANMISYSTEM.Views.PartialView
         e.RowIndex >= 0)
             {
 
-                workorder = dataGridView1.Rows[e.RowIndex].Cells["WorkOrder"].Value.ToString();
-                model= dataGridView1.Rows[e.RowIndex].Cells["Model"].Value.ToString();
-                planID= dataGridView1.Rows[e.RowIndex].Cells["PlanID"].Value.ToString();
-                plan= dataGridView1.Rows[e.RowIndex].Cells["Plan"].Value.ToString();
+                workorder = dataGridView1.Rows[e.RowIndex].Cells["WorkOrder_col"].Value.ToString();
+                model= dataGridView1.Rows[e.RowIndex].Cells["Partno_col"].Value.ToString();
+                planID= dataGridView1.Rows[e.RowIndex].Cells["PlanID_col"].Value.ToString();
+                plan= dataGridView1.Rows[e.RowIndex].Cells["Quantity_col"].Value.ToString();
 
                 this.Close();
             }
@@ -68,6 +72,11 @@ namespace HANMISYSTEM.Views.PartialView
         public string SendPlan()
         {
             return plan;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

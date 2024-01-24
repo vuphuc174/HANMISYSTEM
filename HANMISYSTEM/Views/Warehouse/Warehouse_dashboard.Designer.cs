@@ -28,10 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Warehouse_dashboard));
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.dgvRecentTransaction = new System.Windows.Forms.DataGridView();
             this.gradientPanel1 = new HANMISYSTEM.Module.GradientPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.cbbWarehouse = new System.Windows.Forms.ComboBox();
@@ -58,9 +61,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panel6 = new System.Windows.Forms.Panel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.InvoiceNo_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.From_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.To_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -68,6 +69,8 @@
             this.Time_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecentTransaction)).BeginInit();
             this.gradientPanel1.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -79,9 +82,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.gradientPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.panel2.SuspendLayout();
-            this.panel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -101,10 +101,47 @@
             this.panel4.Controls.Add(this.panel6);
             this.panel4.Controls.Add(this.gradientPanel1);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(20, 193);
+            this.panel4.Location = new System.Drawing.Point(20, 172);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1194, 454);
+            this.panel4.Size = new System.Drawing.Size(1194, 475);
             this.panel4.TabIndex = 2;
+            // 
+            // panel6
+            // 
+            this.panel6.Controls.Add(this.dgvRecentTransaction);
+            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel6.Location = new System.Drawing.Point(0, 46);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(1194, 429);
+            this.panel6.TabIndex = 1;
+            // 
+            // dgvRecentTransaction
+            // 
+            this.dgvRecentTransaction.AllowUserToAddRows = false;
+            this.dgvRecentTransaction.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvRecentTransaction.BackgroundColor = System.Drawing.Color.White;
+            this.dgvRecentTransaction.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRecentTransaction.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgvRecentTransaction.ColumnHeadersHeight = 35;
+            this.dgvRecentTransaction.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.InvoiceNo_col,
+            this.From_col,
+            this.To_col,
+            this.PackageQuantity_col,
+            this.Time_col});
+            this.dgvRecentTransaction.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRecentTransaction.Location = new System.Drawing.Point(0, 0);
+            this.dgvRecentTransaction.Name = "dgvRecentTransaction";
+            this.dgvRecentTransaction.RowHeadersVisible = false;
+            this.dgvRecentTransaction.Size = new System.Drawing.Size(1194, 429);
+            this.dgvRecentTransaction.TabIndex = 0;
             // 
             // gradientPanel1
             // 
@@ -147,9 +184,9 @@
             this.label1.ForeColor = System.Drawing.Color.Gray;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(245, 46);
+            this.label1.Size = new System.Drawing.Size(288, 46);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Recent Transaction";
+            this.label1.Text = "Recent Transaction(60s)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel3
@@ -163,7 +200,7 @@
             this.panel3.Controls.Add(this.gradientPanel3);
             this.panel3.Controls.Add(this.gradientPanel2);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(20, 57);
+            this.panel3.Location = new System.Drawing.Point(20, 36);
             this.panel3.Name = "panel3";
             this.panel3.Padding = new System.Windows.Forms.Padding(0, 20, 20, 20);
             this.panel3.Size = new System.Drawing.Size(1194, 136);
@@ -414,84 +451,48 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.textBox1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel2.Location = new System.Drawing.Point(20, 20);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1194, 37);
+            this.panel2.Size = new System.Drawing.Size(1194, 16);
             this.panel2.TabIndex = 0;
             // 
-            // textBox1
+            // timer1
             // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.Location = new System.Drawing.Point(3, 7);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(282, 24);
-            this.textBox1.TabIndex = 0;
-            // 
-            // panel6
-            // 
-            this.panel6.Controls.Add(this.dataGridView1);
-            this.panel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel6.Location = new System.Drawing.Point(0, 46);
-            this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(1194, 408);
-            this.panel6.TabIndex = 1;
-            // 
-            // dataGridView1
-            // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.ColumnHeadersHeight = 35;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.InvoiceNo_col,
-            this.From_col,
-            this.To_col,
-            this.PackageQuantity_col,
-            this.Time_col});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1194, 408);
-            this.dataGridView1.TabIndex = 0;
+            this.timer1.Interval = 60000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // InvoiceNo_col
             // 
+            this.InvoiceNo_col.DataPropertyName = "idslipout";
             this.InvoiceNo_col.HeaderText = "Invoice.No";
             this.InvoiceNo_col.Name = "InvoiceNo_col";
             this.InvoiceNo_col.ReadOnly = true;
             // 
             // From_col
             // 
+            this.From_col.DataPropertyName = "idwarehouse";
             this.From_col.HeaderText = "From";
             this.From_col.Name = "From_col";
             this.From_col.ReadOnly = true;
             // 
             // To_col
             // 
+            this.To_col.DataPropertyName = "idcustomer";
             this.To_col.HeaderText = "To";
             this.To_col.Name = "To_col";
             this.To_col.ReadOnly = true;
             // 
             // PackageQuantity_col
             // 
+            this.PackageQuantity_col.DataPropertyName = "quantity";
             this.PackageQuantity_col.HeaderText = "Package Quantity";
             this.PackageQuantity_col.Name = "PackageQuantity_col";
             this.PackageQuantity_col.ReadOnly = true;
             // 
             // Time_col
             // 
+            this.Time_col.DataPropertyName = "dateout";
             this.Time_col.HeaderText = "Time";
             this.Time_col.Name = "Time_col";
             this.Time_col.ReadOnly = true;
@@ -510,6 +511,8 @@
             this.Load += new System.EventHandler(this.Warehouse_dashboard_Load);
             this.panel1.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRecentTransaction)).EndInit();
             this.gradientPanel1.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
@@ -525,10 +528,6 @@
             this.gradientPanel2.ResumeLayout(false);
             this.gradientPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -540,7 +539,6 @@
         private Module.GradientPanel gradientPanel1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label1;
         private Module.GradientPanel gradientPanel8;
         private Module.GradientPanel gradientPanel9;
@@ -565,7 +563,8 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.ComboBox cbbWarehouse;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvRecentTransaction;
+        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.DataGridViewTextBoxColumn InvoiceNo_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn From_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn To_col;

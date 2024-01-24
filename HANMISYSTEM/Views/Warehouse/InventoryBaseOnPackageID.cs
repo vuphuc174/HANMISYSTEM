@@ -1,4 +1,5 @@
-﻿using HANMISYSTEM.Module;
+﻿using HANMISYSTEM.DAO;
+using HANMISYSTEM.Module;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +19,7 @@ namespace HANMISYSTEM.Views.Warehouse
             InitializeComponent();
         }
         List<Button> buttons = new List<Button>();
+        DAO_PackingInfo dAO_PackingInfo = new DAO_PackingInfo();
         Dbconnect connect = new Dbconnect();
         const int pageSize = 30;
         int totalPage;
@@ -240,9 +242,9 @@ namespace HANMISYSTEM.Views.Warehouse
             lbCurrentPage.Text = curPage.ToString();
             lbTotalPage.Text = totalPage.ToString();
         }
-        private void btnGoLast_Click(object sender, EventArgs e)
+        private async void btnGoLast_Click(object sender, EventArgs e)
         {
-            SetPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
+            SetPage =await GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -274,53 +276,56 @@ namespace HANMISYSTEM.Views.Warehouse
                 DataTable dt = connect.readdata(cmd);
                 dataGridView1.DataSource = dt;
             }
-            catch
-            {
-                throw;
-            }
-        }
-        private int GetTotalPage(string searchTearm, string wh)
-        {
-            DataTable dataTable;
-            if (string.IsNullOrEmpty(searchTearm))
-            {
-                dataTable = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='"+wh+"') select COUNT(*) as row from temp");
-            }
-            else
-            {
-                dataTable = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%"+searchTearm+"%'  or pi.idpack like '%"+searchTearm+ "%') and pi.idwarehouse ='" + wh + "' ) select COUNT(*) as row from temp");
-            }
-            if (dataTable.Rows.Count > 0)
-            {
-                if (Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) % pageSize == 0)
-                {
-                    return Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) / pageSize;
-                }
-                else
-                {
-                    return Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) / pageSize + 1;
-                }
-            }
-
-            return 0;
-        }
-        private void GetData(int page, int pageSize, string searchTearm, string wh)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(searchTearm))
-                {
-                    loaddata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='" + wh + "') select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + "");
-                }
-                else
-                {
-                    loaddata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%" + searchTearm + "%'  or pi.idpack like '%" + searchTearm + "%') and pi.idwarehouse ='" + wh + "') select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + "");
-                }
-            }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private async Task<int> GetTotalPage(string searchTearm, string wh)
+        {
+            int total = await dAO_PackingInfo.GetTotalPage(searchTearm, wh, pageSize);
+            return total;
+            //DataTable dataTable;
+            //if (string.IsNullOrEmpty(searchTearm))
+            //{
+            //    dataTable = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='"+wh+"') select COUNT(*) as row from temp");
+            //}
+            //else
+            //{
+            //    dataTable = connect.readdata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%"+searchTearm+"%'  or pi.idpack like '%"+searchTearm+ "%') and pi.idwarehouse ='" + wh + "' ) select COUNT(*) as row from temp");
+            //}
+            //if (dataTable.Rows.Count > 0)
+            //{
+            //    if (Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) % pageSize == 0)
+            //    {
+            //        return Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) / pageSize;
+            //    }
+            //    else
+            //    {
+            //        return Convert.ToInt32(dataTable.Rows[0]["row"].ToString()) / pageSize + 1;
+            //    }
+            //}
+
+            //return 0;
+        }
+        private async void GetData(int page, int pageSize, string searchTearm, string wh)
+        {
+            dataGridView1.DataSource = await dAO_PackingInfo.GetDataByPage(page,pageSize,searchTearm,wh);
+            //try
+            //{
+            //    if (string.IsNullOrEmpty(searchTearm))
+            //    {
+            //        loaddata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where   pi.idwarehouse ='" + wh + "') select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + "");
+            //    }
+            //    else
+            //    {
+            //        loaddata("with temp as  (select ROW_NUMBER() over (Order by pi.partno asc) as row,	pi.idpack,	pi.partno,c.partname, pi.quantity,	pi.packingdate from packinginfo pi inner join cargo c on pi.partno=c.partno where ( pi.partno like '%" + searchTearm + "%'  or pi.idpack like '%" + searchTearm + "%') and pi.idwarehouse ='" + wh + "') select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + "");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
 
 
         }
@@ -330,7 +335,7 @@ namespace HANMISYSTEM.Views.Warehouse
             SetPage = Convert.ToInt32(btn.Text);
             GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
         }
-        private void InventoryBaseOnPackageID_Load(object sender, EventArgs e)
+        private async void InventoryBaseOnPackageID_Load(object sender, EventArgs e)
         {
             DataTable dtWarehouse = connect.readdata("select * from warehouse");
             cbbWarehouse.DataSource = dtWarehouse;
@@ -357,7 +362,7 @@ namespace HANMISYSTEM.Views.Warehouse
             }
             SetPage = 1;
             //GetData(1, pageSize, "");
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
+            SetTotalPage =await GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
 
             //pagelist
             UpdatePageList();
@@ -369,10 +374,10 @@ namespace HANMISYSTEM.Views.Warehouse
             SetPage = 1;
         }
 
-        private void txtsearch_TextChanged(object sender, EventArgs e)
+        private async void txtsearch_TextChanged(object sender, EventArgs e)
         {
             SetPage = 1;
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
+            SetTotalPage =await GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString());
         }
 
         private void btnExportExcel_Click(object sender, EventArgs e)

@@ -525,6 +525,7 @@
             this.Name = "Printing_Slipout";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Printing_Slipout";
+            this.Load += new System.EventHandler(this.Printing_Slipout_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

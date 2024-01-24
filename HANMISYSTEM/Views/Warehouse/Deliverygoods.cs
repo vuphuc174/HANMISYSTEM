@@ -268,8 +268,6 @@ namespace HANMISYSTEM
         }
         private void btnfn_Click(object sender, EventArgs e)
         {
-
-
             if (cbewarehouse.Text == "" || cbiwarehouse.Text == "")
             {
                 MessageBox.Show("Make sure selected both from WH and to WH");
@@ -568,6 +566,7 @@ namespace HANMISYSTEM
             {
                 MessageBox.Show("Không được bỏ trống thông tin !");
             }
+            //supplier
             else if (dtcategory.Rows[0]["idcategory"].ToString() == "W3")
             {
                 if (connect.countdata("select count(idslipout) from slipout where idslipout='" + txtinvoice.Text + "'") == 0)
@@ -656,6 +655,7 @@ namespace HANMISYSTEM
                     MessageBox.Show("xin taọ mới mã hóa đơn ");
                 }
             }
+            //warehouse
             else if (dtcategory.Rows[0]["idcategory"].ToString() == "W1")
             {
                 if (dtcategory.Rows[0]["Approval"].ToString() == "True" || dtcategory.Rows[0]["Approval"].ToString() == "1")

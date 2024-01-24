@@ -1,4 +1,5 @@
 ﻿using HANMISYSTEM.Module;
+using HANMISYSTEM.Views.Warehouse;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +35,7 @@ namespace HANMISYSTEM.Views
             }
         }
         int curPage;
-        int SetPage
+         int SetPage
         {
             get { return curPage; }
             set
@@ -240,9 +241,9 @@ namespace HANMISYSTEM.Views
             lbCurrentPage.Text = curPage.ToString();
             lbTotalPage.Text = totalPage.ToString();
         }
-        private void btnGoLast_Click(object sender, EventArgs e)
+        private async void btnGoLast_Click(object sender, EventArgs e)
         {
-            SetPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+            SetPage = await GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -252,18 +253,21 @@ namespace HANMISYSTEM.Views
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-
+            if(curPage>1)
+            {
+                SetPage = curPage - 1;
+            }    
         }
 
         private void btnGoFirst_Click(object sender, EventArgs e)
         {
             SetPage = 1;
         }
-        private void loaddata(string cmd)
+        private async Task loaddata(string cmd)
         {
             try
             {
-                DataTable dt = connect.readdata(cmd);
+                DataTable dt =await connect.ReadDataAsync(cmd);
                 dataGridView1.DataSource = dt;
             }
             catch
@@ -271,19 +275,19 @@ namespace HANMISYSTEM.Views
                 throw;
             }
         }
-        private int GetTotalPage(string searchTearm, string wh,string kind,string statdate,string endate)
+        private async Task<int> GetTotalPage(string searchTearm, string wh,string kind,string statdate,string endate)
         {
             DataTable dataTable;
             string sql;
             if(kind=="IN")
             {
-                sql = "with temp as(select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idcustomer='"+wh+"' and convert(date,s.dateout) between '"+statdate+"' and '"+endate+ "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%"+searchTearm+"%'") + " ) select count(*) as row from temp";
+                sql = "with temp as(select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idcustomer='"+wh+"' and convert(date,s.dateout) between '"+statdate+"' and '"+endate+ "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and idslipout like '%"+searchTearm+"%'") + " ) select count(*) as row from temp";
             }
             else
             {
-                sql = "with temp as(select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idwarehouse='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%" + searchTearm + "%'") + " ) select count(*) as row from temp";
+                sql = "with temp as(select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idwarehouse='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and idslipout like '%" + searchTearm + "%'") + " ) select count(*) as row from temp";
             }
-            dataTable = connect.readdata(sql);
+            dataTable =await connect.ReadDataAsync(sql);
             
             
             if (dataTable.Rows.Count > 0)
@@ -300,33 +304,33 @@ namespace HANMISYSTEM.Views
 
             return 0;
         }
-        private void GetData(int page, int pageSize, string searchTearm, string wh, string kind, string statdate, string endate)
+        private async Task GetData(int page, int pageSize, string searchTearm, string wh, string kind, string statdate, string endate)
         {
             string sql;
             try
             {
                 if (kind=="IN")
                 {
-                    sql="with temp as  (select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idcustomer='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
+                    sql="with temp as  (select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idcustomer='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and idslipout like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
                 }
                 else
                 {
-                    sql="with temp as  (select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idwarehouse='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and si.idslipout like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
+                    sql="with temp as  (select ROW_NUMBER() over (order by dateout desc) as row, idslipout,dateout,w.namewarehouse as warehouse,w1.namewarehouse as customer,(select COUNT(idpack) from slipoutinfo where idslipout =s.idslipout)as packqty from slipout s inner join warehouse w on  w.idwarehouse=s.idwarehouse inner join warehouse w1 on w1.idwarehouse=s.idcustomer where  s.idwarehouse='" + wh + "' and convert(date,s.dateout) between '" + statdate + "' and '" + endate + "'  " + ((string.IsNullOrEmpty(searchTearm)) ? " " : " and idslipout like '%" + searchTearm + "%'") + ") select *  from temp  where row >=" + ((page * pageSize - pageSize) + 1) + " and row <= " + (page * pageSize) + " order by row asc";
                 }
-                loaddata(sql);
+                await loaddata(sql);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-        public void btn_gopage(object sender, EventArgs e)
+        public async void btn_gopage(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             SetPage = Convert.ToInt32(btn.Text);
-            GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString(),cbfilter.Text,startDate.Value.ToString("yyyy-MM-dd"),endDate.Value.ToString("yyyy-MM-dd"));
+            await GetData(curPage, pageSize, txtsearch.Text, cbbWarehouse.SelectedValue.ToString(),cbfilter.Text,startDate.Value.ToString("yyyy-MM-dd"),endDate.Value.ToString("yyyy-MM-dd"));
         }
-        private void ReleaseAndReceiveHistory_Load(object sender, EventArgs e)
+        private async void ReleaseAndReceiveHistory_Load(object sender, EventArgs e)
         {
             DataTable dtWarehouse = connect.readdata("select * from warehouse");
             cbbWarehouse.DataSource = dtWarehouse;
@@ -354,7 +358,7 @@ namespace HANMISYSTEM.Views
             }
             SetPage = 1;
             //GetData(1, pageSize, "");
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+            SetTotalPage =await GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
 
             //pagelist
             UpdatePageList();
@@ -446,15 +450,72 @@ namespace HANMISYSTEM.Views
             //}
         }
 
-        private void btnSearch_Click(object sender, EventArgs e)
+        private async void btnSearch_Click(object sender, EventArgs e)
         {
             SetPage = 1;
-            SetTotalPage = GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
+            SetTotalPage =await GetTotalPage(txtsearch.Text, cbbWarehouse.SelectedValue.ToString(), cbfilter.Text, startDate.Value.ToString("yyyy-MM-dd"), endDate.Value.ToString("yyyy-MM-dd"));
         }
 
         private void btnPrevious_Click_1(object sender, EventArgs e)
         {
 
+        }
+        private void AddMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (selectedRowIndex != -1)
+                {
+                    using (SlipoutDetails frm = new SlipoutDetails())
+                    {
+                        frm.ShowInTaskbar = false;
+                        frm.StartPosition = FormStartPosition.CenterParent;
+                        frm._slipoutID = dataGridView1.Rows[selectedRowIndex].Cells["idinvoice"].Value.ToString();
+                        frm.ShowDialog();
+                    }
+
+                }
+            }
+            catch
+            {
+
+            }
+            
+        }
+        private int selectedRowIndex = -1;
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                ContextMenuStrip contextMenuStrip1 = new ContextMenuStrip();
+                // Add menu items
+                ToolStripMenuItem addMenuItem = new ToolStripMenuItem("Xem chi tiết");
+                //ToolStripMenuItem editMenuItem = new ToolStripMenuItem("Sửa");
+                //ToolStripMenuItem deleteMenuItem = new ToolStripMenuItem("Delete");
+
+                // Attach event handlers to menu items
+                addMenuItem.Click += AddMenuItem_Click;
+                //editMenuItem.Click += EditMenuItem_Click;
+                //deleteMenuItem.Click += DeleteMenuItem_Click;
+
+                // Add items to the ContextMenuStrip
+                contextMenuStrip1.Items.Add(addMenuItem);
+                //contextMenuStrip1.Items.Add(editMenuItem);
+                //contextMenuStrip1.Items.Add(deleteMenuItem);
+
+                // Assign the ContextMenuStrip to the DataGridView
+                dataGridView1.ContextMenuStrip = contextMenuStrip1;
+                DataGridView.HitTestInfo hitTestInfo = dataGridView1.HitTest(e.X, e.Y);
+                if (hitTestInfo.Type == DataGridViewHitTestType.Cell && hitTestInfo.RowIndex >= 0)
+                {
+                    selectedRowIndex = hitTestInfo.RowIndex; // Store the selected row index
+                    dataGridView1.CurrentCell = dataGridView1.Rows[selectedRowIndex].Cells[0]; // Highlight the clicked cell
+                    dataGridView1.ContextMenuStrip.Show(dataGridView1, dataGridView1.PointToClient(Cursor.Position));
+                }
+
+
+
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HANMISYSTEM.DAO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +18,8 @@ namespace HANMISYSTEM.Views.Accessory
             InitializeComponent();
         }
         Dbconnect dbconnect = new Dbconnect();
+        DAO_CheckAccessoryOptional dAO_CheckAccessoryOptional = new DAO_CheckAccessoryOptional();
+        DAO_Credential dAO_Credential = new DAO_Credential();
         private void txtModel_TextChanged(object sender, EventArgs e)
         {
             if (txtModel.Text.Length > 0)
@@ -41,24 +44,33 @@ namespace HANMISYSTEM.Views.Accessory
             loaddata(sql);
             lbSearch.Visible = false;
         }
-        public void loaddata(string str)
+        public async void loaddata(string str)
         {
+            chkInspectorLabelDate.Checked = await dAO_CheckAccessoryOptional.GetStatus(txtModel.Text);
             DataTable dt = dbconnect.readdata(str);
             dataGridView1.DataSource = dt;
         }
-        private void btnAdd_Click(object sender, EventArgs e)
+        private async void btnAdd_Click(object sender, EventArgs e)
         {
-            if (dbconnect.countdata("select count(partno) from cargo where partno ='" + txtModel.Text + "'") != 0 && dbconnect.countdata("select count(partno) from cargo where partno ='" + txtAccessory.Text + "'") != 0 && txtAccessory.Text != txtModel.Text && dbconnect.countdata("select count(PartNo) from Accessory where PartNo='" + txtModel.Text + "' and Accessory='" + txtAccessory.Text + "'") == 0)
+            if (await dAO_Credential.CheckCredential("ACCESSORY_OPTIONAL"))
             {
-                dbconnect.exedata("insert into Accessory(PartNo,Accessory) values('" + txtModel.Text + "','" + txtAccessory.Text + "')");
-                MessageBox.Show("Thành công");
-                string sql = "select Accessory.Accessory,cargo.partname from Accessory inner join cargo on Accessory.Accessory=cargo.partno where Accessory.PartNo='" + txtModel.Text + "'";
-                loaddata(sql);
+                if (dbconnect.countdata("select count(partno) from cargo where partno ='" + txtModel.Text + "'") != 0 && dbconnect.countdata("select count(partno) from cargo where partno ='" + txtAccessory.Text + "'") != 0 && txtAccessory.Text != txtModel.Text && dbconnect.countdata("select count(PartNo) from Accessory where PartNo='" + txtModel.Text + "' and Accessory='" + txtAccessory.Text + "'") == 0)
+                {
+                    dbconnect.exedata("insert into Accessory(PartNo,Accessory) values('" + txtModel.Text + "','" + txtAccessory.Text + "')");
+                    MessageBox.Show("Thành công");
+                    string sql = "select Accessory.Accessory,cargo.partname from Accessory inner join cargo on Accessory.Accessory=cargo.partno where Accessory.PartNo='" + txtModel.Text + "'";
+                    loaddata(sql);
+                }
+                else
+                {
+                    MessageBox.Show("Check lại thông tin");
+                }
             }
             else
             {
-                MessageBox.Show("Check lại thông tin");
+                MessageBox.Show("Bạn chưa có quyền truy cập! Xin hãy liên hệ admin \n Code:ACCESSORY_OPTIONAL");
             }
+
         }
 
         private void txtAccessory_TextChanged(object sender, EventArgs e)
@@ -84,22 +96,64 @@ namespace HANMISYSTEM.Views.Accessory
             listBox1.Visible = false;
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private async void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var senderGrid = (DataGridView)sender;
 
             if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
                 e.RowIndex >= 0)
             {
-                DialogResult result = MessageBox.Show("Do you want to delete this one?", "Confirmation", MessageBoxButtons.YesNoCancel);
-                if (result == DialogResult.Yes)
+                if (await dAO_Credential.CheckCredential("ACCESSORY_OPTIONAL"))
                 {
-                    dbconnect.exedata("delete from Accessory where PartNo='" + txtModel.Text + "' and Accessory='" + dataGridView1.Rows[e.RowIndex].Cells["Accessory"].Value.ToString() + "'");
-                    string sql = "select Accessory.Accessory,cargo.partname from Accessory inner join cargo on Accessory.Accessory=cargo.partno where Accessory.PartNo='" + txtModel.Text + "'";
-                    loaddata(sql);
+                    DialogResult result = MessageBox.Show("Do you want to delete this one?", "Confirmation", MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                    {
+                        dbconnect.exedata("delete from Accessory where PartNo='" + txtModel.Text + "' and Accessory='" + dataGridView1.Rows[e.RowIndex].Cells["Accessory"].Value.ToString() + "'");
+                        string sql = "select Accessory.Accessory,cargo.partname from Accessory inner join cargo on Accessory.Accessory=cargo.partno where Accessory.PartNo='" + txtModel.Text + "'";
+                        loaddata(sql);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Bạn chưa có quyền truy cập! Xin hãy liên hệ admin \n Code:ACCESSORY_OPTIONAL");
                 }
 
+
             }
+        }
+
+        private async void chkInspectorLabelDate_CheckedChanged(object sender, EventArgs e)
+        {
+            if (await dAO_Credential.CheckCredential("ACCESSORY_OPTIONAL"))
+            {
+                if (txtModel.Text.Length > 0)
+                {
+                    if (chkInspectorLabelDate.Checked)
+                    {
+                        if (!await dAO_CheckAccessoryOptional.ChangeStatus(txtModel.Text, true))
+                        {
+                            MessageBox.Show("Không thể lưu");
+                        }
+                    }
+                    else
+                    {
+                        if (await dAO_CheckAccessoryOptional.ChangeStatus(txtModel.Text, false))
+                        {
+                            MessageBox.Show("Không thể lưu");
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                MessageBox.Show("Bạn chưa có quyền truy cập! Xin hãy liên hệ admin \n Code:ACCESSORY_OPTIONAL");
+            }
+        }
+
+        private async void RegisterAccessory_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
