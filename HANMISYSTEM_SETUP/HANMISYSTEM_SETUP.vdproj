@@ -762,15 +762,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HANMISYSTEM_SETUP"
-        "ProductCode" = "8:{A3AFFDA6-9540-458B-90ED-C0F8A27EE9F1}"
-        "PackageCode" = "8:{B7C0D351-8C71-488D-9ECC-37A9B9141316}"
+        "ProductCode" = "8:{7C6001DE-99B9-4183-AAF6-7061F900D445}"
+        "PackageCode" = "8:{7BE96FC1-BC69-45C3-815F-070EF0921268}"
         "UpgradeCode" = "8:{DD9A1577-9CC7-4253-BD71-35A1FD739AA7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.3.6"
+        "ProductVersion" = "8:1.4.0"
         "Manufacturer" = "8:Hanmi Flexible Vina HaiPhong"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1298,7 +1298,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_36B480B4817A48DDAAAF7F4C9DFC1658"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\HANMISYSTEM\\obj\\Debug\\HANMISYSTEM.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"

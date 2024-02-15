@@ -118,7 +118,7 @@
             this.groupBox1.Controls.Add(this.txtservername);
             this.groupBox1.Location = new System.Drawing.Point(6, 167);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(303, 158);
+            this.groupBox1.Size = new System.Drawing.Size(303, 148);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Configuration";
@@ -166,7 +166,7 @@
             this.txtuid.Name = "txtuid";
             this.txtuid.Size = new System.Drawing.Size(100, 20);
             this.txtuid.TabIndex = 5;
-            this.txtuid.Text = "hanmi";
+            this.txtuid.Text = "hm";
             // 
             // button1
             // 

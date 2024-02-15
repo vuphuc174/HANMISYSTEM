@@ -129,9 +129,12 @@
     <Compile Include="Common\PackingController.cs" />
     <Compile Include="Common\StringHelper.cs" />
     <Compile Include="Common\UserSession.cs" />
+    <Compile Include="DAO\DAO_Accessory.cs" />
     <Compile Include="DAO\DAO_Accessory_QC.cs" />
     <Compile Include="DAO\DAO_CheckAccessoryOptional.cs" />
     <Compile Include="DAO\DAO_Credential.cs" />
+    <Compile Include="DAO\DAO_Department.cs" />
+    <Compile Include="DAO\DAO_Inspector_MAC_Address.cs" />
     <Compile Include="DAO\DAO_Line.cs" />
     <Compile Include="DAO\DAO_LineUserAssignment.cs" />
     <Compile Include="DAO\DAO_PackingInfo.cs" />
@@ -199,6 +202,12 @@
     </Compile>
     <Compile Include="Views\Accessory\CheckAccessory.Designer.cs">
       <DependentUpon>CheckAccessory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Accessory\LayoutSetting.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Accessory\LayoutSetting.Designer.cs">
+      <DependentUpon>LayoutSetting.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Accessory\RegisterAccessory.cs">
       <SubType>Form</SubType>
@@ -462,6 +471,18 @@
     </Compile>
     <Compile Include="Views\QualityControl\FindAccessory.Designer.cs">
       <DependentUpon>FindAccessory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QualityControl\InspectorLabelHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QualityControl\InspectorLabelHistory.Designer.cs">
+      <DependentUpon>InspectorLabelHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\QualityControl\InspectorLabelWifi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\QualityControl\InspectorLabelWifi.Designer.cs">
+      <DependentUpon>InspectorLabelWifi.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\QualityControl\OQCDashBoard.cs">
       <SubType>Form</SubType>
@@ -989,6 +1010,9 @@
     <EmbeddedResource Include="Views\Accessory\CheckAccessory.resx">
       <DependentUpon>CheckAccessory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Accessory\LayoutSetting.resx">
+      <DependentUpon>LayoutSetting.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Accessory\RegisterAccessory.resx">
       <DependentUpon>RegisterAccessory.cs</DependentUpon>
     </EmbeddedResource>
@@ -1069,6 +1093,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QualityControl\FindAccessory.resx">
       <DependentUpon>FindAccessory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QualityControl\InspectorLabelHistory.resx">
+      <DependentUpon>InspectorLabelHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\QualityControl\InspectorLabelWifi.resx">
+      <DependentUpon>InspectorLabelWifi.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\QualityControl\OQCDashBoard.resx">
       <DependentUpon>OQCDashBoard.cs</DependentUpon>

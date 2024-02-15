@@ -137,7 +137,7 @@ namespace HANMISYSTEM.Views.Accessory
                     }
                     else
                     {
-                        if (await dAO_CheckAccessoryOptional.ChangeStatus(txtModel.Text, false))
+                        if (!await dAO_CheckAccessoryOptional.ChangeStatus(txtModel.Text, false))
                         {
                             MessageBox.Show("Không thể lưu");
                         }

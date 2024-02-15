@@ -35,6 +35,11 @@
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.dgvRecentTransaction = new System.Windows.Forms.DataGridView();
+            this.InvoiceNo_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.From_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.To_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PackageQuantity_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Time_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gradientPanel1 = new HANMISYSTEM.Module.GradientPanel();
             this.panel5 = new System.Windows.Forms.Panel();
             this.cbbWarehouse = new System.Windows.Forms.ComboBox();
@@ -62,11 +67,6 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.InvoiceNo_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.From_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.To_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PackageQuantity_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Time_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -142,6 +142,41 @@
             this.dgvRecentTransaction.RowHeadersVisible = false;
             this.dgvRecentTransaction.Size = new System.Drawing.Size(1194, 429);
             this.dgvRecentTransaction.TabIndex = 0;
+            // 
+            // InvoiceNo_col
+            // 
+            this.InvoiceNo_col.DataPropertyName = "idslipout";
+            this.InvoiceNo_col.HeaderText = "Invoice.No";
+            this.InvoiceNo_col.Name = "InvoiceNo_col";
+            this.InvoiceNo_col.ReadOnly = true;
+            // 
+            // From_col
+            // 
+            this.From_col.DataPropertyName = "idwarehouse";
+            this.From_col.HeaderText = "From";
+            this.From_col.Name = "From_col";
+            this.From_col.ReadOnly = true;
+            // 
+            // To_col
+            // 
+            this.To_col.DataPropertyName = "idcustomer";
+            this.To_col.HeaderText = "To";
+            this.To_col.Name = "To_col";
+            this.To_col.ReadOnly = true;
+            // 
+            // PackageQuantity_col
+            // 
+            this.PackageQuantity_col.DataPropertyName = "quantity";
+            this.PackageQuantity_col.HeaderText = "Package Quantity";
+            this.PackageQuantity_col.Name = "PackageQuantity_col";
+            this.PackageQuantity_col.ReadOnly = true;
+            // 
+            // Time_col
+            // 
+            this.Time_col.DataPropertyName = "dateout";
+            this.Time_col.HeaderText = "Time";
+            this.Time_col.Name = "Time_col";
+            this.Time_col.ReadOnly = true;
             // 
             // gradientPanel1
             // 
@@ -411,6 +446,7 @@
             this.gradientPanel2.Size = new System.Drawing.Size(200, 96);
             this.gradientPanel2.TabIndex = 2;
             this.gradientPanel2.Click += new System.EventHandler(this.gradientPanel2_Click);
+            this.gradientPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.gradientPanel2_Paint);
             // 
             // lbproducts
             // 
@@ -461,41 +497,6 @@
             // 
             this.timer1.Interval = 60000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // InvoiceNo_col
-            // 
-            this.InvoiceNo_col.DataPropertyName = "idslipout";
-            this.InvoiceNo_col.HeaderText = "Invoice.No";
-            this.InvoiceNo_col.Name = "InvoiceNo_col";
-            this.InvoiceNo_col.ReadOnly = true;
-            // 
-            // From_col
-            // 
-            this.From_col.DataPropertyName = "idwarehouse";
-            this.From_col.HeaderText = "From";
-            this.From_col.Name = "From_col";
-            this.From_col.ReadOnly = true;
-            // 
-            // To_col
-            // 
-            this.To_col.DataPropertyName = "idcustomer";
-            this.To_col.HeaderText = "To";
-            this.To_col.Name = "To_col";
-            this.To_col.ReadOnly = true;
-            // 
-            // PackageQuantity_col
-            // 
-            this.PackageQuantity_col.DataPropertyName = "quantity";
-            this.PackageQuantity_col.HeaderText = "Package Quantity";
-            this.PackageQuantity_col.Name = "PackageQuantity_col";
-            this.PackageQuantity_col.ReadOnly = true;
-            // 
-            // Time_col
-            // 
-            this.Time_col.DataPropertyName = "dateout";
-            this.Time_col.HeaderText = "Time";
-            this.Time_col.Name = "Time_col";
-            this.Time_col.ReadOnly = true;
             // 
             // Warehouse_dashboard
             // 

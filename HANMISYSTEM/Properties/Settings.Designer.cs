@@ -176,5 +176,53 @@ namespace HANMISYSTEM.Properties {
                 this["pushnotifytype"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("150")]
+        public string accessory_group_width {
+            get {
+                return ((string)(this["accessory_group_width"]));
+            }
+            set {
+                this["accessory_group_width"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public string accessory_group_height {
+            get {
+                return ((string)(this["accessory_group_height"]));
+            }
+            set {
+                this["accessory_group_height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
+        public string accessory_label_height {
+            get {
+                return ((string)(this["accessory_label_height"]));
+            }
+            set {
+                this["accessory_label_height"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("60")]
+        public string accessory_image_height {
+            get {
+                return ((string)(this["accessory_image_height"]));
+            }
+            set {
+                this["accessory_image_height"] = value;
+            }
+        }
     }
 }

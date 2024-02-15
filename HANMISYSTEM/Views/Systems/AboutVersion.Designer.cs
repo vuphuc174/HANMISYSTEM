@@ -41,7 +41,7 @@
             // lbheader
             // 
             this.lbheader.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbheader.Location = new System.Drawing.Point(45, 32);
+            this.lbheader.Location = new System.Drawing.Point(117, 36);
             this.lbheader.Name = "lbheader";
             this.lbheader.Size = new System.Drawing.Size(285, 67);
             this.lbheader.TabIndex = 11;
@@ -51,7 +51,7 @@
             // lbnew
             // 
             this.lbnew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbnew.Location = new System.Drawing.Point(200, 169);
+            this.lbnew.Location = new System.Drawing.Point(272, 173);
             this.lbnew.Name = "lbnew";
             this.lbnew.Size = new System.Drawing.Size(66, 20);
             this.lbnew.TabIndex = 10;
@@ -61,7 +61,7 @@
             // lbcurrent
             // 
             this.lbcurrent.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbcurrent.Location = new System.Drawing.Point(200, 125);
+            this.lbcurrent.Location = new System.Drawing.Point(272, 129);
             this.lbcurrent.Name = "lbcurrent";
             this.lbcurrent.Size = new System.Drawing.Size(66, 20);
             this.lbcurrent.TabIndex = 9;
@@ -71,7 +71,7 @@
             // labelnew
             // 
             this.labelnew.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelnew.Location = new System.Drawing.Point(46, 167);
+            this.labelnew.Location = new System.Drawing.Point(118, 171);
             this.labelnew.Name = "labelnew";
             this.labelnew.Size = new System.Drawing.Size(149, 20);
             this.labelnew.TabIndex = 8;
@@ -80,7 +80,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(46, 125);
+            this.label1.Location = new System.Drawing.Point(118, 129);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(149, 20);
             this.label1.TabIndex = 7;
@@ -92,7 +92,7 @@
             this.btnUpdate.FlatAppearance.BorderSize = 0;
             this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.btnUpdate.Location = new System.Drawing.Point(220, 234);
+            this.btnUpdate.Location = new System.Drawing.Point(292, 238);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 38);
             this.btnUpdate.TabIndex = 12;
@@ -107,7 +107,7 @@
             this.btnCheckUpdate.FlatAppearance.BorderSize = 0;
             this.btnCheckUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCheckUpdate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(166)))), ((int)(((byte)(166)))), ((int)(((byte)(166)))));
-            this.btnCheckUpdate.Location = new System.Drawing.Point(49, 234);
+            this.btnCheckUpdate.Location = new System.Drawing.Point(121, 238);
             this.btnCheckUpdate.Name = "btnCheckUpdate";
             this.btnCheckUpdate.Size = new System.Drawing.Size(130, 38);
             this.btnCheckUpdate.TabIndex = 0;
@@ -120,7 +120,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(436, 299);
+            this.ClientSize = new System.Drawing.Size(529, 333);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.lbheader);
             this.Controls.Add(this.lbnew);

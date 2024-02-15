@@ -13,7 +13,8 @@ namespace HANMISYSTEM.DAO
         DAO_Product dAO_Product = new DAO_Product();
         public async Task<bool> GetStatus(string pn)
         {
-            DataTable dataTable = await connect.ReadDataAsync("select InspectLabelDate from AccessoryOptional where PartNo ='"+pn+"'");
+            string query = "select InspectLabelDate from AccessoryOptional where PartNo ='" + pn + "'";
+            DataTable dataTable = await connect.ReadDataAsync(query);
             if(dataTable.Rows.Count > 0)
             {
                 return Convert.ToBoolean(dataTable.Rows[0]["InspectLabelDate"].ToString());

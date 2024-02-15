@@ -106,5 +106,10 @@ namespace HANMISYSTEM.Views.Warehouse
         {
             await LoadTransaction();
         }
+
+        private void gradientPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

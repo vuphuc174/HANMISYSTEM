@@ -1,4 +1,5 @@
 ﻿using HANMISYSTEM.Common;
+using HANMISYSTEM.DAO;
 using HANMISYSTEM.Module;
 using HANMISYSTEM.Views.MsgBox;
 using HANMISYSTEM.Views.PartialView;
@@ -25,6 +26,10 @@ namespace HANMISYSTEM.Views.Accessory
             InitializeComponent();
         }
         private static CheckAccessory instance;
+        private bool inspectorLabelQSS;
+        DAO_CheckAccessoryOptional dAO_CheckAccessoryOptional = new DAO_CheckAccessoryOptional();
+        DAO_SystemLog dAO_SystemLog = new DAO_SystemLog();
+        DAO_Accessory dAO_Accessory = new DAO_Accessory();
         public static CheckAccessory Instance
         {
             get
@@ -139,6 +144,103 @@ namespace HANMISYSTEM.Views.Accessory
                 Thread.Sleep(200);
             }
         }
+        private async void LoadAccessory(string id)
+        {
+            pnMaterials.Controls.Clear();
+            lbAccessory.Clear();
+            lbJudge.Clear();
+            try
+            {
+                DataTable dtAccessorys = await dAO_Accessory.GetAccessoryByPartNo(id);
+                string ag_width = string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.accessory_group_width) ? "150" : HANMISYSTEM.Properties.Settings.Default.accessory_group_width;
+                string ag_height = string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.accessory_group_height) ? "200" : HANMISYSTEM.Properties.Settings.Default.accessory_group_height;
+                string al_height = string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.accessory_label_height) ? "30" : HANMISYSTEM.Properties.Settings.Default.accessory_label_height;
+                string ai_height = string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.accessory_image_height) ? "60" : HANMISYSTEM.Properties.Settings.Default.accessory_image_height;
+                if (dtAccessorys.Rows.Count > 0)
+                {
+                    if (await dAO_CheckAccessoryOptional.GetStatus(txtmodel.Text))
+                    {
+                        dtAccessorys.Rows.Add(DateTime.Now.ToString("yyyyMMdd"));
+                    }
+                    for (int i = 0; i < dtAccessorys.Rows.Count; i++)
+                    {
+                        GroupBox groupBox = new GroupBox();
+                        groupBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+                        groupBox.Text = "Accessory " + (i + 1).ToString();
+                        groupBox.Size = new Size(Convert.ToInt32(ag_width), Convert.ToInt32(ag_height));
+
+                        //LABEL IMAGE
+                        if (ai_height != "0")
+                        {
+
+                            Panel pnPic = new Panel();
+                            pnPic.Size = new Size(Convert.ToInt32(ag_width), Convert.ToInt32(ai_height));
+                            pnPic.BorderStyle = BorderStyle.FixedSingle;
+
+                            PictureBox pictureBox = new PictureBox();
+                            try
+                            {
+                                pictureBox.Image = connect.GetImage(dtAccessorys.Rows[i]["Accessory"].ToString());
+                            }
+                            catch
+                            {
+
+                            }
+                            pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+                            pictureBox.Dock = DockStyle.Fill;
+                            pnPic.Controls.Add(pictureBox);
+
+                            groupBox.Controls.Add(pnPic);
+                            pnPic.Dock = DockStyle.Bottom;
+                        }
+
+                        //LABEL ACCESSORY
+                        Panel pnCode = new Panel();
+                        pnCode.Size = new Size(Convert.ToInt32(ag_width), Convert.ToInt32(al_height));
+                        pnCode.BackColor = Color.FromArgb(64, 64, 64);
+                        Label lblCode = new Label();
+                        lblCode.Text = dtAccessorys.Rows[i]["Accessory"].ToString();
+                        //lblCode.BackColor = Color.Black;
+                        lblCode.ForeColor = Color.White;
+                        lblCode.TextAlign = ContentAlignment.MiddleCenter;
+                        lblCode.AutoSize = false;
+                        lbAccessory.Add(lblCode);
+                        lblCode.Dock = Dock = DockStyle.Fill;
+                        pnCode.Dock = DockStyle.Bottom;
+                        pnCode.Controls.Add(lblCode);
+
+
+
+                        //LABEL JUDGE
+                        Panel pnJudge = new Panel();
+                        groupBox.Controls.Add(pnJudge);
+                        pnJudge.Dock = DockStyle.Fill;
+                        pnJudge.Height = Convert.ToInt32(ag_height) - Convert.ToInt32(al_height) - Convert.ToInt32(ai_height);
+                        Label lblJudge = new Label
+                        {
+                            AutoSize = false,
+                            Dock = DockStyle.Fill,
+                            BackColor = Color.Black,
+                            TextAlign = ContentAlignment.MiddleCenter,
+                            Font = new Font("Arial", 30, FontStyle.Bold)
+                        };
+                        lbJudge.Add(lblJudge);
+                        pnJudge.Controls.Add(lblJudge);
+                        groupBox.Controls.Add(pnCode);
+                        pnMaterials.Controls.Add(groupBox);
+                    }
+
+                }
+                ClearJudge();
+            }
+            catch(Exception ex)
+            {
+                await dAO_SystemLog.Add("error", "Cannot load accessory:" + ex.Message);
+                MessageBox.Show(ex.Message);
+            }
+            
+
+        }
         private void CheckAccessory_Load(object sender, EventArgs e)
         {
             //set push notify type 
@@ -174,46 +276,7 @@ namespace HANMISYSTEM.Views.Accessory
                     MessageBox.Show("Connection faile", ex.ToString());
                 }
             }
-            #region CREATE_LIST
-            accessoryGroup.Add(gb1);
-            accessoryGroup.Add(gb2);
-            accessoryGroup.Add(gb3);
-            accessoryGroup.Add(gb4);
-            accessoryGroup.Add(gb5);
-            accessoryGroup.Add(gb6);
-            accessoryGroup.Add(gb7);
-            accessoryGroup.Add(gb8);
-            accessoryGroup.Add(gb9);
-            accessoryGroup.Add(gb10);
-            accessoryGroup.Add(gb11);
-            accessoryGroup.Add(gb12);
-
-            lbJudge.Add(lbJudge1);
-            lbJudge.Add(lbJudge2);
-            lbJudge.Add(lbJudge3);
-            lbJudge.Add(lbJudge4);
-            lbJudge.Add(lbJudge5);
-            lbJudge.Add(lbJudge6);
-            lbJudge.Add(lbJudge7);
-            lbJudge.Add(lbJudge8);
-            lbJudge.Add(lbJudge9);
-            lbJudge.Add(lbJudge10);
-            lbJudge.Add(lbJudge11);
-            lbJudge.Add(lbJudge12);
-
-            lbAccessory.Add(lbAccessory1);
-            lbAccessory.Add(lbAccessory2);
-            lbAccessory.Add(lbAccessory3);
-            lbAccessory.Add(lbAccessory4);
-            lbAccessory.Add(lbAccessory5);
-            lbAccessory.Add(lbAccessory6);
-            lbAccessory.Add(lbAccessory7);
-            lbAccessory.Add(lbAccessory8);
-            lbAccessory.Add(lbAccessory9);
-            lbAccessory.Add(lbAccessory10);
-            lbAccessory.Add(lbAccessory11);
-            lbAccessory.Add(lbAccessory12);
-            #endregion
+       
             if (!Directory.Exists(path + "\\json"))
             {
                 Directory.CreateDirectory(path + "\\json");
@@ -509,16 +572,9 @@ namespace HANMISYSTEM.Views.Accessory
         }
         private bool CheckJudgeExisted()
         {
-            List<Label> listJudge = new List<Label>();
-            listJudge.Add(lbJudge1);
-            listJudge.Add(lbJudge2);
-            listJudge.Add(lbJudge3);
-            listJudge.Add(lbJudge4);
-            listJudge.Add(lbJudge5);
-
-            for (int i = 0; i < listJudge.Count; i++)
+            for (int i = 0; i < lbJudge.Count; i++)
             {
-                if (listJudge[i].Text == "OK")
+                if (lbJudge[i].Text == "OK")
                 {
                     return true;
                 }
@@ -546,13 +602,23 @@ namespace HANMISYSTEM.Views.Accessory
             {
                 if (lbAccessory[i].Text != "")
                 {
-                    if (lbAccessory[i].Text == accessory && lbJudge[i].Text != "OK")
-                    //if (accessory == lbAccessory[i].Text)
+                    if(inspectorLabelQSS && accessory.Contains(DateTime.Now.ToString("yyyyMMdd")) && accessory.Length==12 && accessory.Contains(lbAccessory[i].Text) && lbJudge[i].Text != "OK")
                     {
                         lbJudge[i].Text = "OK";
                         lbJudge[i].ForeColor = Color.Lime;
                         return true;
                     }
+                    else
+                    {
+                        if (lbAccessory[i].Text == accessory && lbJudge[i].Text != "OK")
+                        //if (accessory == lbAccessory[i].Text)
+                        {
+                            lbJudge[i].Text = "OK";
+                            lbJudge[i].ForeColor = Color.Lime;
+                            return true;
+                        }
+                    }
+                    
                 }
             }
             return false;
@@ -561,18 +627,10 @@ namespace HANMISYSTEM.Views.Accessory
         {
 
             Task.Delay(500).Wait();
-            ThreadHelperClass.SetText(this, lbJudge1, "");
-            ThreadHelperClass.SetText(this, lbJudge2, "");
-            ThreadHelperClass.SetText(this, lbJudge3, "");
-            ThreadHelperClass.SetText(this, lbJudge4, "");
-            ThreadHelperClass.SetText(this, lbJudge5, "");
-            ThreadHelperClass.SetText(this, lbJudge6, "");
-            ThreadHelperClass.SetText(this, lbJudge7, "");
-            ThreadHelperClass.SetText(this, lbJudge8, "");
-            ThreadHelperClass.SetText(this, lbJudge9, "");
-            ThreadHelperClass.SetText(this, lbJudge10, "");
-            ThreadHelperClass.SetText(this, lbJudge11, "");
-            ThreadHelperClass.SetText(this, lbJudge12, "");
+            foreach (Label label in lbJudge)
+            {
+                ThreadHelperClass.SetText(this, label, "");
+            }
             ThreadHelperClass.SetText(this, lbFinalJudge, "");
         }
 
@@ -644,22 +702,22 @@ namespace HANMISYSTEM.Views.Accessory
 
             }
         }
-        private void LoadAccessory(string id)
-        {
-            HideAll();
-            DataTable dtAccessory = connect.readdata("select Accessory from Accessory where PartNo='" + id + "'");
+        //private void LoadAccessory(string id)
+        //{
+        //    HideAll();
+        //    DataTable dtAccessory = connect.readdata("select Accessory from Accessory where PartNo='" + id + "'");
 
 
-            if (dtAccessory.Rows.Count > 0)
-            {
-                for (int i = 0; i < dtAccessory.Rows.Count; i++)
-                {
-                    accessoryGroup[i].Visible = true;
-                    lbAccessory[i].Text = dtAccessory.Rows[i]["Accessory"].ToString();
-                }
-            }
-        }
-        private void btnselectWO_Click(object sender, EventArgs e)
+        //    if (dtAccessory.Rows.Count > 0)
+        //    {
+        //        for (int i = 0; i < dtAccessory.Rows.Count; i++)
+        //        {
+        //            accessoryGroup[i].Visible = true;
+        //            lbAccessory[i].Text = dtAccessory.Rows[i]["Accessory"].ToString();
+        //        }
+        //    }
+        //}
+        private async void btnselectWO_Click(object sender, EventArgs e)
         {
             using (SelectWorkOrder frm = new SelectWorkOrder())
             {
@@ -673,6 +731,7 @@ namespace HANMISYSTEM.Views.Accessory
                 fr.ShowDialog();
                 txtmodel.Text = fr.sendDataModel();
                 LoadAccessory(fr.sendDataModel());
+                inspectorLabelQSS = await dAO_CheckAccessoryOptional.GetStatus(fr.sendDataModel());
                 DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + lineID + "' and productiondate=convert(date,getdate())");
                 if (dt1.Rows.Count > 0)
                 {
@@ -758,6 +817,16 @@ namespace HANMISYSTEM.Views.Accessory
             Task.Delay(500).Wait();
             checkStatus = true;
             timer1.Stop();
+        }
+
+        private void btnSettingLayout_Click(object sender, EventArgs e)
+        {
+            using (LayoutSetting frm = new LayoutSetting())
+            {
+                frm.ShowInTaskbar = false;
+                frm.StartPosition = FormStartPosition.CenterParent;
+                frm.ShowDialog();
+            }
         }
     }
 }

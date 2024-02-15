@@ -50,7 +50,7 @@ namespace HANMISYSTEM
 
         }
 
-
+        DAO_Department dAO_Department = new DAO_Department();
         Dbconnect dbconnect = new Dbconnect();
         async void TimeUpdater()
         {
@@ -578,6 +578,8 @@ namespace HANMISYSTEM
             MyButton btnPacking = new MyButton();
             MyButton btnWorkOrderResult = new MyButton();
             MyButton btnCheckAccessory = new MyButton();
+            MyButton btnInspectLabelWifi = new MyButton();
+            MyButton btnInspectLabelWifiHistory = new MyButton();
 
 
             //styles
@@ -634,6 +636,22 @@ namespace HANMISYSTEM
             btnCheckAccessory.Top = 180;
             panel.Controls.Add(btnCheckAccessory);
 
+            //Check Acessory
+            btnInspectLabelWifi.Text = "Kiểm tra tem WIFI";
+            btnInspectLabelWifi.Font = fontContent;
+            btnInspectLabelWifi.Size = new System.Drawing.Size(expanderWidth - 10, 30);
+            btnInspectLabelWifi.Click += new EventHandler(btnInspectLabelWifi_Click);
+            btnInspectLabelWifi.Top = 210;
+            panel.Controls.Add(btnInspectLabelWifi);
+
+            //Check Acessory
+            btnInspectLabelWifiHistory.Text = "Lịch sử kiểm tra tem WIFI";
+            btnInspectLabelWifiHistory.Font = fontContent;
+            btnInspectLabelWifiHistory.Size = new System.Drawing.Size(expanderWidth - 10, 30);
+            btnInspectLabelWifiHistory.Click += new EventHandler(btnInspectLabelWifiHistory_Click);
+            btnInspectLabelWifiHistory.Top = 240;
+            panel.Controls.Add(btnInspectLabelWifiHistory);
+
             panel.Size = new System.Drawing.Size(expanderWidth - 10, 300);
             panel.Left = 10;
             expander.Content = panel;
@@ -684,6 +702,7 @@ namespace HANMISYSTEM
         private void btnOQC_Click(object sender, EventArgs e)
         {
             OQCDashBoard frm = new OQCDashBoard();
+            frm.MainFormRef = this;
             TabCreating(tabcontrol1, "OQC Dashboard", frm);
         }
         private void btnUserBasicInfo_Click(object sender, EventArgs e)
@@ -703,6 +722,30 @@ namespace HANMISYSTEM
                 MessageBox.Show("Bạn không có quyền truy cập!");
             }
 
+        }
+        private  void btnInspectLabelWifiHistory_Click(object sender, EventArgs e)
+        {
+            InspectorLabelHistory frm = new InspectorLabelHistory();
+            TabCreating(tabcontrol1, "Inspect Label Wifi History", frm);
+
+        }
+        private async void btnInspectLabelWifi_Click(object sender,EventArgs e)
+        {
+            if(await dAO_Credential.CheckCredential("INSPECT_LABEL_PROD"))
+            {
+                InspectorLabelWifi frm = InspectorLabelWifi.Instance;
+
+                frm.WindowState = FormWindowState.Maximized;
+                frm.departmentID = await dAO_Department.GetIDByCode("Assy");
+                frm.Show();
+                //    InspectorLabelWifi frm = new InspectorLabelWifi();
+                //    frm.departmentID= await dAO_Department.GetIDByCode("Assy");
+                //    TabCreating(tabcontrol1,"Inspect Label Wifi",frm);
+            }
+            else
+            {
+                MessageBox.Show("Bạn không có quyền truy cập");
+            }
         }
         private void btnLabelAccessory_Click(object sender, EventArgs e)
         {
