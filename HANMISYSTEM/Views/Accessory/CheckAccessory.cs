@@ -439,6 +439,7 @@ namespace HANMISYSTEM.Views.Accessory
 
         }
         bool checkStatus = true;
+        //
         private async void DoCheckAccessory(string data)
         {
             if (Judge(data))
