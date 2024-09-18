@@ -14,6 +14,7 @@ namespace HANMISYSTEM.Common
         public static string UserName { get; set; }
         public static string UserGroupID { get; set; }
         public static string Lang { get; set; }
+        public static string PartNo_Packing { get; set; }   
         public static List<string> Credentials { get; set; }  
     }
 }

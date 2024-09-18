@@ -25,7 +25,7 @@ namespace HANMISYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("hanmi")]
+        [global::System.Configuration.DefaultSettingValueAttribute("hm")]
         public string uid {
             get {
                 return ((string)(this["uid"]));
@@ -85,7 +85,7 @@ namespace HANMISYSTEM.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("hamisrv")]
+        [global::System.Configuration.DefaultSettingValueAttribute("192.168.1.252,1434")]
         public string servername {
             get {
                 return ((string)(this["servername"]));

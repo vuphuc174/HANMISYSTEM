@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="uid" Type="System.String" Scope="User">
-      <Value Profile="(Default)">hanmi</Value>
+      <Value Profile="(Default)">hm</Value>
     </Setting>
     <Setting Name="pwd" Type="System.String" Scope="User">
       <Value Profile="(Default)">Hanmi@123</Value>
@@ -18,7 +18,7 @@
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="servername" Type="System.String" Scope="User">
-      <Value Profile="(Default)">hamisrv</Value>
+      <Value Profile="(Default)">192.168.1.252,1434</Value>
     </Setting>
     <Setting Name="password" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

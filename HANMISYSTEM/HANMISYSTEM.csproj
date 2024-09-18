@@ -139,6 +139,7 @@
     <Compile Include="DAO\DAO_LineUserAssignment.cs" />
     <Compile Include="DAO\DAO_PackingInfo.cs" />
     <Compile Include="DAO\DAO_Product.cs" />
+    <Compile Include="DAO\DAO_Production.cs" />
     <Compile Include="DAO\DAO_ProductionHistory.cs" />
     <Compile Include="DAO\DAO_ProductionPlan.cs" />
     <Compile Include="DAO\DAO_Role.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="DAO\DAO_UserGroup.cs" />
     <Compile Include="DAO\DAO_UserGroupUser.cs" />
     <Compile Include="DAO\DAO_Warehouse.cs" />
+    <Compile Include="Module\SubDbConnect.cs" />
     <Compile Include="Themes\Dark_Theme.cs" />
     <Compile Include="Themes\Theme.cs" />
     <Compile Include="Common\ThreadHelperClass.cs" />
@@ -410,6 +412,12 @@
     <Compile Include="Views\Line\LineSearch.Designer.cs">
       <DependentUpon>LineSearch.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Line\Mapping.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Line\Mapping.Designer.cs">
+      <DependentUpon>Mapping.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Location_Mgt.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -429,6 +437,12 @@
     </Compile>
     <Compile Include="Views\MsgBox\CustomMessageBox.Designer.cs">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PartialView\GetPlan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PartialView\GetPlan.Designer.cs">
+      <DependentUpon>GetPlan.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Producs\AddMaterial.cs">
       <SubType>Form</SubType>
@@ -1070,8 +1084,14 @@
     <EmbeddedResource Include="Views\Line\LineSearch.resx">
       <DependentUpon>LineSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Line\Mapping.resx">
+      <DependentUpon>Mapping.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\MsgBox\CustomMessageBox.resx">
       <DependentUpon>CustomMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PartialView\GetPlan.resx">
+      <DependentUpon>GetPlan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Producs\AddMaterial.resx">
       <DependentUpon>AddMaterial.cs</DependentUpon>
@@ -1745,6 +1765,7 @@
     </PublishFile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Common\localStorage\" />
     <Folder Include="Report\" />
     <Folder Include="Views\Drawing\" />
   </ItemGroup>

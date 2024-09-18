@@ -25,6 +25,7 @@ namespace HANMISYSTEM.Views.Warehouse
         DAO_SlipoutInfo dAO_SlipoutInfo = new DAO_SlipoutInfo();
         DAO_Stock dAO_Stock = new DAO_Stock();
         Dbconnect connect = new Dbconnect();
+
         private async void txtScan_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13 && !string.IsNullOrEmpty(txtScan.Text))

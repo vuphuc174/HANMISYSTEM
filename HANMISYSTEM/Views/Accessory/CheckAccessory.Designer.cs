@@ -59,6 +59,11 @@
             this.btnselectWO = new System.Windows.Forms.Button();
             this.txtmodel = new System.Windows.Forms.TextBox();
             this.panel20 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.txtPlanID = new System.Windows.Forms.TextBox();
+            this.txtWoCode = new System.Windows.Forms.TextBox();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnSettingLayout = new System.Windows.Forms.PictureBox();
             this.panel21 = new System.Windows.Forms.Panel();
@@ -87,6 +92,7 @@
             this.panel12.SuspendLayout();
             this.panel19.SuspendLayout();
             this.panel20.SuspendLayout();
+            this.flowLayoutPanel1.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnSettingLayout)).BeginInit();
             this.panel21.SuspendLayout();
@@ -407,6 +413,9 @@
             // 
             // panel20
             // 
+            this.panel20.Controls.Add(this.label9);
+            this.panel20.Controls.Add(this.label7);
+            this.panel20.Controls.Add(this.flowLayoutPanel1);
             this.panel20.Controls.Add(this.panel9);
             this.panel20.Controls.Add(this.panel19);
             this.panel20.Controls.Add(this.btnon);
@@ -421,6 +430,51 @@
             this.panel20.Name = "panel20";
             this.panel20.Size = new System.Drawing.Size(1467, 120);
             this.panel20.TabIndex = 18;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(584, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(57, 13);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "WO Code:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(406, 71);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(42, 13);
+            this.label7.TabIndex = 11;
+            this.label7.Text = "PlanID:";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Controls.Add(this.txtPlanID);
+            this.flowLayoutPanel1.Controls.Add(this.txtWoCode);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(402, 87);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(424, 33);
+            this.flowLayoutPanel1.TabIndex = 10;
+            // 
+            // txtPlanID
+            // 
+            this.txtPlanID.Enabled = false;
+            this.txtPlanID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtPlanID.Location = new System.Drawing.Point(3, 3);
+            this.txtPlanID.Name = "txtPlanID";
+            this.txtPlanID.Size = new System.Drawing.Size(167, 26);
+            this.txtPlanID.TabIndex = 0;
+            // 
+            // txtWoCode
+            // 
+            this.txtWoCode.Enabled = false;
+            this.txtWoCode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWoCode.Location = new System.Drawing.Point(176, 3);
+            this.txtWoCode.Name = "txtWoCode";
+            this.txtWoCode.Size = new System.Drawing.Size(231, 26);
+            this.txtWoCode.TabIndex = 1;
             // 
             // panel9
             // 
@@ -646,6 +700,8 @@
             this.panel19.PerformLayout();
             this.panel20.ResumeLayout(false);
             this.panel20.PerformLayout();
+            this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.btnSettingLayout)).EndInit();
             this.panel21.ResumeLayout(false);
@@ -710,5 +766,10 @@
         private System.Windows.Forms.FlowLayoutPanel pnMaterials;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.PictureBox btnSettingLayout;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.TextBox txtPlanID;
+        private System.Windows.Forms.TextBox txtWoCode;
     }
 }

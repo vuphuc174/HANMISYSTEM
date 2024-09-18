@@ -30,6 +30,7 @@ namespace HANMISYSTEM.Views.Accessory
         DAO_CheckAccessoryOptional dAO_CheckAccessoryOptional = new DAO_CheckAccessoryOptional();
         DAO_SystemLog dAO_SystemLog = new DAO_SystemLog();
         DAO_Accessory dAO_Accessory = new DAO_Accessory();
+        DAO_Production dAO_Production = new DAO_Production();
         public static CheckAccessory Instance
         {
             get
@@ -40,6 +41,7 @@ namespace HANMISYSTEM.Views.Accessory
                 return instance;
             }
         }
+        DAO_Line dAO_Line = new DAO_Line();
         Dbconnect connect = new Dbconnect();
         const string warehouse = "WH001";
         string path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -50,7 +52,16 @@ namespace HANMISYSTEM.Views.Accessory
         Thread t;
         bool varcheck;
         string lineID;
+        string mapping_lineID;
         public string pushnotifytype;
+        double plan;
+        public class Mapping_Line
+        {
+            public string factoryCode;
+            public string factoryID;
+            public string machineCode;
+            public string machineID;
+        }
         private void btnon_Click(object sender, EventArgs e)
         {
             if (Convert.ToInt32(txtPlan.Text) <= 0)
@@ -115,7 +126,19 @@ namespace HANMISYSTEM.Views.Accessory
             }
 
         }
-        private void doJob()
+        void UpdateDB(string partno,string lineID,string packageID)
+        {
+            //quanli packing
+            if (connect.countdata($"select count(idpack) from packinginfo where idpack='{packageID}'") == 0)
+            {
+                connect.exedata($"exec spInsertPackingInfo @idpack='{packageID}',@partno='{partno}',@idlocation='{lineID}',@idwarehouse='WH001'");
+            }
+            else
+            {
+                connect.exedata($"exec spUpdatePackingInfo_Increase @idpack='{packageID}'");
+            }
+        }
+        private async void doJob()
         {
             while (packingdatas.Count > 0)
             {
@@ -134,7 +157,12 @@ namespace HANMISYSTEM.Views.Accessory
                     //DataTable qtypack = connect.readdata("select quantity from packinginfo where idpack='" + txtPackID.Text + "'");
                     //lbCurrentQtyPack.Text = qtypack.Rows[0]["quantity"].ToString();
                     //them lich su
+                    //bravo import
+                    //await dAO_Production.UpdateProductionResult(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, "1", txtboxno.Text, txtPlanID.Text);
+                    //bravo import
+                    await dAO_Production.UpdateProductionResult(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, "1", lbPackageID.Text, txtPlanID.Text, txtWoCode.Text);
                     connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + packingdatas[i].PartNo + "',getdate(),1,'" + packingdatas[i].LocationID + "','" + packingdatas[i].PackageID + "')");
+                    
                     //DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + packingdatas[i].PartNo + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
                     //lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
                     packingdatas.RemoveAt(0);
@@ -144,7 +172,7 @@ namespace HANMISYSTEM.Views.Accessory
                 Thread.Sleep(200);
             }
         }
-        private async void LoadAccessory(string id)
+        private async Task LoadAccessory(string id)
         {
             pnMaterials.Controls.Clear();
             lbAccessory.Clear();
@@ -241,7 +269,8 @@ namespace HANMISYSTEM.Views.Accessory
             
 
         }
-        private void CheckAccessory_Load(object sender, EventArgs e)
+        Mapping_Line _mapping_Line = new Mapping_Line();
+        private async void CheckAccessory_Load(object sender, EventArgs e)
         {
             //set push notify type 
             if (!string.IsNullOrEmpty(HANMISYSTEM.Properties.Settings.Default.pushnotifytype))
@@ -276,7 +305,22 @@ namespace HANMISYSTEM.Views.Accessory
                     MessageBox.Show("Connection faile", ex.ToString());
                 }
             }
-       
+            mapping_lineID = await dAO_Line.GetBravoLineIDByLineID(lineID);
+            DataTable dtMappingLine = await dAO_Line.GetBravoLineDetails(mapping_lineID);
+            try
+            {
+                if (dtMappingLine.Rows.Count > 0)
+                {
+                    _mapping_Line.factoryCode = dtMappingLine.Rows[0]["FactoryCode"].ToString();
+                    _mapping_Line.factoryID = dtMappingLine.Rows[0]["FactoryID"].ToString();
+                    _mapping_Line.machineCode = dtMappingLine.Rows[0]["Code"].ToString();
+                    _mapping_Line.machineID = dtMappingLine.Rows[0]["Id"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi nạp dữ liệu mapping line(bravo): " + ex.Message);
+            }
             if (!Directory.Exists(path + "\\json"))
             {
                 Directory.CreateDirectory(path + "\\json");
@@ -719,35 +763,54 @@ namespace HANMISYSTEM.Views.Accessory
         //}
         private async void btnselectWO_Click(object sender, EventArgs e)
         {
-            using (SelectWorkOrder frm = new SelectWorkOrder())
+            //using (SelectWorkOrder frm = new SelectWorkOrder())
+            //{
+            //    DataTable dtLocation = connect.readdata("select namelocation1 from location where idlocation ='" + lineID + "'");
+            //    SelectWorkOrder fr = new SelectWorkOrder();
+            //    fr.ShowInTaskbar = false;
+            //    fr.lineID = lineID;
+            //    fr.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
+            //    fr.ShowInTaskbar = false;
+            //    fr.dataGridView1.AutoGenerateColumns = false;
+            //    fr.ShowDialog();
+            //    txtmodel.Text = fr.sendDataModel();
+            //    await LoadAccessory(fr.sendDataModel());
+            //    inspectorLabelQSS = await dAO_CheckAccessoryOptional.GetStatus(fr.sendDataModel());
+            //    DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + lineID + "' and productiondate=convert(date,getdate())");
+            //    if (dt1.Rows.Count > 0)
+            //    {
+
+            //        txtPlan.Text = dt1.Rows[0]["productionplan"].ToString();
+            //    }
+            //    else
+            //    {
+            //        txtPlan.Text = "0";
+            //    }
+            //    lbPackageID.Text = "";
+            //    lbCurrentQtyPack.Text = "0";
+            //    lbQuantity.Text = GetCurrentQuantity_Day(txtmodel.Text.ToUpper());
+
+            //}
+            using (GetPlan frm = new GetPlan())
             {
                 DataTable dtLocation = connect.readdata("select namelocation1 from location where idlocation ='" + lineID + "'");
-                SelectWorkOrder fr = new SelectWorkOrder();
-                fr.ShowInTaskbar = false;
-                fr.lineID = lineID;
-                fr.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
-                fr.ShowInTaskbar = false;
-                fr.dataGridView1.AutoGenerateColumns = false;
-                fr.ShowDialog();
-                txtmodel.Text = fr.sendDataModel();
-                LoadAccessory(fr.sendDataModel());
-                inspectorLabelQSS = await dAO_CheckAccessoryOptional.GetStatus(fr.sendDataModel());
-                DataTable dt1 = connect.readdata("select productionplan from productionplan where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + lineID + "' and productiondate=convert(date,getdate())");
-                if (dt1.Rows.Count > 0)
-                {
-
-                    txtPlan.Text = dt1.Rows[0]["productionplan"].ToString();
-                }
-                else
-                {
-                    txtPlan.Text = "0";
-                }
+                frm.lbline.Text = dtLocation.Rows[0]["namelocation1"].ToString();
+                frm.dataGridView1.AutoGenerateColumns = false;
+                frm.lineID = lineID;
+                frm.ShowInTaskbar = false;
+                frm.ShowDialog();
+                txtWoCode.Text = frm.SendData();
+                txtmodel.Text = frm.sendDataModel();
+                await LoadAccessory(frm.sendDataModel());
+                inspectorLabelQSS = await dAO_CheckAccessoryOptional.GetStatus(frm.sendDataModel());
+                UserSession.PartNo_Packing = frm.sendDataModel();
+                txtPlanID.Text = frm.SendPlanID();
+                plan = Convert.ToDouble(frm.SendPlan());
+                txtPlan.Text = plan.ToString();
                 lbPackageID.Text = "";
                 lbCurrentQtyPack.Text = "0";
-                lbQuantity.Text = GetCurrentQuantity_Day(txtmodel.Text.ToUpper());
-
+                lbQuantity.Text = GetCurrentQuantity_Day(txtmodel.Text.ToUpper());;
             }
-
         }
         private string GetCurrentQuantity_Day(string code)
         {

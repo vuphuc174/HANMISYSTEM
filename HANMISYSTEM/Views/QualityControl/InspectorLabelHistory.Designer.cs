@@ -31,12 +31,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MACAddress_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Judge_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.InspectTime_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Remark_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.chkTime = new System.Windows.Forms.CheckBox();
             this.toDate = new System.Windows.Forms.DateTimePicker();
             this.fromDate = new System.Windows.Forms.DateTimePicker();
             this.panel3 = new System.Windows.Forms.Panel();
@@ -56,7 +52,12 @@
             this.lbOKCount = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.lbNGCount = new System.Windows.Forms.Label();
-            this.chkTime = new System.Windows.Forms.CheckBox();
+            this.ID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MACAddress_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PartNo_Col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Judge_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InspectTime_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Remark_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tableLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -102,6 +103,7 @@
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ID_col,
             this.MACAddress_col,
+            this.PartNo_Col,
             this.Judge_col,
             this.InspectTime_col,
             this.Remark_col});
@@ -111,44 +113,6 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(1233, 462);
             this.dataGridView1.TabIndex = 1;
-            // 
-            // ID_col
-            // 
-            this.ID_col.DataPropertyName = "id";
-            this.ID_col.FillWeight = 30F;
-            this.ID_col.HeaderText = "No";
-            this.ID_col.Name = "ID_col";
-            this.ID_col.ReadOnly = true;
-            // 
-            // MACAddress_col
-            // 
-            this.MACAddress_col.DataPropertyName = "MACAddress";
-            this.MACAddress_col.FillWeight = 40F;
-            this.MACAddress_col.HeaderText = "MAC Address";
-            this.MACAddress_col.Name = "MACAddress_col";
-            this.MACAddress_col.ReadOnly = true;
-            // 
-            // Judge_col
-            // 
-            this.Judge_col.DataPropertyName = "Judge";
-            this.Judge_col.HeaderText = "Đánh giá";
-            this.Judge_col.Name = "Judge_col";
-            this.Judge_col.ReadOnly = true;
-            // 
-            // InspectTime_col
-            // 
-            this.InspectTime_col.DataPropertyName = "InspectTime";
-            this.InspectTime_col.HeaderText = "Thời gian";
-            this.InspectTime_col.Name = "InspectTime_col";
-            this.InspectTime_col.ReadOnly = true;
-            // 
-            // Remark_col
-            // 
-            this.Remark_col.DataPropertyName = "Remark";
-            this.Remark_col.FillWeight = 60F;
-            this.Remark_col.HeaderText = "Ghi chú";
-            this.Remark_col.Name = "Remark_col";
-            this.Remark_col.ReadOnly = true;
             // 
             // panel2
             // 
@@ -168,6 +132,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1233, 64);
             this.panel2.TabIndex = 1;
+            // 
+            // chkTime
+            // 
+            this.chkTime.AutoSize = true;
+            this.chkTime.Location = new System.Drawing.Point(598, 3);
+            this.chkTime.Name = "chkTime";
+            this.chkTime.Size = new System.Drawing.Size(115, 23);
+            this.chkTime.TabIndex = 8;
+            this.chkTime.Text = "Toàn thời gian";
+            this.chkTime.UseVisualStyleBackColor = true;
             // 
             // toDate
             // 
@@ -221,9 +195,9 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(235, 7);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 19);
+            this.label2.Size = new System.Drawing.Size(67, 19);
             this.label2.TabIndex = 4;
-            this.label2.Text = "MAC:";
+            this.label2.Text = "Tìm kiếm:";
             // 
             // label4
             // 
@@ -348,15 +322,51 @@
             this.lbNGCount.Text = "0";
             this.lbNGCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // chkTime
+            // ID_col
             // 
-            this.chkTime.AutoSize = true;
-            this.chkTime.Location = new System.Drawing.Point(598, 3);
-            this.chkTime.Name = "chkTime";
-            this.chkTime.Size = new System.Drawing.Size(115, 23);
-            this.chkTime.TabIndex = 8;
-            this.chkTime.Text = "Toàn thời gian";
-            this.chkTime.UseVisualStyleBackColor = true;
+            this.ID_col.DataPropertyName = "id";
+            this.ID_col.FillWeight = 30F;
+            this.ID_col.HeaderText = "No";
+            this.ID_col.Name = "ID_col";
+            this.ID_col.ReadOnly = true;
+            // 
+            // MACAddress_col
+            // 
+            this.MACAddress_col.DataPropertyName = "MACAddress";
+            this.MACAddress_col.HeaderText = "MAC Address";
+            this.MACAddress_col.Name = "MACAddress_col";
+            this.MACAddress_col.ReadOnly = true;
+            // 
+            // PartNo_Col
+            // 
+            this.PartNo_Col.DataPropertyName = "PartNo";
+            this.PartNo_Col.HeaderText = "Mã hàng";
+            this.PartNo_Col.Name = "PartNo_Col";
+            this.PartNo_Col.ReadOnly = true;
+            // 
+            // Judge_col
+            // 
+            this.Judge_col.DataPropertyName = "Judge";
+            this.Judge_col.FillWeight = 50F;
+            this.Judge_col.HeaderText = "Đánh giá";
+            this.Judge_col.Name = "Judge_col";
+            this.Judge_col.ReadOnly = true;
+            // 
+            // InspectTime_col
+            // 
+            this.InspectTime_col.DataPropertyName = "InspectTime";
+            this.InspectTime_col.FillWeight = 80F;
+            this.InspectTime_col.HeaderText = "Thời gian";
+            this.InspectTime_col.Name = "InspectTime_col";
+            this.InspectTime_col.ReadOnly = true;
+            // 
+            // Remark_col
+            // 
+            this.Remark_col.DataPropertyName = "Remark";
+            this.Remark_col.FillWeight = 60F;
+            this.Remark_col.HeaderText = "Ghi chú";
+            this.Remark_col.Name = "Remark_col";
+            this.Remark_col.ReadOnly = true;
             // 
             // InspectorLabelHistory
             // 
@@ -400,11 +410,6 @@
         private System.Windows.Forms.DateTimePicker toDate;
         private System.Windows.Forms.DateTimePicker fromDate;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID_col;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MACAddress_col;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Judge_col;
-        private System.Windows.Forms.DataGridViewTextBoxColumn InspectTime_col;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Remark_col;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label6;
@@ -414,5 +419,11 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label lbNGCount;
         private System.Windows.Forms.CheckBox chkTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MACAddress_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PartNo_Col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Judge_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn InspectTime_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Remark_col;
     }
 }

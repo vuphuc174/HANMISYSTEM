@@ -1,4 +1,5 @@
-﻿using HANMISYSTEM.DAO;
+﻿using HANMISYSTEM.Common;
+using HANMISYSTEM.DAO;
 using HANMISYSTEM.Views.PartialView;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,7 @@ namespace HANMISYSTEM.Views.QualityControl
                             }
                             lbLogs.Items.Add("Có chứa ký tự đặc biệt---->" + txtScan.Text);
                             dataGridView1.Rows.Add(dataGridView1.Rows.Count, txtScan.Text, DateTime.Now.ToString(), "NG");
-                            await dAO_Inspector_MAC_Address.Add(txtScan.Text, departmentID, 0, "", "Có chứa ký tự đặc biệt---->" + txtScan.Text);
+                            await dAO_Inspector_MAC_Address.Add(txtScan.Text, departmentID, 0, "", "Có chứa ký tự đặc biệt---->" + txtScan.Text,UserSession.PartNo_Packing);
 
 
                         }
@@ -88,13 +89,13 @@ namespace HANMISYSTEM.Views.QualityControl
                                     frm.ShowDialog();
                                 }
                                 dataGridView1.Rows.Add(dataGridView1.Rows.Count, txtScan.Text, DateTime.Now.ToString(), "NG");
-                                await dAO_Inspector_MAC_Address.Add(txtScan.Text, departmentID, 0, "", "Lỗi trùng lặp---->" + txtScan.Text);
+                                await dAO_Inspector_MAC_Address.Add(txtScan.Text, departmentID, 0, "", "Lỗi trùng lặp---->" + txtScan.Text,UserSession.PartNo_Packing);
                             }
                             else
                             {
 
                                 dataGridView1.Rows.Add(dataGridView1.Rows.Count, txtScan.Text, DateTime.Now.ToString(), "OK");
-                                await dAO_Inspector_MAC_Address.Add(txtScan.Text, departmentID, 1, "", "");
+                                await dAO_Inspector_MAC_Address.Add(txtScan.Text, departmentID, 1, "", "",UserSession.PartNo_Packing);
                             }
                         }
                     }

@@ -23,6 +23,7 @@ namespace HANMISYSTEM.Views.PartialView
         string planID;
         string plan;
         DAO_ProductionPlan dAO_ProductionPlan = new DAO_ProductionPlan();
+
         private async void SelectWorkOrder_Load(object sender, EventArgs e)
         {
             lbdate.Text = DateTime.Now.ToString("yyyy-MM-dd");

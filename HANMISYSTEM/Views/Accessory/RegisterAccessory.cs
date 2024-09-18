@@ -54,7 +54,7 @@ namespace HANMISYSTEM.Views.Accessory
         {
             if (await dAO_Credential.CheckCredential("ACCESSORY_OPTIONAL"))
             {
-                if (dbconnect.countdata("select count(partno) from cargo where partno ='" + txtModel.Text + "'") != 0 && dbconnect.countdata("select count(partno) from cargo where partno ='" + txtAccessory.Text + "'") != 0 && txtAccessory.Text != txtModel.Text && dbconnect.countdata("select count(PartNo) from Accessory where PartNo='" + txtModel.Text + "' and Accessory='" + txtAccessory.Text + "'") == 0)
+                if (dbconnect.countdata("select count(partno) from cargo where partno ='" + txtModel.Text + "'") != 0 && dbconnect.countdata("select count(partno) from cargo where partno ='" + txtAccessory.Text + "'") != 0 /*&& txtAccessory.Text != txtModel.Text*/ && dbconnect.countdata("select count(PartNo) from Accessory where PartNo='" + txtModel.Text + "' and Accessory='" + txtAccessory.Text + "'") == 0)
                 {
                     dbconnect.exedata("insert into Accessory(PartNo,Accessory) values('" + txtModel.Text + "','" + txtAccessory.Text + "')");
                     MessageBox.Show("Thành công");

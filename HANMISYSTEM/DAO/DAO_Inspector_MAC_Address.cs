@@ -25,9 +25,9 @@ namespace HANMISYSTEM.DAO
             }
            return false;
         }
-        public async Task Add(string value,string deptID,int judge,string packageID,string remark)
+        public async Task Add(string value,string deptID,int judge,string packageID,string remark,string pn)
         {
-            if(!await connect.ExeDataAsync($"Insert into Inspector_MAC_Address(MACAddress,InspectTime,Judge,PackageID,Remark,DepartmentID) values('{value}',getdate(),{judge},'{packageID}',N'{remark}','{deptID}')"))
+            if(!await connect.ExeDataAsync($"Insert into Inspector_MAC_Address(MACAddress,InspectTime,Judge,PackageID,Remark,DepartmentID,PartNo) values('{value}',getdate(),{judge},'{packageID}',N'{remark}','{deptID}','{pn}')"))
             {
                 await dAO_SystemLog.Add("error", "Cannot insert Inspector mac address");
             }
@@ -57,7 +57,7 @@ namespace HANMISYSTEM.DAO
             }
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                conditions.Add("MACAddress like '%" + searchTerm + "%'");
+                conditions.Add("(MACAddress like '%" + searchTerm + "%' or PartNo like '%"+searchTerm+"%')");
             }
             if(!allTime)
             {

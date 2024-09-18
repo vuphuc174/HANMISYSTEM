@@ -35,5 +35,30 @@ namespace HANMISYSTEM.DAO
                 return "0";
             }
         }
+        public async Task<string> GetProductOutputByID(string partno, string lineID,string planID)
+        {
+            try
+            {
+                DataTable dt = await connect.ReadDataAsync($"select SUM(qty) as quantity from productionhistory where PlanID ='{planID}'  and CONVERT(date,productiontime) =CONVERT(date,getdate()) and idlocation ='{lineID}' and partno='{partno}'");
+                if (dt.Rows.Count > 0)
+                {
+                    return dt.Rows[0]["quantity"].ToString();
+                }
+                else
+                {
+                    return "0";
+                }
+            }
+            catch
+            {
+                return "0";
+            }
+        }
+        public async Task Create(string idwarehouse,string partno,string qty,string idlocation,string  idpack,string WO,string PlanID)
+        {
+            string cmd = $"insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack,WO,PlanID) values('{idwarehouse}','{partno}',GETDATE(),'{qty}','{idlocation}','{idpack}','{WO}','{PlanID}')";
+            await connect.ExeDataAsync(cmd);
+        }
+       
     }
 }

@@ -6,6 +6,7 @@ using HANMISYSTEM.Themes;
 using HANMISYSTEM.Views;
 using HANMISYSTEM.Views.Accessory;
 using HANMISYSTEM.Views.Credential;
+using HANMISYSTEM.Views.Line;
 using HANMISYSTEM.Views.Producs;
 using HANMISYSTEM.Views.Production;
 using HANMISYSTEM.Views.Production.Settings;
@@ -347,6 +348,7 @@ namespace HANMISYSTEM
             MyButton btnUsermgt = new MyButton();
             MyButton btnlabelaccessory = new MyButton();
             MyButton btnUserBasicInfo = new MyButton();
+            MyButton btnMappingInfoBravo = new MyButton();
 
             //product
             btnProduct.Text = "Quản lí mặt hàng";
@@ -394,6 +396,14 @@ namespace HANMISYSTEM
             btnUserBasicInfo.Click += new EventHandler(btnUserBasicInfo_Click);
             btnUserBasicInfo.Top = 150;
             panel.Controls.Add(btnUserBasicInfo);
+
+            //user basic info
+            btnMappingInfoBravo.Text = "Mapping Info(Bravo)";
+            btnMappingInfoBravo.Font = fontContent;
+            btnMappingInfoBravo.Size = new System.Drawing.Size(expanderWidth - 10, 30);
+            btnMappingInfoBravo.Click += new EventHandler(btnMappingInfoBravo_Click);
+            btnMappingInfoBravo.Top = 180;
+            panel.Controls.Add(btnMappingInfoBravo);
 
             //product material
 
@@ -699,11 +709,27 @@ namespace HANMISYSTEM
         {
 
         }
+        
         private void btnOQC_Click(object sender, EventArgs e)
         {
+
+            //if(dAO_Credential.CheckCredential("OQC"))
             OQCDashBoard frm = new OQCDashBoard();
             frm.MainFormRef = this;
             TabCreating(tabcontrol1, "OQC Dashboard", frm);
+        }
+        private async void btnMappingInfoBravo_Click(object sender, EventArgs e)
+        {
+            if (await dAO_Credential.CheckCredential("LINE_MAPPING"))
+            {
+                Mapping frm = new Mapping();
+                TabCreating(tabcontrol1, "Mapping Info(bravo)", frm);
+            }
+            else
+            {
+                MessageBox.Show("Chưa được cấp quyền truy cập");
+            }    
+                
         }
         private void btnUserBasicInfo_Click(object sender, EventArgs e)
         {

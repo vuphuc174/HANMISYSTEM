@@ -61,9 +61,10 @@ namespace HANMISYSTEM.Views.Producs
                 {
                     _partno =dataGridView1.Rows[e.RowIndex].Cells["Partno_col"].Value.ToString();
                     _partname =dataGridView1.Rows[e.RowIndex].Cells["Partname_col"].Value.ToString();
+                    this.Close();
                 }
             }
-            this.Close();
+            
         }
     }
 }
