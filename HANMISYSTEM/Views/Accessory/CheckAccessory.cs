@@ -31,6 +31,8 @@ namespace HANMISYSTEM.Views.Accessory
         DAO_SystemLog dAO_SystemLog = new DAO_SystemLog();
         DAO_Accessory dAO_Accessory = new DAO_Accessory();
         DAO_Production dAO_Production = new DAO_Production();
+        DAO_ProductionHistory dAO_ProductionHistory = new DAO_ProductionHistory();
+        DAO_PackingInfo dAO_PackingInfo = new DAO_PackingInfo();
         public static CheckAccessory Instance
         {
             get
@@ -126,17 +128,26 @@ namespace HANMISYSTEM.Views.Accessory
             }
 
         }
-        void UpdateDB(string partno,string lineID,string packageID)
+        public async Task UpdateResult(string partno,string _lineID,string packageID)
+        {
+            lbQuantity.Text = await dAO_ProductionHistory.GetProductOutput(partno, _lineID);
+            lbPackageQuantity.Text = await dAO_PackingInfo.GetPackageQty(packageID);
+        }
+        public async Task UpdateDB(string partno,string _lineID,string packageID)
         {
             //quanli packing
             if (connect.countdata($"select count(idpack) from packinginfo where idpack='{packageID}'") == 0)
             {
-                connect.exedata($"exec spInsertPackingInfo @idpack='{packageID}',@partno='{partno}',@idlocation='{lineID}',@idwarehouse='WH001'");
+                await connect.ExeDataAsync($"exec spInsertPackingInfo @idpack='{packageID}',@partno='{partno}',@idlocation='{_lineID}',@idwarehouse='WH001'");
             }
             else
             {
-                connect.exedata($"exec spUpdatePackingInfo_Increase @idpack='{packageID}'");
+                await connect.ExeDataAsync($"exec spUpdatePackingInfo_Increase @idpack='{packageID}'");
             }
+            await dAO_Production.UpdateProductionResult(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, partno, "1", _lineID, txtPlanID.Text, txtWoCode.Text);
+            await connect.ExeDataAsync($"insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','{partno}',getdate(),1,'{_lineID}','{packageID}')");
+           
+
         }
         private async void doJob()
         {
@@ -353,9 +364,9 @@ namespace HANMISYSTEM.Views.Accessory
             try
             {
                 // Control.CheckForIllegalCrossThreadCalls = false;
-                t = new Thread(checkTask);
-                t.IsBackground = true;
-                t.Start();
+                //t = new Thread(checkTask);
+                //t.IsBackground = true;
+                //t.Start();
             }
             catch (Exception ex)
             {
@@ -448,21 +459,24 @@ namespace HANMISYSTEM.Views.Accessory
                 {
                     checkStatus = false;
                     timer1.Start();
-                    lbQuantity.Text = (Convert.ToInt32(lbQuantity.Text) + 1).ToString();
+                    //lbQuantity.Text = (Convert.ToInt32(lbQuantity.Text) + 1).ToString();
+                    //lbPackageQuantity.Text = (Convert.ToInt32(lbPackageQuantity.Text) + 1).ToString();
                     lbFinalJudge.Text = "OK";
                     lbFinalJudge.ForeColor = Color.Lime;
                     dataGridView1.Rows.Insert(0, dataGridView1.Rows.Count, txtmodel.Text, "OK", DateTime.Now);
-                    packingdatas.Add(new packingdata()
-                    {
-                        PackageID = lbPackageID.Text,
-                        PartNo = txtmodel.Text,
-                        PackingTime = DateTime.Now.ToString(),
-                        LocationID = lineID
-                    });
-                    string json = JsonConvert.SerializeObject(packingdatas.ToArray(), Formatting.Indented);
-                    File.WriteAllText(path + "\\json\\packingdata.json", json);
+                    await Task.WhenAll(UpdateDB(txtmodel.Text, lineID, lbPackageID.Text),UpdateResult(txtmodel.Text,lineID,lbPackageID.Text));
 
-                    lbPackageQuantity.Text = (Convert.ToInt32(lbPackageQuantity.Text) + 1).ToString();
+                    //packingdatas.Add(new packingdata()
+                    //{
+                    //    PackageID = lbPackageID.Text,
+                    //    PartNo = txtmodel.Text,
+                    //    PackingTime = DateTime.Now.ToString(),
+                    //    LocationID = lineID
+                    //});
+                    //string json = JsonConvert.SerializeObject(packingdatas.ToArray(), Formatting.Indented);
+                    //File.WriteAllText(path + "\\json\\packingdata.json", json);
+
+                    
                     await Task.Run(() => ClearJudge());
                     //Thread.Sleep(510);
                 }

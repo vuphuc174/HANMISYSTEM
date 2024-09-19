@@ -39,31 +39,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_48293B44F0936EFC12C27A27FA36B45F"
-        "OwnerKey" = "8:_68BBAB30939F26AD567C56AAEEF2C610"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_48293B44F0936EFC12C27A27FA36B45F"
-        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_57C3A03334748BF5A89233FC8FBFF583"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_623826943305010C1E1A291251B1B451"
-        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmKey" = "8:_7F804D60444FD06C1D1107DE41933B1C"
+        "OwnerKey" = "8:_D19B5B42A4569AE265B2E8A190F858F3"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_68BBAB30939F26AD567C56AAEEF2C610"
+        "MsmKey" = "8:_7F804D60444FD06C1D1107DE41933B1C"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -76,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_91B62E834EF5530EECE44282D71075F5"
-        "OwnerKey" = "8:_48293B44F0936EFC12C27A27FA36B45F"
+        "OwnerKey" = "8:_7F804D60444FD06C1D1107DE41933B1C"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -105,20 +93,32 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
-        "OwnerKey" = "8:_623826943305010C1E1A291251B1B451"
+        "MsmKey" = "8:_D19B5B42A4569AE265B2E8A190F858F3"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
+        "MsmKey" = "8:_DB3357D4C9EB002B8ABD6BA064AB6EA1"
+        "OwnerKey" = "8:_DCFABCC8190BB9572C0F18257717C5A7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DB3357D4C9EB002B8ABD6BA064AB6EA1"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_DCFABCC8190BB9572C0F18257717C5A7"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F13E1C9B7741FFC3EEF8106D8B590A4A"
-        "OwnerKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
+        "OwnerKey" = "8:_DB3357D4C9EB002B8ABD6BA064AB6EA1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -131,6 +131,30 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_D19B5B42A4569AE265B2E8A190F858F3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7F804D60444FD06C1D1107DE41933B1C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DCFABCC8190BB9572C0F18257717C5A7"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_DB3357D4C9EB002B8ABD6BA064AB6EA1"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -173,30 +197,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A00EFF87BD65B2815AFD5C5483DB18B2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_68BBAB30939F26AD567C56AAEEF2C610"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_48293B44F0936EFC12C27A27FA36B45F"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_623826943305010C1E1A291251B1B451"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F027CC8A4C976D085D2A3BE7C09A0C92"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -393,37 +393,6 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_48293B44F0936EFC12C27A27FA36B45F"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Interop.FOXITPHANTOMLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_48293B44F0936EFC12C27A27FA36B45F"
-                    {
-                    "Name" = "8:Interop.FOXITPHANTOMLib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Interop.FOXITPHANTOMLib.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_57C3A03334748BF5A89233FC8FBFF583"
             {
             "AssemblyRegister" = "3:1"
@@ -455,51 +424,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_623826943305010C1E1A291251B1B451"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7F804D60444FD06C1D1107DE41933B1C"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Interop.FOXITPHANTOMLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
                 "ScatterAssemblies"
                 {
-                    "_623826943305010C1E1A291251B1B451"
+                    "_7F804D60444FD06C1D1107DE41933B1C"
                     {
-                    "Name" = "8:AxInterop.AcroPDFLib.dll"
+                    "Name" = "8:Interop.FOXITPHANTOMLib.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:AxInterop.AcroPDFLib.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_68BBAB30939F26AD567C56AAEEF2C610"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:AxInterop.FOXITPHANTOMLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_68BBAB30939F26AD567C56AAEEF2C610"
-                    {
-                    "Name" = "8:AxInterop.FOXITPHANTOMLib.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:AxInterop.FOXITPHANTOMLib.dll"
+            "SourcePath" = "8:Interop.FOXITPHANTOMLib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
@@ -650,20 +588,82 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F027CC8A4C976D085D2A3BE7C09A0C92"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D19B5B42A4569AE265B2E8A190F858F3"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Interop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:AxInterop.FOXITPHANTOMLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F027CC8A4C976D085D2A3BE7C09A0C92"
+                    "_D19B5B42A4569AE265B2E8A190F858F3"
+                    {
+                    "Name" = "8:AxInterop.FOXITPHANTOMLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AxInterop.FOXITPHANTOMLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DB3357D4C9EB002B8ABD6BA064AB6EA1"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Interop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86"
+                "ScatterAssemblies"
+                {
+                    "_DB3357D4C9EB002B8ABD6BA064AB6EA1"
                     {
                     "Name" = "8:Interop.AcroPDFLib.dll"
                     "Attributes" = "3:512"
                     }
                 }
             "SourcePath" = "8:Interop.AcroPDFLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_DCFABCC8190BB9572C0F18257717C5A7"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:AxInterop.AcroPDFLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_DCFABCC8190BB9572C0F18257717C5A7"
+                    {
+                    "Name" = "8:AxInterop.AcroPDFLib.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:AxInterop.AcroPDFLib.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
@@ -788,15 +788,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HANMISYSTEM_SETUP"
-        "ProductCode" = "8:{3B28120F-035B-4573-843A-512CE297B47D}"
-        "PackageCode" = "8:{EDCDC1F3-C797-4FE0-B0BF-BE1095D595B2}"
+        "ProductCode" = "8:{62520245-47EF-40C9-93A2-E25E051D5973}"
+        "PackageCode" = "8:{0B828F57-2D8D-4348-ADA9-36152DA72A36}"
         "UpgradeCode" = "8:{DD9A1577-9CC7-4253-BD71-35A1FD739AA7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:1.5.1"
         "Manufacturer" = "8:Hanmi Flexible Vina HaiPhong"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1324,7 +1324,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_36B480B4817A48DDAAAF7F4C9DFC1658"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\HANMISYSTEM\\obj\\Debug\\HANMISYSTEM.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
