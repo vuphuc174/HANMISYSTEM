@@ -50,7 +50,7 @@ namespace HANMISYSTEM.Views.User
                 txtUserID.Text = dataGridView1.Rows[e.RowIndex].Cells["UserID_col"].Value.ToString();
                 txtUserName.Text = dataGridView1.Rows[e.RowIndex].Cells["UserName_col"].Value.ToString();
                 txtDisplayName.Text = dataGridView1.Rows[e.RowIndex].Cells["Name_col"].Value.ToString();
-
+                txtBravoUserID.Text = dataGridView1.Rows[e.RowIndex].Cells["BravoID_col"].Value.ToString();
                 //load usergroupuser
                 dataGridView2.DataSource =await dAO_UserGroupUser.GetGroupUser(dataGridView1.Rows[e.RowIndex].Cells["UserID_col"].Value.ToString());
             }
@@ -81,6 +81,7 @@ namespace HANMISYSTEM.Views.User
             {
                 if(await _dao.ChangeDisplayName(txtUserID.Text, txtDisplayName.Text))
                 {
+                    await _dao.UpdateUser(txtUserID.Text, txtBravoUserID.Text);
                     MessageBox.Show("Cập nhật thành công");
                     dataGridView1.DataSource = await _dao.GetUsers();
                 }

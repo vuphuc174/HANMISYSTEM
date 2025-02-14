@@ -57,11 +57,13 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.txtPlanID = new System.Windows.Forms.TextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.txtworkorder = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.cbbMode = new System.Windows.Forms.ComboBox();
             this.txtsoluong = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.txtCurrentQuantity = new System.Windows.Forms.TextBox();
@@ -70,11 +72,29 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.panel16 = new System.Windows.Forms.Panel();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Code_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Quantity_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Date_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.btnCheckWO = new System.Windows.Forms.Button();
+            this.txtTotalWO = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.txtWOQuantityAvailable = new System.Windows.Forms.TextBox();
+            this.panel13 = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.PictureBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnCreateWO = new System.Windows.Forms.Button();
             this.panel9 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
             this.panel8 = new System.Windows.Forms.Panel();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel2.SuspendLayout();
@@ -85,6 +105,14 @@
             this.panel6.SuspendLayout();
             this.panel10.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel16.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.panel15.SuspendLayout();
+            this.panel11.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.panel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).BeginInit();
             this.panel9.SuspendLayout();
             this.panel7.SuspendLayout();
             this.SuspendLayout();
@@ -369,6 +397,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button2);
             this.panel2.Controls.Add(this.txtPlanID);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel3);
@@ -377,6 +406,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1267, 34);
             this.panel2.TabIndex = 23;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(16, 5);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 4;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // txtPlanID
             // 
@@ -419,6 +458,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.cbbMode);
             this.panel5.Controls.Add(this.txtsoluong);
             this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.txtCurrentQuantity);
@@ -441,6 +481,17 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(567, 622);
             this.panel5.TabIndex = 24;
+            // 
+            // cbbMode
+            // 
+            this.cbbMode.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cbbMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbMode.FormattingEnabled = true;
+            this.cbbMode.Location = new System.Drawing.Point(418, 0);
+            this.cbbMode.Margin = new System.Windows.Forms.Padding(2);
+            this.cbbMode.Name = "cbbMode";
+            this.cbbMode.Size = new System.Drawing.Size(149, 21);
+            this.cbbMode.TabIndex = 26;
             // 
             // txtsoluong
             // 
@@ -525,7 +576,8 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.richTextBox1);
+            this.groupBox1.Controls.Add(this.panel12);
+            this.groupBox1.Controls.Add(this.panel11);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
@@ -533,16 +585,177 @@
             this.groupBox1.Size = new System.Drawing.Size(700, 452);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Messages";
+            this.groupBox1.Text = "WO Tracker";
             // 
-            // richTextBox1
+            // panel12
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.richTextBox1.Location = new System.Drawing.Point(3, 19);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(694, 430);
-            this.richTextBox1.TabIndex = 0;
-            this.richTextBox1.Text = "";
+            this.panel12.Controls.Add(this.panel16);
+            this.panel12.Controls.Add(this.panel15);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel12.Location = new System.Drawing.Point(240, 19);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(457, 430);
+            this.panel12.TabIndex = 4;
+            // 
+            // panel16
+            // 
+            this.panel16.Controls.Add(this.dataGridView1);
+            this.panel16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel16.Location = new System.Drawing.Point(0, 32);
+            this.panel16.Name = "panel16";
+            this.panel16.Size = new System.Drawing.Size(457, 398);
+            this.panel16.TabIndex = 1;
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Code_col,
+            this.Quantity_col,
+            this.Date_col});
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
+            this.dataGridView1.Size = new System.Drawing.Size(457, 398);
+            this.dataGridView1.TabIndex = 0;
+            // 
+            // Code_col
+            // 
+            this.Code_col.DataPropertyName = "code";
+            this.Code_col.HeaderText = "WO";
+            this.Code_col.MinimumWidth = 6;
+            this.Code_col.Name = "Code_col";
+            this.Code_col.ReadOnly = true;
+            // 
+            // Quantity_col
+            // 
+            this.Quantity_col.DataPropertyName = "quantity";
+            this.Quantity_col.HeaderText = "Số lượng";
+            this.Quantity_col.MinimumWidth = 6;
+            this.Quantity_col.Name = "Quantity_col";
+            this.Quantity_col.ReadOnly = true;
+            // 
+            // Date_col
+            // 
+            this.Date_col.DataPropertyName = "createdate";
+            this.Date_col.HeaderText = "Thời gian";
+            this.Date_col.MinimumWidth = 6;
+            this.Date_col.Name = "Date_col";
+            this.Date_col.ReadOnly = true;
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.btnCheckWO);
+            this.panel15.Controls.Add(this.txtTotalWO);
+            this.panel15.Controls.Add(this.label12);
+            this.panel15.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel15.Location = new System.Drawing.Point(0, 0);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(457, 32);
+            this.panel15.TabIndex = 0;
+            // 
+            // btnCheckWO
+            // 
+            this.btnCheckWO.Image = global::HANMISYSTEM.Properties.Resources.search;
+            this.btnCheckWO.Location = new System.Drawing.Point(217, 3);
+            this.btnCheckWO.Name = "btnCheckWO";
+            this.btnCheckWO.Size = new System.Drawing.Size(30, 26);
+            this.btnCheckWO.TabIndex = 2;
+            this.btnCheckWO.UseVisualStyleBackColor = true;
+            this.btnCheckWO.Click += new System.EventHandler(this.btnCheckWO_Click);
+            // 
+            // txtTotalWO
+            // 
+            this.txtTotalWO.Location = new System.Drawing.Point(73, 6);
+            this.txtTotalWO.Name = "txtTotalWO";
+            this.txtTotalWO.ReadOnly = true;
+            this.txtTotalWO.Size = new System.Drawing.Size(138, 23);
+            this.txtTotalWO.TabIndex = 1;
+            // 
+            // label12
+            // 
+            this.label12.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label12.Location = new System.Drawing.Point(0, 0);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(67, 32);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "WO đã tạo:";
+            this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.panel14);
+            this.panel11.Controls.Add(this.panel13);
+            this.panel11.Controls.Add(this.btnCreateWO);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel11.Location = new System.Drawing.Point(3, 19);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(237, 430);
+            this.panel11.TabIndex = 3;
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.txtWOQuantityAvailable);
+            this.panel14.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel14.Location = new System.Drawing.Point(0, 32);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(237, 64);
+            this.panel14.TabIndex = 4;
+            // 
+            // txtWOQuantityAvailable
+            // 
+            this.txtWOQuantityAvailable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtWOQuantityAvailable.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtWOQuantityAvailable.Location = new System.Drawing.Point(0, 0);
+            this.txtWOQuantityAvailable.Name = "txtWOQuantityAvailable";
+            this.txtWOQuantityAvailable.Size = new System.Drawing.Size(237, 61);
+            this.txtWOQuantityAvailable.TabIndex = 0;
+            // 
+            // panel13
+            // 
+            this.panel13.Controls.Add(this.btnRefresh);
+            this.panel13.Controls.Add(this.label9);
+            this.panel13.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel13.Location = new System.Drawing.Point(0, 0);
+            this.panel13.Name = "panel13";
+            this.panel13.Size = new System.Drawing.Size(237, 32);
+            this.panel13.TabIndex = 3;
+            // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRefresh.Image = global::HANMISYSTEM.Properties.Resources.refresh;
+            this.btnRefresh.Location = new System.Drawing.Point(203, 9);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(31, 23);
+            this.btnRefresh.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.btnRefresh.TabIndex = 5;
+            this.btnRefresh.TabStop = false;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
+            // label9
+            // 
+            this.label9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label9.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.Location = new System.Drawing.Point(0, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(237, 32);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Số lượng khả dụng:";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnCreateWO
+            // 
+            this.btnCreateWO.Location = new System.Drawing.Point(3, 102);
+            this.btnCreateWO.Name = "btnCreateWO";
+            this.btnCreateWO.Size = new System.Drawing.Size(128, 29);
+            this.btnCreateWO.TabIndex = 2;
+            this.btnCreateWO.Text = "Tạo WO";
+            this.btnCreateWO.UseVisualStyleBackColor = true;
+            this.btnCreateWO.Click += new System.EventHandler(this.btnCreateWO_Click);
             // 
             // panel9
             // 
@@ -572,6 +785,20 @@
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(95, 44);
             this.panel8.TabIndex = 0;
+            // 
+            // printDocument1
+            // 
+            this.printDocument1.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.printDocument1_PrintPage);
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
             // 
             // frmprod
             // 
@@ -605,6 +832,16 @@
             this.panel6.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel16.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.panel15.ResumeLayout(false);
+            this.panel15.PerformLayout();
+            this.panel11.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel14.PerformLayout();
+            this.panel13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresh)).EndInit();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -655,10 +892,30 @@
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Panel panel9;
-        private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtCurrentQuantity;
         private System.Windows.Forms.NumericUpDown txtsoluong;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.TextBox txtWOQuantityAvailable;
+        private System.Windows.Forms.Panel panel13;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button btnCreateWO;
+        private System.Windows.Forms.Panel panel16;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.TextBox txtTotalWO;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Button btnCheckWO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Code_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Quantity_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date_col;
+        private System.Windows.Forms.PictureBox btnRefresh;
+        private System.Windows.Forms.ComboBox cbbMode;
     }
 }
 

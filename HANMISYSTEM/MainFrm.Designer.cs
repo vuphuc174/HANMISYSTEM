@@ -45,6 +45,7 @@
             this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.trackingUPHToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lịchSửKiểmTraTemKVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bravoWorkOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripDropDownButton2 = new System.Windows.Forms.ToolStripDropDownButton();
             this.languagesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.vietnameseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,6 +67,7 @@
             this.gradientPanel2 = new HANMISYSTEM.Module.GradientPanel();
             this.lbcurdate = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lịchSửTạoBravoWOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.gradientPanel1.SuspendLayout();
@@ -180,7 +182,7 @@
             this.toolStripMenuItem3.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.xuấtNhậpTồnChiTiếtToolStripMenuItem});
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(134, 24);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 24);
             this.toolStripMenuItem3.Text = "Kho";
             // 
             // xuấtNhậpTồnChiTiếtToolStripMenuItem
@@ -195,31 +197,40 @@
             this.sảnXuấtToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1,
             this.trackingUPHToolStripMenuItem,
-            this.lịchSửKiểmTraTemKVToolStripMenuItem});
+            this.lịchSửKiểmTraTemKVToolStripMenuItem,
+            this.bravoWorkOrderToolStripMenuItem,
+            this.lịchSửTạoBravoWOToolStripMenuItem});
             this.sảnXuấtToolStripMenuItem.Name = "sảnXuấtToolStripMenuItem";
-            this.sảnXuấtToolStripMenuItem.Size = new System.Drawing.Size(134, 24);
+            this.sảnXuấtToolStripMenuItem.Size = new System.Drawing.Size(180, 24);
             this.sảnXuấtToolStripMenuItem.Text = "Sản xuất";
             // 
             // kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1
             // 
             this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1.Name = "kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1";
-            this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1.Size = new System.Drawing.Size(257, 24);
+            this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1.Size = new System.Drawing.Size(265, 24);
             this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1.Text = "Kết quả sản xuất theo ngày";
             this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1.Click += new System.EventHandler(this.kếtQuảSảnXuấtTheoNgàyToolStripMenuItem1_Click);
             // 
             // trackingUPHToolStripMenuItem
             // 
             this.trackingUPHToolStripMenuItem.Name = "trackingUPHToolStripMenuItem";
-            this.trackingUPHToolStripMenuItem.Size = new System.Drawing.Size(257, 24);
+            this.trackingUPHToolStripMenuItem.Size = new System.Drawing.Size(265, 24);
             this.trackingUPHToolStripMenuItem.Text = "Tracking UPH";
             this.trackingUPHToolStripMenuItem.Click += new System.EventHandler(this.trackingUPHToolStripMenuItem_Click);
             // 
             // lịchSửKiểmTraTemKVToolStripMenuItem
             // 
             this.lịchSửKiểmTraTemKVToolStripMenuItem.Name = "lịchSửKiểmTraTemKVToolStripMenuItem";
-            this.lịchSửKiểmTraTemKVToolStripMenuItem.Size = new System.Drawing.Size(257, 24);
+            this.lịchSửKiểmTraTemKVToolStripMenuItem.Size = new System.Drawing.Size(265, 24);
             this.lịchSửKiểmTraTemKVToolStripMenuItem.Text = "Lịch sử kiểm tra tem";
             this.lịchSửKiểmTraTemKVToolStripMenuItem.Click += new System.EventHandler(this.lịchSửKiểmTraTemKVToolStripMenuItem_Click);
+            // 
+            // bravoWorkOrderToolStripMenuItem
+            // 
+            this.bravoWorkOrderToolStripMenuItem.Name = "bravoWorkOrderToolStripMenuItem";
+            this.bravoWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(265, 24);
+            this.bravoWorkOrderToolStripMenuItem.Text = "Tồn kho thành phẩm lắp ráp";
+            this.bravoWorkOrderToolStripMenuItem.Click += new System.EventHandler(this.bravoWorkOrderToolStripMenuItem_Click);
             // 
             // toolStripDropDownButton2
             // 
@@ -429,6 +440,13 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
+            // lịchSửTạoBravoWOToolStripMenuItem
+            // 
+            this.lịchSửTạoBravoWOToolStripMenuItem.Name = "lịchSửTạoBravoWOToolStripMenuItem";
+            this.lịchSửTạoBravoWOToolStripMenuItem.Size = new System.Drawing.Size(265, 24);
+            this.lịchSửTạoBravoWOToolStripMenuItem.Text = "Lịch sử tạo Bravo WO";
+            this.lịchSửTạoBravoWOToolStripMenuItem.Click += new System.EventHandler(this.lịchSửTạoBravoWOToolStripMenuItem_Click);
+            // 
             // MainFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -498,5 +516,7 @@
         private System.Windows.Forms.ToolStripMenuItem RoleManagement;
         private System.Windows.Forms.ToolStripMenuItem btnCredential;
         private System.Windows.Forms.ToolStripMenuItem logsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bravoWorkOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lịchSửTạoBravoWOToolStripMenuItem;
     }
 }

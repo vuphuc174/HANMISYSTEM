@@ -1007,5 +1007,17 @@ namespace HANMISYSTEM
             Logs logs = new Logs();
             TabCreating(tabcontrol1, "System logs", logs);
         }
+
+        private void bravoWorkOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AssemblyFGsWarehosue frm = new AssemblyFGsWarehosue();
+            TabCreating(tabcontrol1, "Tồn kho TP lắp ráp", frm);
+        }
+
+        private void lịchSửTạoBravoWOToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            BravoWorkOrderManagement frm = new BravoWorkOrderManagement();
+            TabCreating(tabcontrol1, "Lịch sử tạo Bravo WO", frm);
+        }
     }
 }

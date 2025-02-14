@@ -41,6 +41,7 @@ namespace HANMISYSTEM
                 UserSession.UserID = dt.Rows[0]["ID"].ToString();
                 UserSession.UserName = txtuser.Text;
                 UserSession.Credentials =await dAO_Credential.GetListCredential(dt.Rows[0]["ID"].ToString());
+                UserSession.UserID_Bravo = dt.Rows[0]["BravoID"].ToString();
                 return true;
             }
             return false;

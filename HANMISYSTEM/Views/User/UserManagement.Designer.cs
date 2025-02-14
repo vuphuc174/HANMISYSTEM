@@ -34,10 +34,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.UserID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserName_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Name_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UserOption_col = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel3 = new System.Windows.Forms.Panel();
             this.btnAddNew = new HANMISYSTEM.Module.MyButton();
             this.btnOpenLineUserAssigment = new System.Windows.Forms.Button();
@@ -62,6 +58,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.txtBravoUserID = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.UserID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BravoID_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserName_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Name_col = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.UserOption_col = new System.Windows.Forms.DataGridViewButtonColumn();
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -107,6 +110,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.UserID_col,
+            this.BravoID_col,
             this.UserName_col,
             this.Name_col,
             this.UserOption_col});
@@ -116,39 +120,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(559, 564);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // UserID_col
-            // 
-            this.UserID_col.DataPropertyName = "ID";
-            this.UserID_col.FillWeight = 30F;
-            this.UserID_col.HeaderText = "ID";
-            this.UserID_col.Name = "UserID_col";
-            this.UserID_col.ReadOnly = true;
-            // 
-            // UserName_col
-            // 
-            this.UserName_col.DataPropertyName = "username";
-            this.UserName_col.HeaderText = "Tài khoản";
-            this.UserName_col.Name = "UserName_col";
-            this.UserName_col.ReadOnly = true;
-            // 
-            // Name_col
-            // 
-            this.Name_col.DataPropertyName = "name";
-            this.Name_col.HeaderText = "Tên người dùng";
-            this.Name_col.Name = "Name_col";
-            this.Name_col.ReadOnly = true;
-            // 
-            // UserOption_col
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.UserOption_col.DefaultCellStyle = dataGridViewCellStyle2;
-            this.UserOption_col.FillWeight = 40F;
-            this.UserOption_col.HeaderText = "";
-            this.UserOption_col.Name = "UserOption_col";
-            this.UserOption_col.Text = "Xoá";
-            this.UserOption_col.UseColumnTextForButtonValue = true;
             // 
             // panel3
             // 
@@ -293,11 +264,13 @@
             // 
             this.panel5.Controls.Add(this.btnSave);
             this.panel5.Controls.Add(this.txtDisplayName);
+            this.panel5.Controls.Add(this.txtBravoUserID);
             this.panel5.Controls.Add(this.txtUserID);
             this.panel5.Controls.Add(this.txtUserName);
             this.panel5.Controls.Add(this.btnResetPassword);
             this.panel5.Controls.Add(this.label3);
             this.panel5.Controls.Add(this.label4);
+            this.panel5.Controls.Add(this.label5);
             this.panel5.Controls.Add(this.label2);
             this.panel5.Controls.Add(this.label1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
@@ -395,6 +368,62 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Thông tin chung";
             // 
+            // txtBravoUserID
+            // 
+            this.txtBravoUserID.Location = new System.Drawing.Point(245, 46);
+            this.txtBravoUserID.Name = "txtBravoUserID";
+            this.txtBravoUserID.Size = new System.Drawing.Size(133, 25);
+            this.txtBravoUserID.TabIndex = 2;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(243, 22);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(65, 19);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Bravo ID:";
+            // 
+            // UserID_col
+            // 
+            this.UserID_col.DataPropertyName = "ID";
+            this.UserID_col.FillWeight = 30F;
+            this.UserID_col.HeaderText = "ID";
+            this.UserID_col.Name = "UserID_col";
+            this.UserID_col.ReadOnly = true;
+            // 
+            // BravoID_col
+            // 
+            this.BravoID_col.DataPropertyName = "BravoID";
+            this.BravoID_col.HeaderText = "Bravo ID";
+            this.BravoID_col.Name = "BravoID_col";
+            this.BravoID_col.ReadOnly = true;
+            // 
+            // UserName_col
+            // 
+            this.UserName_col.DataPropertyName = "username";
+            this.UserName_col.HeaderText = "Tài khoản";
+            this.UserName_col.Name = "UserName_col";
+            this.UserName_col.ReadOnly = true;
+            // 
+            // Name_col
+            // 
+            this.Name_col.DataPropertyName = "name";
+            this.Name_col.HeaderText = "Tên người dùng";
+            this.Name_col.Name = "Name_col";
+            this.Name_col.ReadOnly = true;
+            // 
+            // UserOption_col
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.UserOption_col.DefaultCellStyle = dataGridViewCellStyle2;
+            this.UserOption_col.FillWeight = 40F;
+            this.UserOption_col.HeaderText = "";
+            this.UserOption_col.Name = "UserOption_col";
+            this.UserOption_col.Text = "Xoá";
+            this.UserOption_col.UseColumnTextForButtonValue = true;
+            // 
             // UserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -449,14 +478,17 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserID_col;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UserName_col;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Name_col;
-        private System.Windows.Forms.DataGridViewButtonColumn UserOption_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupUserID_col;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupUserDesc_col;
         private System.Windows.Forms.Button btnOpenLineUserAssigment;
         private System.Windows.Forms.ToolTip toolTip1;
         private Module.MyButton btnAddNew;
+        private System.Windows.Forms.TextBox txtBravoUserID;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserID_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BravoID_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UserName_col;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Name_col;
+        private System.Windows.Forms.DataGridViewButtonColumn UserOption_col;
     }
 }

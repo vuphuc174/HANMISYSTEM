@@ -57,6 +57,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_5B3DD59328C8EF9E928035BA3BE19921"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5B3DD59328C8EF9E928035BA3BE19921"
+        "OwnerKey" = "8:_788D0952FD5AEBB499D76F6FA38D5ECB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_623826943305010C1E1A291251B1B451"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,6 +76,12 @@
         "Entry"
         {
         "MsmKey" = "8:_68BBAB30939F26AD567C56AAEEF2C610"
+        "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_788D0952FD5AEBB499D76F6FA38D5ECB"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -131,6 +149,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_36B480B4817A48DDAAAF7F4C9DFC1658"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_788D0952FD5AEBB499D76F6FA38D5ECB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5B3DD59328C8EF9E928035BA3BE19921"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -455,6 +485,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_5B3DD59328C8EF9E928035BA3BE19921"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:zxing, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_5B3DD59328C8EF9E928035BA3BE19921"
+                    {
+                    "Name" = "8:zxing.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:zxing.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_623826943305010C1E1A291251B1B451"
             {
             "AssemblyRegister" = "3:1"
@@ -500,6 +561,37 @@
                     }
                 }
             "SourcePath" = "8:AxInterop.FOXITPHANTOMLib.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_788D0952FD5AEBB499D76F6FA38D5ECB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:zxing.presentation, Version=0.16.9.0, Culture=neutral, PublicKeyToken=4e88037ac681fe60, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_788D0952FD5AEBB499D76F6FA38D5ECB"
+                    {
+                    "Name" = "8:zxing.presentation.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:zxing.presentation.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_58E2161B708A43709CD9DD3272B2BCBD"
@@ -788,15 +880,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:HANMISYSTEM_SETUP"
-        "ProductCode" = "8:{3B28120F-035B-4573-843A-512CE297B47D}"
-        "PackageCode" = "8:{EDCDC1F3-C797-4FE0-B0BF-BE1095D595B2}"
+        "ProductCode" = "8:{E146A781-4759-4B74-98C5-31956D149CA7}"
+        "PackageCode" = "8:{011E1D10-31A5-4FD0-A506-40B5F1650F33}"
         "UpgradeCode" = "8:{DD9A1577-9CC7-4253-BD71-35A1FD739AA7}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.5.0"
+        "ProductVersion" = "8:1.6.3"
         "Manufacturer" = "8:Hanmi Flexible Vina HaiPhong"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"

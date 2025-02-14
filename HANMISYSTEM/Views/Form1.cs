@@ -18,6 +18,8 @@ using HANMISYSTEM.Views.MsgBox;
 using HANMISYSTEM.Views.Production;
 using HANMISYSTEM.DAO;
 using System.IO;
+using System.Drawing.Drawing2D;
+using ZXing;
 
 namespace HANMISYSTEM
 {
@@ -28,6 +30,9 @@ namespace HANMISYSTEM
             InitializeComponent();
             //AutoUpdateTarget();
         }
+        private bool mode= false;
+        DAO_SystemLog DAO_SystemLog = new DAO_SystemLog();
+        DAO_AssemblyFGsWarehouse  dAO_AssemblyFGsWarehouse = new DAO_AssemblyFGsWarehouse();
         DAO_Line dAO_Line = new DAO_Line();
         DAO_Production dAO_Production = new DAO_Production();
         DAO_ProductionHistory dAO_ProductionHistory = new DAO_ProductionHistory();
@@ -44,6 +49,8 @@ namespace HANMISYSTEM
         string mapping_lineID;
         public string pushnotifytype;
         public string wh = "WH001";
+        static string _workprocesscode = "LAPRAP2-1542";
+        static string _warehouseId= "1970561";
         private void CallOK()
         {
             try
@@ -67,6 +74,10 @@ namespace HANMISYSTEM
             }
         }
 
+        private void RenderLabel(string qty,string wo)
+        {
+
+        }
         private void CallNG()
         {
             try
@@ -973,6 +984,7 @@ namespace HANMISYSTEM
                             txtboxno.Focus();
                             DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + txtmodel.Text.ToUpper() + "' and idlocation='" + cblocation.SelectedValue + "' and convert(date,productiontime)=convert(date,getdate())");
                             txtproductionqty.Text = dtsumqty.Rows[0]["pro"].ToString();
+                            await UpdateWO();
                         }
 
                     }
@@ -1015,6 +1027,7 @@ namespace HANMISYSTEM
                 MessageBox.Show($"Error while writing to file: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private int _WOQuantityAvailable;
         private async void UpdateData(string idpack, string partno)
         {
 
@@ -1032,11 +1045,13 @@ namespace HANMISYSTEM
                 }
                 //bravo import
                 await dAO_Production.UpdateProductionResult(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, "1", txtboxno.Text, txtPlanID.Text, txtworkorder.Text);
-                await connect.ExeDataAsync("insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + wh + "','" + txtmodel.Text + "',GETDATE(),'',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')");
+                string cmd = "insert into productionhistory (idwarehouse,partno,productiontime,remark,qty,idlocation,idpack,WO,PlanID) values('" + wh + "','" + txtmodel.Text + "',GETDATE(),'',1,'" + cblocation.SelectedValue + "','" + txtboxno.Text + "','" + txtworkorder.Text + "','" + txtPlanID.Text + "')";
+                await connect.ExeDataAsync(cmd);
                 //txtactualqty.Text = (Convert.ToInt32(txtactualqty.Text) + 1).ToString();
                 txtactualqty.Text = await dAO_PackingInfo.GetPackageQty(txtboxno.Text);
                 // txtproductionqty.Text = (Convert.ToInt32(txtproductionqty.Text) + 1).ToString();
                 txtproductionqty.Text = await dAO_ProductionHistory.GetProductOutput(txtmodel.Text, cblocation.SelectedValue.ToString());
+               
                 string tmp;
                 tmp = await dAO_ProductionHistory.GetProductOutputByID(txtmodel.Text, cblocation.SelectedValue.ToString(), txtPlanID.Text);
                 curr_plan_result = Convert.ToDouble(tmp);
@@ -1044,8 +1059,17 @@ namespace HANMISYSTEM
             catch (Exception ex)
             {
                 await ErrorLog("errlog.txt", ex.Message);
-                MessageBox.Show(ex.Message); ;
+                MessageBox.Show(ex.Message); 
             }
+        }
+        private async Task UpdateWO()
+        {
+            //string wo_finished_qty = await dAO_Production.GetFinishedWorkOrder(txtmodel.Text, cblocation.SelectedValue.ToString());
+            //_WOQuantityAvailable = Convert.ToInt32(txtproductionqty.Text) - Convert.ToInt32(wo_finished_qty);
+            //txtWOQuantityAvailable.Text = _WOQuantityAvailable.ToString();
+            string inv = await dAO_AssemblyFGsWarehouse.GetInventory(txtmodel.Text, cblocation.SelectedValue.ToString());
+            _WOQuantityAvailable = Convert.ToInt32(inv);
+            txtWOQuantityAvailable.Text= inv;
         }
         private async void txtpartno_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -1131,6 +1155,7 @@ namespace HANMISYSTEM
                                         //    MessageBox.Show("err1 :" + ex.Message);
                                         //}
                                         UpdateData(txtboxno.Text, txtmodel.Text);
+                                        await UpdateWO();
                                         txtpartno.Text = "";
                                         #endregion
 
@@ -1253,7 +1278,7 @@ namespace HANMISYSTEM
                 checkStatus = true;
                 toggleState = true;
                 button1.Enabled = false;
-                
+                await UpdateWO();
                 //timer1.Start();
                 //}
                 //else
@@ -1280,11 +1305,167 @@ namespace HANMISYSTEM
             }
         }
 
-        private void txtproductionqty_TextChanged(object sender, EventArgs e)
+        private async void txtproductionqty_TextChanged(object sender, EventArgs e)
         {
+            await UpdateWO();
+        }
+        private class PrintSpecs
+        {
+            string partno { get; set; }
+            string qty { get; set; }
+        }
+        private void printDocument1_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            int startX = 30;
+            int startY = 15;
+            int line = 30;
+            int fontSize = 11;
+            string font = "Times New Roman";
+            string barcodeText = "AGG76839197";
+            BarcodeWriter barcodeWriter = new BarcodeWriter
+            {
+                Format = BarcodeFormat.CODE_39, // Select the barcode format (e.g., Code 128)
+                Options = new ZXing.Common.EncodingOptions
+                {
+                    
+                    Height = 45, // Height of the barcode
+                    Width = 390 ,  // Width of the barcode
+                    PureBarcode = true
+                }
+            };
+            Bitmap barcodeImage = barcodeWriter.Write(barcodeText);
+            Graphics g = e.Graphics;
+            GraphicsState state = g.Save();
+            g.TranslateTransform(startX, startY);
+            g.RotateTransform(90);
+         
+            Pen pen = new Pen(Color.Black, 2); // Pen with color and width
+            int lineStartX = startX;
+            int lineEndX = startX + 350; // Length of the line
+            int lineY = startY + 30; // Line position (a bit below the text)
+            g.DrawString("Line", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX+20, startY-360));
+            g.DrawString("VH_VC", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX+140, startY-360));
+            g.DrawString("Supplier", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX+260, startY-360));
+            g.DrawString("Hanmi Flexible", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX+380, startY- 360));
 
+            //line 2
+            g.DrawString("Q.ty", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 40, startY - 330));
+            g.DrawString("Part No", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 160, startY - 330));
+            g.DrawString("Part Name", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 330, startY - 330));
+
+            //line3
+            g.DrawString("AGG76839197", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 140, startY - 290));
+            g.DrawString("Packing Assembly", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 320, startY - 290));
+
+            //line 4
+            g.DrawString("45", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 40, startY -200));
+
+            //line 5
+            g.DrawString($"Production Date: {DateTime.Now.ToString("dd")}/{DateTime.Now.ToString("MM")}/{DateTime.Now.ToString("yyyy")}", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 20, startY - 40));
+            g.DrawString("Delivery Time", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 300, startY - 40));
+            g.DrawString("RoHS", new Font(font, fontSize, FontStyle.Bold), Brushes.Black, new Point(startX + 430, startY - 40));
+
+            g.DrawImage(barcodeImage, new Point(startX+110, startY-240));
+            g.Restore(state);
+            g.DrawLine(pen, lineStartX, lineY, lineEndX, lineY);
+            g.DrawLine(pen, lineStartX+line, lineY+130, lineEndX, lineY+130);
+            g.DrawLine(pen, lineStartX+240, lineY+260, lineEndX, lineY+260);
+           // g.DrawLine(pen, lineStartX, lineY+280, lineEndX, lineY+280);
+            g.DrawLine(pen, lineStartX+320, lineY+ 360, lineEndX, lineY+360);
+            g.DrawLine(pen, lineStartX, lineY+500, lineEndX, lineY+500);
+            g.DrawLine(pen, lineStartX, lineY, lineStartX, lineY+500);
+
+
+            g.DrawLine(pen, lineStartX+ line, lineY, lineStartX+ line, lineY+500);
+            g.DrawLine(pen, lineStartX+ 100, lineY+130, lineStartX+ 100, lineY+500);
+            g.DrawLine(pen, lineStartX+ 165, lineY+130, lineStartX+ 165, lineY+500);
+            g.DrawLine(pen, lineStartX+ 240, lineY+130, lineStartX+ 240, lineY+500);
+            g.DrawLine(pen, lineStartX + 350 -line*2, lineY, lineStartX + 350 - line * 2, lineY + 500) ;
+            g.DrawLine(pen, lineStartX+ 350-line, lineY, lineStartX+ 350-line, lineY+500);
+            g.DrawLine(pen, lineStartX+350, lineY, lineStartX+350, lineY+500);
+            
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+     
+            printPreviewDialog1.Document = printDocument1;
+            printPreviewDialog1.ShowDialog();
+        }
+        static bool IsPositiveInteger(string input)
+        {
+            // Kiểm tra chuỗi có phải là số và lớn hơn 0
+            if (int.TryParse(input, out int number))
+            {
+                return number > 0;
+            }
+            return false;
+        }
+        private async void btnCreateWO_Click(object sender, EventArgs e)
+        {
+            if(!string.IsNullOrEmpty(txtmodel.Text))
+            {
+                DialogResult result = MessageBox.Show(
+           "Xác nhận tạo WO",
+           "Confirmation",
+           MessageBoxButtons.YesNo,
+           MessageBoxIcon.Question
+       );
+                if (result == DialogResult.Yes)
+                {
+                    //await DAO_SystemLog.Add("notify", $"{txtWOQuantityAvailable.Text},{_WOQuantityAvailable.ToString()}");
+                    if (!IsPositiveInteger(txtWOQuantityAvailable.Text) || Convert.ToInt32(txtWOQuantityAvailable.Text) > _WOQuantityAvailable)
+                    {
+                        MessageBox.Show($"Số nhập vào không hợp lệ:(available:{_WOQuantityAvailable})");
+                    }
+                    else
+                    {
 
+                        await dAO_Production.SubmitWorkOrder(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, txtWOQuantityAvailable.Text, txtboxno.Text, txtPlanID.Text, txtworkorder.Text, _workprocesscode, _warehouseId);
+                        Task.Delay(200).Wait();
+                        await dAO_Production.CreateBravoWorkOrder(txtWOQuantityAvailable.Text, cblocation.SelectedValue.ToString(), txtmodel.Text);
+                        await UpdateWO();
+                        //dataGridView1.Rows.Insert(0, dataGridView1.Rows.Count.ToString(),);
+                    }
+                }
+                if (checkBox2.Checked)
+                {
+                    txtboxno.Focus();
+                }
+                else
+                {
+                    txtpartno.Focus();
+                }
+            }
+           
+               
+        }
+
+        private async void btnCheckWO_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = await dAO_Production.GetBravoWorkOrder(cblocation.SelectedValue.ToString(), txtmodel.Text);
+            double sum = GetColumnSum(dataGridView1, "Quantity_col");
+            txtTotalWO.Text = sum.ToString("N0");
+        }
+        private double GetColumnSum(DataGridView dgv, string columnName)
+        {
+            double sum = 0;
+
+            foreach (DataGridViewRow row in dgv.Rows)
+            {
+                if (row.Cells[columnName].Value != null &&
+                    double.TryParse(row.Cells[columnName].Value.ToString(), out double value))
+                {
+                    sum += value;
+                }
+            }
+
+            return sum;
+        }
+
+        private async void btnRefresh_Click(object sender, EventArgs e)
+        {
+            await UpdateWO();
+        }
     }
 }

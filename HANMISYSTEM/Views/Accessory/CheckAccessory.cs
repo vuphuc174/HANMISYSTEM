@@ -31,6 +31,11 @@ namespace HANMISYSTEM.Views.Accessory
         DAO_SystemLog dAO_SystemLog = new DAO_SystemLog();
         DAO_Accessory dAO_Accessory = new DAO_Accessory();
         DAO_Production dAO_Production = new DAO_Production();
+        DAO_ProductionHistory dAO_ProductionHistory = new DAO_ProductionHistory();
+        DAO_PackingInfo dAO_PackingInfo = new DAO_PackingInfo();
+        static string _workprocesscode = "LAPRAP2-1542";
+        static string _warehouseId = "1970561";
+        DAO_AssemblyFGsWarehouse dAO_AssemblyFGsWarehouse = new DAO_AssemblyFGsWarehouse();
         public static CheckAccessory Instance
         {
             get
@@ -88,7 +93,9 @@ namespace HANMISYSTEM.Views.Accessory
                 btnoff.Enabled = true;
                 btnselectWO.Enabled = false;
                 txtScan.Enabled = true;
+                UpdateWO();
                 txtScan.Focus();
+                
             }
         }
         private void checkTask()
@@ -119,7 +126,7 @@ namespace HANMISYSTEM.Views.Accessory
 
                     //}
                 }
-                Thread.Sleep(200);
+                Thread.Sleep(500);
 
 
 
@@ -138,7 +145,12 @@ namespace HANMISYSTEM.Views.Accessory
                 connect.exedata($"exec spUpdatePackingInfo_Increase @idpack='{packageID}'");
             }
         }
-        private async void doJob()
+        public async Task UpdateResult(string partno, string _lineID, string packageID)
+        {
+            lbQuantity.Text = await dAO_ProductionHistory.GetProductOutput(partno, _lineID);
+            lbPackageQuantity.Text = await dAO_PackingInfo.GetPackageQty(packageID);
+        }
+        private  void doJob()
         {
             while (packingdatas.Count > 0)
             {
@@ -160,9 +172,9 @@ namespace HANMISYSTEM.Views.Accessory
                     //bravo import
                     //await dAO_Production.UpdateProductionResult(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, "1", txtboxno.Text, txtPlanID.Text);
                     //bravo import
-                    await dAO_Production.UpdateProductionResult(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, "1", lbPackageID.Text, txtPlanID.Text, txtWoCode.Text);
+                    dAO_Production.UpdateProductionResult_1(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, "1", lbPackageID.Text, txtPlanID.Text, txtWoCode.Text);
                     connect.exedata("insert into productionhistory (idwarehouse,partno,productiontime,qty,idlocation,idpack) values('WH001','" + packingdatas[i].PartNo + "',getdate(),1,'" + packingdatas[i].LocationID + "','" + packingdatas[i].PackageID + "')");
-                    
+                    UpdateWO();
                     //DataTable dtsumqty = connect.readdata("select sum(qty) as pro from productionhistory where partno='" + packingdatas[i].PartNo + "' and idlocation='" + cbbLocation.SelectedValue.ToString() + "' and convert(date,productiontime)=convert(date,getdate())");
                     //lbProductivity.Text = dtsumqty.Rows[0]["pro"].ToString();
                     packingdatas.RemoveAt(0);
@@ -448,6 +460,7 @@ namespace HANMISYSTEM.Views.Accessory
                     checkStatus = false;
                     timer1.Start();
                     lbQuantity.Text = (Convert.ToInt32(lbQuantity.Text) + 1).ToString();
+                    lbPackageQuantity.Text = (Convert.ToInt32(lbPackageQuantity.Text) + 1).ToString();
                     lbFinalJudge.Text = "OK";
                     lbFinalJudge.ForeColor = Color.Lime;
                     dataGridView1.Rows.Insert(0, dataGridView1.Rows.Count, txtmodel.Text, "OK", DateTime.Now);
@@ -461,7 +474,7 @@ namespace HANMISYSTEM.Views.Accessory
                     string json = JsonConvert.SerializeObject(packingdatas.ToArray(), Formatting.Indented);
                     File.WriteAllText(path + "\\json\\packingdata.json", json);
 
-                    lbPackageQuantity.Text = (Convert.ToInt32(lbPackageQuantity.Text) + 1).ToString();
+                    
                     await Task.Run(() => ClearJudge());
                     //Thread.Sleep(510);
                 }
@@ -681,7 +694,10 @@ namespace HANMISYSTEM.Views.Accessory
 
         private void txtScan_Leave(object sender, EventArgs e)
         {
-            txtScan.Focus();
+            if (this.ActiveControl != txtWOQuantityAvailable)
+            {
+                txtScan.Focus();
+            }
         }
 
         private void dataGridView1_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
@@ -889,6 +905,49 @@ namespace HANMISYSTEM.Views.Accessory
                 frm.ShowInTaskbar = false;
                 frm.StartPosition = FormStartPosition.CenterParent;
                 frm.ShowDialog();
+            }
+        }
+        static bool IsPositiveInteger(string input)
+        {
+            // Kiểm tra chuỗi có phải là số và lớn hơn 0
+            if (int.TryParse(input, out int number))
+            {
+                return number > 0;
+            }
+            return false;
+        }
+        private int _WOQuantityAvailable;
+        private async void UpdateWO()
+        {
+            string inv = await dAO_AssemblyFGsWarehouse.GetInventory(txtmodel.Text,lineID);
+            _WOQuantityAvailable = Convert.ToInt32(inv);
+            txtWOQuantityAvailable.Text = inv;
+        }
+        private async void btnCreateWO_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+            "Xác nhận tạo WO",
+            "Confirmation",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+        );
+            if (result == DialogResult.Yes)
+            {
+                //await DAO_SystemLog.Add("notify", $"{txtWOQuantityAvailable.Text},{_WOQuantityAvailable.ToString()}");
+                if (!IsPositiveInteger(txtWOQuantityAvailable.Text) || Convert.ToInt32(txtWOQuantityAvailable.Text) > _WOQuantityAvailable)
+                {
+                    MessageBox.Show($"Số nhập vào không hợp lệ:(available:{_WOQuantityAvailable})");
+                }
+                else
+                {
+
+                    await dAO_Production.SubmitWorkOrder(_mapping_Line.factoryCode, _mapping_Line.factoryID, _mapping_Line.machineCode, _mapping_Line.machineID, txtmodel.Text, txtWOQuantityAvailable.Text, lbPackageID.Text, txtPlanID.Text, txtWoCode.Text, _workprocesscode, _warehouseId);
+                    Task.Delay(200).Wait();
+                    await dAO_Production.CreateBravoWorkOrder(txtWOQuantityAvailable.Text, lineID, txtmodel.Text);
+                    UpdateWO();
+                    txtScan.Focus();
+                    //dataGridView1.Rows.Insert(0, dataGridView1.Rows.Count.ToString(),);
+                }
             }
         }
     }

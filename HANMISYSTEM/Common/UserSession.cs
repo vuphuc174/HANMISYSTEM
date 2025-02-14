@@ -10,6 +10,7 @@ namespace HANMISYSTEM.Common
     {
         public static bool LoggedIn { get; set; }
         public static string UserID { get; set; }
+        public static string UserID_Bravo { get; set; }
         public static string Name { get; set; }
         public static string UserName { get; set; }
         public static string UserGroupID { get; set; }

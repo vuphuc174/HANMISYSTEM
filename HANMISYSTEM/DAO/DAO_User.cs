@@ -26,7 +26,7 @@ namespace HANMISYSTEM.DAO
         #endregion
         public async Task<DataTable> GetUsers()
         {
-            DataTable dtuser = await connect.ReadDataAsync($"select ID,Username,Name from {tableName} ");
+            DataTable dtuser = await connect.ReadDataAsync($"select ID,BravoID,Username,Name from {tableName} ");
             return dtuser;
         }
         public async Task<DataTable> GetUsersByGroupID(string groupID)
@@ -67,6 +67,18 @@ namespace HANMISYSTEM.DAO
             try
             {
                 await connect.ExeDataAsync($"update {tableName} set name =N'{name}' where ID={id}");
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public async Task<bool> UpdateUser(string id, string bravoID)
+        {
+            try
+            {
+                await connect.ExeDataAsync($"update {tableName} set BravoID =N'{bravoID}' where ID={id}");
                 return true;
             }
             catch

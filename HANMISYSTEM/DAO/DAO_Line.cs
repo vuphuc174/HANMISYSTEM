@@ -12,6 +12,11 @@ namespace HANMISYSTEM.DAO
     {
         Dbconnect connect = new Dbconnect();
         SubDbConnect subDbConnect = new SubDbConnect();
+        public async Task<DataTable> GetLineByID(string lineID)
+        {
+            DataTable dtLine = await connect.ReadDataAsync("select * from location where idlocation ='"+lineID+"'");
+            return dtLine;  
+        }
         public async Task<DataTable> GetLines()
         {
             DataTable dtlines = await connect.ReadDataAsync("select idlocation ,namelocation1 from location");
